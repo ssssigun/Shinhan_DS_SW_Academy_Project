@@ -1,1 +1,1 @@
-# Shinhan_DS_SW_Academy_Project
+# 신한 DS  SW아카데미 1차 프로젝트 We go
