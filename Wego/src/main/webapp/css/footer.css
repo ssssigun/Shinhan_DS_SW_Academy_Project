@@ -11,3 +11,6 @@
 .picFooter{
     margin: auto 100px;
 }
+.picFooter > img:first-child{
+    margin-right: 20px;
+}
