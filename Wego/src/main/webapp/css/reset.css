@@ -25,6 +25,10 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	font-family: 'Noto Sans KR', sans-serif;
 }
+a {
+	text-decoration: none;
+	color: black;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
