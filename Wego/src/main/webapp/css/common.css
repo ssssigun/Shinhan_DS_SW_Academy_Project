@@ -6,11 +6,9 @@ html {
   width: 100%;
   height: 100%;
 }
-
 body {
   width: 100%;
   height: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,8 +17,8 @@ body {
 
   background: #FFFFFF;
 }
-
 .header {
+  background-color: black;
 
   width: 100%;
   height: 150px;
@@ -32,7 +30,6 @@ body {
   align-self: stretch;
   flex-grow: 0;
 }
-
 .contents {
   /* ContentsContainer */
 
@@ -54,7 +51,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .footer {
   width: 100%;
   height: 160px;
@@ -67,4 +63,221 @@ body {
   order: 2;
   align-self: stretch;
   flex-grow: 0;
+}
+
+/* 아래는 요소들 공통 css */
+
+.title {
+  font-weight: 700;
+  font-size: 24px;
+}
+.bigLetter {
+  font-size: 20px;
+}
+.letter {
+  font-size: 16px;
+}
+.smallLetter {
+  font-size: 14px;
+}
+.smallsmallLetter {
+  font-size: 12px;
+}
+.bold {
+  font-weight: 700;
+}
+.selectLetter {
+  font-weight: 700;
+  text-decoration-line: underline;
+}
+
+.input {
+  padding: 5px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+
+  align-self: stretch;
+  flex-grow: 1;
+}
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn {
+  padding: 1px 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.blueBwhiteL {
+  background-color: #0081C9;
+  color: white;
+}
+.yellowBblackL {
+  background-color: #FFC93C;
+}
+.softblueBwhiteL {
+  background-color: #5BC0F8;
+  color: white;
+}
+.lightblueBblackL {
+  background-color: #86E5FF;
+}
+.greenBblackL {
+  background-color: #84D951;
+}
+.redBwhiteL {
+  background-color: #D63127;
+  color: white;
+}
+.lightskyBblackL {
+  background-color: #D2EFFF;
+}
+
+.select {
+  font-size: 16px;
+  padding: 5px;
+}
+
+.searchWrapper {
+  display: flex;
+}
+.searchWrapper > .btn {
+  border-radius: 0;
+  border: 1px solid #000;
+
+  font-size: 16px;
+
+  margin-left: -1px;
+}
+.searchWrapper > .input {
+  border: 1px solid #000
+}
+
+.radioButtons input[type=radio] {
+  display: none;
+}
+.radioButtons input[type=radio]+label {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  width: 106px;
+  height: 38px;
+
+  border: none;
+  
+  font-weight: 700;
+  font-size:20px;
+
+  background-color: #5BC0F8;
+  color: #FFFFFF;
+
+  border-radius: 10px;
+}
+.radioButtons input[type=radio]:checked+label {
+  background-color: #0081C9;
+}
+
+.postWrapper {
+  display: flex;
+  flex-direction: column;
+
+  width: 378px;
+}
+.postWrapper > .photoWrapper {
+  background-color: #000;
+  width: 100%;
+  height: 212px;
+}
+.photoWrapper > .state {
+  width: 71px;
+  height: 29px;
+
+  position: relative;
+
+  left: 8px;
+  top: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+
+  font-size: 13px;
+}
+.postWrapper > .postInfoWrapper {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+  padding: 8px;
+
+  position: relative;
+}
+.postInfoWrapper > .titleWrapper {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-weight: 700;
+  font-size: 16px;
+  align-items: center;
+}
+.titleWrapper > .iconsWrapper {
+  font-weight: 400;
+
+  display: flex;
+  gap: 20px;
+}
+.postInfoWrapper > .subWrapper {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  
+  color: #A4A4A4;
+}
+.postInfoWrapper > .subsubWrapper {
+  font-size: 12px;
+
+  color: #A4A4A4;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.postInfoWrapper > .buttonsWrapper {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+.postWrapper .smallBtn {
+  width: 77px;
+  height: 29px;
+
+  font-size: 12px;
+  
+  border-radius: 10px;
+  border: none;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+}
+.iconWrapper > .icon {
+  height: 100%;
 }
