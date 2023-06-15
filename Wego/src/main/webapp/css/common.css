@@ -196,6 +196,7 @@ body {
   flex-direction: column;
 
   width: 378px;
+  padding: 20px 0px;
 }
 .postWrapper > .photoWrapper {
   background-color: #000;
