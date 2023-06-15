@@ -34,12 +34,18 @@
     justify-content: space-between;
 
 }
-.headerBottom > a{
+.picBottom{
     margin-left: 100px;
 }
-.headerBottom > a >img{
-    width: 100%;
+.picBottom > a{
+    display: inline-block;
     height: 100%;
+}
+.picBottom img{
+    height: 100%;
+}
+.admin{
+    display: none;
 }
 .headerBottom > ul{
     display: flex;
