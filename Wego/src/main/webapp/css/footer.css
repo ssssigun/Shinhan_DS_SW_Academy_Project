@@ -1,0 +1,16 @@
+.footer{
+    display: flex;
+    justify-content: space-between;
+}
+.textFooter{margin: auto 100px;line-height: 27px;}
+.textFooter >p{
+    font-size: 12px;
+    color : #fff;
+    
+}
+.picFooter{
+    margin: auto 100px;
+}
+.picFooter > img:first-child{
+    margin-right: 20px;
+}
