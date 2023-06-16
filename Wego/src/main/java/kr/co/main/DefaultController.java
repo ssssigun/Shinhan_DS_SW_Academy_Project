@@ -12,7 +12,7 @@ public class DefaultController {
 	@Autowired
 	DefaultService Service;
 	@GetMapping("/index.do")
-	public String indexd(Model model) {
+	public String index(Model model) {
 		List<DefaultVO> vo =  Service.test();
 		System.out.println("controller" + vo.toString());
 		model.addAttribute("vo", vo);
