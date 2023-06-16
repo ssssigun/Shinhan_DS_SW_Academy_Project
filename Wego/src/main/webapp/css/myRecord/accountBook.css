@@ -1,0 +1,167 @@
+
+.contentsWrapper {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.smallMenuWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 0px 20px;
+  gap: 30px;
+
+  width: 100%;
+  height: 49px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.infoWrapper {
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+
+  width: 100%;
+  height: auto;
+
+  border: 1px solid #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.topWrapper {
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+
+  width: 100%;
+  height: 400px;
+
+  border-bottom: 1px solid #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+}
+
+.graphWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+
+  width: 400px;
+  height: 100%;
+
+  background: #D2EFFF;
+
+  /* Inside auto layout */
+
+  flex: none;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.topRightWrapper {
+  align-self: stretch;
+  flex-grow: 1;
+
+  padding: 30px;
+}
+
+.tbl {
+  width: 100%;
+  height: 100%;
+}
+.tbl td {
+  vertical-align: middle;
+}
+.rightTd {
+  text-align: right;
+}
+.stickGraphWrapper {
+  background-color: #FFC93C;
+  width: 100%;
+  height: 37px;
+}
+.stickGraphWrapper > .blueStick {
+  background-color: #0081C9;
+  width: 50%;
+  height: 100%;
+}
+.td {
+  width: 130px;
+}
+
+.bottomWrapper {
+  box-sizing: border-box;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0px 40px;
+  gap: 20px;
+
+  width: 100%;
+  height: 400px;
+
+  /* Inside auto layout */
+
+  flex-grow: 1;
+}
+.postsWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 36px;
+}
+.pageButtonWrapper {
+  display: flex;
+  
+  gap: 5px;
+}
+.pageButtonWrapper > .pageButton {
+  border: none;
+  border-radius: 100%;
+
+  width: 30px;
+  height: 30px;
+
+  background-color: #5BC0F8;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
