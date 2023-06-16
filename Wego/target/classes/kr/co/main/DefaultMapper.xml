@@ -4,6 +4,14 @@
 	<select id="test" resultType="kr.co.main.DefaultVO"> 
 		SELECT * FROM wego.location limit 10
 	</select>
+	
+	
+	
+	
+	<!-- review -->
+	
+	
+	
 </mapper>
 
 
