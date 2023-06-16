@@ -1,0 +1,601 @@
+.ContentsContainer {
+  width: 100%;
+  height: 100%;
+}
+.writeWrapper {
+  /* writeWrapper */
+
+  /* Auto layout */
+  width: auto;
+  height: 606px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 200px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.writeTable {
+  /* writeTable */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 5px;
+  width: auto;
+  height: 476px;
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.titleWrapper {
+  /* titleWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  gap: 20px;
+
+  width: 100%;
+  height: 48px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.titleWrapper h3 {
+  /* 제목 어쩌구저쩌구 */
+
+  width: auto;
+  height: 29px;
+
+  font-family: "Inter";
+  font-style: normal;
+  /* font-weight: 700; */
+  /* font-size: 24px; */
+  line-height: 29px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.viewCountWrapper {
+  /* viewCountWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0px;
+  gap: 5px;
+
+  width: auto;
+  height: 40px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.viewCountWrapper img {
+  /* react-icons/bs/BsEye */
+
+  width: 20px;
+  height: 20px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.viewCountWrapper dt {
+  /* 10 */
+
+  width: auto;
+  height: 19px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+hr {
+  /* Line 3 */
+
+  width: 100%;
+  height: 0px;
+
+  border: 1px solid #a4a4a4;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.contentsWrapper {
+  /* contentsWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  /* 얍 */
+  width: 100%;
+  height: 418px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.contentsTitleWrapper {
+  /* contentsTitleWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+
+  width: 100%;
+  height: 15px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.contentsTitleWrapper h3 {
+  /* 2023-06-12 */
+
+  width: auto;
+  height: 15px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #a4a4a4;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.review_contents {
+  /* review_contents */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+
+  width: 1284px;
+  height: 383px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.review_contents h3 {
+  /* 저번주는 제주도에 갔어요 ^^* */
+
+  width: auto;
+  height: 26px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.review_contents img {
+  width: auto;
+  height: 347px;
+
+  background: url(image.png);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.contentsBottomWrapper {
+  /* contentsBottomWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 30px;
+  width: auto;
+  height: auto;
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.thumbsWrapper {
+  /* thumbsWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* padding: 0px; */
+  /* gap: 5px; */
+
+  width: auto;
+  height: 30px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  /* order: 0; */
+  /* flex-grow: 0; */
+}
+.thumbs {
+  width: 100%;
+  height: 100%;
+  float: left;
+}
+.thumbs img {
+  /* react-icons/bs/BsHandThumbsUp */
+
+  width: 30px;
+  height: 30px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.thumbs dd {
+  /* 999 */
+
+  width: auto;
+  height: auto;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.contentsBottomWrapper img {
+  /* image 12 */
+
+  width: auto;
+  height: 30px;
+
+  background: url(image.png);
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.com {
+  padding: 50px 200px;
+}
+.commentWrapper {
+  /* commentWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+  height: 328px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.comment {
+  /* comment */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+  gap: 5px;
+
+  width: auto;
+  height: 77px;
+
+  background: #ffffff;
+  border-width: 1px 0px;
+  border-style: solid;
+  border-color: #515151;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.nicknameWrapper {
+  /* nicknameWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+
+  width: auto;
+  height: 19px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.nicknameWrapper .letter {
+  /* [닉네임] */
+
+  width: auto;
+  height: 19px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  /* font-size: 16px; */
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.menuWrapper {
+  /* menuWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 2px;
+
+  width: 3px;
+  height: 13px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.contentsWrapper2 {
+  /* contentsWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  width: 1264px;
+  height: 16px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.contentsWrapper2 dd {
+  /* 내용 어쩌구 */
+
+  width: 1264px;
+  height: 16px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  /* identical to box height */
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+h3 {
+  /* 2023-06-14 */
+
+  width: 58px;
+  height: 12px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  display: flex;
+  align-items: center;
+
+  color: #a4a4a4;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+.bottomWrapper {
+  /* bottomWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 200px;
+  gap: 10px;
+  /* width: 100%; */
+  height: 69px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.btn {
+  /* button */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* padding: 1px 14px;
+  gap: 10px; */
+
+  width: 84px;
+  height: 49px;
+
+  /* background: #0081c9; */
+  /* border-radius: 10px; */
+
+  /* Inside auto layout */
+
+  /* flex: none;
+  order: 0;
+  flex-grow: 0;
+  border: none; */
+
+  /* color: #ffffff; */
+}
+
+.bigLetter {
+  float: right;
+}
