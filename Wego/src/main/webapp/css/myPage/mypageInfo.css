@@ -1,0 +1,39 @@
+.contentTop{
+    width: 100%;
+    border-bottom: 2px solid #000;
+    text-align: center;
+    height: 50px;
+}
+.contentBottom{
+
+height: 600px;
+
+width: 100%;
+}
+.infoUser{
+    margin-top: 30px;
+    width: 100%;
+}
+.inputBox{
+    margin-top: 10px;
+    width: 30%;
+    height: 35px;
+}
+.btnCommon{
+    width: 108px;
+    height: 95%;
+}
+.infoCard{text-align: center;}
+.cardTitle{
+    margin: 50px 0;
+}
+.card{
+    display: flex;
+    justify-content: center;
+}
+.cardImg{
+    margin-right: 100px;
+}
+.cardText> ul {
+ height: 100%;
+}
