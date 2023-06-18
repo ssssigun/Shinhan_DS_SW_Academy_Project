@@ -178,12 +178,15 @@
                 $('.planCards').empty(); // 기존 내용 초기화
             	categoryInput = $(this).attr('id');
              	if (category === categoryInput) {
-             		$(this).removeClass('selectedBtn');
+             		$(this).removeClass('blueBwhiteL');
+             		$(this).addClass('softblueBwhiteL');
              		category = '-1';
              	} else {
              		category = categoryInput;
-             		$(".selectedBtn").removeClass('selectedBtn');
-             		$(this).addClass('selectedBtn');
+             		$(".blueBwhiteL").addClass('softblueBwhiteL');
+             		$(".blueBwhiteL").removeClass('blueBwhiteL');
+             		$(this).addClass('blueBwhiteL');
+             		$(this).removeClass('softblueBwhiteL');
              	}
             	$.ajax({
             		url: 'filter.do?region=' + region + '&category=' + category,
@@ -216,7 +219,7 @@
     </script>
     <link rel="stylesheet" href="/main/css/reset.css">
     <link rel="stylesheet" href="/main/css/common.css">
-    <link rel="stylesheet" href="/main/css/plan/index.css?ab">
+    <link rel="stylesheet" href="/main/css/plan/index.css?abcdfe">
 </head>
 <body>
     <div class="wrap">
@@ -230,20 +233,21 @@
           	<div class="spotSubPhoto"></div>
           	<div class="spotInputWrapper">
           	  <div class="timeInput">
-          	  		<select class="selectInput" name="startTime" form="timeForm">
+          	  		<select class="select selectInput" name="startTime" form="timeForm">
           	        <c:forEach var="tmp" begin="0" end="23" step="1" varStatus="st">
                         <option value="${st.count - 1 }">${st.count - 1 }:00</option>
                     </c:forEach>
                     </select>
                     ~
-                    <select class="selectInput" name="endTime" form="timeForm">
+                    <select class="select selectInput" name="endTime" form="timeForm">
                     <c:forEach var="tmp" begin="0" end="23" step="1" varStatus="st">
                         <option value="${st.count - 1 }">${st.count - 1 }:00</option>
                     </c:forEach>
                     </select>
           	  </div>
-          	  <div class="budgetInput">
+          	  <div class="inputWrapper budgetInput">
           	  예산: 
+          	  <!-- input 태그 삽입시 가운데 정렬이 안돼서 'flex-grow: 1;' 부분만 빼고 budgetTextInput에 복붙함 -->
           	  <input class="budgetTextInput" type="text" name="budget" placeholder="숫자만 입력"> 원
           	  </div>
           	</div>
@@ -252,17 +256,19 @@
           	<div class="commentCardWrapper">
           	</div>
           	<div class="spotButtonWrapper">
-          		<button class="categoryBtn">돌아가기</button>
-            	<button class="categoryBtn">저장</button>
+          		<button class="btn lightskyBblackL categoryBtn" style="font-size:18px;">돌아가기</button>
+            	<button class="btn blueBwhiteL categoryBtn" style="font-size:18px;">추가하기</button>
           	</div>
           </div>
         </div>
       </div>
         <div class="leftContainer">
             <div class="pageSettingWrapper">
-                <input class="textInput" type="text" name="Title" placeholder="여행 일정 제목을 입력하세요.">
+            	<div class="inputWrapper">
+                <input class="input textInput" type="text" name="Title" placeholder="여행 일정 제목을 입력하세요.">
+                </div>
                 <div class="selectionWrapper">
-                    <select class="selectInput" id="region" name="Region" form="regionForm">
+                    <select class="select selectInput" id="region" name="Region" form="regionForm">
                         <option value="1">서울</option>
                         <option value="2">인천</option>
                         <option value="3">대전</option>
@@ -274,7 +280,7 @@
                         <option value="9">경기도</option>
                         <option value="10">강원도</option>
                     </select>
-                    <select class="selectInput" name="Number_of_people" form="peopleForm">
+                    <select class="select selectInput" name="Number_of_people" form="peopleForm">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -287,7 +293,7 @@
                         <option value="10">10</option>
                     </select>
                 </div>
-                <div class="dateWrapper">
+                <div class="select dateWrapper">
                     <input class="dateInput datepicker" type="text" name="Start_date">
                     ~
                     <input class="dateInput datepicker" type="text" name="End_date">
@@ -296,18 +302,18 @@
 
             <div class="spotWrapper">
                 <div class="categoryWrapper">
-                    <button class="categoryBtn" id="1">음식점</button>
-                    <button class="categoryBtn" id="2">숙박</button>
-                    <button class="categoryBtn" id="3">쇼핑</button>
+                    <button class="btn softblueBwhiteL categoryBtn" id="1">음식점</button>
+                    <button class="btn softblueBwhiteL categoryBtn" id="2">숙박</button>
+                    <button class="btn softblueBwhiteL categoryBtn" id="3">쇼핑</button>
                 </div>
                 <div class="categoryWrapper">
-                    <button class="categoryBtn" id="4">문화활동</button>
-                    <button class="categoryBtn" id="5">관광지</button>
-                    <button class="categoryBtn" id="6">레포츠</button>
+                    <button class="btn softblueBwhiteL categoryBtn" style="font-size:18px;" id="4">문화활동</button>
+                    <button class="btn softblueBwhiteL categoryBtn" id="5">관광지</button>
+                    <button class="btn softblueBwhiteL categoryBtn" id="6">레포츠</button>
                 </div>
-                <div class="searchWrapper">
-                    <input class="searchInput" type="text" name="Title" placeholder="여행 일정 제목을 입력하세요.">
-                    <button class="searchBtn" name="searchBtn">검색</button>
+                <div class="searchWrapper searchSize">
+                    <input class="input searchInput" type="text" name="Title" placeholder="여행 일정 제목을 입력하세요.">
+                    <button class="btn searchBtn" name="searchBtn">검색</button>
                 </div>
                 <div class="planCardWrapper">
                     <div class="planCards">
@@ -330,8 +336,8 @@
             	<div class="totalBudget bold">총 예산: 1,400,000 원</div>
             	</div>
             	<div class="bottomButtonWrapper">
-            		<button class="categoryBtn">임시 저장</button>
-            		<button class="categoryBtn">완료</button>
+            		<button class="btn lightskyBblackL categoryBtn" style="font-size:18px;">임시저장</button>
+            		<button class="btn blueBwhiteL categoryBtn">완료</button>
             	</div>
             </div>
         </div>

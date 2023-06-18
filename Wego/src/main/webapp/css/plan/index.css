@@ -66,27 +66,8 @@ body {
 }
 
 .textInput {
-    box-sizing: border-box;
-
-/* Auto layout */
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px 5px;
-    gap: 10px;
-
-    width: 300px;
-    height: 39px;
-
-    border: 1px solid #000000;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    align-self: stretch;
-    flex-grow: 0;
+    width: 287px;
+    height: 40px;
 }
 
 .selectionWrapper {
@@ -129,34 +110,14 @@ body {
 
 .selectInput {
     box-sizing: border-box;
-
     width: 125px;
     height: 40px;
-
-    background: #FFFFFF;
-    border: 1px solid #000000;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
 .dateInput {
     box-sizing: border-box;
-
     width: 125px;
     height: 40px;
-
-    background: #FFFFFF;
-    border: 1px solid #000000;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
 .spotWrapper {
@@ -199,102 +160,30 @@ body {
 }
 
 .categoryBtn {
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-    gap: 10px;
-
     width: 100px;
     height: 35px;
-
-    background: #5BC0F8;
-    border-radius: 10px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    border:none;
     text-align: center;
-
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-
-    color: #FFFFFF;
 }
 
 .selectedBtn {
 	background: #0081C9;
 }
 
-.searchWrapper {
+.searchSize {
     box-sizing: border-box;
-
-    /* Auto layout */
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-
     width: 340px;
     height: 40px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    align-self: stretch;
-    flex-grow: 0;
 }
 
 .searchInput {
     box-sizing: border-box;
-
-/* Auto layout */
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px 5px;
-    gap: 10px;
-
     width: 275px;
     height: 40px;
-
-    border: 1px solid #000000;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    align-self: stretch;
-    flex-grow: 0;
 }
 
 .searchBtn {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 10px;
-    gap: 10px;
-
     width: 65px;
     height: 40px;
-
-    background: #FFC93C;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 1;
-    align-self: stretch;
-    flex-grow: 0;
 }
 
 .planCardWrapper {
@@ -709,30 +598,18 @@ flex-grow: 0;
 	padding-right: 20px;
 	width: 50%;
 	height: 100%;
-
-
-/* Inside auto layout */
-	
-	flex: none;
-	order: 0;
-	flex-grow: 0;
 }
 
 .budgetTextInput {
+	padding: 5px;
+  	font-size: 16px;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
     box-sizing: border-box;
 
     width: 175px;
     height: 40px;
-
-    background: #FFFFFF;
-    border: 1px solid #000000;
-    padding: 0px 5px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
 }
 
 .spotRightContainer {
