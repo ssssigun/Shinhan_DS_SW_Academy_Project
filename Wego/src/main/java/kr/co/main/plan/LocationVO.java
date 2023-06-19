@@ -12,8 +12,8 @@ public class LocationVO {
 	private String address;
 	private int category;
 	private String location_name;
-	private long longitude;
-	private long latitude;
+	private String longitude;
+	private String latitude;
 	private String location_tel;
 	private Timestamp start_time;
 	private Timestamp end_time;

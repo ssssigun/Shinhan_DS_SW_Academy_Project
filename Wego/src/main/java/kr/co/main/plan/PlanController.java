@@ -34,7 +34,6 @@ public class PlanController {
 	@ResponseBody
 	public LocationVO spotDetail(Integer location_pk) {
 		LocationVO locationVO = Service.selectLocationByPK(location_pk);
-		System.out.println(locationVO);
 		return locationVO;
 	}
 }

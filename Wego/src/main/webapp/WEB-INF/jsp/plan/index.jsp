@@ -11,11 +11,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=l8m4oe0ivu"></script>
-    <script type="text/javascript" src="/main/js/plan/modal.js"></script>
     <title>Document</title>
     <script>
-    	// 여행 세부 계획 임시 저장
-    	
+    	// 마커 좌표 초기화를 위한 마커 리스트
+    	var markerList = [];
+    	var savedList = [];
     
         // 각 지역별 대표 좌표
         var regionPoint = {};
@@ -34,9 +34,11 @@
     	var category = '-1';
 
         $(function() {
+        	// 모달 관련
         	$('.planCards').on('click', '.spotDetail', function() {
-        		var pk = $(this).attr('id');
-            	console.log(pk);
+        		var tmp = $(this).attr('id').split(' ');
+        		var pk = tmp[0];
+        		var order = tmp[1];
             	$.ajax({
             		url: 'spotDetail.do?location_pk=' + pk,
             		method: 'GET',
@@ -55,17 +57,34 @@
                         modalContent.append(listItem);
                         listItem = $('<li>').html('<div class="bold"> 연락처 : ' + data.location_tel + '</div>');
                         modalContent.append(listItem);
-                        $(".spotModal").fadeIn();
+                        listItem = $('<li>').html('<div class="location_pk">' + pk + '</div>');
+                        modalContent.append(listItem);
+                        listItem = $('<li>').html('<div class="location_longitude">' + data.longitude + '</div>');
+                        modalContent.append(listItem);
+                        listItem = $('<li>').html('<div class="location_latitude">' + data.latitude + '</div>');
+                        modalContent.append(listItem);
+                        listItem = $('<li>').html('<div class="order">' + order + '</div>');
+                        modalContent.append(listItem);
+                        $(".location_pk").hide();
+                        $(".location_longitude").hide();
+                        $(".location_latitude").hide();
+                        $(".order").hide();
             		},
             		error: function() {
             			alert('데이터를 가져오는 데 실패했습니다.');
             		}
             	})
            		$(".spotModal").fadeIn();
-        	    // 클릭 이벤트 처리 로직을 여기에 작성하세요
-        	    
-        	    // ...
         	  });
+        	
+        	// 모달 관련
+            $(".spotModalContent").click(function (e) {
+            // e.preventDefault();
+            	e.stopPropagation();
+            });
+            $(".spotModalOutButton").click(function (e) {
+            	$(".spotModal").fadeOut();
+            });
         	
         	// 최초로 plancard를 만들어주는 ajax
         	$.ajax({
@@ -73,22 +92,33 @@
         	    method: 'GET',
         	    dataType: 'json',
         	    success: function(data) {
+        	    	for (var i = 0; i < markerList.length; i++) {
+        	            markerList[i].setMap(null);
+        	        }
         	      $.each(data, function(index, location) {
         	        var planCard = $('<div>').addClass('planCard');
         	        var planPhoto = $('<div>').addClass('planPhoto');
         	        var plan = $('<div>').addClass('plan');
         	        var boldText = $('<div>').addClass('bold').text(location.location_name);
         	        var categoryText = $('<div>').text(location.category_name);
-        	        var spotDetail = $('<div>').addClass('spotDetail cardButtonWrapper').attr('id', location.location_pk);
+        	        var idx = $('<div>').addClass('index').text(index);
+        	        var spotDetail = $('<div>').addClass('spotDetail cardButtonWrapper').attr('id', location.location_pk + ' ' + index);
         	        var locationDetailBtn = $('<button>').addClass('locationDetailBtn').attr('name', 'locationDetailBtn');
         	        var image = $('<img>').attr('src', '/main/image/plan/Vector.png').attr('width', '20');
 
         	        locationDetailBtn.append(image);
         	        spotDetail.append(locationDetailBtn);
-        	        plan.append(boldText, categoryText);
+        	        plan.append(boldText, categoryText, idx);
         	        planCard.append(planPhoto, plan, spotDetail);
         	        $('.planCards').append(planCard);
+        	       
+        	        var marker = new naver.maps.Marker({
+        	        	position: new naver.maps.LatLng(location.latitude, location.longitude),
+        	        	map: map        	
+        	        });
+        	        markerList.push(marker);
         	      });
+        	      $('.index').hide();
         	    },
         	    error: function() {
         	      alert('데이터를 가져오는 데 실패했습니다.');
@@ -109,69 +139,39 @@
             		method: 'GET',
             		dataType: 'json',
             		success: function(data) {
+            			for (var i = 0; i < markerList.length; i++) {
+            	            markerList[i].setMap(null);
+            	        }
             			$.each(data, function(index, location) {
                 	        var planCard = $('<div>').addClass('planCard');
                 	        var planPhoto = $('<div>').addClass('planPhoto');
                 	        var plan = $('<div>').addClass('plan');
                 	        var boldText = $('<div>').addClass('bold').text(location.location_name);
                 	        var categoryText = $('<div>').text(location.category_name);
-                	        var spotDetail = $('<div>').addClass('spotDetail cardButtonWrapper').attr('id', location.location_pk);
+                	        var idx = $('<div>').addClass('index').text(index);
+                	        var spotDetail = $('<div>').addClass('spotDetail cardButtonWrapper').attr('id', location.location_pk + ' ' + index);
                 	        var locationDetailBtn = $('<button>').addClass('locationDetailBtn').attr('name', 'locationDetailBtn');
                 	        var image = $('<img>').attr('src', '/main/image/plan/Vector.png').attr('width', '20');
 
                 	        locationDetailBtn.append(image);
                 	        spotDetail.append(locationDetailBtn);
-                	        plan.append(boldText, categoryText);
+                	        plan.append(boldText, categoryText, idx);
                 	        planCard.append(planPhoto, plan, spotDetail);
                 	        $('.planCards').append(planCard);
+                	      
+                	        var marker = new naver.maps.Marker({
+                	        	position: new naver.maps.LatLng(location.latitude, location.longitude),
+                	        	map: map        	
+                	        });
+                	        markerList.push(marker);
                 	      });
+            			$('.index').hide();
             		},
             		error: function() {
             			alert('데이터를 가져오는 데 실패했습니다.');
             		}
             	})
             })
-            
-            // 모달 관련
-            $(".spotDetail").click(function () {
-            	var pk = $(this).attr('id');
-            	console.log(pk);
-            	$.ajax({
-            		url: 'spotDetail.do?location_pk=' + pk,
-            		method: 'GET',
-            		dataType: 'json',
-            		success: function(data) {
-            			var modalContent = $('#modalContent');
-                        modalContent.empty(); // 기존 내용 초기화
-
-                        var listItem = $('<li>').html('<div class="bold">' + data.location_name + '</div>'); // JSON 데이터의 필드에 따라 내용을 조정할 수 있습니다.
-                        modalContent.append(listItem);
-                        var sTime = new Date(data.start_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();
-                        var eTime = new Date(data.end_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();
-                        listItem = $('<li>').html('<div class="bold"> 영업시간 : ' + sTime + ' AM ~' + eTime + ' PM</div>');
-                        modalContent.append(listItem);
-                        listItem = $('<li>').html('<div class="bold"> 주소 : ' + data.address + '</div>');
-                        modalContent.append(listItem);
-                        listItem = $('<li>').html('<div class="bold"> 연락처 : ' + data.location_tel + '</div>');
-                        modalContent.append(listItem);
-                        $(".spotModal").fadeIn();
-            		},
-            		error: function() {
-            			alert('데이터를 가져오는 데 실패했습니다.');
-            		}
-            	})
-           		$(".spotModal").fadeIn();
-            });
-            $(".spotModalContent").click(function (e) {
-            // e.preventDefault();
-            	e.stopPropagation();
-            });
-            $(".spotModal").click(function (e) {
-           		$(".spotModal").fadeOut();
-            });
-            $(".spotModalOutButton").click(function (e) {
-            	$(".spotModal").fadeOut();
-            });
             
             // 카테고리 버튼 관련
             $(".categoryBtn").click(function () {
@@ -179,13 +179,15 @@
             	categoryInput = $(this).attr('id');
              	if (category === categoryInput) {
              		$(this).removeClass('blueBwhiteL');
+             		$(this).removeClass('categorySelected');
              		$(this).addClass('softblueBwhiteL');
              		category = '-1';
              	} else {
              		category = categoryInput;
-             		$(".blueBwhiteL").addClass('softblueBwhiteL');
-             		$(".blueBwhiteL").removeClass('blueBwhiteL');
+             		$(".categorySelected").addClass('softblueBwhiteL');
+             		$(".categorySelected").removeClass('blueBwhiteL');
              		$(this).addClass('blueBwhiteL');
+             		$(this).addClass('categorySelected');
              		$(this).removeClass('softblueBwhiteL');
              	}
             	$.ajax({
@@ -193,33 +195,88 @@
             		method: 'GET',
             		dataType: 'json',
             		success: function(data) {
+            			for (var i = 0; i < markerList.length; i++) {
+            	            markerList[i].setMap(null);
+            	        }
             			$.each(data, function(index, location) {
                 	        var planCard = $('<div>').addClass('planCard');
                 	        var planPhoto = $('<div>').addClass('planPhoto');
                 	        var plan = $('<div>').addClass('plan');
                 	        var boldText = $('<div>').addClass('bold').text(location.location_name);
                 	        var categoryText = $('<div>').text(location.category_name);
-                	        var spotDetail = $('<div>').addClass('spotDetail cardButtonWrapper').attr('id', location.location_pk);
+                	        var idx = $('<div>').addClass('index').text(index);
+                	        var spotDetail = $('<div>').addClass('spotDetail cardButtonWrapper').attr('id', location.location_pk + ' ' + index);
                 	        var locationDetailBtn = $('<button>').addClass('locationDetailBtn').attr('name', 'locationDetailBtn');
                 	        var image = $('<img>').attr('src', '/main/image/plan/Vector.png').attr('width', '20');
 
                 	        locationDetailBtn.append(image);
                 	        spotDetail.append(locationDetailBtn);
-                	        plan.append(boldText, categoryText);
+                	        plan.append(boldText, categoryText, idx);
                 	        planCard.append(planPhoto, plan, spotDetail);
                 	        $('.planCards').append(planCard);
+                	        
+                	        var marker = new naver.maps.Marker({
+                	        	position: new naver.maps.LatLng(location.latitude, location.longitude),
+                	        	map: map        	
+                	        });
+                	        markerList.push(marker);
                 	      });
+            			$('.index').hide();
             		},
             		error: function() {
             			alert('데이터를 가져오는 데 실패했습니다.');
             		}
             	})
             })
+            
+         	// 여행 세부 계획 임시 저장
+        	var day = 1;
+        	var details = {};
+        	$(".submitDetail").click(function () {
+        		console.log($(".budgetTextInput").val());
+        		var sTime = Number($(".startTime").val());
+        		var eTime = Number($(".endTime").val());
+        		var lPk = $(".location_pk").text();
+        		var lLong = $(".location_longitude").text();
+        		var lLat = $(".location_latitude").text();
+        		var saveIndex = Number($(".order").text());
+        		if (!details.hasOwnProperty(day)) {
+        			details[day] = {};
+        		}
+        		
+        		for (hour = sTime; hour <= eTime; hour++) {
+        			if (details[day].hasOwnProperty(hour)) {
+        				alert('이미 해당 시간에 다른 여행계획이 있습니다.');
+        				$(".spotModal").fadeOut();
+        				return;
+        			}
+    			}
+        		
+        		for (hour = sTime; hour <= eTime; hour++) {
+    				details[day][hour] = [sTime, eTime, lPk, lLong, lLat, saveIndex];
+    			}
+        		
+        		console.log(saveIndex);
+        		markerList[saveIndex].setMap(null);
+        		
+        		
+        		var markerOptions = {
+        			position: new naver.maps.LatLng(lLat, lLong),
+        			map: map,
+        			icon: {
+        	        url: '/main/image/plan/saveMarker.png',
+        	    	}
+        		};
+        		
+        		var marker = new naver.maps.Marker(markerOptions);
+        		savedList.push(marker);
+        		$(".spotModal").fadeOut();
+        	})
         });
     </script>
     <link rel="stylesheet" href="/main/css/reset.css">
     <link rel="stylesheet" href="/main/css/common.css">
-    <link rel="stylesheet" href="/main/css/plan/index.css?abcdfe">
+    <link rel="stylesheet" href="/main/css/plan/index.css?ab">
 </head>
 <body>
     <div class="wrap">
@@ -233,13 +290,13 @@
           	<div class="spotSubPhoto"></div>
           	<div class="spotInputWrapper">
           	  <div class="timeInput">
-          	  		<select class="select selectInput" name="startTime" form="timeForm">
+          	  		<select class="select selectInput startTime" name="startTime" form="timeForm">
           	        <c:forEach var="tmp" begin="0" end="23" step="1" varStatus="st">
                         <option value="${st.count - 1 }">${st.count - 1 }:00</option>
                     </c:forEach>
                     </select>
                     ~
-                    <select class="select selectInput" name="endTime" form="timeForm">
+                    <select class="select selectInput endTime" name="endTime" form="timeForm">
                     <c:forEach var="tmp" begin="0" end="23" step="1" varStatus="st">
                         <option value="${st.count - 1 }">${st.count - 1 }:00</option>
                     </c:forEach>
@@ -256,8 +313,8 @@
           	<div class="commentCardWrapper">
           	</div>
           	<div class="spotButtonWrapper">
-          		<button class="btn lightskyBblackL categoryBtn" style="font-size:18px;">돌아가기</button>
-            	<button class="btn blueBwhiteL categoryBtn" style="font-size:18px;">추가하기</button>
+          		<button class="btn lightskyBblackL spotSaveBtn spotModalOutButton" style="font-size:18px;">돌아가기</button>
+            	<button class="btn blueBwhiteL spotSaveBtn submitDetail" style="font-size:18px;">추가하기</button>
           	</div>
           </div>
         </div>
