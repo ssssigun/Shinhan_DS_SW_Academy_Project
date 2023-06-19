@@ -1,4 +1,17 @@
+.menu:last-of-type{
+    text-decoration: underline;
+}
 .table{
     width: 100%;
     height: 100%;
+}
+.table > tbody> tr {
+    height: 50px;
+}
+.table > tbody> tr > td{
+    text-align: center;
+}
+.btnBan{
+    width: 130px;
+    height: 45px;
 }

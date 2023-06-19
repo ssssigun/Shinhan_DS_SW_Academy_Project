@@ -26,10 +26,15 @@ height: 49px;
     border: 1px solid #000000;
     /* overflow:scroll; */
 }
-
+.inputWidth{
+    width: 100%;
+}
+.inputBox{
+    width: 65%;
+}
 .inputNick{
     width: 330px;
-    height: 30px;
+    height: 25px;
 }
 .btnArea{
     margin-top: 70px;
@@ -38,7 +43,7 @@ height: 49px;
     flex-direction: row-reverse;
 }
 .btnCheck{
-    height: 90%;
+    height: 38px;
 }
 .btnRegister{
     width: 90px;

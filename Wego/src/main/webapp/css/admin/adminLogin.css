@@ -1,8 +1,29 @@
 .login{
     width: 600px;
     height: 300px;
+    text-align: center;
 }
-
+.loginBox{
+    width: 600px;
+    display: flex;
+}
+.inputBox{
+    margin-right: 20px;
+    width: 100%;
+}
 .loginInput{
-    /* display: flex; */
+    display: flex;
+    margin-top: 80px;
+    width: 100%;
+    justify-content: center;
+}
+.idInput{
+    margin-bottom: 8px;
+}
+.inputText{
+    width: 20%;
+}
+.inputArea{
+    width: 60%;
+    height: 25px;
 }
