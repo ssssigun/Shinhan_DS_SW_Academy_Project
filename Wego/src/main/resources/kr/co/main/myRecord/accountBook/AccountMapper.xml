@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.main.myRecord.accountBook.AccountMapper">
+
+	<!-- 막대를 위한 전체 비율 가져오기 -->
+	<select id="totalRate" parameterType="int" resultType="kr.co.main.myRecord.accountBook.TotalRateVO"> 
+		SELECT IFNULL(ROUND((b.sum/(b.sum+u.sum))*100),50) total, IFNULL(ROUND((b.food/(b.food + u.food))*100),50) food, IFNULL(ROUND(b.accommodation/(b.accommodation+u.accommodation)*100),50) accommodation, IFNULL(ROUND(b.shopping/(b.shopping+u.shopping)*100),50) shopping, IFNULL(ROUND(b.culture/(b.culture+u.culture)*100),50) culture, IFNULL(ROUND(b.tour/(b.tour+u.tour)*100),50) tour, IFNULL(ROUND(b.leisure/(b.leisure+u.leisure)*100),50) leisure
+		FROM (SELECT food+accommodation+shopping+culture+tour+leisure sum, food, accommodation, shopping, culture, tour, leisure FROM wego.statistics WHERE user_pk = #{user_pk} AND state = 0) b,
+			 (SELECT food+accommodation+shopping+culture+tour+leisure sum, food, accommodation, shopping, culture, tour, leisure FROM wego.statistics WHERE user_pk = #{user_pk} AND state = 1) u;
+	</select>
+	
+	<!-- 가게부 하단 여행 리스트 불러오기 -->
+	<select id="getReportList" parameterType="int" resultType="kr.co.main.myRecord.accountBook.ReportVO">
+		<!-- 여행 계획 (계획 pk, 제목, 인원수, 총사용금액, 시작날짜, 종료날짜) -->
+		SELECT p.plan_pk, p.title, p.num_of_people, u.total_usage, p.start_date, p.end_date
+		FROM wego.plan p, (SELECT plan_pk, sum(amount) total_usage FROM wego.usage GROUP BY plan_pk) u
+		WHERE p.plan_pk = u.plan_pk AND p.user_pk = #{user_pk};
+	</select>
+	
+	<!-- 육각형을 위한 비율 가져오기 -->
+	<select id="getTotalRateForRadar" parameterType="int" resultType="kr.co.main.myRecord.accountBook.TotalRateVO">
+		SELECT IFNULL(ROUND(u.food/b.food*100), 0) radar_food, IFNULL(ROUND(u.accommodation/b.accommodation*100), 0) radar_accommodation, IFNULL(ROUND(u.shopping/b.shopping*100), 0) radar_shopping, IFNULL(ROUND(u.culture/b.culture*100), 0) radar_culture, IFNULL(ROUND(u.tour/b.tour*100), 0) radar_tour, IFNULL(ROUND(u.leisure/b.leisure*100), 0) radar_leisure
+		FROM wego.statistics u, (SELECT AVG(food) food, AVG(accommodation) accommodation, AVG(shopping) shopping, AVG(culture) culture, AVG(tour) tour, AVG(leisure) leisure FROM wego.statistics GROUP BY user_pk, state HAVING state = 1) b
+		WHERE state = 1 AND user_pk = #{user_pk};
+	</select>
+	
+	
+	
+	
+	<!-- review -->
+	
+	
+	
+</mapper>
+
+
+
+
