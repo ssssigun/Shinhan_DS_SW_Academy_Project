@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
+    <%--사용할 곳에 붙여넣기! <jsp:include page="/WEB-INF/jsp/include/header.jsp"/> --%> 
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>

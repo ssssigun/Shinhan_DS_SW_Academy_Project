@@ -49,3 +49,7 @@ height: 49px;
     width: 90px;
     height: 40px;
 }
+#alarm{
+	display: none;
+	margin: 15px 65px;
+}

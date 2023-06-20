@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.main.first.FirstMapper">
+	<!-- 닉네임 확인을 위해 user 테이블에서 select를 통해 확인 -->
 	<select id="checkNickName" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM wego.user WHERE nickname = #{nickName}
 	</select>
+	<!-- 유저 등록을 하기 위해서 user에 insert -->
+ 	<insert id="register" parameterType="String">
+ 		INSERT INTO user (UserName, Email, NickName, Regdate, Role, BanPost, SecretKey)
+ 		VALUE ('kim', 'kim2389@naver.com', #{nickName}, curdate(), 0, 0, 1)
+ 	</insert>
 </mapper>
 
 
 
+ 

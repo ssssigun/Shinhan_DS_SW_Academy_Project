@@ -26,8 +26,8 @@
     </div>
     <div class="headerBottom">
       <div class="picBottom">
-        <a href=""><img src="/image/logoMain.png" alt=""></a>
-        <img class="admin" src="/image/logo_admin.png" alt="">
+        <a href=""><img src="/main/image/logoMain.png" alt=""></a>
+        <img class="admin" src="/main/image/logo_admin.png" alt="">
       </div>
       <ul>
         <li class="menu"><p><a href="">여행 계획</a></p></li>

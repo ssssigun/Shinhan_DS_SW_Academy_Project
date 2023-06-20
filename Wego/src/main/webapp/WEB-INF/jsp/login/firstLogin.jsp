@@ -16,7 +16,16 @@
 
   <title>signOn</title>
   <script>
+ 	var ch = false;	
+ 	//닉네임 유효성 검사
   	function check(){
+  		if($('#nickName').val()==""){
+			$('#alarm').text('닉네임을 입력해주세요!');
+			$('#alarm').css('color','red');
+			$('#alarm').css('display','block');
+			$('#nickName').focus();
+			return;
+  		}
   		$.ajax({
   			type: 'get',
   			url: 'check.do',
@@ -24,10 +33,45 @@
   				nickName: $('#nickName').val()
   			},
   			success:function(res){
-  				alert(res);
+  				if(1===res){
+	  				$('#alarm').text('이미 존재하는 닉네임입니다!');
+	  				$('#alarm').css('color','red');
+	  				$('#alarm').css('display','block');
+	  				ch=false;
+  				}else if(0===res){
+	  				$('#alarm').text('사용 가능한 닉네임입니다!');
+	  				$('#alarm').css('color','green');
+	  				$('#alarm').css('display','block');
+	  				ch=true;
+  				}
 				return;
   			}
   		})
+  	}
+  	//약관 및 닉네임 유효성 검사 후 등록
+  	function register(){ 
+  		if(confirm("등록하시겠습니까?")){
+  			if(!$('#agree1').is(":checked") || !$('#agree2').is(":checked")){
+  				alert("We go 서비스 이용약관에 대한 내용 확인 후 동의해주세요.");
+
+  			}else if(""=== $('#nickName').val()){
+  				alert("닉네임을 입력해주세요!");
+  				$('#nickName').focus();
+			}else if(!ch){
+				alert("닉네임을 다시 입력해주세요!")
+ 				$('#nickName').focus();
+  			}
+  			else{
+  				$.ajax({
+  					type:'get',
+  					url:'main.do',
+  					date:{
+  		  				nickName: $('#nickName').val()
+  					}
+  				});
+  			}
+  		}
+  		return;
   	}
   </script>
 </head>
@@ -45,16 +89,16 @@
       <p class="title textBoxTitle">서비스 이용 동의</p>
       <div class="agreeText"></div>
       <div class="selectArea">
-        <input class="checkB select" type="checkbox" id="agree1" name="agree1">
-        <span class="letter">서비스 이용 약관에 동의합니다.</span>
+        <input class="checkB select" type="checkbox" id="agree1" name="agree1" value="agree">
+        <label for=agree1><span class="letter">서비스 이용 약관에 동의합니다. (필수)</span></label> 
       </div>
     </div>
     <div class="textBox">
       <p class="title textBoxTitle">개인 정보 이용 동의</p>
       <div class="agreeText"></div>
       <div class="selectArea">
-        <input class="checkB select" type="checkbox" id="agree2" name="agree2">
-        <span class="letter">개인정보 이용 약관에 동의합니다.</span>
+        <input class="checkB select" type="checkbox" id="agree2" name="agree2" value="agree">
+        	<label for='agree2'><span class="letter">개인정보 이용 약관에 동의합니다. (필수)</span></label>
       </div>
     </div>
     <div class="inputWidth">
@@ -63,9 +107,10 @@
           <input class="inputNick input" type="text" id="nickName" name ="nickName" placeholder="닉네임을 입력해주세요.">
           <input class="btn blueBwhiteL btnCheck" type="button" value="중복확인" onclick='check()'>
       </div>
+      <p class="smallLetter" id="alarm">알림 텍스트</p>
     </div>
       <div class="btnArea">
-        <input class="btn yellowBblackL btnRegister" type="submit" value="등록">
+        <input class="btn yellowBblackL btnRegister" type="button" value="등록" onclick='register()'>
       </div>
   </div>
 <jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>

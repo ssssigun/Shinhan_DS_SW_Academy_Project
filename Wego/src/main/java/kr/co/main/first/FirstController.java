@@ -2,7 +2,6 @@ package kr.co.main.first;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,13 +10,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class FirstController {
 	@Autowired
 	FirstService fService;
+	//처음 약관 동의 페이지 이동
 	@GetMapping("/firstLogin.do")
 	public String firstLogin() {
 		return "login/firstLogin";
 	}
+	//닉네임 중복 확인
 	@ResponseBody
-	@GetMapping(value="/check.do", produces="application/text;charset=utf8")
-	public String checkNickName(@RequestParam(value = "nickName", defaultValue = "")String nickName, Model model) {
+	@GetMapping("/check.do")
+	public int checkNickName(@RequestParam("nickName")String nickName) {
 		return fService.checkNickName(nickName);
+	}
+	//약관 동의 및 닉네임 유효성 검사 후 메인으로 이동 (지금은 임시로 common으로 이동)
+	@GetMapping("/main.do")
+	public String goMain(@RequestParam("nickName")String nickName){
+		fService.register(nickName);
+		return "common";
 	}
 }
