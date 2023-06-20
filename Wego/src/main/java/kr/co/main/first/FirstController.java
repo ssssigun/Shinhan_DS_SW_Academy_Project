@@ -17,7 +17,7 @@ public class FirstController {
 	}
 	@ResponseBody
 	@GetMapping(value="/check.do", produces="application/text;charset=utf8")
-	public String checkNick(@RequestParam(value = "nickName", defaultValue = "")String nickName, Model model) {
-		return fService.checkNick(nickName);
+	public String checkNickName(@RequestParam(value = "nickName", defaultValue = "")String nickName, Model model) {
+		return fService.checkNickName(nickName);
 	}
 }

@@ -5,5 +5,5 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper
 public interface FirstMapper {
-	int checkNick(String nickName);
+	int checkNickName(String nickName);
 }
