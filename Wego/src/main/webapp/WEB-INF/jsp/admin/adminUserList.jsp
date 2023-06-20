@@ -17,24 +17,7 @@
   <title>common</title>
 </head>
 <body>
-  <div class="header">
-    <div class="headerTop">
-      <div class="topText">
-        <p><a href="">로그아웃</a></p>
-      </div>
-    </div>
-    <div class="headerBottom">
-      <div class="picBottom">
-        <a href=""><img src="/image/logoMain.png" alt=""></a>
-        <img class="admin" src="/image/logo_admin.png" alt="" style="display: inline-block;">
-      </div>
-      <ul>
-        <li class="menu"><p><a href="">신고 게시물</a></p></li>
-        <li class="menu bold"><p><a href="">신고 유저</a></p></li>
-      </ul>
-
-    </div>
-  </div>
+<jsp:include page='/WEB-INF/jsp/include/headerAdmin.jsp'/>
   <div class="contents">
     <table class="table">
       <tr class="bold bigLetter tableHead">
@@ -128,17 +111,6 @@
 
     </table>
   </div>
-  <div class="footer">
-    <div class="textFooter">
-      <p>고객센터 대표번호 1588-0000</p>
-      <p>이용약관 | 개인정보처리방침</p>  
-      <p>사업자등록번호 : 222-222-2222</p>
-      <p> 우) 03993 서울 마포구 월드컵북로 4길 77</p>
-    </div>
-    <div class="picFooter">
-      <img src="../image/pic1.png" alt="">
-      <img src="../image/pic2.png" alt="">
-    </div>
-  </div>
+<jsp:include page='/WEB-INF/jsp/include/footer.jsp'/>
 </body>
 </html>

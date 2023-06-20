@@ -50,11 +50,12 @@
   	}
   	//약관 및 닉네임 유효성 검사 후 등록
   	function register(){ 
+		if(!$('#agree1').is(":checked") || !$('#agree2').is(":checked")){
+ 				alert("We go 서비스 이용약관에 대한 내용 확인 후 동의해주세요.");
+ 				return
+		}
   		if(confirm("등록하시겠습니까?")){
-  			if(!$('#agree1').is(":checked") || !$('#agree2').is(":checked")){
-  				alert("We go 서비스 이용약관에 대한 내용 확인 후 동의해주세요.");
-
-  			}else if(""=== $('#nickName').val()){
+  			if(""=== $('#nickName').val()){
   				alert("닉네임을 입력해주세요!");
   				$('#nickName').focus();
 			}else if(!ch){
