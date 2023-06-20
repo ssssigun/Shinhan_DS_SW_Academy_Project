@@ -1,6 +1,7 @@
 package kr.co.main.plan;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +23,15 @@ public class PlanController {
 	
 	@GetMapping("/filter.do")
 	@ResponseBody
-	public List<LocationVO> filter(Integer region, Integer category) {
+	public Map filter(String sword, Integer page, Integer region, Integer category) {
 		LocationVO vo = new LocationVO();
+		vo.setPage(page);
 		vo.setRegion(region);
 		vo.setCategory(category);
-		List<LocationVO> locationList =  Service.selectLocationPer5(vo);
-		return locationList;
+		vo.setSword(sword);
+		Map map =  Service.selectLocationPer5(vo);
+		System.out.println(map);
+		return map;
 	}
 	
 	@GetMapping("/spotDetail.do")

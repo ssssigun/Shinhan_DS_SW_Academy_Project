@@ -20,8 +20,17 @@ public class LocationVO {
 	
 	private String category_name;
 	
+	// 페이지네이션을 위한 변수
+	private String sword; // 검색어
+	private int startIdx; // limit 시작인덱스
+	private int page; // 사용자가 요청한 페이지
+	private int rowPerPage;
+	
 	public LocationVO() {
-		region = -1;
-		category = -1;
+		this.region = -1;
+		this.category = -1;
+		this.page = 1;
+		this.startIdx = 0;
+		this.rowPerPage = 5;
 	}
 }

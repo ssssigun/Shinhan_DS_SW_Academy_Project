@@ -1,6 +1,8 @@
 package kr.co.main.plan;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +13,33 @@ public class PlanService {
 	@Autowired
 	PlanMapper mapper;
 	//함수 만들어서 사용
-	public List<LocationVO> selectLocationPer5(LocationVO vo){
+	public Map selectLocationPer5(LocationVO vo) {
+		int totalCount = mapper.count(vo);
+		int totalPage = totalCount / vo.getRowPerPage();
+		if (totalPage % vo.getRowPerPage() > 0) totalPage++;
+		int startIdx = (vo.getPage() - 1) * vo.getRowPerPage();
+		vo.setStartIdx(startIdx);
 		List<LocationVO> locationList = mapper.selectLocationPer5(vo);
+		
+		int endPage = (int) Math.ceil(vo.getPage() / 10.0) * 10;
+		int startPage = endPage - 9;
+		if (endPage > totalPage) endPage = totalPage;
+		boolean prev = startPage > 1 ? true : false;
+		boolean next = totalPage > endPage ? true : false;
+		
+		Map map = new HashMap();
 		for (LocationVO nvo: locationList) {
 			addCategoryName(nvo);
 		}
-		return locationList;
+		map.put("totalCount", totalCount);
+		map.put("totalPage", totalPage);
+		map.put("locationList", locationList);
+		map.put("startPage", startPage);
+		map.put("endPage", endPage);
+		map.put("prev", prev);
+		map.put("next", next);
+		
+		return map;
 	}
 	
 	public LocationVO selectLocationByPK(int location_pk) {

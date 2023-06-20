@@ -10,5 +10,6 @@ public interface PlanMapper {
 	// XML 파일 id이름과 메서드명 똑같이 사용
 	List<LocationVO> selectLocationPer5(LocationVO vo);
 	LocationVO selectLocationByPK(int location_pk);
+	int count(LocationVO vo);
 }
 	
