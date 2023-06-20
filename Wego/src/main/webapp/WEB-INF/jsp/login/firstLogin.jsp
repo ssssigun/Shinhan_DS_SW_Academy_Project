@@ -17,13 +17,17 @@
   <title>signOn</title>
   <script>
   	function check(){
-  		if(${msg}=="이미 있는 닉네임입니다."){
-  			$("#nickName").focus();
-  			return alert(${msg});
-  		}
-  		if(${msg}=="사용 가능한 닉네임입니다!"){
-  			return alert(${msg});
-  		}
+  		$.ajax({
+  			type: 'get',
+  			url: 'check.do',
+  			data:{
+  				nickName: $('#nickName').val()
+  			},
+  			success:function(res){
+  				alert(res);
+				return;
+  			}
+  		})
   	}
   </script>
 </head>
@@ -57,24 +61,13 @@
       <div class="inputWrapper inputBox">
           <span class="letter">닉네임</span>
           <input class="inputNick input" type="text" id="nickName" name ="nickName" placeholder="닉네임을 입력해주세요.">
-          <input class="btn blueBwhiteL btnCheck" type="submit" value="중복확인" onclick="">
+          <input class="btn blueBwhiteL btnCheck" type="button" value="중복확인" onclick='check()'>
       </div>
     </div>
       <div class="btnArea">
         <input class="btn yellowBblackL btnRegister" type="submit" value="등록">
       </div>
   </div>
-  <div class="footer">
-    <div class="textFooter">
-      <p>고객센터 대표번호 1588-0000</p>
-      <p>이용약관 | 개인정보처리방침</p>  
-      <p>사업자등록번호 : 222-222-2222</p>
-      <p> 우) 03993 서울 마포구 월드컵북로 4길 77</p>
-    </div>
-    <div class="picFooter">
-      <img src="/main/image/pic1.png" alt="">
-      <img src="/main/image/pic2.png" alt="">
-    </div>
-  </div>
+<jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>
 </body>
 </html>
