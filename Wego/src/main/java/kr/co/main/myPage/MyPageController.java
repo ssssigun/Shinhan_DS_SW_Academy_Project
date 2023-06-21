@@ -3,6 +3,7 @@ package kr.co.main.myPage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/myPage")
@@ -20,4 +21,10 @@ public class MyPageController {
 		return "myPage/mypageInfo";
 	}
 	//닉네임 변경시 중복확인
+	/*
+		firstController에 /check.do (checkNickName 함수)로 처리
+		처리 하는 작업이 같으므로 똑같이 처리
+	*/
+	
+	//닉네임 변경
 }

@@ -14,7 +14,25 @@
   <link rel="stylesheet" href="../css/admin/adminLogin.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
-  <title>common</title>
+  <title>AdminLogin</title>
+  <script>
+  	function login(){
+  		if(""===$("#id").val()){
+  			$("#alarm").css('color','red');
+  			$("#alarm").text('아이디를 입력해주세요.');
+  			$("#id").focus();
+  			return;
+  		}
+  		if(""===$("#pwd").val()){
+  			$("#alarm").css('color','red');
+  			$("#alarm").text('비밀번호를 입력해주세요.');
+  			$("#pwd").focus();
+  			return;
+  		}
+  		return;
+  	}
+  </script>
+  
 </head>
 <body>
 <jsp:include page='/WEB-INF/jsp/include/headerAdmin.jsp'/>
@@ -32,8 +50,9 @@
             <input class="input inputArea" type="text" name="pwd" id="pwd" placeholder="비밀번호를 입력해주세요.">
           </div>
         </div>
-        <input class="btn blueBwhiteL" type="submit"  value="로그인">
+        <input class="btn blueBwhiteL" type="button"  value="로그인" onclick="login()">
       </div>
+      <p class="smallLetter" id="alarm">알림 텍스트</p>
     </div>
   </div>
 <jsp:include page='/WEB-INF/jsp/include/footer.jsp'/>

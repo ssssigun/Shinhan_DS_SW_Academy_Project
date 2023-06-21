@@ -14,7 +14,35 @@
   <link rel="stylesheet" href="/main/css/myPage/mypageInfo.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
-  <title>common</title>
+  <title>MyInfo</title>
+  
+  <script>
+  function check(){
+		if($('#nickName').val()==""){
+			$('#alarm').text('닉네임을 입력해주세요!');
+			$('#alarm').css('color','red');
+			$('#nickName').focus();
+			return;
+  		}
+  		$.ajax({
+  			type: 'get',
+  			url: '/main/check.do',
+  			data:{
+  				nickName: $('#nickName').val()
+  			},
+  			success:function(res){
+  				if(1===res){
+	  				$('#alarm').text('이미 존재하는 닉네임입니다!');
+	  				$('#alarm').css('color','red');
+  				}else if(0===res){
+	  				$('#alarm').text('사용 가능한 닉네임입니다!');
+	  				$('#alarm').css('color','green');
+  				}
+				return;
+  			}
+  		})
+  	}
+  </script>
 </head>
 <body>
 <jsp:include page='/WEB-INF/jsp/include/header.jsp'/>
@@ -27,10 +55,11 @@
         <p class="bigLetter">정보 수정</p>
         <div class="inputWrapper inputBox">
           <span class="letter">닉네임</span>
-          <input class="input" type="text" name="pwd" id="pwd" placeholder="[원래 닉네임]">
-          <input class="btnCommon btn blueBwhiteL" type="submit" name="btn" id="btn" value="중복확인" >
-          <input class="btnCommon btn lightblueBblackL" type="submit" name="btn2" id="btn2" value="수정" >
+          <input class="input" type="text" name="nickName" id="nickName" placeholder="[원래 닉네임]">
+          <input class="btnCommon btn blueBwhiteL" type="button" name="btn" id="btn" value="중복확인" onclick="check()">
+          <input class="btnCommon btn lightblueBblackL" type="button" name="btn2" id="btn2" value="수정" >
         </div>
+        <p class="smallLetter" id="alarm">알림 텍스트</p>
         <p class="bigLetter cardTitle">카드 정보</p>
       </div>
       <div class="infoCard">

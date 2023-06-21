@@ -22,7 +22,6 @@
   		if($('#nickName').val()==""){
 			$('#alarm').text('닉네임을 입력해주세요!');
 			$('#alarm').css('color','red');
-			$('#alarm').css('display','block');
 			$('#nickName').focus();
 			return;
   		}
@@ -36,12 +35,10 @@
   				if(1===res){
 	  				$('#alarm').text('이미 존재하는 닉네임입니다!');
 	  				$('#alarm').css('color','red');
-	  				$('#alarm').css('display','block');
 	  				ch=false;
   				}else if(0===res){
 	  				$('#alarm').text('사용 가능한 닉네임입니다!');
 	  				$('#alarm').css('color','green');
-	  				$('#alarm').css('display','block');
 	  				ch=true;
   				}
 				return;
@@ -96,7 +93,9 @@
     </div>
     <div class="textBox">
       <p class="title textBoxTitle">개인 정보 이용 동의</p>
-      <div class="agreeText"></div>
+      <div class="agreeText">
+      
+      </div>
       <div class="selectArea">
         <input class="checkB select" type="checkbox" id="agree2" name="agree2" value="agree">
         	<label for='agree2'><span class="letter">개인정보 이용 약관에 동의합니다. (필수)</span></label>

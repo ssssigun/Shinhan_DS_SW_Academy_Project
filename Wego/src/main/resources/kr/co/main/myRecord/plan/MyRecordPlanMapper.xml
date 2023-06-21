@@ -23,21 +23,21 @@
 		GROUP BY p.plan_pk
 	</select>
 	
-	<select id="countWilldo" parameterType="kr.co.main,myRecord.plan.MyRecordPlanVO" resultType="int">
+	<select id="countWilldo" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="int">
 		SELECT COUNT(*) FROM wego.plan p, wego.plan_detail d
 		<where>
 			p.plan_pk = d.plan_pk and p.state = 0
 		</where>
 		GROUP BY p.Plan_pk 
 	</select>
-	<select id="countAllDone" parameterType="kr.co.main,myRecord.plan.MyRecordPlanVO" resultType="int">
+	<select id="countAllDone" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="int">
 		SELECT COUNT(*) FROM wego.plan p, wego.plan_detail d
 		<where>
 			p.plan_pk = d.plan_pk and p.state = 1
 		</where>
 		GROUP BY p.Plan_pk 
 	</select>
-	<select id="countTempSaved" parameterType="kr.co.main,myRecord.plan.MyRecordPlanVO" resultType="int">
+	<select id="countTempSaved" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="int">
 		SELECT COUNT(*) FROM wego.plan p, wego.plan_detail d
 		<where>
 			p.plan_pk = d.plan_pk and p.state = 2

@@ -47,7 +47,11 @@ width: 100%;
     display: flex;
     gap: 15px;
 }
-#pwd{
+.nickName{
     flex-grow:0;
     width: 200px;
+}
+#alarm{
+	color: white;
+	margin: 15px 65px;
 }

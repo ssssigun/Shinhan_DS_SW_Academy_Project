@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="../css/admin/adminUserList.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
-  <title>common</title>
+  <title>AdminUserManagement</title>
 </head>
 <body>
 <jsp:include page='/WEB-INF/jsp/include/headerAdmin.jsp'/>
