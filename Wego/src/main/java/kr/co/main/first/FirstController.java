@@ -21,10 +21,15 @@ public class FirstController {
 	public int checkNickName(@RequestParam("nickName")String nickName) {
 		return fService.checkNickName(nickName);
 	}
-	//약관 동의 및 닉네임 유효성 검사 후 메인으로 이동 (지금은 임시로 common으로 이동)
-	@GetMapping("/main.do")
-	public String goMain(@RequestParam("nickName")String nickName){
+	//약관 동의 및 닉네임 유효성 검사 후 닉네임 등록
+	@GetMapping("/register.do")
+	public String registerName(@RequestParam("nickName")String nickName){
 		fService.register(nickName);
-		return "common";
+		return "redirect:main.do";
 	}
+	//메인으로 이동(임시로 공용 페이지에 포워딩)
+	 @GetMapping("/main.do")
+	 public String goMain() {
+		 return "common";
+	 }
 }
