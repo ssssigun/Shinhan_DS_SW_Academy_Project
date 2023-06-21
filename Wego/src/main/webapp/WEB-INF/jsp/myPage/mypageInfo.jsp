@@ -21,6 +21,7 @@
 		if($('#nickName').val()==""){
 			$('#alarm').text('닉네임을 입력해주세요!');
 			$('#alarm').css('color','red');
+			$('#alarm').css('display', 'block');
 			$('#nickName').focus();
 			return;
   		}
@@ -34,9 +35,11 @@
   				if(1===res){
 	  				$('#alarm').text('이미 존재하는 닉네임입니다!');
 	  				$('#alarm').css('color','red');
+	  				$('#alarm').css('display', 'block');
   				}else if(0===res){
 	  				$('#alarm').text('사용 가능한 닉네임입니다!');
 	  				$('#alarm').css('color','green');
+	  				$('#alarm').css('display', 'block');
   				}
 				return;
   			}

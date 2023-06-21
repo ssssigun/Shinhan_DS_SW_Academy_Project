@@ -50,6 +50,6 @@ height: 49px;
     height: 40px;
 }
 #alarm{
-	color: white;
+	display:none;
 	margin: 15px 65px;
 }

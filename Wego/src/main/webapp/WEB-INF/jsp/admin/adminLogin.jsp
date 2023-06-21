@@ -20,15 +20,34 @@
   		if(""===$("#id").val()){
   			$("#alarm").css('color','red');
   			$("#alarm").text('아이디를 입력해주세요.');
+  			$("#alarm").css('display','block')
   			$("#id").focus();
   			return;
   		}
   		if(""===$("#pwd").val()){
   			$("#alarm").css('color','red');
   			$("#alarm").text('비밀번호를 입력해주세요.');
+  			$("#alarm").css('display','block')
   			$("#pwd").focus();
   			return;
   		}
+  		$.ajax({
+			  type:"post",
+			  url:'login.do',
+			  data:{
+				  id: $("#id").val(),
+				  pwd:$("#pwd").val()
+			  },
+			  success:function(res){
+				  if(1===res){
+					  location.href='/main/admin/boardManagement.do';
+				  }
+				  if(0===res){
+		  			$("#alarm").css('color','red');
+		  			$("#alarm").text('아이디 또는 비밀번호가 맞지 않습니다!');
+				  }
+			  }
+  		})
   		return;
   	}
   </script>

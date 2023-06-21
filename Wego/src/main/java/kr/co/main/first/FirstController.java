@@ -24,8 +24,9 @@ public class FirstController {
 	//약관 동의 및 닉네임 유효성 검사 후 닉네임 등록
 	@GetMapping("/register.do")
 	public String registerName(@RequestParam("nickName")String nickName){
-		fService.register(nickName);
-		return "redirect:main.do";
+//		fService.register(nickName);
+		//임시로 포워딩
+		return "main.do";
 	}
 	//메인으로 이동(임시로 공용 페이지에 포워딩)
 	 @GetMapping("/main.do")
