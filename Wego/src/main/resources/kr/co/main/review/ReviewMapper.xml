@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.main.review.ReviewMapper">
+
+	<!-- 리뷰 댓글 보기 -->
+	<select id="selectComment" resultType="kr.co.main.review.ReviewVO"> 
+		select nickname, comment_content, review_comment.regdate 
+		from wego.review_comment left join wego.user 
+		on wego.review_comment.user_pk = wego.user.user_pk;
+	</select>
+	<!-- 리뷰 상세 보기 -->
+	<select id="review" resultType="kr.co.main.review.ReviewVO">
+		select title, content, regdate, (select count(Review_watch_pk) from wego.review_watch) as watch 
+		,(select count(Review_recommend_pk)  from wego.review_recommend) as recommend, Filename_save from wego.review left join wego.review_image
+		on wego.review.Review_pk = wego.review_image.Review_image_pk;
+	</select>
+
+	
+	
+	<!-- 리뷰목록 보기 -->
+
+	<!-- 리뷰들 -->	
+
+	<!-- 페이징 처리-->
+
+	<!-- 검색 -->
+	<!-- 리뷰 등록 -->
+	<insert id="insertReview" parameterType="kr.co.main.review.ReviewVO"	>
+		INSERT INTO review (
+			title, content, viewcount, regdate, filename_org, filename_real, memberno
+		) VALUES (
+			#{title}, #{content}, 0, NOW(), #{filename_org}, #{filename_real}, #{memberno}
+		)
+	</insert>
+	
+	<!-- 리뷰 수정 -->
+	<update id="update" parameterType="kr.co.main.review.ReviewVO"	>
+		UPDATE wego.review SET
+			title = #{title}
+			, content = #{content}
+			<if test="filename_org != null and filename_org != ''">
+			, filename_org = #{filename_org}
+			, filename_real = #{filename_real}
+			</if>
+		WHERE Review_pk = #{Review_pk}
+	</update>
+
+	<!-- 리뷰 삭제 -->
+	<delete id="deleteReview" parameterType="kr.co.main.review.ReviewVO">
+			DELETE FROM wego.review WHERE Review_pk = #{Review_pk}
+	</delete>
+	
+	<!-- 리뷰 댓글 등록 -->
+	
+
+	<!-- 리뷰 댓글 삭제 -->
+	<delete id="deleteReviewComment" parameterType="kr.co.main.review.ReviewVO">
+			DELETE FROM wego.review_comment WHERE Review_comment_pk = #{Review_comment_pk}
+	</delete>
+	
+	
+	<!-- 리뷰 사진(첨부파일) 등록 -->
+	<insert id="insertReviewImage" parameterType="kr.co.main.review.ReviewVO">
+		INSERT INTO 
+	</insert>
+	
+	<!-- 리뷰 사진(첨부파일) 삭제 -->
+	<delete id="deleteReviewImage" parameterType="kr.co.main.review.ReviewVO">
+		DELETE FROM wego.review_image WHERE Review_image_pk = #{Review_image_pk}
+	</delete>
+		
+</mapper>
+
+
+

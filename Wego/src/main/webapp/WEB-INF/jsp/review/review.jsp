@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../css/common.css" />
     <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/footer.css" />
-    <link rel="stylesheet" href="../css/review.css" />
+    <link rel="stylesheet" href="../css/review/review.css" />
 
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -20,45 +20,43 @@
   </head>
   <body>
     <div class="header">
-      <div class="headerTop">
-        <div class="topText">
-          <p><a href="">로그아웃</a></p>
-          <p><a href="">마이 페이지</a></p>
-        </div>
-      </div>
-      <div class="headerBottom">
-        <a href=""><img src="/image/logoMain.png" alt="" /></a>
-        <ul>
-          <li class="menu">
-            <p><a href="" onclick="select">여행 계획</a></p>
-          </li>
-          <li class="menu">
-            <p><a href="" onclick="select">여행 후기</a></p>
-          </li>
-          <li class="menu">
-            <p><a href="" onclick="select">나의 기록</a></p>
-          </li>
-        </ul>
+    <div class="headerTop">
+      <div class="topText">
+        <p><a href="">로그아웃</a></p>
+        <p><a href="/main/myPage/check.do">마이 페이지</a></p>
       </div>
     </div>
+    <div class="headerBottom">
+      <div class="picBottom">
+        <a href="/main/main.do"><img src="/main/image/logoMain.png" alt=""></a>
+        <img class="admin" src="/main/image/logo_admin.png" alt="">
+      </div>
+      <ul>
+        <li class="menu"><p><a href="/main/plan/index.do">여행 계획</a></p></li>
+        <li class="menu"><p><a href="">여행 후기</a></p></li>
+        <li class="menu"><p><a href="">나의 기록</a></p></li>
+      </ul>
+
+    </div>
+  </div>
     <div class="contents">
       <div class="ContentsContainer">
         <div class="title">후기 게시판</div>
         <div class="ReviewWrapper">
           <div class="postWrapper">
             <div class="photoWrapper">
-              <div class="state yellowBblackL">예정계획</div>
+              
             </div>
             <div class="postInfoWrapper">
               <div class="titleWrapper">
                 제주도 너무 좋아용
                 <div class="iconsWrapper">
                   <div class="iconWrapper">
-                    <img class="icon" src="/image/BsHandThumbsUpFill.png" />
+                    <img class="icon" src="../image/review/BsHandThumbsUpFill.png" />
                     10
                   </div>
                   <div class="iconWrapper">
-                    <img class="icon" src="image/BsEye.png" />
+                    <img class="icon" src="../image/review/BsEye.png" />
                     10
                   </div>
                 </div>
@@ -66,24 +64,24 @@
               <div class="subWrapper">성진박</div>
               <div class="subsubWrapper">2023-08-08</div>
               <div class="buttonsWrapper">
-                <button class="smallBtn redBwhiteL">수정하기</button>
+                <button class="smallBtn blueBwhiteL">후기보기</button>
               </div>
             </div>
           </div>
           <div class="postWrapper">
             <div class="photoWrapper">
-              <div class="state yellowBblackL">예정계획</div>
+
             </div>
             <div class="postInfoWrapper">
               <div class="titleWrapper">
                 제주도 너무 좋아용
                 <div class="iconsWrapper">
                   <div class="iconWrapper">
-                    <img class="icon" src="/image/BsHandThumbsUpFill.png" />
+                    <img class="icon" src="../image/review/BsHandThumbsUpFill.png" />
                     10
                   </div>
                   <div class="iconWrapper">
-                    <img class="icon" src="image/BsEye.png" />
+                     <img class="icon" src="../image/review/BsEye.png" />
                     10
                   </div>
                 </div>
@@ -91,24 +89,24 @@
               <div class="subWrapper">성진박</div>
               <div class="subsubWrapper">2023-08-08</div>
               <div class="buttonsWrapper">
-                <button class="smallBtn redBwhiteL">수정하기</button>
+                <button class="smallBtn blueBwhiteL">후기보기</button>
               </div>
             </div>
           </div>
           <div class="postWrapper">
             <div class="photoWrapper">
-              <div class="state yellowBblackL">예정계획</div>
+              
             </div>
             <div class="postInfoWrapper">
               <div class="titleWrapper">
                 제주도 너무 좋아용
                 <div class="iconsWrapper">
                   <div class="iconWrapper">
-                    <img class="icon" src="/image/BsHandThumbsUpFill.png" />
+                    <img class="icon" src="../image/review/BsHandThumbsUpFill.png" />
                     10
                   </div>
                   <div class="iconWrapper">
-                    <img class="icon" src="image/BsEye.png" />
+                    <img class="icon" src="../image/review/BsEye.png" />
                     10
                   </div>
                 </div>
@@ -116,24 +114,24 @@
               <div class="subWrapper">성진박</div>
               <div class="subsubWrapper">2023-08-08</div>
               <div class="buttonsWrapper">
-                <button class="smallBtn redBwhiteL">수정하기</button>
+                <button class="smallBtn blueBwhiteL">후기보기</button>
               </div>
             </div>
           </div>
           <div class="postWrapper">
             <div class="photoWrapper">
-              <div class="state yellowBblackL">예정계획</div>
+              
             </div>
             <div class="postInfoWrapper">
               <div class="titleWrapper">
                 제주도 너무 좋아용
                 <div class="iconsWrapper">
                   <div class="iconWrapper">
-                    <img class="icon" src="/image/BsHandThumbsUpFill.png" />
+                    <img class="icon" src="../image/review/BsHandThumbsUpFill.png" />
                     10
                   </div>
                   <div class="iconWrapper">
-                    <img class="icon" src="image/BsEye.png" />
+                    <img class="icon" src="../image/review/BsEye.png" />
                     10
                   </div>
                 </div>
@@ -141,24 +139,24 @@
               <div class="subWrapper">성진박</div>
               <div class="subsubWrapper">2023-08-08</div>
               <div class="buttonsWrapper">
-                <button class="smallBtn redBwhiteL">수정하기</button>
+                <button class="smallBtn blueBwhiteL">후기보기</button>
               </div>
             </div>
           </div>
           <div class="postWrapper">
             <div class="photoWrapper">
-              <div class="state yellowBblackL">예정계획</div>
+              
             </div>
             <div class="postInfoWrapper">
               <div class="titleWrapper">
                 제주도 너무 좋아용
                 <div class="iconsWrapper">
                   <div class="iconWrapper">
-                    <img class="icon" src="/image/BsHandThumbsUpFill.png" />
+                    <img class="icon" src="../image/review/BsHandThumbsUpFill.png" />
                     10
                   </div>
                   <div class="iconWrapper">
-                    <img class="icon" src="image/BsEye.png" />
+                    <img class="icon" src="../image/review/BsEye.png" />
                     10
                   </div>
                 </div>
@@ -166,24 +164,24 @@
               <div class="subWrapper">성진박</div>
               <div class="subsubWrapper">2023-08-08</div>
               <div class="buttonsWrapper">
-                <button class="smallBtn redBwhiteL">수정하기</button>
+                <button class="smallBtn blueBwhiteL">후기보기</button>
               </div>
             </div>
           </div>
           <div class="postWrapper">
             <div class="photoWrapper">
-              <div class="state yellowBblackL">예정계획</div>
+              
             </div>
             <div class="postInfoWrapper">
               <div class="titleWrapper">
                 제주도 너무 좋아용
                 <div class="iconsWrapper">
                   <div class="iconWrapper">
-                    <img class="icon" src="/image/BsHandThumbsUpFill.png" />
+                     <img class="icon" src="../image/review/BsHandThumbsUpFill.png" />
                     10
                   </div>
                   <div class="iconWrapper">
-                    <img class="icon" src="image/BsEye.png" />
+                    <img class="icon" src="../image/review/BsEye.png" />
                     10
                   </div>
                 </div>
@@ -191,7 +189,7 @@
               <div class="subWrapper">성진박</div>
               <div class="subsubWrapper">2023-08-08</div>
               <div class="buttonsWrapper">
-                <button class="smallBtn redBwhiteL">수정하기</button>
+                <button class="smallBtn blueBwhiteL">후기보기</button>
               </div>
             </div>
           </div>
@@ -199,7 +197,7 @@
         <div class="pageControllerWrapper">
           <div class="pageController">
             <div class="MdNavigateBefore">
-              <img src="/image/MdNavigateBefore.png" />
+              <img src="../image/review/MdNavigateBefore.png" />
             </div>
             <div class="number">
               <a href="" class="smallLetter selectLetter">1</a>
@@ -215,7 +213,7 @@
             </div>
 
             <div class="MdNavigateNext">
-              <img src="/image/MdNavigateNext.png" />
+              <img src="../image/review/MdNavigateNext.png" />
             </div>
           </div>
         </div>
@@ -238,16 +236,16 @@
       <!-- common.css 파일은 수정하지 않고 새로운 css 파일을 추가 후 스타일 작성 -->
     </div>
     <div class="footer">
-      <div class="textFooter">
-        <p>고객센터 대표번호 1588-0000</p>
-        <p>이용약관 | 개인정보처리방침</p>
-        <p>사업자등록번호 : 222-222-2222</p>
-        <p>우) 03993 서울 마포구 월드컵북로 4길 77</p>
-      </div>
-      <div class="picFooter">
-        <img src="../image/pic1.png" alt="" />
-        <img src="../image/pic2.png" alt="" />
-      </div>
+    <div class="textFooter">
+      <p>고객센터 대표번호 1588-0000</p>
+      <p>이용약관 | 개인정보처리방침</p>  
+      <p>사업자등록번호 : 222-222-2222</p>
+      <p> 우) 03993 서울 마포구 월드컵북로 4길 77</p>
     </div>
+    <div class="picFooter">
+      <img src="/main/image/pic1.png" alt="">
+      <img src="/main/image/pic2.png" alt="">
+    </div>
+  </div>
   </body>
 </html>
