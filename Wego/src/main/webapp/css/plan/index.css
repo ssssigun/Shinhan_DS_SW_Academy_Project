@@ -704,4 +704,11 @@ flex-grow: 0;
     cursor : pointer;
 }
 
+.noneDisplay {
+	display: none;
+}
+
+.blockDisplay {
+	display: block;
+}
 

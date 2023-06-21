@@ -12,6 +12,12 @@
 			<if test="sword != null and sword != ''">
 			AND Location_name LIKE '%${sword}%'
 			</if>
+			<if test="min_lng != null and max_lng != null and min_lng != '-1' and max_lng != '-1'">
+			AND Longitude BETWEEN #{min_lng} AND #{max_lng}
+			</if>
+			<if test="min_lat != null and max_lat != null and min_lat != '-1' and max_lat != '-1'">
+			AND Latitude BETWEEN #{min_lat} AND #{max_lat}
+			</if>
 		</where>
 	</sql>
 	

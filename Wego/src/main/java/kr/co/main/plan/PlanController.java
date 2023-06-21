@@ -1,6 +1,6 @@
 package kr.co.main.plan;
 
-import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +23,8 @@ public class PlanController {
 	
 	@GetMapping("/filter.do")
 	@ResponseBody
-	public Map filter(String sword, Integer page, Integer region, Integer category) {
-		LocationVO vo = new LocationVO();
-		vo.setPage(page);
-		vo.setRegion(region);
-		vo.setCategory(category);
-		vo.setSword(sword);
+	public Map filter(LocationVO vo) {
 		Map map =  Service.selectLocationPer5(vo);
-		System.out.println(map);
 		return map;
 	}
 	

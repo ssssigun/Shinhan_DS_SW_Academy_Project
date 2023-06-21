@@ -13,25 +13,33 @@
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=l8m4oe0ivu"></script>
     <title>Document</title>
     <script>
-	var region = 1;
+	// 변수 초기 설정
+    var region = 1;
 	var category = '-1';
-	var page = 1;
 	var sword = '';
 	var day = 1;
 	var period = 1;
-    
+	var markerList = [];
+	var savedList = [];
+	var details = {};
+	var totalBudget = 0;
+
+	
     	// 장소 리스트 받아오는 함수
-    	function fetchData(page, region, category, sword) {
+    	function fetchData(page, region, category, sword, max_lat, max_lng, min_lat, min_lng) {
     	  $.ajax({
-    	    url: 'filter.do?page=' + page + '&region=' + region + '&category=' + category + '&sword=' + sword,
+    	    url: 'filter.do?page=' + page + '&region=' + region + '&category=' + category + '&sword=' + sword + '&max_lat=' + max_lat + '&min_lat=' + min_lat + '&max_lng=' + max_lng + '&min_lng=' + min_lng,
     	    method: 'GET',
     	    dataType: 'json',
     	    success: function(data) {
-    	      // 이하 코드는 success 콜백 함수 내부의 코드입니다.
+    	    	
+    	      // 기존 마커과 장소 정보들 지움
     	      for (var i = 0; i < markerList.length; i++) {
     	        markerList[i].setMap(null);
     	      }
     	      $('.planCards').empty();
+    	      
+    	      // 마커와 장소 정보들 새로 생성
     	      $.each(data.locationList, function(index, location) {
     	        var planCard = $('<div>').addClass('planCard');
     	        var planPhoto = $('<div>').addClass('planPhoto');
@@ -88,11 +96,61 @@
     	    }
     	  });
     	}
+    	
+    	function moveMap() {
+            bounds = map.getBounds(); // 현재 지도 영역의 좌표 범위 가져오기
+            max_lat = bounds._max['_lat'];
+            max_lng = bounds._max['_lng'];
+            min_lat = bounds._min['_lat'];
+            min_lng = bounds._min['_lng'];
+            page = 1;
+            fetchData(1, region, category, sword, max_lat, max_lng, min_lat, min_lng);
+    	}
+    	
+    	// 시간표 갱신 함수
+    	function generatePlanTable(details, totalBudget) {
+    		  $(".planPerHour").empty();
+    		  $(".planPerHour").append("<tr>");
+			  if (!(details.hasOwnProperty(day))) {
+				for (hour = 0; hour <= 23; hour++) {
+		    	  $(".planPerHour").append("<td></td>");
+		    	}
+			  } else {
+    		    for (hour = 0; hour <= 23; hour++) {
+    		      if (details[day].hasOwnProperty(hour)) {
+    		        var mergeCount = details[day][hour][1] - details[day][hour][0] + 1;
+    		        $(".planPerHour").append("<td colspan=" + mergeCount + ">" + details[day][hour][6] + "</td>");
+    		        hour = hour + mergeCount - 1;
+    		      } else {
+    		        $(".planPerHour").append("<td></td>");
+    		      }
+    		    }
+			  }
 
-    
-    	// 마커 좌표 초기화를 위한 마커 리스트
-    	var markerList = [];
-    	var savedList = [];
+    		  $(".planPerHour").append("</tr>");
+
+    		  $(".totalBudget").empty();
+    		  $(".totalBudget").append("총 예산: " + totalBudget + " 원");
+    	}
+    	
+    	function generateDay(day, period) {
+    		$(".day").empty();
+        	$('.nextDayBtn').removeClass(function(index, className) {
+        		  return (className.match(/\b(?!nextDayBtn)\S+/g) || []).join(' ');
+        		});
+        	$('.prevDayBtn').removeClass(function(index, className) {
+        		  return (className.match(/\b(?!prevDayBtn)\S+/g) || []).join(' ');
+        		});
+        	$(".day").append(day + "일차");
+        	if (day < period) {
+        		$(".nextDayBtn").addClass("canNextClick");
+        	}
+        	if (day > 1) {
+        		$(".prevDayBtn").addClass("canPrevClick");
+        	}
+        	
+        	generatePlanTable(details, totalBudget)
+    	}
     
         // 각 지역별 대표 좌표
         var regionPoint = {};
@@ -108,17 +166,22 @@
         regionPoint['10'] = new naver.maps.LatLng(37.74913611, 128.8784972);
 
         $(function() {
-        	// 최초 시간표 작성
-        	$(".planPerHour").append("<tr>");
-    		for (hour = 0; hour <= 23; hour++) {
-    			$(".planPerHour").append("<td></td>");
-    		}
-    		$(".planPerHour").append("</tr>");
-    		$(".totalBudget").append("총 예산: 0 원")
     		
     		// 최초 일차 작성
-    		$(".day").append(day + "일차");
-    		$(".nextDayBtn").append(">");
+    		generateDay(day, period);
+    		
+    		// 일차에서 다음 버튼 눌렀을때
+    		$('.pageController').on('click', '.canNextClick', function() {
+            	day = day + 1;
+            	console.log(day);
+            	generateDay(day, period);
+            })
+            
+            // 일차에서 이전 버튼 눌렀을때
+    		$('.pageController').on('click', '.canPrevClick', function() {
+            	day = day - 1;
+            	generateDay(day, period);
+            })
         	
         	// 모달 관련
         	$('.planCards').on('click', '.spotDetail', function() {
@@ -173,7 +236,7 @@
             });
         	
         	// 최초로 plancard를 만들어주는 ajax
-        	fetchData(page, region, category, sword);
+        	fetchData(page, region, category, sword, max_lat, max_lng, min_lat, min_lng);
         	
             // jquery 달력 불러옴
             $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
@@ -183,24 +246,24 @@
            		var end = new Date($(".endDate").val());
            		var timeDiff = Math.abs(start.getTime() - end.getTime());
 	           	var diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
-    	       	console.log(diffDays); 
+    	       	if (diffDays > 0) {
+    	       		period = diffDays;
+    	       	}
+    	       	generateDay(day, period);
             });
 
             // regionSelect 변경시 지도 해당 도시로 이동
             var selectBox = $("#region");
             selectBox.on("change", function(){
-                map.setCenter(regionPoint[$("#region option:selected").val()])
-                $('.planCards').empty(); // 기존 내용 초기화
             	region = $("#region option:selected").val();
-                page = 1;
+                map.setCenter(regionPoint[$("#region option:selected").val()]);
                 sword = '';
                 $(".searchInput").val('');
-                fetchData(page, region, category, sword);
+                // 네이버 지도에서 이벤트 처리하는 걸로 변경
             })
             
             // 카테고리 버튼 클릭시 해당 카테고리 장소만 노출됨
             $(".categoryBtn").click(function () {
-                $('.planCards').empty(); // 기존 내용 초기화
             	categoryInput = $(this).attr('id');
              	if (category === categoryInput) {
              		$(this).removeClass('blueBwhiteL');
@@ -216,30 +279,33 @@
              		$(this).removeClass('softblueBwhiteL');
              	}
              	page = 1;
-             	fetchData(page, region, category, sword);
+             	fetchData(page, region, category, sword, max_lat, max_lng, min_lat, min_lng);
             })
             
             // 페이지 이동
             $(document).on("click", ".movePage", function() {
     			page = $(this).text();
-    			fetchData(page, region, category, sword);
+    			fetchData(page, region, category, sword, max_lat, max_lng, min_lat, min_lng);
   			});
             
             $(document).on("click", ".nextPage", function() {
     			page = $(this).attr('id');
-    			fetchData(page, region, category, sword);
+    			fetchData(page, region, category, sword, max_lat, max_lng, min_lat, min_lng);
+  			});
+            
+            $(document).on("click", ".prevPage", function() {
+    			page = $(this).attr('id');
+    			fetchData(page, region, category, sword, max_lat, max_lng, min_lat, min_lng);
   			});
             
             // 검색 기능
             $(".searchBtn").click(function() {
             	sword = $('.searchInput').val();
-            	fetchData(page, region, category, sword);
+            	fetchData(page, region, category, sword, max_lat, max_lng, min_lat, min_lng);
             })
             
             
          	// 여행 세부 계획 임시 저장
-        	var details = {};
-        	var totalBudget = 0;
         	$(".submitDetail").click(function () {
         		var lName = $(".location_name").text();
         		var lBudget = Number($(".budgetTextInput").val());
@@ -281,7 +347,9 @@
         			map: map,
         			icon: {
         	        url: '/main/image/plan/saveMarker.png',
-        	    	}
+        	    	},
+        	    	zIndex: 2
+        		
         		};
         		
         		var marker = new naver.maps.Marker(markerOptions);
@@ -289,25 +357,10 @@
         		
         		
         		// 시간표 갱신
-        		$(".planPerHour").empty();
-        		$(".planPerHour").append("<tr>");
-        		for (hour = 0; hour <= 23; hour++) {
-        			if (details[day].hasOwnProperty(hour)) {
-        		
-        				var mergeCount = details[day][hour][1] - details[day][hour][0] + 1;
-        				console.log(details[day][hour][6]);
-        				$(".planPerHour").append("<td colspan="+ mergeCount +">"+ details[day][hour][6] +"</td>");
-        				hour = hour + mergeCount - 1;
-        			} else {
-        				$(".planPerHour").append("<td></td>");
-        			}
-        		}
-        		$(".planPerHour").append("</tr>");
-        		
-        		$(".totalBudget").empty();
-        		$(".totalBudget").append("총 예산: "+ totalBudget +" 원")
+        		generatePlanTable(details, totalBudget);
         		
         		$(".spotModal").fadeOut();
+        		
         	})
         });
     </script>
@@ -424,9 +477,9 @@
             </div>
             <div class="bottomContainer">
             	<div class="pageController">
-            	<div class="prevDayBtn" style="display:inline;"></div>
+            	<div class="prevDayBtn" style="display:inline; cursor:pointer;"><</div>
             	<div class="day" style="display:inline;"></div> 
-            	<div class="nextDayBtn" style="display:inline;"></div>
+            	<div class="nextDayBtn" style="display:inline; cursor:pointer;">></div>
             	</div>
             	<div class="timeTableWrapper">
             	<table class="timeTable" border="1">
@@ -476,12 +529,23 @@
         // 좌표로 맵 만들어주는 네이버 API
         var mapOptions = {
             center: new naver.maps.LatLng(37.514575, 127.0495556),
-            zoom: 10,
+            zoom: 15,
             mapDataControl: false
         };
         
         var map = new naver.maps.Map('map', mapOptions);
         map.Position = 3;
+        var bounds = map.getBounds(); // 현재 지도 영역의 좌표 범위 가져오기
+        var max_lat = bounds._max['_lat'];
+        var max_lng = bounds._max['_lng'];
+        var min_lat = bounds._min['_lat'];
+        var min_lng = bounds._min['_lng'];
+        var page = 1;
+        
+     // 지도의 영역이 변경되었을 때 이벤트 리스너 등록
+        naver.maps.Event.addListener(map, 'idle', function() {
+            moveMap();
+        });
     </script>
 </body>
 </html>

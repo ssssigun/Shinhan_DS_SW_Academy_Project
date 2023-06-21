@@ -26,11 +26,21 @@ public class LocationVO {
 	private int page; // 사용자가 요청한 페이지
 	private int rowPerPage;
 	
+	// 맵에서 보이는 영역
+	private String max_lng;
+	private String max_lat;
+	private String min_lat;
+	private String min_lng;
+	
 	public LocationVO() {
 		this.region = -1;
 		this.category = -1;
 		this.page = 1;
 		this.startIdx = 0;
 		this.rowPerPage = 5;
+		this.max_lat = "-1";
+		this.max_lng = "-1";
+		this.min_lat = "-1";
+		this.min_lng = "-1";
 	}
 }
