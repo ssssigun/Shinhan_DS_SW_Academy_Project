@@ -42,7 +42,8 @@
     <div class="contents">
       <div class="ContentsContainer">
         <div class="title">후기 게시판</div>
-        <div class="ReviewWrapper">
+        
+        <div class="postsWrapper">
           <div class="postWrapper">
             <div class="photoWrapper">
               
@@ -67,6 +68,7 @@
                 <button class="smallBtn blueBwhiteL">후기보기</button>
               </div>
             </div>
+          </div>
           </div>
           <div class="postWrapper">
             <div class="photoWrapper">
@@ -193,7 +195,7 @@
               </div>
             </div>
           </div>
-        </div>
+       
         <div class="pageControllerWrapper">
           <div class="pageController">
             <div class="MdNavigateBefore">
