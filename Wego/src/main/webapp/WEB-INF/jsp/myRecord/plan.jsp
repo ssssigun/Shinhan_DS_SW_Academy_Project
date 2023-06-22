@@ -48,7 +48,6 @@
     <!-- 이 부분에 헤더 푸터 사이에 들어가는 것들 넣어주세요. -->
     <!-- 정렬이 페이지마다 조금씩 달라서 wrapper 역할을 할 div(width: 100%, height: 100% + 원하는 정렬 등) 넣고 그 안에 요소들 넣으면 될 것 같습니다. -->
     <!-- common.css 파일은 수정하지 않고 새로운 css 파일을 추가 후 스타일 작성 -->
-    <div class="contentsContainer">
     	<div class="recordAndAccountBook">
 	    	<a href="" class="record bigbigLetter selectLetter" >여행 기록</a>
 	    	
@@ -96,7 +95,6 @@
 				<a href="" class="jiwon-numbers">1 2 3 4 5</a>
 				<a href="" class="jiwon-right">&gt</a>
 		    </div>
-    </div>
     
   </div>
   

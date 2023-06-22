@@ -366,7 +366,7 @@
     </script>
     <link rel="stylesheet" href="/main/css/reset.css">
     <link rel="stylesheet" href="/main/css/common.css">
-    <link rel="stylesheet" href="/main/css/plan/index.css?abd">
+    <link rel="stylesheet" href="/main/css/plan/index.css?aa">
 </head>
 <body>
     <div class="wrap">

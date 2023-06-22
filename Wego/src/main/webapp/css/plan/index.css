@@ -678,18 +678,18 @@ flex-grow: 0;
 }
 
 .timeTable {
+  width: 100%;
   border-collapse: collapse;
 }
 
 .timeTable td, .timeTable th {
   border: 1px solid #000;
-  padding: 10px;
   background-color: #f2f2f2;
   text-align: center;
 }
 
 .timeTable td {
-	height: 55px;
+	height: 80px;
 	background-color: #FFFFFF;
 }
 
