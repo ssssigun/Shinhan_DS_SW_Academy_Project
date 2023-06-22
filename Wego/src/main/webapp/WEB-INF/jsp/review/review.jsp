@@ -69,7 +69,6 @@
               </div>
             </div>
           </div>
-          </div>
           <div class="postWrapper">
             <div class="photoWrapper">
 
@@ -194,6 +193,8 @@
                 <button class="smallBtn blueBwhiteL">후기보기</button>
               </div>
             </div>
+            
+          </div>
           </div>
        
         <div class="pageControllerWrapper">
