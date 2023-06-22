@@ -1,3 +1,6 @@
+<%@page import="kr.co.main.myRecord.accountBook.ReportVO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="kr.co.main.myRecord.accountBook.TotalRateVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -17,8 +20,75 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <title>가계부</title>
 </head>
+<script>
+	var user_pk = 1;
+	var page_num = 0;
+	var totalPage = 0;
+	
+	/* 천 단위 콤마 */
+	function addComma(num) {
+		num = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num;
+	}
+	
+	/* 페이지 넘기는 버튼 */
+	$(document).ready(function() {
+		$("#beforePage").click(function(){
+			if (page_num != 0){
+				page_num -= 1;
+				getReportList(user_pk, page_num);
+			}
+		})
+		$("#nextPage").click(function(){
+				if (page_num != totalPage){
+					page_num += 1;
+					getReportList(user_pk, page_num);
+				}
+		});
+	});
+	
+	/* 하단 사용내역 게시물 불러오기 */
+	function getReportList(user_pk, page_num) {
+		$.ajax({
+			url: 'getReportList.do?user_pk=' + user_pk + '&start_page=' + page_num,
+			method: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				$('.postsWrapper').empty();
+				var list = data['list'];
+				list.forEach(function(object){
+					$('.postsWrapper').append(''
+						+'<div class="postWrapper">'
+		        +	'<div class="photoWrapper">'
+	          +   '</div>'
+	          +   '<div class="postInfoWrapper">'
+	          +   	'<div class="titleWrapper">'
+	          +    	object.title
+	          +    '</div>'
+	          +    '<div class="subWrapper">'+ object.num_of_people +'인 | '+addComma(object.total_usage)+' 원</div>'
+	          +    '<div class="subsubWrapper">'+object.start_date+' ~ ' + object.end_date + '</div>'
+	          +    '<div class="buttonsWrapper"><button class="smallBtn blueBwhiteL">상세보기</button></div>'
+	          +  '</div>'
+	          +'</div>'
+	        );
+				})
+				totalPage = data['totalPage'];
+				
+				if (totalPage == page_num) {
+					$('#nextPage').css({"background": "#D9D9D9", "cursor": "default"});
+				}
+				if (0 == page_num) {
+					$('#beforePage').css({"background": "#D9D9D9", "cursor": "default"});
+				}
+			}
+		})
+	}
+	
+	getReportList(1, page_num);
+	
+</script>
 <body>
-  <div class="header"></div>
+  <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>
   <div class="contents">
     <div class="contentsWrapper">
       <div class="smallMenuWrapper">
@@ -100,30 +170,17 @@
         </div>
         <div class="bottomWrapper">
           <div class="postsWrapper">
-        		<c:forEach var="report" items="${reportList }" >
-            <div class="postWrapper">
-              <div class="photoWrapper">
-              </div>
-              <div class="postInfoWrapper">
-                <div class="titleWrapper">
-                  ${report.title }
-                </div>
-                <div class="subWrapper">${report.num_of_people }인 | <fmt:formatNumber value="${report.total_usage }" pattern="#,#00"/>원</div>
-                <div class="subsubWrapper">${report.start_date } ~ ${report.end_date }</div>
-                <div class="buttonsWrapper"><button class="smallBtn blueBwhiteL">상세보기</button></div>
-              </div>
-            </div>
-          	</c:forEach>
+
           </div>
           <div class="pageButtonWrapper">
-            <button class="pageButton"><img src="/main/image/MdNavigateBefore.png"/></button>
-            <button class="pageButton"><img src="/main/image/MdNavigateNext.png"/></button>
+            <button class="pageButton" id="beforePage"><img src="/main/image/MdNavigateBefore.png"/></button>
+            <button class="pageButton" id="nextPage"><img src="/main/image/MdNavigateNext.png"/></button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="footer"></div>
+  <jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>
 </body>
 
 <!-- 파란 노란 전체 통계를 보여주기 위한 스타일 -->

@@ -11,7 +11,8 @@ public interface AccountMapper {
 	// XML 파일 id이름과 메서드명 똑같이 사용
 	TotalRateVO totalRate(int user_pk);
 	TotalRateVO getTotalRateForRadar(int user_pk);
-	List<ReportVO> getReportList(int user_pk);
+	List<ReportVO> getReportList(ReportVO vo);
+	int getCountReportList(int user_pk);
 	
 	
 	

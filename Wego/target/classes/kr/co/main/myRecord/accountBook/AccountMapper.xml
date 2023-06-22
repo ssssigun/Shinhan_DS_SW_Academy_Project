@@ -10,11 +10,17 @@
 	</select>
 	
 	<!-- 가게부 하단 여행 리스트 불러오기 -->
-	<select id="getReportList" parameterType="int" resultType="kr.co.main.myRecord.accountBook.ReportVO">
+	<select id="getReportList" resultType="kr.co.main.myRecord.accountBook.ReportVO">
 		<!-- 여행 계획 (계획 pk, 제목, 인원수, 총사용금액, 시작날짜, 종료날짜) -->
 		SELECT p.plan_pk, p.title, p.num_of_people, u.total_usage, p.start_date, p.end_date
 		FROM wego.plan p, (SELECT plan_pk, sum(amount) total_usage FROM wego.usage GROUP BY plan_pk) u
-		WHERE p.plan_pk = u.plan_pk AND p.user_pk = #{user_pk};
+		WHERE p.plan_pk = u.plan_pk AND p.user_pk = #{user_pk}
+		limit #{start_page}, 4;
+	</select>
+	
+	<!-- 여행 리스트 전체 크기 가져오기 -->
+	<select id="getCountReportList" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM wego.plan WHERE state = 1 AND user_pk = #{user_pk};
 	</select>
 	
 	<!-- 육각형을 위한 비율 가져오기 -->

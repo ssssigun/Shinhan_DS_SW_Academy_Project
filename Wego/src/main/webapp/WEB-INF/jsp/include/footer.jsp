@@ -7,6 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="/main/css/footer.css">
 <title>Insert title here</title>
 </head>
 <body>

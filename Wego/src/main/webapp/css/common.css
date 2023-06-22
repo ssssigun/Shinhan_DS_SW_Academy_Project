@@ -17,6 +17,9 @@ body {
 
   background: #FFFFFF;
 }
+button {
+	cursor: pointer;
+}
 .header {
 
   width: 100%;
