@@ -198,7 +198,7 @@ button {
   display: flex;
   flex-direction: column;
 
-  width: 378px;
+  width: 23%;
   padding: 20px 0px;
 }
 .postWrapper > .photoWrapper {
