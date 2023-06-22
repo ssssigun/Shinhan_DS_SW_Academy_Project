@@ -16,20 +16,25 @@ public class MyRecordPlanController {
 	@Autowired
 	MyRecordPlanService service;
 	
-	@GetMapping("/plan.do")
-	public String plan() {
-		return "myRecord/plan";
+	@GetMapping("/index.do")
+	public String index(MyRecordPlanVO vo, Model model) {
+		model.addAttribute("result",service.index(vo));
+		model.addAttribute("flag","1");
+		return "/myRecord/plan/index";
 	}
 	
-	@GetMapping("/willdo.do")
-	public String willdo(Model model) {
-		MyRecordPlanVO vo = new MyRecordPlanVO();
-		List<MyRecordPlanVO> list = service.willdo();
-		model.addAttribute("list",list);
-		return "myRecord/plan";
+	@GetMapping("/reviewing.do")
+	public String reviewing(MyRecordPlanVO vo, Model model) {
+		model.addAttribute("result",service.reviewing(vo));
+		model.addAttribute("flag","2");
+		return "/myRecord/plan/index";
 	}
 	
-	
-	
+	@GetMapping("/tempSaved.do")
+	public String tempSaved(MyRecordPlanVO vo, Model model) {
+		model.addAttribute("result",service.tempSaved(vo));
+		model.addAttribute("flag","3");
+		return "/myRecord/plan/index";
+	}
 	
 }

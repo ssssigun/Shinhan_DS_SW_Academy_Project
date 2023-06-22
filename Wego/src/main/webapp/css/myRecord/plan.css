@@ -1,25 +1,3 @@
-.a{
-	font-weight: 700;
-    text-decoration-line: underline;
-    color: black;
-}
-
-.contentsContainer{
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	padding: 0px 100px;
-	gap: 10px;
-	
-	width: 100%;
-	height: 950px;
-	
-	flex: none;
-	order: 1;
-	align-self: stretch;
-	flex-grow: 0;
-}
-
 .recordAndAccountBook{
 	display: flex;
 	flex-direction: row;
@@ -27,12 +5,9 @@
 	padding: 0px 0px 20px;
 	gap: 30px;
 	
-	width: 89.5%;
+	width: 100%;
 	height: 49px;
-	
-	
-	/* Inside auto layout */
-	
+
 	flex: none;
 	order: 0;
 	align-self: stretch;
@@ -46,34 +21,11 @@
 	padding: 0px;
 	gap: 10px;
 	
-	width: 89.5%;
+	width: 100%;
 	height: 38px;
-	
-	
-	/* Inside auto layout */
-	
+
 	flex: none;
 	order: 1;
-	align-self: stretch;
-	flex-grow: 0;
-}
-
-.postsPerLine{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: flex-start;
-	padding: 0px;
-	gap: 40px;
-	
-	width: 89.5%;
-	height: 349px;
-	
-	
-	/* Inside auto layout */
-	
-	flex: none;
-	order: 2;
 	align-self: stretch;
 	flex-grow: 0;
 }
@@ -82,15 +34,19 @@
 	width:18.8%;
 	height:29px;
 	font-size:13px;
+	cursor: default;
 }
 
 .alldone{
 	width:18.8%;
 	height:29px;
 	font-size:13px;
+	cursor: default;
 } 
 
-.myRecordPlanPaging{
-	order : 3;
-	margin: 0 auto;
-}
+.tempSaved{
+	width:18.8%;
+	height:29px;
+	font-size:13px;
+	cursor: default;
+} 

@@ -15,7 +15,7 @@ public class MyRecordPlanVO {
 	private Date end_date;
 	private int budget;
 	
-	private int rowPerPage =6;
+	private int rowPerPage =8;
 	private int page = 1;
 	private int startIdx = 0;
 }
