@@ -24,6 +24,7 @@
 	<!-- 페이징 처리-->
 
 	<!-- 검색 -->
+	
 	<!-- 리뷰 등록 -->
 	<insert id="insertReview" parameterType="kr.co.main.review.ReviewVO"	>
 		INSERT INTO review (
@@ -51,7 +52,9 @@
 	</delete>
 	
 	<!-- 리뷰 댓글 등록 -->
-	
+	<insert id="insertReviewComment" parameterType="kr.co.main.review.ReviewVO">
+		INSERT INTO 
+	</insert>
 
 	<!-- 리뷰 댓글 삭제 -->
 	<delete id="deleteReviewComment" parameterType="kr.co.main.review.ReviewVO">
