@@ -68,7 +68,7 @@
                 <dd class="bigLetter">999</dd>
               </div>
             </div>
-            <a href=""><img src="/image/report.png" /></a>
+            <a href=""><img src="../image/review/report.png" /></a>
           </div>
         </div>
         <div class="com">
