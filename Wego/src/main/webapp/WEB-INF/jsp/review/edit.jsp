@@ -66,8 +66,11 @@
               </h3>
             </div>
              <div class="photo">
-              <div class="photoWrapper">
-                <img src="../image/review/attachimg.png" />
+              <div class="photoWrapper">              
+                <img class="photo" src="../image/review/attachimg.png" />
+                <button class="rmBtn">
+                  <img src="../image/review/delete.png" />
+                </button>
               </div>
               <div class="Frame62">
                 <img src="../image/review/BsFillPlusCircleFill.png" />
