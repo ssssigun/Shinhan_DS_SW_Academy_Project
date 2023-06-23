@@ -72,11 +72,12 @@
           </div>
         </div>
       </div>
-      <div class="bottomWrapper">
+      
+    </div>
+    <div class="bottomWrapper">
         <div class="btn lightskyBblackL">나가기</div>
         <div class="btn blueBwhiteL">저장</div>
       </div>
-    </div>
     </div>
     <div class="footer">
     <div class="textFooter">
