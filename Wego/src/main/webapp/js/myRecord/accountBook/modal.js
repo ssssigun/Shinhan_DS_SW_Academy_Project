@@ -1,6 +1,6 @@
 var scrollY = 0;
 
-$(function () {
+function modal() {
   $("#detail").click(function () {
   	console.log("모달");
     $(".modal").fadeIn();
@@ -24,7 +24,7 @@ $(function () {
     $(".modal").fadeOut();
     enableScroll();
   });
-});
+}
 
 function disableScroll() {
   scrollY = document.documentElement.scrollTop;

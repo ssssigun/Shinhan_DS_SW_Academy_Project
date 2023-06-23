@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="/main/css/myRecord/accountBook.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script type="text/javascript" src="/main/js/myRecord/accountBook/modal.js" defer></script>
+	<script type="text/javascript" src="/main/js/myRecord/accountBook/modal.js"></script>
   <title>가계부</title>
 </head>
 <script>
@@ -61,24 +61,26 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
+				$('#modalPageNth').empty();
+				$('.resultWrapper').empty();
 				$("#modalPageNth").append((nth + 1) + "일차");
 				$(".resultWrapper").append(''
-					+'<table class="modalTable">'
-					+  '<tr>'
-					+	   '<td>카테고리</td>'
-					+    '<td>내용</td>'
-					+    '<td>금액</td>'
-					+  '</tr>'
+					+'<div class="modalTable">'
+					+  '<div class="modalTableRow">'
+					+	   '<div class="bigLetter bold mtb1">카테고리</div>'
+					+    '<div class="bigLetter bold mtb2">내용</div>'
+					+    '<div class="bigLetter bold mtb3">금액</div>'
+					+  '</div>'
 					+'</table>'
 				);
 				var list = data['list'];
 				list.forEach(function(object){
 					$(".modalTable").append(''
-						+'<tr>'
-						+  '<td>'+object.categoryName+'</td>'
-						+  '<td>'+object.content+'</td>'
-						+	 '<td>'+addComma(object.amount)+'</td>'
-						+'</tr>'
+						+  '<div class="modalTableRow">'
+						+    '<div class="letter mtb1">'+object.categoryName+'</div>'
+						+    '<div class="letter mtb2">'+object.content+'</div>'
+						+	   '<div class="letter mtb3">'+addComma(object.amount)+'</div>'
+						+  '</div>'
 					)
 				});
 			}
@@ -121,13 +123,17 @@
 				if (0 == page_num) {
 					$('#beforePage').css({"background": "#D9D9D9", "cursor": "default"});
 				}
+
+				modal();
 			}
-		})
+		});
+
 	}
 	
 	getReportList(1, page_num);
 	
 </script>
+
 <body>
 
 	<!-- 모달 -->

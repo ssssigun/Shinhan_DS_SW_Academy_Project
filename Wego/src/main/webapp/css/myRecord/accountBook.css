@@ -236,5 +236,26 @@
   border-radius: 20px;
   border: 1px solid #000;
   
+  box-sizing: border-box;
   padding: 50px;
+  
+  overflow: auto;
+}
+.modalTable {
+	width: 100%;
+}
+.modalTableRow {
+	width: 100%;
+	
+	display: flex;
+	
+}
+.mtb1 {
+	width: 20%;
+}
+.mtb2 {
+	width: 50%;
+}
+.mtb3 {
+	width: 30%;
 }
