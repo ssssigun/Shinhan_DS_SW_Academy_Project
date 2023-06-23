@@ -57,7 +57,10 @@
           </div>
           <div class="attachmentWrapper">
             <div class="Frame63">
+            <div class="attachcount">
               <h3 class="imgattach">사진 첨부</h3>
+              <h3 class="imgcount">1/10</h3>
+              </div>
               <h3 class="imgattachExplain">
                 가장 앞의 사진이 목록에서 대표사진으로 보여집니다.
               </h3>
