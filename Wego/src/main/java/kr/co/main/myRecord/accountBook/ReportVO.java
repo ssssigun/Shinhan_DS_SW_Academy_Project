@@ -12,9 +12,9 @@ public class ReportVO {
 	String title;
 	int num_of_people;
 	long total_usage;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date start_date;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date end_date;
 	
 	int user_pk;

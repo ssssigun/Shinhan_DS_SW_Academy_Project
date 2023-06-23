@@ -1,6 +1,6 @@
 package kr.co.main.myRecord.accountBook;
 
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +44,15 @@ public class AccountBookController {
 		Map<String, Object> map = Service.getReportList(vo);
 		
 		return map;
+	}
+	
+	/*
+	 * 사용 내역 불러오기
+	 */
+	@RequestMapping("/getUsageForUsageList.do")
+	@ResponseBody
+	public Map<String, Object> usageList(int plan_pk, String start_date, String end_date, int nth) throws ParseException {
+		return Service.getUsageForUsageList(plan_pk, start_date, end_date, nth);
 	}
 	
 	

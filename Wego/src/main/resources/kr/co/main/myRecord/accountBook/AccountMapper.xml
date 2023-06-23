@@ -30,11 +30,12 @@
 		WHERE state = 1 AND user_pk = #{user_pk};
 	</select>
 	
-	
-	
-	
-	<!-- review -->
-	
+
+	<!-- 여행 계획 및 날짜 별로 사용 내역 가져오기 -->
+	<select id="getUsageForUsageList" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
+		SELECT category, content, amount, usage_date FROM wego.usage
+		WHERE plan_pk = #{plan_pk} AND usage_date = #{date};
+	</select>
 	
 	
 </mapper>

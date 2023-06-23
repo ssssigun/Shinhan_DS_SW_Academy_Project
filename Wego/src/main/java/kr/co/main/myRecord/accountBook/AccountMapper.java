@@ -1,6 +1,7 @@
 package kr.co.main.myRecord.accountBook;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,7 @@ public interface AccountMapper {
 	TotalRateVO getTotalRateForRadar(int user_pk);
 	List<ReportVO> getReportList(ReportVO vo);
 	int getCountReportList(int user_pk);
+	List<AccountBookVO> getUsageForUsageList(Map<String, Object> map);
 	
 	
 	

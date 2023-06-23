@@ -18,12 +18,18 @@
   <link rel="stylesheet" href="/main/css/myRecord/accountBook.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script type="text/javascript" src="/main/js/myRecord/accountBook/modal.js" defer></script>
   <title>가계부</title>
 </head>
 <script>
+
 	var user_pk = 1;
 	var page_num = 0;
 	var totalPage = 0;
+	
+	/* 상세보기 페이지를 위한 변수들 */
+	var nth = 0;
+	var totalNth = 0;
 	
 	/* 천 단위 콤마 */
 	function addComma(num) {
@@ -47,6 +53,41 @@
 		});
 	});
 	
+	/* 상세보기 */
+	function detail(plan_pk, start_date, end_date) {
+		console.log(start_date);
+		$.ajax({
+			url: 'getUsageForUsageList.do?plan_pk='+plan_pk+'&start_date='+start_date+'&end_date='+end_date+'&nth='+nth,
+			method: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				$("#modalPageNth").append((nth + 1) + "일차");
+				$(".resultWrapper").append(''
+					+'<table class="modalTable">'
+					+  '<tr>'
+					+	   '<td>카테고리</td>'
+					+    '<td>내용</td>'
+					+    '<td>금액</td>'
+					+  '</tr>'
+					+'</table>'
+				);
+				var list = data['list'];
+				list.forEach(function(object){
+					$(".modalTable").append(''
+						+'<tr>'
+						+  '<td>'+object.categoryName+'</td>'
+						+  '<td>'+object.content+'</td>'
+						+	 '<td>'+addComma(object.amount)+'</td>'
+						+'</tr>'
+					)
+				});
+			}
+		})
+	}
+	
+	/* n일차 넘길 때마다 nth는 1씩 증가 */
+	
+	
 	/* 하단 사용내역 게시물 불러오기 */
 	function getReportList(user_pk, page_num) {
 		$.ajax({
@@ -67,7 +108,7 @@
 	          +    '</div>'
 	          +    '<div class="subWrapper">'+ object.num_of_people +'인 | '+addComma(object.total_usage)+' 원</div>'
 	          +    '<div class="subsubWrapper">'+object.start_date+' ~ ' + object.end_date + '</div>'
-	          +    '<div class="buttonsWrapper"><button class="smallBtn blueBwhiteL">상세보기</button></div>'
+	          +    '<div class="buttonsWrapper"><button class="smallBtn blueBwhiteL" id="detail" onclick="detail('+object.plan_pk+',\''+object.start_date+'\',\''+object.end_date+'\')">상세보기</button></div>'
 	          +  '</div>'
 	          +'</div>'
 	        );
@@ -88,6 +129,28 @@
 	
 </script>
 <body>
+
+	<!-- 모달 -->
+  <div class="modal">
+    <div class="modalContent">
+      <div class="modalPageWrapper">
+        <button class="modalPageBtn" id="beforeModalPage"><img src="/main/image/MdNavigateBefore.png"/></button>
+        <div class="bigbigLetter bold" id="modalPageNth"></div>
+        <button class="modalPageBtn" id="nextModalPage"><img src="/main/image/MdNavigateNext.png"/></button>
+      </div>
+      <div class="selectWrapper">
+        <div class="selectBtns">
+          <button class="blueBwhiteL btn bold modalSelectBtn">사용 내역</button>
+          <button class="softblueBwhiteL btn bold modalSelectBtn">비교</button>
+          <button class="softblueBwhiteL btn bold modalSelectBtn">통계</button>
+        </div>
+      </div>
+      <div class="resultWrapper">
+
+      </div>
+    </div>
+  </div>
+  
   <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>
   <div class="contents">
     <div class="contentsWrapper">
