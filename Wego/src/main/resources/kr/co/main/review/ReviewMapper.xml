@@ -18,8 +18,12 @@
 	
 	
 	<!-- 리뷰목록 보기 -->
+	<select id="reviewList" resultType="kr.co.main.review.ReviewVO">
+	</select>
 
-	<!-- 리뷰들 -->	
+	<!-- 리뷰들 -->
+	<select id="reviews" resultType="kr.co.main.review.ReviewVO">
+	</select>	
 
 	<!-- 페이징 처리-->
 
