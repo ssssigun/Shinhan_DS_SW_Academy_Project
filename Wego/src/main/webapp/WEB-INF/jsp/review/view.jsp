@@ -77,8 +77,13 @@
               <div class="nicknameWrapper">
                 <h3 class="letter">[닉네임]</h3>
                 <div class="menuWrapper">
-                  <a href=""><img src="../image/review/menuWrapper.png" /></a>
-                </div>
+  <a href="#"><img src="../image/review/menuWrapper.png" /></a>
+  <div class="buttonContainer">
+    <button class="editButton">수정</button>
+    <button class="deleteButton">삭제</button>
+  </div>
+</div>
+
               </div>
               <div class="contentsWrapper2">
                 <dd class="commentcontents">댓글 내용 어쩌구</dd>

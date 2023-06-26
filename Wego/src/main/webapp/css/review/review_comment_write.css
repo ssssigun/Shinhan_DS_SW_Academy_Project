@@ -600,3 +600,25 @@ h3 {
 .bigLetter {
   float: right;
 }
+
+.menuWrapper {
+  position: relative;
+  /*display: inline-block;*/
+}
+
+.buttonContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+.menuWrapper:hover .buttonContainer {
+  display: block;
+}
+
+.editButton, .deleteButton {
+  margin-right: 5px;
+}
+
+
