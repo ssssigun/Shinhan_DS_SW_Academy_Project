@@ -588,7 +588,7 @@ button2 {
 	border: none;
 	
 	position: absolute;
-	right: 3px;
+	right: px;
 }
 .rmBtn img {
   /*width: auto;*/
