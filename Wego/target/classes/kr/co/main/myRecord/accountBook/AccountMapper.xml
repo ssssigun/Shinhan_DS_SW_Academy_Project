@@ -37,6 +37,15 @@
 		WHERE plan_pk = #{plan_pk} AND usage_date = #{date};
 	</select>
 	
+	<!-- 예산과 실제 사용 금액 묶어서 가져오기 -->
+	<select id="getCompareForUsageList" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
+		SELECT u.locationName, p.budget, u.amount
+		FROM (SELECT l.locationName, u.location_pk, u.plan_pk, u.plan_detail_pk, u.amount, u.usage_date FROM wego.usage u, wego.location l WHERE l.location_pk = u.location_pk) u
+		LEFT JOIN
+			 wego.plan_detail p
+		ON u.plan_pk = p.plan_pk AND u.location_pk = p.location_pk
+		WHERE u.Usage_date = #{date};
+	</select>
 	
 </mapper>
 

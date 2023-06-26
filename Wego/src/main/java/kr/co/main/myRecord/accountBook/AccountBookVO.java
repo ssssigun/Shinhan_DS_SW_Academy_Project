@@ -13,6 +13,6 @@ public class AccountBookVO {
 	String categoryName;
 	long amount;
 	String content;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date usage_date;
 }

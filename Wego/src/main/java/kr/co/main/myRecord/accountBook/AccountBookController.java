@@ -47,6 +47,15 @@ public class AccountBookController {
 	}
 	
 	/*
+	 * 모달 전체 페이지 수 불러오기
+	 */
+	@RequestMapping("/getTotalNth.do")
+	@ResponseBody
+	public int totalNth(String start_date, String end_date) throws ParseException {
+		return Service.totalDate(start_date, end_date);
+	}
+	
+	/*
 	 * 사용 내역 불러오기
 	 */
 	@RequestMapping("/getUsageForUsageList.do")
@@ -55,6 +64,14 @@ public class AccountBookController {
 		return Service.getUsageForUsageList(plan_pk, start_date, end_date, nth);
 	}
 	
+	/*
+	 * 비교 불러오기
+	 */
+	@RequestMapping("/getCompareForUsageList.do")
+	@ResponseBody
+	public Map<String, Object> compareList(String start_date, int nth) {
+		return Service.getCompareForUsageList(start_date, nth);
+	}
 	
 	// test: jsp만 띄우기
 	@GetMapping("/test.do")

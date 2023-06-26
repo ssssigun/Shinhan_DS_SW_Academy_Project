@@ -30,6 +30,9 @@
 	/* 상세보기 페이지를 위한 변수들 */
 	var nth = 0;
 	var totalNth = 0;
+	var planPK = -1;
+	var startDate = "";
+	var endDate = "";
 	
 	/* 천 단위 콤마 */
 	function addComma(num) {
@@ -55,40 +58,103 @@
 	
 	/* 상세보기 */
 	function detail(plan_pk, start_date, end_date) {
-		console.log(start_date);
+		planPK = plan_pk;
+		startDate = start_date;
+		endDate = end_date;
+		nth = 0;
+		console.log(planPK, startDate, endDate, nth);
 		$.ajax({
-			url: 'getUsageForUsageList.do?plan_pk='+plan_pk+'&start_date='+start_date+'&end_date='+end_date+'&nth='+nth,
+			url: 'getTotalNth.do?start_date='+startDate+'&end_date='+endDate,
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
-				$('#modalPageNth').empty();
+				totalNth = data + 1;
+			}
+		});
+		modalPage();
+		usage();
+	}
+	
+	/* 모달 페이지 */
+	function modalPage() {
+		$('#modalPageNth').empty();
+		$('#modalPageNth').append((nth + 1) + "일차");
+	}
+	
+	/* 사용 내역 */
+	function usage() {
+		$.ajax({
+			url: 'getUsageForUsageList.do?plan_pk='+planPK+'&start_date='+startDate+'&end_date='+endDate+'&nth='+nth,
+			method: 'GET',
+			dataType: 'json',
+			success: function(data) {
 				$('.resultWrapper').empty();
-				$("#modalPageNth").append((nth + 1) + "일차");
 				$(".resultWrapper").append(''
-					+'<div class="modalTable">'
-					+  '<div class="modalTableRow">'
-					+	   '<div class="bigLetter bold mtb1">카테고리</div>'
-					+    '<div class="bigLetter bold mtb2">내용</div>'
-					+    '<div class="bigLetter bold mtb3">금액</div>'
-					+  '</div>'
+					+'<table class="modalTable">'
+					+  '<tr class="modalTableRow modalTableHead">'
+					+	   '<td class="bigLetter bold mtb1 mtb">카테고리</td>'
+					+    '<td class="bigLetter bold mtb2 mtb">내용</td>'
+					+    '<td class="bigLetter bold mtb3 mtb">금액</td>'
+					+  '</tr>'
 					+'</table>'
 				);
 				var list = data['list'];
 				list.forEach(function(object){
 					$(".modalTable").append(''
-						+  '<div class="modalTableRow">'
-						+    '<div class="letter mtb1">'+object.categoryName+'</div>'
-						+    '<div class="letter mtb2">'+object.content+'</div>'
-						+	   '<div class="letter mtb3">'+addComma(object.amount)+'</div>'
-						+  '</div>'
+						+  '<tr class="modalTableRow">'
+						+    '<td class="letter mtb1 mtb">'+object.categoryName+'</td>'
+						+    '<td class="letter mtb2 mtb">'+object.content+'</td>'
+						+	   '<td class="letter mtb3 mtb">'+addComma(object.amount)+'</td>'
+						+  '</tr>'
 					)
 				});
 			}
 		})
 	}
 	
-	/* n일차 넘길 때마다 nth는 1씩 증가 */
+	/* 비교 */
+	function compare() {
+		$.ajax({
+			url: 'getCompareForUsageList.do?start_date='+startDate+'&nth='+nth,
+			method: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				$('.resultWrapper').empty();
+				$('.resultWrapper').append(''
+					+'<div class="modalContentWrapper">'
+					+  '<div class="modalCompareTitle bigbigLetter bold">'
+					+    '<div>예산</div>'
+					+    '<div>실제 사용 금액</div>'
+					+  '</div>'
+					+  '<table class="tbl modalCompareTbl">'
+					+    '<tr class="modalCompareTr">'
+					+      '<td class="td bigLetter">전체</td>'
+					+      '<td width="'+10+'%"><div class="blueStickTd"></div></td>'
+					+      '<td><div class="yellowStickTd"></div></td>'
+					+      '<td class="td rightTd bigLetter">전체</td>'
+					+    '</tr>'
+					+  '</table>'
+					+'</div>'
+				);
+			}
+		})
+	}
 	
+	/* n일차 넘길 때마다 nth는 1씩 증가 */
+	$(document).ready(function() {
+		$("#beforeModalPage").click(function() {
+			if (nth != 0) {
+				nth -= 1;
+				console.log(nth);
+			}
+		})
+		$("#nextModalPage").click(function() {
+			if (nth != totalNth) {
+				nth += 1;
+				console.log(nth);
+			}
+		})
+	})
 	
 	/* 하단 사용내역 게시물 불러오기 */
 	function getReportList(user_pk, page_num) {
@@ -147,7 +213,7 @@
       <div class="selectWrapper">
         <div class="selectBtns">
           <button class="blueBwhiteL btn bold modalSelectBtn">사용 내역</button>
-          <button class="softblueBwhiteL btn bold modalSelectBtn">비교</button>
+          <button class="softblueBwhiteL btn bold modalSelectBtn" onclick="compare()">비교</button>
           <button class="softblueBwhiteL btn bold modalSelectBtn">통계</button>
         </div>
       </div>
