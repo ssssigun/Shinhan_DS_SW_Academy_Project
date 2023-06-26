@@ -89,7 +89,7 @@
         </div>
 
         <div class="bottomWrapper">
-          <div class="btn blueBwhiteL">목록</div>
+          <div class="btn blueBwhiteL"><a href="/main/review/index.do">목록</a></div>
           </div>
           <!-- <button type="button" onclick="">목록</button> -->
         </div>
