@@ -28,7 +28,19 @@
 	<!-- 페이징 처리-->
 
 	<!-- 검색 -->
-	
+	<sql id="whereSql">
+	<where>
+			<if test="stype == 'all'">
+			(title LIKE '%${sword }%' OR content LIKE '%${sword }%'	)
+			</if>
+			<if test="stype != 'all' and stype != null and stype !=''">
+			${stype} LIKE '%${sword }%'
+			</if>
+			<if test="memberno != 0">
+			AND memberno = #{memberno}
+			</if>
+		</where>
+	</sql>
 	<!-- 리뷰 등록 -->
 	<insert id="insertReview" parameterType="kr.co.main.review.ReviewVO"	>
 		INSERT INTO review (

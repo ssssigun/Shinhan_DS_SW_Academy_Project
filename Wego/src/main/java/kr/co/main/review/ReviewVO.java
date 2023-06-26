@@ -20,6 +20,14 @@ public class ReviewVO {
 	private Timestamp End_time;
 	
 	
+	//추가한거 파라미터가 다른용도로
+		private String stype; // 검색타입 (all:전체, title:제목, content:내용)
+		private String sword; // 검색어 사용자로 부터 파라미터 담기기때문 (넣어주는게 편함)
+		private int startIdx; //limit 시작인덱스 mysql에서는 0부터 시작함
+		private int page; //사용자가 요청한 페이지
+		private int rowPerPage; //페이지당로우수 로우가 몇개나 들어가냐 사용자로부터 이름의 파라미터 전달
+		// 들어가게
+	
 	
 	
 	//====================
