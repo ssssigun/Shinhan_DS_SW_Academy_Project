@@ -81,8 +81,8 @@
       
     </div>
     <div class="bottomWrapper">
-        <div class="btn lightskyBblackL">나가기</div>
-        <div class="btn blueBwhiteL">저장</div>
+        <div class="btn lightskyBblackL"><a href="/main/myRecord/plan/index.do">나가기</a></div>
+        <div class="btn blueBwhiteL"><a href="/main/myRecord/plan/index.do">저장</a></div>
       </div>
     </div>
     <div class="footer">
