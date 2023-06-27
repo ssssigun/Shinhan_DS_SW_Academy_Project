@@ -37,4 +37,9 @@ public class MyRecordPlanController {
 		return "/myRecord/plan/index";
 	}
 	
+	@GetMapping("writingReviews.do")
+	public String writingReviews(MyRecordPlanVO vo, Model model) {
+		return "/myRecord/plan/review_comment_write";
+	}
+	
 }

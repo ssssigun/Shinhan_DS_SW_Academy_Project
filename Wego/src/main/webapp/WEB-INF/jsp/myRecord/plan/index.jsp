@@ -30,7 +30,7 @@
     	<div class="recordAndAccountBook">
 	    	<a href="" class="record bigbigLetter selectLetter" >여행 기록</a>
 	    	<!-- 아래 href에 정은이 가계부 메인화면 링크 집어넣으면 됨 -->
-	    	<a href="" class="accountBook bigbigLetter">가계부</a>
+	    	<a href="/main/myRecord/accountBook/index.do?user_pk=1" class="accountBook bigbigLetter">가계부</a>
     	</div>
 
     		<div class="planAndReviewAndTempSave">
@@ -54,8 +54,8 @@
 	                <div class="subWrapper">${vo.number_of_people }인 | ${vo.budget }원</div>
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">
-	                	<button class="smallBtn redBwhiteL">삭제하기</button>
 	                	<button class="smallBtn blueBwhiteL">수정하기</button>
+	                	<button class="smallBtn redBwhiteL">삭제하기</button>
 	                </div>
 	              </div>
 	            </div>
@@ -92,9 +92,9 @@
 	                </div>
 	                <div class="subWrapper">${vo.number_of_people }인 | ${vo.budget }원</div>
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
-	                <div class="buttonsWrapper">
-	                	<button class="smallBtn redBwhiteL">삭제하기</button>
+	                <div class="buttonsWrapper">    	
 	                	<button class="smallBtn blueBwhiteL">수정하기</button>
+	                	<button class="smallBtn redBwhiteL">삭제하기</button>
 	                </div>
 	              </div>
 	            </div>
@@ -102,7 +102,43 @@
 	    	</c:if>   
         </div>
         
-
+		<div class="pagenate clear">
+          <ul class='paging'>
+          <c:if test="${flag eq '1' }">
+          	<c:if test="${result.prev == true }">
+               <li><a href="index.do?page=${result.startPage-1 }"> < </a></li>
+             </c:if>
+             <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
+               <li><a href='index.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
+             </c:forEach>
+             <c:if test="${result.next == true }">
+                <li><a href="index.do?page=${result.endPage+1 }"> > </a></li>
+             </c:if>
+          </c:if>
+          <c:if test="${flag eq '2' }">
+          	<c:if test="${result.prev == true }">
+               <li><a href="reviewing.do?page=${result.startPage-1 }"> < </a></li>
+             </c:if>
+             <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
+               <li><a href='reviewing.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
+             </c:forEach>
+             <c:if test="${result.next == true }">
+                <li><a href="reviewing.do?page=${result.endPage+1 }"> > </a></li>
+             </c:if>
+          </c:if>
+          <c:if test="${flag eq '3' }">
+          	<c:if test="${result.prev == true }">
+               <li><a href="tempSaved.do?page=${result.startPage-1 }"> < </a></li>
+             </c:if>
+             <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
+               <li><a href='tempSaved.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
+             </c:forEach>
+             <c:if test="${result.next == true }">
+                <li><a href="tempSaved.do?page=${result.endPage+1 }"> > </a></li>
+             </c:if>
+          </c:if>  
+          </ul> 
+        </div>
     
   </div>
   

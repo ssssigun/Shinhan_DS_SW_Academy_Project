@@ -37,9 +37,10 @@
 	</select>
 	
 	<select id="list3" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO">
-		SELECT p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget FROM wego.plan p, wego.plan_detail d
+		SELECT p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget FROM wego.plan p LEFT OUTER JOIN wego.plan_detail d 
+		ON p.plan_pk = d.plan_pk 
 		<where>
-			p.plan_pk = d.plan_pk and p.state = 2
+			p.state = 2
 		</where>
 		GROUP BY p.plan_pk
 		LIMIT ${startIdx},8
