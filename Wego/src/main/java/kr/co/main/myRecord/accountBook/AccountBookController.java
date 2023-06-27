@@ -69,8 +69,8 @@ public class AccountBookController {
 	 */
 	@RequestMapping("/getCompareForUsageList.do")
 	@ResponseBody
-	public Map<String, Object> compareList(String start_date, int nth) {
-		return Service.getCompareForUsageList(start_date, nth);
+	public Map<String, Object> compareList(int plan_pk, String start_date, int nth) {
+		return Service.getCompareForUsageListForDay(plan_pk, start_date, nth);
 	}
 	
 	// test: jsp만 띄우기

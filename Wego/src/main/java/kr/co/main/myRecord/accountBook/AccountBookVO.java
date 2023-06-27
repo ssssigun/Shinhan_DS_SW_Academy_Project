@@ -11,7 +11,10 @@ public class AccountBookVO {
 	int plan_pk;
 	int category;
 	String categoryName;
+	String locationName;
 	long amount;
+	long budget;
+	int rate;
 	String content;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date usage_date;

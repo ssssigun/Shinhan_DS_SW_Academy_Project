@@ -92,6 +92,7 @@
 				$(".resultWrapper").append(''
 					+'<table class="modalTable">'
 					+  '<tr class="modalTableRow modalTableHead">'
+					+	   '<td class="bigLetter bold mtb0 mtb">장소</td>'
 					+	   '<td class="bigLetter bold mtb1 mtb">카테고리</td>'
 					+    '<td class="bigLetter bold mtb2 mtb">내용</td>'
 					+    '<td class="bigLetter bold mtb3 mtb">금액</td>'
@@ -102,6 +103,7 @@
 				list.forEach(function(object){
 					$(".modalTable").append(''
 						+  '<tr class="modalTableRow">'
+						+	   '<td class="letter mtb0 mtb">'+object.locationName+'</td>'
 						+    '<td class="letter mtb1 mtb">'+object.categoryName+'</td>'
 						+    '<td class="letter mtb2 mtb">'+object.content+'</td>'
 						+	   '<td class="letter mtb3 mtb">'+addComma(object.amount)+'</td>'
@@ -115,7 +117,49 @@
 	/* 비교 */
 	function compare() {
 		$.ajax({
-			url: 'getCompareForUsageList.do?start_date='+startDate+'&nth='+nth,
+			url: 'getCompareForUsageList.do?plan_pk='+planPK+'&start_date='+startDate+'&nth='+nth,
+			method: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				var totalRate = data['totalRate'];
+				var list = data['list'];
+				
+				$('.resultWrapper').empty();
+				$('.resultWrapper').append(''
+					+'<div class="modalContentWrapper">'
+					+  '<div class="modalCompareTitle bigbigLetter bold">'
+					+    '<div>예산</div>'
+					+    '<div>실제 사용 금액</div>'
+					+  '</div>'
+					+  '<table class="tbl modalCompareTbl">'
+					+    '<tr class="modalCompareTr">'
+					+      '<td class="td letter modalStickGraphLeftText">전체</td>'
+					+      '<td><div class="modalStickGraphWrapper"><div class="blueStick modalStickGraph letter ellipsis" style="width:'+totalRate.rate+'%;">'+addComma(totalRate.budget)+' 원</div><div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(totalRate.amount)+' 원</div></div></td>'
+					+      '<td class="td rightTd letter modalStickGraphRightText">전체</td>'
+					+    '</tr>'
+					+  '</table>'
+					+'</div>'
+				);
+				list.forEach(function(object) {
+					$('.modalCompareTbl').append(''
+							+    '<tr class="modalCompareTr">'
+							+      '<td class="td letter ellipsis modalStickGraphLeftText">'+object.locationName+'</td>'
+							+      '<td><div class="modalStickGraphWrapper">'+(object.budget > 0 ? '<div class="blueStick modalStickGraph letter ellipsis" style="width:'+object.rate+'%;">'+addComma(object.budget)+' 원</div>':'')+(object.amount > 0 ? '<div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(object.amount)+' 원</div>' : '')+'</div></td>'
+							+      '<td class="td rightTd letter ellipsis modalStickGraphRightText">'+object.locationName+'</td>'
+							+    '</tr>'
+					)
+				})
+			},
+			error: function(error){
+				console.log(error);
+			} 
+		})
+	}
+	
+	/* 통계 */
+	function graph() {
+		$.ajax({
+			url: 'getCompareForUsageList.do?plan_pk='+planPK+'&start_date='+startDate+'&nth='+nth,
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
@@ -128,15 +172,26 @@
 					+  '</div>'
 					+  '<table class="tbl modalCompareTbl">'
 					+    '<tr class="modalCompareTr">'
-					+      '<td class="td bigLetter">전체</td>'
-					+      '<td width="'+10+'%"><div class="blueStickTd"></div></td>'
-					+      '<td><div class="yellowStickTd"></div></td>'
-					+      '<td class="td rightTd bigLetter">전체</td>'
+					+      '<td class="td letter modalStickGraphLeftText">전체</td>'
+					+      '<td><div class="modalStickGraphWrapper"><div class="blueStick modalStickGraph letter ellipsis" style="width:'+totalRate.rate+'%;">'+addComma(totalRate.budget)+' 원</div><div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(totalRate.amount)+' 원</div></div></td>'
+					+      '<td class="td rightTd letter modalStickGraphRightText">전체</td>'
 					+    '</tr>'
 					+  '</table>'
 					+'</div>'
 				);
-			}
+				list.forEach(function(object) {
+					$('.modalCompareTbl').append(''
+							+    '<tr class="modalCompareTr">'
+							+      '<td class="td letter ellipsis modalStickGraphLeftText">'+object.locationName+'</td>'
+							+      '<td><div class="modalStickGraphWrapper">'+(object.budget > 0 ? '<div class="blueStick modalStickGraph letter ellipsis" style="width:'+object.rate+'%;">'+addComma(object.budget)+' 원</div>':'')+(object.amount > 0 ? '<div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(object.amount)+' 원</div>' : '')+'</div></td>'
+							+      '<td class="td rightTd letter ellipsis modalStickGraphRightText">'+object.locationName+'</td>'
+							+    '</tr>'
+					)
+				})
+			},
+			error: function(error){
+				console.log(error);
+			} 
 		})
 	}
 	
@@ -212,9 +267,9 @@
       </div>
       <div class="selectWrapper">
         <div class="selectBtns">
-          <button class="blueBwhiteL btn bold modalSelectBtn">사용 내역</button>
+          <button class="blueBwhiteL btn bold modalSelectBtn" onclick="usage()">사용 내역</button>
           <button class="softblueBwhiteL btn bold modalSelectBtn" onclick="compare()">비교</button>
-          <button class="softblueBwhiteL btn bold modalSelectBtn">통계</button>
+          <button class="softblueBwhiteL btn bold modalSelectBtn" onclick="graph()">통계</button>
         </div>
       </div>
       <div class="resultWrapper">

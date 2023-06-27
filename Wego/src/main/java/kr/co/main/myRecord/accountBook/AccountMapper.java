@@ -15,7 +15,8 @@ public interface AccountMapper {
 	List<ReportVO> getReportList(ReportVO vo);
 	int getCountReportList(int user_pk);
 	List<AccountBookVO> getUsageForUsageList(Map<String, Object> map);
-	List<AccountBookVO> getCompareForUsageList(Map<String, Object> map);
+	List<AccountBookVO> getCompareForUsageListForDay(Map<String, Object> map);
+	AccountBookVO getTotalForDay(Map<String, Object> map);
 	
 	
 	

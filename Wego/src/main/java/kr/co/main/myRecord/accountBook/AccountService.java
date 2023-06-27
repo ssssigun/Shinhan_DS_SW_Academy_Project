@@ -81,13 +81,17 @@ public class AccountService {
 		return outputMap;
 	}
 	
-	public Map<String, Object> getCompareForUsageList(String start_date, int nth) {
+	public Map<String, Object> getCompareForUsageListForDay(int plan_pk, String start_date, int nth) {
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("date", addDate(start_date, nth));
+		inputMap.put("plan_pk", plan_pk);
 		
-		List<AccountBookVO> list = mapper.getCompareForUsageList(inputMap);
+		AccountBookVO totalVO = mapper.getTotalForDay(inputMap);
+		
+		List<AccountBookVO> list = mapper.getCompareForUsageListForDay(inputMap);
 		
 		Map<String, Object> outputMap = new HashMap<String, Object>();
+		outputMap.put("totalRate", totalVO);
 		outputMap.put("list", list);
 		
 		return outputMap;
