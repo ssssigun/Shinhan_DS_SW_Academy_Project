@@ -20,9 +20,10 @@
 	var day = 1;
 	var period = 1;
 	var markerList = [];
-	var savedList = [];
 	var details = {};
 	var totalBudget = 0;
+	var polylinePath = [];
+	var polyline = new naver.maps.Polyline();
 
 	
     	// 장소 리스트 받아오는 함수
@@ -213,6 +214,34 @@
         	
         	generatePlanTable(details, totalBudget)
     	}
+    	
+    	// 경로 그리는 함수
+    	function createOrUpdatePolyline(day, details, map) {
+    		var polylinePath = [];
+    		  if (details.hasOwnProperty(day)) {
+	    		for (var hour = 0; hour <= 23; hour++) {
+	    		  if (details[day].hasOwnProperty(hour)) {
+	    		    var cnt = details[day][hour][1] - details[day][hour][0] + 1;
+	    		    hour = hour + cnt - 1;
+	    		    polylinePath.push(new naver.maps.LatLng(details[day][hour][4], details[day][hour][3]));
+	    		  }
+	    		}
+  			}
+
+    		if (polyline && polyline.getMap()) {
+    		  polyline.setMap(null); // 기존 polyline 객체를 지도에서 제거
+    		}
+      
+    		polyline = new naver.maps.Polyline({
+    		  path: polylinePath,
+    		  strokeColor: '#FF0000',
+    		  strokeOpacity: 0.8,
+    		  strokeWeight: 6,
+    		  map: map
+    		});
+    		  
+    		return polyline;
+    	}
     
         // 각 지역별 대표 좌표
         var regionPoint = {};
@@ -228,6 +257,9 @@
         regionPoint['10'] = new naver.maps.LatLng(37.74913611, 128.8784972);
 
         $(function() {
+        	
+        	//실험
+			//
     		
     		// 최초 일차 작성
     		generateDay(day, period);
@@ -236,12 +268,14 @@
     		$('.pageController').on('click', '.canNextClick', function() {
             	day = day + 1;
             	console.log(day);
+            	polyline = createOrUpdatePolyline(day, details, map);
             	generateDay(day, period);
             })
             
             // 일차에서 이전 버튼 눌렀을때
     		$('.pageController').on('click', '.canPrevClick', function() {
             	day = day - 1;
+            	polyline = createOrUpdatePolyline(day, details, map);
             	generateDay(day, period);
             })
         	
@@ -436,9 +470,9 @@
         		};
         		
         		var marker = new naver.maps.Marker(markerOptions);
-        		savedList.push(marker);
         		
-        		
+        		// 경로 갱신
+        		polyline = createOrUpdatePolyline(day, details, map);
         		// 시간표 갱신
         		generatePlanTable(details, totalBudget);
         		
