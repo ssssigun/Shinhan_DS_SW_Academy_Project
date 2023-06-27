@@ -54,6 +54,18 @@
 		WHERE u.Usage_date = #{date} AND u.plan_pk = #{plan_pk};
 	</select>
 	
+	<!-- 일 별 통계를 위한 카테고리 별 금액 -->
+	<select id="getGraphForUsageListForDay" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
+		SELECT u.sum, u.category, u.usage_date, ROUND((u.sum/tu.sum)*100) rate
+		FROM (SELECT SUM(amount) sum, category, usage_date FROM wego.usage
+			GROUP BY category, usage_date, plan_pk
+			HAVING usage_date = #{date} AND plan_pk = #{plan_pk}) u
+		, (SELECT SUM(amount) sum
+			FROM wego.usage
+			GROUP BY usage_date, plan_pk
+			HAVING usage_date = #{date} AND plan_pk = #{plan_pk}) tu;
+	</select>
+	
 </mapper>
 
 

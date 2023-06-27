@@ -18,4 +18,5 @@ public class AccountBookVO {
 	String content;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	Date usage_date;
+	int sum;
 }

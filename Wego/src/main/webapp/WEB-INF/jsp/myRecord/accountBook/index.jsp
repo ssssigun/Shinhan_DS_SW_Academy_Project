@@ -159,35 +159,35 @@
 	/* 통계 */
 	function graph() {
 		$.ajax({
-			url: 'getCompareForUsageList.do?plan_pk='+planPK+'&start_date='+startDate+'&nth='+nth,
+			url: 'getGraphForUsageList.do?plan_pk='+planPK+'&start_date='+startDate+'&nth='+nth,
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
 				$('.resultWrapper').empty();
 				$('.resultWrapper').append(''
 					+'<div class="modalContentWrapper">'
-					+  '<div class="modalCompareTitle bigbigLetter bold">'
-					+    '<div>예산</div>'
-					+    '<div>실제 사용 금액</div>'
-					+  '</div>'
-					+  '<table class="tbl modalCompareTbl">'
-					+    '<tr class="modalCompareTr">'
-					+      '<td class="td letter modalStickGraphLeftText">전체</td>'
-					+      '<td><div class="modalStickGraphWrapper"><div class="blueStick modalStickGraph letter ellipsis" style="width:'+totalRate.rate+'%;">'+addComma(totalRate.budget)+' 원</div><div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(totalRate.amount)+' 원</div></div></td>'
-					+      '<td class="td rightTd letter modalStickGraphRightText">전체</td>'
+					+  '<table class="modalGraphTbl">'
+					+    '<tr class="modalGraphTr">'
+					+      '<td class="modalGraphTd">'+(data["1"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["1"].rate+'%;">'+addComma(data["1"].sum)+'</div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["2"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["2"].rate+'%;">'+addComma(data["2"].sum)+'</div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["3"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["3"].rate+'%;">'+addComma(data["3"].sum)+'</div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["4"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["4"].rate+'%;">'+addComma(data["4"].sum)+'</div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["5"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["5"].rate+'%;">'+addComma(data["5"].sum)+'</div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["6"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["6"].rate+'%;">'+addComma(data["6"].sum)+'</div>' : '')+'</td>'
+					+    '</tr>'
+					+    '</hr>'
+					+    '<tr class="modalGraphTitelTr">'
+					+      '<td class="letter modalGraphTitleTd">숙박</td>'
+					+      '<td class="letter modalGraphTitleTd">식비</td>'
+					+      '<td class="letter modalGraphTitleTd">쇼핑비</td>'
+					+      '<td class="letter modalGraphTitleTd">문화시설비</td>'
+					+      '<td class="letter modalGraphTitleTd">관광지비</td>'
+					+      '<td class="letter modalGraphTitleTd">레포츠비</td>'
 					+    '</tr>'
 					+  '</table>'
 					+'</div>'
-				);
-				list.forEach(function(object) {
-					$('.modalCompareTbl').append(''
-							+    '<tr class="modalCompareTr">'
-							+      '<td class="td letter ellipsis modalStickGraphLeftText">'+object.locationName+'</td>'
-							+      '<td><div class="modalStickGraphWrapper">'+(object.budget > 0 ? '<div class="blueStick modalStickGraph letter ellipsis" style="width:'+object.rate+'%;">'+addComma(object.budget)+' 원</div>':'')+(object.amount > 0 ? '<div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(object.amount)+' 원</div>' : '')+'</div></td>'
-							+      '<td class="td rightTd letter ellipsis modalStickGraphRightText">'+object.locationName+'</td>'
-							+    '</tr>'
-					)
-				})
+				)
+				console.log(data);
 			},
 			error: function(error){
 				console.log(error);

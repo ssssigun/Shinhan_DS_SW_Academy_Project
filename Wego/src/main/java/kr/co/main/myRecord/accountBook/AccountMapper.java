@@ -17,7 +17,7 @@ public interface AccountMapper {
 	List<AccountBookVO> getUsageForUsageList(Map<String, Object> map);
 	List<AccountBookVO> getCompareForUsageListForDay(Map<String, Object> map);
 	AccountBookVO getTotalForDay(Map<String, Object> map);
-	
+	List<AccountBookVO> getGraphForUsageListForDay(Map<String, Object> map);
 	
 	
 	

@@ -97,6 +97,40 @@ public class AccountService {
 		return outputMap;
 	}
 	
+	public Map<String, Object> getGraphForUsageListForDay(int plan_pk, String start_date, int nth) {
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("date", addDate(start_date, nth));
+		inputMap.put("plan_pk", plan_pk);
+		
+		List<AccountBookVO> graphVO = mapper.getGraphForUsageListForDay(inputMap);
+		Map<String, Object> outputMap = new HashMap<String, Object>();
+		for (int i = 1; i <= 6; i++) {
+			outputMap.put(String.valueOf(i), new AccountBookVO());
+		}
+		for (AccountBookVO vo : graphVO) {
+			switch (vo.getCategory()) {
+				case 1: outputMap.put("1", vo);
+						break;
+				case 2: outputMap.put("2", vo);
+						break;
+				case 3: outputMap.put("3", vo);
+						break;
+				case 4: outputMap.put("4", vo);
+						break;
+				case 5: outputMap.put("5", vo);
+						break;
+				case 6: outputMap.put("6", vo);
+						break;
+				default: outputMap.put("미정", vo);
+						break;
+			}
+		}
+		
+		outputMap.put("totalRate", graphVO);
+		
+		return outputMap;
+	}
+	
 	public void addCategoryName(AccountBookVO vo) {
 		switch (vo.getCategory()) {
 			case 1: vo.setCategoryName("음식점");

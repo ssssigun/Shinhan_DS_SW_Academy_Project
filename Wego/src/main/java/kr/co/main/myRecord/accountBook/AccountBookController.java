@@ -73,6 +73,15 @@ public class AccountBookController {
 		return Service.getCompareForUsageListForDay(plan_pk, start_date, nth);
 	}
 	
+	/*
+	 * 통계 불러오기
+	 */
+	@RequestMapping("/getGraphForUsageList.do")
+	@ResponseBody
+	public Map<String, Object> graphList(int plan_pk, String start_date, int nth) {
+		return Service.getGraphForUsageListForDay(plan_pk, start_date, nth);
+	}
+	
 	// test: jsp만 띄우기
 	@GetMapping("/test.do")
 	public String test() {
