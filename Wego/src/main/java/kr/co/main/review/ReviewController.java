@@ -9,11 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.main.myRecord.plan.MyRecordPlanService;
+import kr.co.main.myRecord.plan.MyRecordPlanVO;
+
 
 @Controller
 @RequestMapping("/review")
 public class ReviewController {
-	
+	@Autowired
+	ReviewService service;
 	
 	
 	
@@ -31,10 +35,12 @@ public class ReviewController {
 	//===
 		@GetMapping("index.do")
 		public String review(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
-//			model.addAttribute("data", Service.view(vo));
+//			model.addAttribute("result",service.reviewing(vo));
+			model.addAttribute("flag","2");
 			return "review/index";
 		}	
 		
+
 	//===
 	//수정 review_update => edit
 	//===

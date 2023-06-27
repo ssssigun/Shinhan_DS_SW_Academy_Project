@@ -83,7 +83,7 @@
             </div>
             <div class="postInfoWrapper">
               <div class="titleWrapper">
-                제주도 너무 좋아용
+                ${vo.title}
                 <div class="iconsWrapper">
                   <div class="iconWrapper">
                     <img class="icon" src="../image/review/BsHandThumbsUpFill.png" />

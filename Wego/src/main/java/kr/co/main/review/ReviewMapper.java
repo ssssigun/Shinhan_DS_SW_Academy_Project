@@ -2,8 +2,11 @@
 package kr.co.main.review;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import kr.co.main.myRecord.plan.MyRecordPlanVO;
 
 
 @Mapper
@@ -12,10 +15,11 @@ public interface ReviewMapper {
 	// XML 파일 id이름과 메서드명 똑같이 사용
 	List<ReviewVO> test();
 	
+	void insertReviewComment(Map<String,Object> map);
 	
 	
-	
-	
+	List<ReviewVO> list2(ReviewVO vo);
+	int count2();
 	//=======================
 	// review
 	//=======================

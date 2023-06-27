@@ -19,13 +19,18 @@
 	
 	<!-- 리뷰목록 보기 -->
 	<select id="reviewList" resultType="kr.co.main.review.ReviewVO">
+		select title, regdate, (select nickname from wego.user) as nickname, (select count(Review_watch_pk) from wego.review_watch) as watch 
+		,(select count(Review_recommend_pk)  from wego.review_recommend) as recommend, Filename_save from wego.review left join wego.review_image
+		on wego.review.Review_pk = wego.review_image.Review_image_pk;
 	</select>
 
 	<!-- 리뷰들 -->
 	<select id="reviews" resultType="kr.co.main.review.ReviewVO">
+		
 	</select>	
 
 	<!-- 페이징 처리-->
+		
 
 	<!-- 검색 -->
 	<sql id="whereSql">
@@ -69,7 +74,8 @@
 	
 	<!-- 리뷰 댓글 등록 -->
 	<insert id="insertReviewComment" parameterType="kr.co.main.review.ReviewVO">
-		INSERT INTO 
+		INSERT INTO wego.review_comment (user_pk,review_pk,plan_pk,regdate,comment_content)
+		VALUES (#{User_pk},1,1,"2023-06-27","한번 더 갔다옴");
 	</insert>
 
 	<!-- 리뷰 댓글 삭제 -->

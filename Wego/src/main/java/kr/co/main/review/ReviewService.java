@@ -1,7 +1,9 @@
 
 package kr.co.main.review;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,12 @@ public class ReviewService {
 		System.out.println("service" + m.toString());
 		return m;
 	}
+	
+	public void insertReviewComment(Map<String,Object> map) {
+		mapper.insertReviewComment(map);
+	}
+	
+	
 	
 	
 //	///====

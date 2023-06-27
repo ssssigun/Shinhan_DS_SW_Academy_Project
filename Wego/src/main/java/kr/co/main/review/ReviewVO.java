@@ -37,7 +37,7 @@ public class ReviewVO {
 //	private int Plan_pk; //다른 pk 안들어가지 않음?
 //	private int User_pk; //다른 pk 안들어가지 않음?
 	
-	private String Title;
+	private String title;
 	private String Content;
 	private Timestamp Regdate; //컬럼 이름이 똑같아서 중복인데
 	
