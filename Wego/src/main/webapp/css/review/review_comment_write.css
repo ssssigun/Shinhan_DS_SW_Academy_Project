@@ -617,6 +617,7 @@ h3 {
 
 .menuWrapper:hover .buttonContainer {
   display: block;
+  width:50px;
 }
 
 .editButton, .deleteButton {

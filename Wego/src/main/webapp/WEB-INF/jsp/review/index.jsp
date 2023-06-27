@@ -15,6 +15,39 @@
     <link rel="stylesheet" href="../css/review/review.css" />
 
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+ // 페이지네이션
+    $('.pageWrapper').empty();
+    var paging = $('<ul>').addClass('paging');
+    if (data.prev) {
+  	  var pageItem = $('<li>').html('<div class="prevPage" id="'+(Number(data.startPage) - 1)+'"><</div>');
+      paging.append(pageItem);
+      var pageItem = $('<li>').html('<div class="blank">&nbsp;</div>');
+        paging.append(pageItem);
+    }
+    for (var i = Number(data.startPage); i <= Number(data.endPage); i++) {
+      var pageItem = $('<li>').html('<div class="movePage">' + i + '</div>');
+      if (page == i) {
+        pageItem.addClass('selectLetter');
+      }
+      paging.append(pageItem);
+    }
+    if (data.next) {
+  	var pageItem = $('<li>').html('<div class="blank">&nbsp;</div>');
+        paging.append(pageItem);
+      var pageItem = $('<li>').html('<div class="nextPage" id="'+(Number(data.endPage) + 1)+'">></div>');
+      paging.append(pageItem);
+    }
+
+    $('.pageWrapper').append(paging);
+  },
+  error: function() {
+    alert('데이터를 가져오는 데 실패했습니다.');
+  }
+});
+}
+    </script>
+    
 
     <title>common</title>
   </head>
@@ -196,7 +229,9 @@
             
           </div>
           </div>
-       
+       <div class="pageWrapper">
+                        
+                    </div>
         <div class="pageControllerWrapper">
           <div class="pageController">
             <div class="MdNavigateBefore">
@@ -220,6 +255,7 @@
             </div>
           </div>
         </div>
+        
         <hr />
         <div class="search">
           <div class="searchWrapper">
