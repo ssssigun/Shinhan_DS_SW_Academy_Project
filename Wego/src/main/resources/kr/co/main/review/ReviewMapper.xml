@@ -36,17 +36,17 @@
 			<if test="stype != 'all' and stype != null and stype !=''">
 			${stype} LIKE '%${sword }%'
 			</if>
-			<if test="memberno != 0">
-			AND memberno = #{memberno}
+			<if test="User_pk != 0">
+			AND User_pk = #{User_pk}
 			</if>
 		</where>
 	</sql>
 	<!-- 리뷰 등록 -->
 	<insert id="insertReview" parameterType="kr.co.main.review.ReviewVO"	>
 		INSERT INTO review (
-			title, content, viewcount, regdate, filename_org, filename_real, memberno
+			title, content, viewcount, regdate, filename_org, filename_save, User_pk
 		) VALUES (
-			#{title}, #{content}, 0, NOW(), #{filename_org}, #{filename_real}, #{memberno}
+			#{title}, #{content}, 0, NOW(), #{filename_org}, #{filename_save}, #{User_pk}
 		)
 	</insert>
 	
@@ -57,7 +57,7 @@
 			, content = #{content}
 			<if test="filename_org != null and filename_org != ''">
 			, filename_org = #{filename_org}
-			, filename_real = #{filename_real}
+			, filename_save = #{filename_save}
 			</if>
 		WHERE Review_pk = #{Review_pk}
 	</update>
