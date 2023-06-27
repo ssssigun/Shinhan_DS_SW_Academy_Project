@@ -44,7 +44,7 @@
     	        var planCard = $('<div>').addClass('planCard');
     	        var planPhoto = $('<div>').addClass('planPhoto');
     	        var plan = $('<div>').addClass('plan');
-    	        var boldText = $('<div>').addClass('bold').text(location.location_name);
+    	        var boldText = $('<div>').addClass('bold').text(location.locationName);
     	        var categoryText = $('<div>').text(location.category_name);
     	        var idx = $('<div>').addClass('index').text(index);
     	        var spotDetail = $('<div>').addClass('spotDetail cardButtonWrapper').attr('id', location.location_pk + ' ' + index);
@@ -119,7 +119,12 @@
     		    for (hour = 0; hour <= 23; hour++) {
     		      if (details[day].hasOwnProperty(hour)) {
     		        var mergeCount = details[day][hour][1] - details[day][hour][0] + 1;
-    		        $(".planPerHour").append("<td colspan=" + mergeCount + ">" + details[day][hour][6] + "</td>");
+    		        $(".planPerHour").append("<td colspan=" + mergeCount + ">"  +
+    		        	"<ul>"	+ 
+    		        		"<li>" + details[day][hour][6] + "</li>" +
+    		        		"<li>" + details[day][hour][7] + "원 </li>" + 
+    		        	"</ul>" +
+    		        	"</td>");
     		        hour = hour + mergeCount - 1;
     		      } else {
     		        $(".planPerHour").append("<td></td>");
@@ -131,6 +136,63 @@
 
     		  $(".totalBudget").empty();
     		  $(".totalBudget").append("총 예산: " + totalBudget + " 원");
+    	}
+    	
+    	function generateFinTimetable(details, day, period) {
+    		$(".finTimetableWrapper").empty();
+    		for (var day2 = 1; day2 < day + period; day2++) {
+    			$(".finTimetableWrapper").append("<div class='"+ day2 + "bottomContainer finContainer'></div>");
+    			$("."+day2+"bottomContainer").append("<div class='"+ day2 +"pageController finDay'>"+ day2 +" 일차</div>");
+    			$("."+day2+"bottomContainer").append("<div class='"+ day2 +"timeTableWrapper timeTableWrapper'></div>");
+    			$("."+day2+"timeTableWrapper").append("<table class='"+ day2 +"timeTable timeTable'></table>");
+    			$("."+day2+"timeTable").append("<thead><tr>"
+        				+ "<th>00:00</th>"
+        				+ "<th>01:00</th>"
+        				+ "<th>02:00</th>"
+        				+ "<th>03:00</th>"
+        				+ "<th>04:00</th>"
+        				+ "<th>05:00</th>"
+        				+ "<th>06:00</th>"
+        				+ "<th>07:00</th>"
+        				+ "<th>08:00</th>"
+        				+ "<th>09:00</th>"
+        				+ "<th>10:00</th>"
+        				+ "<th>11:00</th>"
+        				+ "<th>12:00</th>"
+        				+ "<th>13:00</th>"
+        				+ "<th>14:00</th>"
+        				+ "<th>15:00</th>"
+        				+ "<th>16:00</th>"
+        				+ "<th>17:00</th>"
+        				+ "<th>18:00</th>"
+        				+ "<th>19:00</th>"
+        				+ "<th>20:00</th>"
+        				+ "<th>21:00</th>"
+        				+ "<th>22:00</th>"
+        				+ "<th>23:00</th>"
+        			+"</tr></table>");
+    			$("."+day2+"timeTable").append("<tbody class='" + day2 + "planPerHour planPerHour'></tbody>");
+    			if (!(details.hasOwnProperty(day))) {
+    				for (hour = 0; hour <= 23; hour++) {
+    		    	  $("."+day2+"planPerHour").append("<td></td>");
+    		    	}
+    			  } else {
+	    			for (hour = 0; hour <= 23; hour++) {
+	      		      if (details[day2].hasOwnProperty(hour)) {
+	      		        var mergeCount = details[day2][hour][1] - details[day2][hour][0] + 1;
+	      		        $("."+day2+"planPerHour").append("<td colspan=" + mergeCount + ">"  +
+	      		        	"<ul>"	+ 
+	      		        		"<li>" + details[day2][hour][6] + "</li>" +
+	      		        		"<li>" + details[day2][hour][7] + "원 </li>" + 
+	      		        	"</ul>" +
+	      		        	"</td>");
+	      		        hour = hour + mergeCount - 1;
+	      		      } else {
+	      		        $("."+day2+"planPerHour").append("<td></td>");
+	      		      }
+	      		    }
+    			}
+    		}
     	}
     	
     	function generateDay(day, period) {
@@ -196,7 +258,7 @@
             			var modalContent = $('#modalContent');
                         modalContent.empty(); // 기존 내용 초기화
 
-                        var listItem = $('<li>').html('<div class="location_name bold">' + data.location_name + '</div>'); // JSON 데이터의 필드에 따라 내용을 조정할 수 있습니다.
+                        var listItem = $('<li>').html('<div class="location_name bold">' + data.locationName + '</div>'); // JSON 데이터의 필드에 따라 내용을 조정할 수 있습니다.
                         modalContent.append(listItem);
                         var sTime = new Date(data.start_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();
                         var eTime = new Date(data.end_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();
@@ -233,6 +295,27 @@
             });
             $(".spotModalOutButton").click(function (e) {
             	$(".spotModal").fadeOut();
+            });
+            $(".spotModal").click(function (e) {
+            	$(".spotModal").fadeOut();
+            });
+            
+            $(".finBtn").click(function (e) {
+                $(".finModal").fadeIn();
+                generateFinTimetable(details, day, period);
+            });
+            
+            $(".finContent").click(function (e) {
+                // e.preventDefault();
+                e.stopPropagation();
+            });
+            
+            $(".finModal").click(function (e) {
+                $(".finModal").fadeOut();
+            });
+            
+            $(".finModalOutButton").click(function (e) {
+            	$(".finModal").fadeOut();
             });
         	
         	// 최초로 plancard를 만들어주는 ajax
@@ -366,7 +449,7 @@
     </script>
     <link rel="stylesheet" href="/main/css/reset.css">
     <link rel="stylesheet" href="/main/css/common.css">
-    <link rel="stylesheet" href="/main/css/plan/index.css?aa">
+    <link rel="stylesheet" href="/main/css/plan/index.css?adbcd">
 </head>
 <body>
     <div class="wrap">
@@ -407,6 +490,16 @@
             	<button class="btn blueBwhiteL spotSaveBtn submitDetail" style="font-size:18px;">추가하기</button>
           	</div>
           </div>
+        </div>
+      </div>
+      <div class="finModal">
+        <div class="finContent">
+          <div class="finTimetableWrapper">
+          </div>
+          <div class="spotButtonWrapper">
+            <button class="btn lightskyBblackL spotSaveBtn finModalOutButton" style="font-size:18px;">돌아가기</button>
+            <button class="btn blueBwhiteL spotSaveBtn finNext" style="font-size:18px;">다음</button>
+           </div>
         </div>
       </div>
         <div class="leftContainer">
@@ -519,8 +612,8 @@
             	<div class="totalBudget bold"></div>
             	</div>
             	<div class="bottomButtonWrapper">
-            		<button class="btn lightskyBblackL categoryBtn" style="font-size:18px;">임시저장</button>
-            		<button class="btn blueBwhiteL categoryBtn">완료</button>
+            		<button class="btn lightskyBblackL btnSize" style="font-size:18px;">임시저장</button>
+            		<button class="btn blueBwhiteL btnSize finBtn">완료</button>
             	</div>
             </div>
         </div>

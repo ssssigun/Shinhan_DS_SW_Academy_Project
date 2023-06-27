@@ -20,7 +20,6 @@ body {
 
 .leftContainer {
     box-sizing: border-box;
-
 /* Auto layout */
 
     display: flex;
@@ -160,6 +159,12 @@ body {
 }
 
 .categoryBtn {
+    width: 100px;
+    height: 35px;
+    text-align: center;
+}
+
+.btnSize {
     width: 100px;
     height: 35px;
     text-align: center;
@@ -579,6 +584,68 @@ flex-grow: 0;
 	flex-grow: 0;
 }
 
+.finModal {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.finContent {
+  width: 90%;
+  height: 80%;
+  z-index: 101;
+
+  /* 가운데 정렬 */
+  position: absolute;
+  top: 10%;
+  left: 5%;
+
+  background: #FFFFFF;
+
+  padding: 0px;
+  justify-content: center;
+}
+
+.finContainer {
+    box-sizing: border-box;
+    padding: 20px 30px;
+    text-align: center;
+
+    width: 100%;
+    height: 30%;
+}
+
+.finDay {
+	box-sizing: border-box;
+	padding: 0px;
+
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	font-size: 25px;
+	font-weight: 700;
+
+}
+
+.finTimetableWrapper {
+	box-sizing: border-box;
+	align-items: center;
+	padding: 0px;
+	gap: 20px;
+	margin: 0 auto;
+	margin-top: 60px;
+
+	width: 90%;
+	height: 80%;
+	overflow-y: scroll;
+	border: 1px solid #000000;
+}
+
 .timeInput {
 	box-sizing: border-box;
 	display: flex;
@@ -688,11 +755,15 @@ flex-grow: 0;
   text-align: center;
 }
 
+.timeTable th {
+	height: 40px;
+	line-height: 40px;
+}
+
 .timeTable td {
 	height: 80px;
 	background-color: #FFFFFF;
 }
-
 
 .paging {
   display: flex;
