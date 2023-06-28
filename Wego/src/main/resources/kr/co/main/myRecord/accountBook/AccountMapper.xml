@@ -34,14 +34,19 @@
 	<!-- 여행 계획 및 날짜 별로 사용 내역 가져오기 -->
 	<select id="getUsageForUsageList" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
 		SELECT u.category, u.content, u.amount, u.usage_date, l.location_name FROM wego.usage u, wego.location l
-		WHERE l.location_pk = u.location_pk AND plan_pk = #{plan_pk} AND usage_date = #{date};
+		WHERE l.location_pk = u.location_pk AND plan_pk = #{plan_pk} AND usage_date BETWEEN #{start_date} AND #{end_date};
 	</select>
 	
 	<!-- 일 별 예산 전체 금액, 사용 전체 금액, 둘의 비율 가져오기 -->
 	<select id="getTotalForDay" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
 		SELECT IFNULL(ROUND(pd.total_budget/(pd.total_budget+u.total_amount)*100), 0) rate, u.total_amount amount, pd.total_budget budget
 		FROM (SELECT SUM(amount) total_amount, usage_date FROM wego.usage WHERE plan_pk = #{plan_pk} GROUP BY usage_date) u, (SELECT SUM(budget) total_budget, date_format(start_time, '%Y-%m-%d') d FROM wego.plan_detail WHERE plan_pk = #{plan_pk} GROUP BY d) pd
-		WHERE u.usage_date = pd.d AND u.usage_date = #{date};
+		WHERE u.usage_date = pd.d AND u.usage_date BETWEEN #{start_date} AND #{end_date};
+	</select>
+	<select id="getTotalForAll" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
+		SELECT IFNULL(ROUND(pd.total_budget/(pd.total_budget+u.total_amount)*100), 0) rate, u.total_amount amount, pd.total_budget budget
+		FROM (SELECT SUM(amount) total_amount FROM wego.usage WHERE plan_pk = #{plan_pk}) u,
+				 (SELECT SUM(budget) total_budget FROM wego.plan_detail WHERE plan_pk = #{plan_pk}) pd;
 	</select>
 	
 	<!-- 일 별 예산과 실제 사용 금액 묶어서 가져오기 -->
@@ -51,7 +56,7 @@
 		LEFT JOIN
 		     wego.plan_detail p
 		ON u.plan_pk = p.plan_pk AND u.location_pk = p.location_pk
-		WHERE u.Usage_date = #{date} AND u.plan_pk = #{plan_pk};
+		WHERE u.usage_date BETWEEN #{start_date} AND #{end_date} AND u.plan_pk = #{plan_pk};
 	</select>
 	
 	<!-- 일 별 통계를 위한 카테고리 별 금액 -->
@@ -59,11 +64,19 @@
 		SELECT u.sum, u.category, u.usage_date, ROUND((u.sum/tu.sum)*100) rate
 		FROM (SELECT SUM(amount) sum, category, usage_date FROM wego.usage
 			GROUP BY category, usage_date, plan_pk
-			HAVING usage_date = #{date} AND plan_pk = #{plan_pk}) u
+			HAVING usage_date BETWEEN #{start_date} AND #{end_date} AND plan_pk = #{plan_pk}) u
 		, (SELECT SUM(amount) sum
 			FROM wego.usage
 			GROUP BY usage_date, plan_pk
-			HAVING usage_date = #{date} AND plan_pk = #{plan_pk}) tu;
+			HAVING usage_date BETWEEN #{start_date} AND #{end_date} AND plan_pk = #{plan_pk}) tu;
+	</select>
+	<select id="getGraphForUsageListForAll" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
+		SELECT u.sum, u.category, ROUND((u.sum/tu.sum)*100) rate
+		FROM (SELECT SUM(amount) sum, category FROM wego.usage
+			WHERE plan_pk = 1 GROUP BY category) u
+		, (SELECT SUM(amount) sum
+			FROM wego.usage
+    	WHERE plan_pk = 1) tu;
 	</select>
 	
 </mapper>

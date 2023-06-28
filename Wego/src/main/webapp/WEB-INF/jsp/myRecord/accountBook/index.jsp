@@ -68,17 +68,22 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
-				totalNth = data + 1;
+				totalNth = data;
+				modalPage();
 			}
 		});
-		modalPage();
-		usage();
 	}
 	
 	/* 모달 페이지 */
 	function modalPage() {
 		$('#modalPageNth').empty();
-		$('#modalPageNth').append((nth + 1) + "일차");
+		if (nth < totalNth) {
+			$('#modalPageNth').append((nth + 1) + "일차");
+		} else {
+			$('#modalPageNth').append("전체");
+		}
+		$("input:radio[name='modalRadio']:radio[id='usage']").prop('checked', true); 
+		usage();
 	}
 	
 	/* 사용 내역 */
@@ -117,7 +122,7 @@
 	/* 비교 */
 	function compare() {
 		$.ajax({
-			url: 'getCompareForUsageList.do?plan_pk='+planPK+'&start_date='+startDate+'&nth='+nth,
+			url: 'getCompareForUsageList.do?plan_pk='+planPK+'&start_date='+startDate+'&end_date='+endDate+'&nth='+nth,
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
@@ -159,7 +164,7 @@
 	/* 통계 */
 	function graph() {
 		$.ajax({
-			url: 'getGraphForUsageList.do?plan_pk='+planPK+'&start_date='+startDate+'&nth='+nth,
+			url: 'getGraphForUsageList.do?plan_pk='+planPK+'&start_date='+startDate+'&end_date='+endDate+'&nth='+nth,
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
@@ -177,8 +182,8 @@
 					+    '</tr>'
 					+    '</hr>'
 					+    '<tr class="modalGraphTitelTr">'
-					+      '<td class="letter modalGraphTitleTd">숙박</td>'
 					+      '<td class="letter modalGraphTitleTd">식비</td>'
+					+      '<td class="letter modalGraphTitleTd">숙박비</td>'
 					+      '<td class="letter modalGraphTitleTd">쇼핑비</td>'
 					+      '<td class="letter modalGraphTitleTd">문화시설비</td>'
 					+      '<td class="letter modalGraphTitleTd">관광지비</td>'
@@ -201,12 +206,14 @@
 			if (nth != 0) {
 				nth -= 1;
 				console.log(nth);
+				modalPage();
 			}
 		})
 		$("#nextModalPage").click(function() {
 			if (nth != totalNth) {
 				nth += 1;
 				console.log(nth);
+				modalPage();
 			}
 		})
 	});

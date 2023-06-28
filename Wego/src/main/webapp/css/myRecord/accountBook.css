@@ -242,6 +242,8 @@
 .modalTable {
 	width: 100%;
 	height: fit-content;
+	
+	overflow: auto;
 }
 .modalTableHead {
 	background: #D9D9D9;
@@ -269,6 +271,7 @@
 .modalContentWrapper {
 	width: 100%;
 	padding: 20px;
+  overflow: auto;
 	
 	background: #D2EFFF;
 }

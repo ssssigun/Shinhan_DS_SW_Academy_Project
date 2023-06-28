@@ -17,11 +17,13 @@ function modal() {
 
   $(".modal").click(function (e) {
     $(".modal").fadeOut();
+	$('.resultWrapper').empty();
     enableScroll();
   });
 
   $(".modalOutButton").click(function (e) {
     $(".modal").fadeOut();
+	$('.resultWrapper').empty();
     enableScroll();
   });
 }

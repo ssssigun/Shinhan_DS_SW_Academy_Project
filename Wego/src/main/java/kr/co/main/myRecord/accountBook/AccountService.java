@@ -3,6 +3,7 @@ package kr.co.main.myRecord.accountBook;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,8 @@ public class AccountService {
 
 	@Autowired
 	AccountMapper mapper;
+	
+	int totalDate;
 	
 	private ThreadLocal<DateFormat> format = new ThreadLocal<DateFormat> () {
 	    @Override 
@@ -67,8 +70,17 @@ public class AccountService {
 	public Map<String, Object> getUsageForUsageList(int plan_pk, String start_date, String end_date, int nth) throws ParseException{
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("plan_pk", plan_pk);
-		inputMap.put("date", addDate(start_date, nth));
-		System.out.println("date: " + inputMap.get("date"));
+		
+		if (nth < totalDate) {
+			String date = addDate(start_date, nth);
+			inputMap.put("start_date", date);
+			inputMap.put("end_date", date);
+		} else {
+			System.out.println(nth + " " + totalDate);
+			inputMap.put("start_date", start_date);
+			inputMap.put("end_date", end_date);
+		}
+		
 		List<AccountBookVO> list = mapper.getUsageForUsageList(inputMap);
 		System.out.println("list: " + list.toString());
 		
@@ -81,12 +93,24 @@ public class AccountService {
 		return outputMap;
 	}
 	
-	public Map<String, Object> getCompareForUsageListForDay(int plan_pk, String start_date, int nth) {
+	public Map<String, Object> getCompareForUsageListForDay(int plan_pk, String start_date, String end_date, int nth) {
 		Map<String, Object> inputMap = new HashMap<String, Object>();
-		inputMap.put("date", addDate(start_date, nth));
 		inputMap.put("plan_pk", plan_pk);
 		
-		AccountBookVO totalVO = mapper.getTotalForDay(inputMap);
+		AccountBookVO totalVO = new AccountBookVO();
+		
+		if (nth < totalDate) {
+			String date = addDate(start_date, nth);
+			inputMap.put("start_date", date);
+			inputMap.put("end_date", date);
+			
+			totalVO = mapper.getTotalForDay(inputMap);
+		} else {
+			inputMap.put("start_date", start_date);
+			inputMap.put("end_date", end_date);
+			
+			totalVO = mapper.getTotalForAll(inputMap);
+		}
 		
 		List<AccountBookVO> list = mapper.getCompareForUsageListForDay(inputMap);
 		
@@ -97,12 +121,22 @@ public class AccountService {
 		return outputMap;
 	}
 	
-	public Map<String, Object> getGraphForUsageListForDay(int plan_pk, String start_date, int nth) {
+	public Map<String, Object> getGraphForUsageListForDay(int plan_pk, String start_date, String end_date, int nth) {
 		Map<String, Object> inputMap = new HashMap<String, Object>();
-		inputMap.put("date", addDate(start_date, nth));
+
 		inputMap.put("plan_pk", plan_pk);
 		
-		List<AccountBookVO> graphVO = mapper.getGraphForUsageListForDay(inputMap);
+		List<AccountBookVO> graphVO = new ArrayList<AccountBookVO>();
+		if (nth < totalDate) {
+			String date = addDate(start_date, nth);
+			inputMap.put("start_date", date);
+			inputMap.put("end_date", date);
+			
+			graphVO = mapper.getGraphForUsageListForDay(inputMap);
+		} else {
+			graphVO = mapper.getGraphForUsageListForAll(inputMap);
+		}
+		
 		Map<String, Object> outputMap = new HashMap<String, Object>();
 		for (int i = 1; i <= 6; i++) {
 			outputMap.put(String.valueOf(i), new AccountBookVO());
@@ -153,7 +187,8 @@ public class AccountService {
 	public int totalDate(String start_date, String end_date) throws ParseException {
 		Date sd = format.get().parse(start_date);
 		Date ed = format.get().parse(end_date);
-		return (int)((ed.getTime() - sd.getTime()) / (24 * 60 * 60 * 1000));
+		totalDate = (int)((ed.getTime() - sd.getTime()) / (24 * 60 * 60 * 1000)) + 1;
+		return totalDate;
 	}
 	
 	public String addDate(String start_date, int nth){

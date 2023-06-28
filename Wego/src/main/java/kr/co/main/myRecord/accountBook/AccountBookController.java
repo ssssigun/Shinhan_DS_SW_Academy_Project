@@ -69,8 +69,8 @@ public class AccountBookController {
 	 */
 	@RequestMapping("/getCompareForUsageList.do")
 	@ResponseBody
-	public Map<String, Object> compareList(int plan_pk, String start_date, int nth) {
-		return Service.getCompareForUsageListForDay(plan_pk, start_date, nth);
+	public Map<String, Object> compareList(int plan_pk, String start_date, String end_date, int nth) {
+		return Service.getCompareForUsageListForDay(plan_pk, start_date, end_date, nth);
 	}
 	
 	/*
@@ -78,8 +78,8 @@ public class AccountBookController {
 	 */
 	@RequestMapping("/getGraphForUsageList.do")
 	@ResponseBody
-	public Map<String, Object> graphList(int plan_pk, String start_date, int nth) {
-		return Service.getGraphForUsageListForDay(plan_pk, start_date, nth);
+	public Map<String, Object> graphList(int plan_pk, String start_date, String end_date, int nth) {
+		return Service.getGraphForUsageListForDay(plan_pk, start_date, end_date, nth);
 	}
 	
 	// test: jsp만 띄우기
