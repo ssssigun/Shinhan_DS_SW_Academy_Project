@@ -11,7 +11,7 @@ public class AccountBookVO {
 	int plan_pk;
 	int category;
 	String categoryName;
-	String locationName;
+	String location_name;
 	long amount;
 	long budget;
 	int rate;

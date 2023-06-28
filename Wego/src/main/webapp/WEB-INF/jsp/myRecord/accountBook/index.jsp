@@ -103,7 +103,7 @@
 				list.forEach(function(object){
 					$(".modalTable").append(''
 						+  '<tr class="modalTableRow">'
-						+	   '<td class="letter mtb0 mtb">'+object.locationName+'</td>'
+						+	   '<td class="letter mtb0 mtb">'+object.location_name+'</td>'
 						+    '<td class="letter mtb1 mtb">'+object.categoryName+'</td>'
 						+    '<td class="letter mtb2 mtb">'+object.content+'</td>'
 						+	   '<td class="letter mtb3 mtb">'+addComma(object.amount)+'</td>'
@@ -133,9 +133,9 @@
 					+  '</div>'
 					+  '<table class="tbl modalCompareTbl">'
 					+    '<tr class="modalCompareTr">'
-					+      '<td class="td letter modalStickGraphLeftText">전체</td>'
+					+      '<td class="td letter modalStickGraphLeftText titleTd">전체</td>'
 					+      '<td><div class="modalStickGraphWrapper"><div class="blueStick modalStickGraph letter ellipsis" style="width:'+totalRate.rate+'%;">'+addComma(totalRate.budget)+' 원</div><div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(totalRate.amount)+' 원</div></div></td>'
-					+      '<td class="td rightTd letter modalStickGraphRightText">전체</td>'
+					+      '<td class="td rightTd letter modalStickGraphRightText titleTd">전체</td>'
 					+    '</tr>'
 					+  '</table>'
 					+'</div>'
@@ -143,9 +143,9 @@
 				list.forEach(function(object) {
 					$('.modalCompareTbl').append(''
 							+    '<tr class="modalCompareTr">'
-							+      '<td class="td letter ellipsis modalStickGraphLeftText">'+object.locationName+'</td>'
+							+      '<td class="td letter ellipsis modalStickGraphLeftText titleTd">'+object.location_name+'</td>'
 							+      '<td><div class="modalStickGraphWrapper">'+(object.budget > 0 ? '<div class="blueStick modalStickGraph letter ellipsis" style="width:'+object.rate+'%;">'+addComma(object.budget)+' 원</div>':'')+(object.amount > 0 ? '<div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(object.amount)+' 원</div>' : '')+'</div></td>'
-							+      '<td class="td rightTd letter ellipsis modalStickGraphRightText">'+object.locationName+'</td>'
+							+      '<td class="td rightTd letter ellipsis modalStickGraphRightText titleTd">'+object.location_name+'</td>'
 							+    '</tr>'
 					)
 				})
@@ -196,7 +196,7 @@
 	}
 	
 	/* n일차 넘길 때마다 nth는 1씩 증가 */
-	$(document).ready(function() {
+	$(function() {
 		$("#beforeModalPage").click(function() {
 			if (nth != 0) {
 				nth -= 1;
@@ -209,7 +209,7 @@
 				console.log(nth);
 			}
 		})
-	})
+	});
 	
 	/* 하단 사용내역 게시물 불러오기 */
 	function getReportList(user_pk, page_num) {
@@ -266,10 +266,10 @@
         <button class="modalPageBtn" id="nextModalPage"><img src="/main/image/MdNavigateNext.png"/></button>
       </div>
       <div class="selectWrapper">
-        <div class="selectBtns">
-          <button class="blueBwhiteL btn bold modalSelectBtn" onclick="usage()">사용 내역</button>
-          <button class="softblueBwhiteL btn bold modalSelectBtn" onclick="compare()">비교</button>
-          <button class="softblueBwhiteL btn bold modalSelectBtn" onclick="graph()">통계</button>
+        <div class="radioButtons">
+          <input type="radio" id="usage" name="modalRadio" onclick="usage()" checked><label for="usage">사용 내역</label>
+          <input type="radio" id="compare" name="modalRadio" onclick="compare()"><label for="compare">비교</label>
+          <input type="radio" id="graph" name="modalRadio" onclick="graph()"><label for="graph">통계</label>
         </div>
       </div>
       <div class="resultWrapper">
@@ -293,65 +293,65 @@
           <div class="topRightWrapper">
             <table class="tbl">
               <tr class="bigLetter bold">
-                <td class="td">
+                <td class="td titleTd">
                   전체
                 </td>
-                <td><div class="stickGraphWrapper"><div class="blueStick" id="totalRate"></div></div></td>
-                <td class="rightTd td">
+                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="totalRate"></div></div></td>
+                <td class="td rightTd titleTd">
                   전체
                 </td>
               </tr>
               <tr class="bigLetter">
-                <td class="td">
+                <td class="td titleTd">
                   숙박
                 </td>
-                <td><div class="stickGraphWrapper"><div class="blueStick" id="accommodationRate"></div></div></td>
-                <td class="rightTd td">
+                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="accommodationRate"></div></div></td>
+                <td class="td rightTd titleTd">
                   숙박
                 </td>
               </tr>
               <tr class="bigLetter">
-                <td class="td">
+                <td class="td titleTd">
                   식비
                 </td>
-                <td><div class="stickGraphWrapper"><div class="blueStick" id="foodRate"></div></div></td>
-                <td class="rightTd td">
+                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="foodRate"></div></div></td>
+                <td class="td rightTd titleTd">
                   식비
                 </td>
               </tr>
               <tr class="bigLetter">
-                <td class="td">
+                <td class="td titleTd">
                   쇼핑비
                 </td>
-                <td><div class="stickGraphWrapper"><div class="blueStick" id="shoppingRate"></div></div></td>
-                <td class="rightTd td">
+                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="shoppingRate"></div></div></td>
+                <td class="td rightTd titleTd">
                   쇼핑비
                 </td>
               </tr>
               <tr class="bigLetter">
-                <td class="td">
+                <td class="td titleTd">
                   문화시설비
                 </td>
-                <td><div class="stickGraphWrapper"><div class="blueStick" id="cultureRate"></div></div></td>
-                <td class="rightTd td">
+                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="cultureRate"></div></div></td>
+                <td class="td rightTd titleTd">
                   문화시설비
                 </td>
               </tr>
               <tr class="bigLetter">
-                <td class="td">
+                <td class="td titleTd">
                   관광지비
                 </td>
-                <td><div class="stickGraphWrapper"><div class="blueStick" id="tourRate"></div></div></td>
-                <td class="rightTd td">
+                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="tourRate"></div></div></td>
+                <td class="td rightTd titleTd">
                   관광지비
                 </td>
               </tr>
               <tr class="bigLetter">
-                <td class="td">
+                <td class="td titleTd">
                   레포츠비
                 </td>
-                <td><div class="stickGraphWrapper"><div class="blueStick" id="leisureRate"></div></div></td>
-                <td class="rightTd td">
+                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="leisureRate"></div></div></td>
+                <td class="td rightTd titleTd">
                   레포츠비
                 </td>
               </tr>

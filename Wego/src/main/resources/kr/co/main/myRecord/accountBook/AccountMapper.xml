@@ -33,7 +33,7 @@
 
 	<!-- 여행 계획 및 날짜 별로 사용 내역 가져오기 -->
 	<select id="getUsageForUsageList" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
-		SELECT u.category, u.content, u.amount, u.usage_date, l.locationName FROM wego.usage u, wego.location l
+		SELECT u.category, u.content, u.amount, u.usage_date, l.location_name FROM wego.usage u, wego.location l
 		WHERE l.location_pk = u.location_pk AND plan_pk = #{plan_pk} AND usage_date = #{date};
 	</select>
 	
@@ -46,8 +46,8 @@
 	
 	<!-- 일 별 예산과 실제 사용 금액 묶어서 가져오기 -->
 	<select id="getCompareForUsageListForDay" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
-		SELECT u.locationName, IFNULL(p.budget, 0) budget, u.amount, IFNULL(ROUND(p.budget/(p.budget+u.amount)*100), 0) rate
-		FROM (SELECT l.locationName, u.location_pk, u.plan_pk, u.plan_detail_pk, u.amount, u.usage_date FROM wego.usage u, wego.location l WHERE l.location_pk = u.location_pk) u
+		SELECT u.location_name, IFNULL(p.budget, 0) budget, u.amount, IFNULL(ROUND(p.budget/(p.budget+u.amount)*100), 0) rate
+		FROM (SELECT l.location_name, u.location_pk, u.plan_pk, u.plan_detail_pk, u.amount, u.usage_date FROM wego.usage u, wego.location l WHERE l.location_pk = u.location_pk) u
 		LEFT JOIN
 		     wego.plan_detail p
 		ON u.plan_pk = p.plan_pk AND u.location_pk = p.location_pk
