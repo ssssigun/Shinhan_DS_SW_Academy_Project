@@ -13,5 +13,5 @@ public interface MyRecordPlanMapper {
 	int count2();
 	
 	List<MyRecordPlanVO> list3(MyRecordPlanVO vo);
-	int count3();
+	int  count3();
 }

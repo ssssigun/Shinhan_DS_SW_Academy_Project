@@ -1,0 +1,72 @@
+
+.writeWrapper {
+  box-sizing: border-box;
+  width: auto;
+  height: 939px;
+  border: 1px solid #000000;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ContentsContainer {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  
+}
+
+.ContentsContainer h3 {
+  width: auto;
+  height: 39px;
+  flex-direction: column;
+  padding: 20px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.oneLocation{
+	border-bottom: 1px solid black;
+	width:98%;
+	height:20%;
+	margin: 0 auto;
+	vertical-align:middle;
+}
+
+.firstLine{
+	display:flex;
+	justify-content: space-between;
+	font-size: 20px;
+	margin-bottom: 10px;
+	font-weight:bold;
+}
+
+.scoring{
+	display:flex;
+}
+
+.secondLine{
+	display:flex;
+	justify-content: space-between;
+	font-size: 20px;
+	font-weight:bold;
+}
+
+.secondLine input{
+	border:1px solid black;
+	width:1020px;
+}

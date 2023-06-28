@@ -15,7 +15,7 @@
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
   
   
-  <link rel="stylesheet" href="/main/css/myRecord/plan.css"> 
+  <link rel="stylesheet" href="/main/css/myRecord/reviews.css"> 
 
   <title>장소별 한줄 평 작성</title>
 </head>
@@ -23,15 +23,38 @@
   <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>
 
   <div class="contents">
-    <!-- 이 부분에 헤더 푸터 사이에 들어가는 것들 넣어주세요. -->
-    <!-- 정렬이 페이지마다 조금씩 달라서 wrapper 역할을 할 div(width: 100%, height: 100% + 원하는 정렬 등) 넣고 그 안에 요소들 넣으면 될 것 같습니다. -->
-    <!-- common.css 파일은 수정하지 않고 새로운 css 파일을 추가 후 스타일 작성 -->
-    
-    <div class="title">장소 별 한줄평 작성</div>
-    <div class="postsWrapper">
-    	
+    <div class="ContentsContainer">
+        <h3 class="title">장소 별 한줄평 작성</h3>
+      <div class="writeWrapper">
+      <div class="oneLocation">
+      	<div class="firstLine">
+      		장소명 : []-[]
+      		<div class="scoring">
+      			별점
+	      		<form action="#">
+	      			<select name="scores" id="score">
+	      				<option value:"1">☆☆☆☆★</option>
+	      				<option value:"2">☆☆☆★★</option>
+	      				<option value:"3">☆☆★★★</option>
+	      				<option value:"4">☆★★★★</option>
+	      				<option value:"5">★★★★★</option>
+	      			</select>
+	      		</form>
+      		</div>
+      	</div>
+      	<div class="secondLine">
+      	    한줄평
+      	    <input type:"text" id="oneLineReview"/>
+      	</div>
+      </div>
     </div>
-    
+   </div>
+
+	    <div class="bottomWrapper">
+	      <div class="btn lightskyBblackL">나가기</div>
+	      <div class="btn lightskyBblackL">전체 후기</div>
+	      <div class="btn blueBwhiteL">저장</div>
+	    </div>
   </div>
   
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>
