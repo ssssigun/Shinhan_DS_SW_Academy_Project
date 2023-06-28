@@ -18,11 +18,14 @@ public interface ReviewMapper {
 	void insertReviewComment(Map<String,Object> map);
 	
 	
-	List<ReviewVO> list2(ReviewVO vo);
-	int count2();
+
 	//=======================
 	// review
 	//=======================
+
+	List<ReviewVO> list(ReviewVO vo);
+
+	int count(ReviewVO vo);
 	
 //	int insert(DefaultVO vo); //
 //	int update(DefaultVO vo); //업데이트

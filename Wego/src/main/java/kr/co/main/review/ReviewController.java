@@ -17,7 +17,7 @@ import kr.co.main.myRecord.plan.MyRecordPlanVO;
 @RequestMapping("/review")
 public class ReviewController {
 	@Autowired
-	ReviewService service;
+	ReviewService rservice;
 	
 	
 	
@@ -30,13 +30,15 @@ public class ReviewController {
 			return "review/view";
 		}
 		
+		
+		
+		
 	//===
 	//후기 게시판 전체 목록 사진있는거 review => index 목록
 	//===
 		@GetMapping("index.do")
 		public String review(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
-//			model.addAttribute("result",service.reviewing(vo));
-			model.addAttribute("flag","2");
+			model.addAttribute("result", rservice.index(vo));
 			return "review/index";
 		}	
 		

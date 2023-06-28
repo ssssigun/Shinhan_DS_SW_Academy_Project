@@ -7,17 +7,7 @@ import lombok.Data;
 
 @Data	
 public class ReviewVO {
-	//변수 만들어서 사용
-	private int Location_pk;
-	private int Region;
-	private String Address;
-	private int Category;
-	private String Location_name;
-	private long Longitude;
-	private long Latitude;
-	private String Location_tel;
-	private Timestamp Start_time;
-	private Timestamp End_time;
+	
 	
 	
 	//추가한거 파라미터가 다른용도로
@@ -33,55 +23,76 @@ public class ReviewVO {
 	//====================
 	//1. review (여행 후기)
 	//====================
-	private int Review_pk;
+	private int review_pk;
 //	private int Plan_pk; //다른 pk 안들어가지 않음?
 //	private int User_pk; //다른 pk 안들어가지 않음?
 	
 	private String title;
-	private String Content;
-	private Timestamp Regdate; //컬럼 이름이 똑같아서 중복인데
+	private String content;
+	private Timestamp regdate; //컬럼 이름이 똑같아서 중복인데
 	
-	private int State;
+	private int state;
 	
 	//=====================
 	//2. review_comment (여행 후기 댓글)
 	//=========================
 	
-	private int Review_comment_pk;
+	private int review_comment_pk;
 //	private int User_pk;
 //	private int Review_pk;
 //	private int Plan_pk;
 	
-	private Timestamp Regdate_comment; //as 하면 됨
+	private Timestamp regdate_comment; //as 하면 됨
 	
 	
 	//====================
 	//3. review_image (여행 후기 사진)
 	//====================
-	private int Review_image_pk;
+	private int review_image_pk;
 //	Plan_pk
 //	Review_pk
-	private String Filename_org;
-	private String Filename_save;
-	private String Filesize;
+	private String filename_org;
+	private String filename_save;
+	private String filesize;
 	
 	//====================
 	//4. review_recommend (여행 후기 추천)
 	//====================
-	private int Review_recommend_pk;
+	private int review_recommend_pk;
 //	Review_pk , User_pk , Plan_pk
 	
 	//====================
 	//5. review_sue (여행 후기 신고)
 	//====================
-	private int Review_sue_pk;
+	private int review_sue_pk;
 //	User_pk , Review_pk , Plan_pk
 	
 	//====================
 	//6. review_watch (여행 후기 조회)
 	//====================
-	private int Review_watch_pk;
+	private int review_watch_pk;
 //	Review_pk , User_pk , Plan_pk
+	
+	
+	//====================
+	//6. user (회원 조인위해)
+	//====================
+	private int user_pk;
+	private String username;
+	private String email;
+	private String nickname;
+//	private Timestamp regdate; 컬럼중복
+	private int role;
+	private int banpost;
+	private String secretkey;
+	
+	
+public ReviewVO() { //지들이 생성하면서 초기화도
+		
+		this.page = 1;
+		this.rowPerPage = 10; //초기화되지만 그 이후 setRowPerPage 20으로 바뀐다는데
+		this.startIdx = 0;
+	}
 	
 	
 	

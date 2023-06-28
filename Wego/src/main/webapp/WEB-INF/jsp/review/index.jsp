@@ -95,10 +95,25 @@
                   </div>
                 </div>
               </div>
-              <div class="subWrapper">성진박</div>
-              <div class="subsubWrapper">2023-08-08</div>
+              <c:forEach var="vo" items="${result.list }">
+                            <tr>
+                                <td>${vo.user_pk }</td>
+                                <td class="txt_l">
+                                    <a href="view.do?no=${vo.user_pk }">${vo.title }</a>
+                                </td>
+                                <td class="writer">
+                                ${vo.nickname}
+                                    
+                                </td>
+                                
+                                <td class="date">${vo.regdate }</td>
+                            </tr>
+                          </c:forEach>
+              <div class="subWrapper">${vo.nickname}</div>
+              <div class="subsubWrapper">${vo.regdate}</div>
               <div class="buttonsWrapper">
-                <button class="smallBtn blueBwhiteL">후기보기</button>
+                <a href="view.do?no=${vo.user_pk}"><button class="smallBtn blueBwhiteL">후기보기</button></a>
+                
               </div>
             </div>
           </div>
