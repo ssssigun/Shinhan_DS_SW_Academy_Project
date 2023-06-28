@@ -42,7 +42,7 @@
         <div class="writeWrapper">
           <div class="writeTable">
             <div class="titleWrapper">
-              <h3 class="title">제목 어쩌구저쩌구</h3>
+              <h3 class="title">${data.title }</h3>
               <div class="viewCountWrapper">
                  <img src="../image/review/BsEye.png" />
                 <dt class="letter">조회수 카운트 10</dt>
@@ -51,10 +51,10 @@
             <hr />
             <div class="contentsWrapper">
               <div class="contentsTitleWrapper">
-                <h3 class="smallsmallLetter">2021-06-12</h3>
+                <h3 class="smallsmallLetter">${data.regdate }</h3>
               </div>
               <div class="review_contents">
-                <dd class="letter">저번주는 제주도에 갔어요^^*</dd>
+                <dd class="letter">${data.content }</dd>
                 <div class="image">
                   <img src="../image/review/attachimg.png" />
                 </div>

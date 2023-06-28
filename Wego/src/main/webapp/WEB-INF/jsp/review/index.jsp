@@ -112,6 +112,7 @@
               <div class="subWrapper">${vo.nickname}</div>
               <div class="subsubWrapper">${vo.regdate}</div>
               <div class="buttonsWrapper">
+              
                 <a href="view.do?no=${vo.user_pk}"><button class="smallBtn blueBwhiteL">후기보기</button></a>
                 
               </div>
@@ -271,19 +272,51 @@
           </div>
         </div>
         
-        <hr />
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="pagenate clear">
+                        <ul class='paging'>
+                        <c:if test="${result.prev == true }">
+                        	<li><a href="index.do?page=${result.startPage-1 }&stype=${param.stype }&sword=${param.sword}"> < </a></li>
+                        </c:if>
+                        <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
+                            <li><a href='index.do?page=${num }&stype=${param.stype }&sword=${param.sword}' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
+                        </c:forEach>    
+                        <c:if test="${result.next == true }">
+                        	<li><a href="index.do?page=${result.endPage+1 }&stype=${param.stype }&sword=${param.sword}"> > </a></li>
+                        </c:if>
+                        </ul> 
+                    </div>
+        <!-- 페이지처리 -->
+        
+         
+         <hr />
         <div class="search">
-          <div class="searchWrapper">
-            <select class="select">
-              <option>전체</option>
-              <option>제목</option>
-              <option>내용</option>
-            </select>
-            <input class="input" placeholder="검색어를 입력하세요" />
-            <button class="btn yellowBblackL">검색</button>
-          </div>
+	        <form method="get" name="searchForm" id="searchForm" action="index.do">
+	          <div class="searchWrapper">
+	            <select id="stype" name="stype" class="select" title="검색분류 선택">
+	              <option value="all">전체</option>
+	              <option value="title" <c:if test="${param.stype=='title' }">selected</c:if>>제목</option>
+	              <option value="content" <c:if test="${param.stype=='content' }">selected</c:if>>내용</option>
+	            </select>
+	            
+	            <input type="text" id="sval" name="sword" value="${param.sword }"  title="검색어 입력" class="input" placeholder="검색어를 입력하세요" />
+	            <button class="btn yellowBblackL">검색</button>
+	          </div>
+        	</form>
         </div>
-      </div>
+        
+        
+        
+        
+    </div>
 
       <!-- 이 부분에 헤더 푸터 사이에 들어가는 것들 넣어주세요. -->
       <!-- 정렬이 페이지마다 조금씩 달라서 wrapper 역할을 할 div(width: 100%, height: 100% + 원하는 정렬 등) 넣고 그 안에 요소들 넣으면 될 것 같습니다. -->

@@ -60,6 +60,12 @@ public class ReviewService {
 			
 			return map;
 	}
+
+	public ReviewVO view(ReviewVO vo) {
+//		mapper.updateViewcount(vo.getUser_pk());
+		
+		return mapper.view(vo);
+	}
 	
 	
 	

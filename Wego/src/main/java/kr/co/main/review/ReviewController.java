@@ -20,13 +20,13 @@ public class ReviewController {
 	ReviewService rservice;
 	
 	
-	
 	//===
 	//상세 게시물 댓글 조회수 review_comment_write => view 리뷰 상세 보기
 	//===
 		@GetMapping("view.do")
 		public String view(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
-//			model.addAttribute("data", Service.view(vo));
+			model.addAttribute("data", rservice.view(vo));
+			
 			return "review/view";
 		}
 		

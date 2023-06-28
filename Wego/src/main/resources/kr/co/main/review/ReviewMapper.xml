@@ -115,6 +115,11 @@
 		ORDER BY regdate DESC, user_pk DESC
 		LIMIT ${startIdx}, 10
 	</select>
+	
+	<select id="view" parameterType="kr.co.main.review.ReviewVO" resultType="kr.co.main.review.ReviewVO">
+		SELECT * FROM wego.review WHERE user_pk=#{user_pk}
+	</select>
+
 		
 </mapper>
 

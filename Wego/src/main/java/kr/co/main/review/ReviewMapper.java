@@ -26,6 +26,10 @@ public interface ReviewMapper {
 	List<ReviewVO> list(ReviewVO vo);
 
 	int count(ReviewVO vo);
+
+	ReviewVO view(ReviewVO vo);
+
+//	int updateViewcount(int user_pk);
 	
 //	int insert(DefaultVO vo); //
 //	int update(DefaultVO vo); //업데이트
