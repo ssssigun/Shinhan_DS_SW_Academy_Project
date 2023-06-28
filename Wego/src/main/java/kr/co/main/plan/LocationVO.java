@@ -11,7 +11,7 @@ public class LocationVO {
 	private int region;
 	private String address;
 	private int category;
-	private String locationName;
+	private String location_name;
 	private String longitude;
 	private String latitude;
 	private String location_tel;

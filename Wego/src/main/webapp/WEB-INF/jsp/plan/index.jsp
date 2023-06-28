@@ -45,7 +45,7 @@
     	        var planCard = $('<div>').addClass('planCard');
     	        var planPhoto = $('<div>').addClass('planPhoto');
     	        var plan = $('<div>').addClass('plan');
-    	        var boldText = $('<div>').addClass('bold').text(location.locationName);
+    	        var boldText = $('<div>').addClass('bold').text(location.location_name);
     	        var categoryText = $('<div>').text(location.category_name);
     	        var idx = $('<div>').addClass('index').text(index);
     	        var spotDetail = $('<div>').addClass('spotDetail cardButtonWrapper').attr('id', location.location_pk + ' ' + index);
@@ -141,7 +141,7 @@
     	
     	function generateFinTimetable(details, day, period) {
     		$(".finTimetableWrapper").empty();
-    		for (var day2 = 1; day2 < day + period; day2++) {
+    		for (var day2 = 1; day2 <= period; day2++) {
     			$(".finTimetableWrapper").append("<div class='"+ day2 + "bottomContainer finContainer'></div>");
     			$("."+day2+"bottomContainer").append("<div class='"+ day2 +"pageController finDay'>"+ day2 +" 일차</div>");
     			$("."+day2+"bottomContainer").append("<div class='"+ day2 +"timeTableWrapper timeTableWrapper'></div>");
@@ -243,6 +243,7 @@
     		return polyline;
     	}
     
+    
         // 각 지역별 대표 좌표
         var regionPoint = {};
         regionPoint['1'] = new naver.maps.LatLng(37.514575, 127.0495556);
@@ -292,7 +293,7 @@
             			var modalContent = $('#modalContent');
                         modalContent.empty(); // 기존 내용 초기화
 
-                        var listItem = $('<li>').html('<div class="location_name bold">' + data.locationName + '</div>'); // JSON 데이터의 필드에 따라 내용을 조정할 수 있습니다.
+                        var listItem = $('<li>').html('<div class="location_name bold">' + data.location_name + '</div>'); // JSON 데이터의 필드에 따라 내용을 조정할 수 있습니다.
                         modalContent.append(listItem);
                         var sTime = new Date(data.start_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();
                         var eTime = new Date(data.end_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();

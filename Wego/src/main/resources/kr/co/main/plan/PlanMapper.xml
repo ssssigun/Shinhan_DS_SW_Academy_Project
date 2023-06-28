@@ -10,7 +10,7 @@
 			AND Category = #{category}
 			</if>
 			<if test="sword != null and sword != ''">
-			AND LocationName LIKE '%${sword}%'
+			AND Location_name LIKE '%${sword}%'
 			</if>
 			<if test="min_lng != null and max_lng != null and min_lng != '-1' and max_lng != '-1'">
 			AND Longitude BETWEEN #{min_lng} AND #{max_lng}
