@@ -77,6 +77,13 @@
         <div class="title">후기 게시판</div>
         
         <div class="postsWrapper">
+          
+          
+          
+          
+          
+          <c:forEach var="vo" items="${result.list }">
+          
           <div class="postWrapper">
             <div class="photoWrapper">
               
@@ -95,20 +102,7 @@
                   </div>
                 </div>
               </div>
-              <c:forEach var="vo" items="${result.list }">
-                            <tr>
-                                <td>${vo.user_pk }</td>
-                                <td class="txt_l">
-                                    <a href="view.do?no=${vo.user_pk }">${vo.title }</a>
-                                </td>
-                                <td class="writer">
-                                ${vo.nickname}
-                                    
-                                </td>
-                                
-                                <td class="date">${vo.regdate }</td>
-                            </tr>
-                          </c:forEach>
+              
               <div class="subWrapper">${vo.nickname}</div>
               <div class="subsubWrapper">${vo.regdate}</div>
               <div class="buttonsWrapper">
@@ -118,6 +112,8 @@
               </div>
             </div>
           </div>
+        
+                          </c:forEach>
           <div class="postWrapper">
             <div class="photoWrapper">
 
