@@ -100,27 +100,7 @@
   flex-grow: 0;
 }
 
-.pagenate clear {
-	/* pageController */
 
-  /* Auto layout */
-
-  display: flex;
-  gap: 50px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px;
-
-  width: auto;
-  height: 20px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  /* order: 0; */
-  flex-grow: 0;
-}
 .MdNavigateBefore {
   /* react-icons/md/MdNavigateBefore */
 
@@ -181,3 +161,30 @@ hr {
   /* text-align: center; */
   text-indent: 0;
 }
+
+
+/*페이지네이션*/
+
+  .paging {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .paging li {
+    margin-right: 10px;
+  }
+
+  .paging li a {
+    display: block;
+    /*padding: 5px 10px;*/
+    /*background-color: lightgray;*/
+    color: black;
+    text-decoration: none;
+  }
+
+  .paging li a.current {
+    background-color: gray;
+    color: white;
+  }

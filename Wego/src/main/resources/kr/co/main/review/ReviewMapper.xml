@@ -78,10 +78,10 @@
 		VALUES (#{user_pk},1,1,"2023-06-27","한번 더 갔다옴");
 	</insert>
 	
-	<select id="getReviewComments" parameterType="int" resultType="kr.co.main.review.ReviewVO">
+	<select id="getReviewComments" parameterType="kr.co.main.review.ReviewVO">
     	select nickname, comment_content, review_comment.regdate 
 		from wego.review_comment left join wego.user 
-		on wego.review_comment.user_pk = wego.user.user_pk;
+		on wego.review_comment.user_pk = wego.user.user_pk where review_pk = ${review_pk};
 	</select>
 
 
