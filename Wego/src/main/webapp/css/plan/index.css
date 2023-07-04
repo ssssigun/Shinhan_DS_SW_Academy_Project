@@ -265,7 +265,6 @@ body {
 .planPhoto {
 	width: 100px;
 	height: 100%;
-	background: #D9D9D9;
 	
 	flex: none;
 	order: 0;
@@ -468,7 +467,7 @@ flex-grow: 0;
 	gap: 10px;
 
 	position: absolute;
-	width: 300px;
+	width: 450px;
 	height: 80px;
 	right: 30px;
 	bottom: 10px;
@@ -530,8 +529,7 @@ flex-grow: 0;
 .spotMainPhoto {
 	width: 100%;
 	height: 40%;
-
-	background: #D9D9D9;
+	padding-top: 10px;
 
 /* Inside auto layout */
 
@@ -560,10 +558,12 @@ flex-grow: 0;
 }
 
 .spotSubPhoto {
+	display: flex;
 	width: 100%;
 	height: 25%;
-
-	background: #D9D9D9;
+	
+	overflow-x: auto;
+	overflow-y: hidden;
 
 /* Inside auto layout */
 
@@ -584,7 +584,7 @@ flex-grow: 0;
 	flex-grow: 0;
 }
 
-.finModal {
+.modalTemplate {
   position: absolute;
   z-index: 100;
   width: 100%;
@@ -595,7 +595,7 @@ flex-grow: 0;
   display: none;
 }
 
-.finContent {
+.contentTemplate {
   width: 90%;
   height: 80%;
   z-index: 101;
@@ -632,7 +632,7 @@ flex-grow: 0;
 
 }
 
-.finTimetableWrapper {
+.wrapperTemplate {
 	box-sizing: border-box;
 	align-items: center;
 	padding: 0px;
@@ -642,7 +642,7 @@ flex-grow: 0;
 
 	width: 90%;
 	height: 80%;
-	overflow-y: scroll;
+	overflow-y: auto;
 	border: 1px solid #000000;
 }
 

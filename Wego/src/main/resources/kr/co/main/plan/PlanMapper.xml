@@ -18,6 +18,9 @@
 			<if test="min_lat != null and max_lat != null and min_lat != '-1' and max_lat != '-1'">
 			AND Latitude BETWEEN #{min_lat} AND #{max_lat}
 			</if>
+			<if test="state != null and state != ''">
+      		AND state = 0
+    		</if>
 		</where>
 	</sql>
 	
@@ -27,14 +30,20 @@
 	</select>
 
 	<select id="selectLocationPer5" resultType="kr.co.main.plan.LocationVO"> 
-		SELECT * FROM wego.location
+		SELECT *
+		FROM wego.location a LEFT OUTER JOIN wego.location_image b
+		ON a.location_pk = b.location_pk
 		<include refid="whereSql"/>
 		LIMIT ${startIdx}, 5
 	</select>
 	
 	<select id="selectLocationByPK" parameterType="int" resultType="kr.co.main.plan.LocationVO">
-		SELECT * FROM wego.location WHERE location_pk = #{location_pk}
+		SELECT * 
+		FROM wego.location a LEFT OUTER JOIN wego.location_image b
+		ON a.location_pk = b.location_pk
+		WHERE a.location_pk = #{location_pk}
 	</select>
+	
 </mapper>
 
 

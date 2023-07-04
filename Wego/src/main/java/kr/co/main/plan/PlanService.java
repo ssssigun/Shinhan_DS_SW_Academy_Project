@@ -13,6 +13,8 @@ public class PlanService {
 	@Autowired
 	PlanMapper mapper;
 	//함수 만들어서 사용
+	
+	// 지역, 카테고리, 검색어, 지도 위치 기반해서 장소 5개 검색하는 메소드
 	public Map selectLocationPer5(LocationVO vo) {
 		int totalCount = mapper.count(vo);
 		int totalPage = totalCount / vo.getRowPerPage();
@@ -30,6 +32,7 @@ public class PlanService {
 		Map map = new HashMap();
 		for (LocationVO nvo: locationList) {
 			addCategoryName(nvo);
+			System.out.println(nvo);
 		}
 		map.put("totalCount", totalCount);
 		map.put("totalPage", totalPage);
@@ -42,11 +45,17 @@ public class PlanService {
 		return map;
 	}
 	
-	public LocationVO selectLocationByPK(int location_pk) {
-		LocationVO vo = mapper.selectLocationByPK(location_pk);
+	// PK를 사용해서 장소를 검색하는 메소드
+	public List<LocationVO> selectLocationByPK(int location_pk) {
+		List<LocationVO> vo = mapper.selectLocationByPK(location_pk);
+		for (LocationVO nvo: vo) {
+			System.out.println(vo);
+		}
 		return vo;
 	}
 	
+	
+	// 카테고리 코드를 한글로 바꾸어 주는 메소드
 	public void addCategoryName(LocationVO vo) {
 		switch (vo.getCategory()) {
 			case 1: vo.setCategory_name("음식점");

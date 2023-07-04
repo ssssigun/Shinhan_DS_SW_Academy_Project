@@ -20,6 +20,7 @@
 	var day = 1;
 	var period = 1;
 	var markerList = [];
+	var savedList = [];
 	var details = {};
 	var totalBudget = 0;
 	var polylinePath = [];
@@ -43,7 +44,22 @@
     	      // 마커와 장소 정보들 새로 생성
     	      $.each(data.locationList, function(index, location) {
     	        var planCard = $('<div>').addClass('planCard');
-    	        var planPhoto = $('<div>').addClass('planPhoto');
+    	        var planPhoto = $('<div>').addClass('planPhoto')
+    	        if (location.location_pic_url == '') {
+    	        	var imgSrc = '/main/image/logoMain.png';
+    	        } else {
+    	        	var imgSrc = location.location_pic_url;
+    	        }
+    	        var planImage = $('<img>').attr('src', imgSrc);
+    	        planImage.css({
+    	        	  'max-width': '100%',
+    	        	  'max-height': '100%',
+    	        	  'width': 'auto',
+    	        	  'height': 'auto',
+    	        	  'display': 'block',
+    	        	  'margin': '0 auto'
+    	        });
+    	        planPhoto.append(planImage);
     	        var plan = $('<div>').addClass('plan');
     	        var boldText = $('<div>').addClass('bold').text(location.location_name);
     	        var categoryText = $('<div>').text(location.category_name);
@@ -62,8 +78,19 @@
     	          position: new naver.maps.LatLng(location.latitude, location.longitude),
     	          map: map
     	        });
+    	        
+    	        var infoWindow = new naver.maps.InfoWindow({
+    	        	  content: '<div style="padding:10px;">' + location.location_name + '</div>' // 마커에 표시할 텍스트 내용
+    	        });
+
+    	        naver.maps.Event.addListener(marker, 'mouseover', function() {
+    	        	  infoWindow.open(map, marker);
+    	        });
+    	        
+    	        	        
     	        markerList.push(marker);
     	      });
+
 
     	      $('.index').hide();
 
@@ -98,6 +125,7 @@
     	  });
     	}
     	
+    	// 지도 움질일때마다 마커 새로 그리고 장소 받아오는 함수
     	function moveMap() {
             bounds = map.getBounds(); // 현재 지도 영역의 좌표 범위 가져오기
             max_lat = bounds._max['_lat'];
@@ -139,6 +167,7 @@
     		  $(".totalBudget").append("총 예산: " + totalBudget + " 원");
     	}
     	
+    	// 첫번째 완료 눌렀을 때 전체적으로 일차별 계획 시간표 보여주는 함수
     	function generateFinTimetable(details, day, period) {
     		$(".finTimetableWrapper").empty();
     		for (var day2 = 1; day2 <= period; day2++) {
@@ -173,7 +202,7 @@
         				+ "<th>23:00</th>"
         			+"</tr></table>");
     			$("."+day2+"timeTable").append("<tbody class='" + day2 + "planPerHour planPerHour'></tbody>");
-    			if (!(details.hasOwnProperty(day))) {
+    			if (!(details.hasOwnProperty(day2))) {
     				for (hour = 0; hour <= 23; hour++) {
     		    	  $("."+day2+"planPerHour").append("<td></td>");
     		    	}
@@ -196,6 +225,7 @@
     		}
     	}
     	
+    	// 여행 기간 지정하거나 변경했을 때 시간표 위에 있는 일차 정보 갱신하는 함수
     	function generateDay(day, period) {
     		$(".day").empty();
         	$('.nextDayBtn').removeClass(function(index, className) {
@@ -214,6 +244,55 @@
         	
         	generatePlanTable(details, totalBudget)
     	}
+    	
+    	// 세이브 마커 찍는 함수
+		function createMarker(day, details, map, savedList) {
+    	  // 마우스오버 이벤트 걸기 위한 리스트
+   		  var savedInfo = [];
+		  // 기존에 저장된 세이브 마커 제거
+		  for (var i = 0; i < savedList.length; i++) {
+		    savedList[i].setMap(null);
+		  }
+		  
+		  // 해당 일자에 해당하는 계획 탐색하며 마커 찍음
+		  if (details.hasOwnProperty(day)) {
+		    for (var hour = 0; hour <= 23; hour++) {
+		      if (details[day].hasOwnProperty(hour)) {
+		        var cnt = details[day][hour][1] - details[day][hour][0] + 1;
+		        hour = hour + cnt - 1;
+		        var markerOptions = {
+		          position: new naver.maps.LatLng(details[day][hour][4], details[day][hour][3]),
+		          map: map,
+		          icon: {
+		            url: '/main/image/plan/saveMarker.png',
+		          },
+		          zIndex: 2
+		        };
+		
+		        var marker = new naver.maps.Marker(markerOptions);
+		        var infoWindow = new naver.maps.InfoWindow({
+		          content: '<div style="padding:10px;">' + details[day][hour][6] + '</div>'
+		        });
+				savedList.push(marker);
+		        savedInfo.push({
+		          marker: marker,
+		          infoWindow: infoWindow
+		        });
+		      }
+		    }
+		
+		    for (var i = 0; i < savedInfo.length; i++) {
+		      (function(index) {
+		        var marker = savedInfo[index].marker;
+		        var infoWindow = savedInfo[index].infoWindow;
+		
+		        naver.maps.Event.addListener(marker, 'mouseover', function() {
+		          infoWindow.open(map, marker);
+		        });
+		      })(i);
+		    }
+		  }
+		}
     	
     	// 경로 그리는 함수
     	function createOrUpdatePolyline(day, details, map) {
@@ -242,6 +321,32 @@
     		  
     		return polyline;
     	}
+    	
+    	// 마지막 총 계산하는 함수, 나중에 유저 pk 받아오자!
+    	function calculate(details) {
+    	  
+    	  var jsonData = {};
+    	  
+    	
+    	  $.ajax({
+    	    url: 'calculate.do',
+    	    method: 'POST',
+    	    contentType: 'application/json',
+    	    data: {
+    	    	details: JSON.stringify(details)
+    	    },
+    	    success: function(response) {
+    	    	console.log(1);
+    	    },
+    	    error: function(xhr, status, error) {
+    	    	console.log(2);
+    	    }
+    	    
+    	  });
+    	  console.log(JSON.stringify(details));
+    	}
+    	
+    	
     
     
         // 각 지역별 대표 좌표
@@ -259,7 +364,10 @@
 
         $(function() {
         	
-        	//실험
+        	//나가기 버튼 눌렀을 때 메인으로 반환
+            $(".outBtn").click(function (e) {
+            	window.location.href = '/main/main.do';
+            });
 			//
     		
     		// 최초 일차 작성
@@ -268,7 +376,7 @@
     		// 일차에서 다음 버튼 눌렀을때
     		$('.pageController').on('click', '.canNextClick', function() {
             	day = day + 1;
-            	console.log(day);
+            	createMarker(day, details, map, savedList);
             	polyline = createOrUpdatePolyline(day, details, map);
             	generateDay(day, period);
             })
@@ -276,6 +384,7 @@
             // 일차에서 이전 버튼 눌렀을때
     		$('.pageController').on('click', '.canPrevClick', function() {
             	day = day - 1;
+            	createMarker(day, details, map, savedList);
             	polyline = createOrUpdatePolyline(day, details, map);
             	generateDay(day, period);
             })
@@ -290,31 +399,68 @@
             		method: 'GET',
             		dataType: 'json',
             		success: function(data) {
+            			
+            			var spotMainPhoto = $('.spotMainPhoto');
+            			spotMainPhoto.empty();
+            	        if (data[0].location_pic_url == '') {
+            	        	var mainSrc = '/main/image/logoMain.png';
+            	        } else {
+            	        	var mainSrc = data[0].location_pic_url;
+            	        }
+            	        
+	         			var mainImage = $('<img>').attr('src', mainSrc);
+            	        mainImage.css({
+            	        	  'max-width': '100%',
+            	        	  'max-height': '100%',
+            	        	  'width': 'auto',
+            	        	  'height': 'auto',
+            	        	  'display': 'block',
+            	        	  'margin': '0 auto'
+            	        });
+            	        spotMainPhoto.append(mainImage);
+            	        
+            	        var spotSubPhoto = $('.spotSubPhoto');
+            	        spotSubPhoto.empty();
+            	        
+            	        for (var i = 0; i < data.length; i++) {
+            	        	var subPhoto = $('<img>').attr('src', mainSrc);
+                	        subPhoto.css({
+                  	          'padding': '30px',
+                	          'height': '70%',
+                	        });
+                  	        spotSubPhoto.append(subPhoto);
+            	        }
+            	        
+
+            				
             			var modalContent = $('#modalContent');
                         modalContent.empty(); // 기존 내용 초기화
 
-                        var listItem = $('<li>').html('<div class="location_name bold">' + data.location_name + '</div>'); // JSON 데이터의 필드에 따라 내용을 조정할 수 있습니다.
+                        var listItem = $('<li>').html('<div class="location_name bold">' + data[0].location_name + '</div>'); // JSON 데이터의 필드에 따라 내용을 조정할 수 있습니다.
                         modalContent.append(listItem);
-                        var sTime = new Date(data.start_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();
-                        var eTime = new Date(data.end_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();
+                        var sTime = new Date(data[0].start_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();
+                        var eTime = new Date(data[0].end_time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).replace(/(AM|PM)/, '').trim();
                         listItem = $('<li>').html('<div class="bold"> 영업시간 : ' + sTime + ' AM ~' + eTime + ' PM</div>');
                         modalContent.append(listItem);
-                        listItem = $('<li>').html('<div class="bold"> 주소 : ' + data.address + '</div>');
+                        listItem = $('<li>').html('<div class="bold"> 주소 : ' + data[0].address + '</div>');
                         modalContent.append(listItem);
-                        listItem = $('<li>').html('<div class="bold"> 연락처 : ' + data.location_tel + '</div>');
+                        listItem = $('<li>').html('<div class="bold"> 연락처 : ' + data[0].location_tel + '</div>');
                         modalContent.append(listItem);
                         listItem = $('<li>').html('<div class="location_pk">' + pk + '</div>');
                         modalContent.append(listItem);
-                        listItem = $('<li>').html('<div class="location_longitude">' + data.longitude + '</div>');
+                        listItem = $('<li>').html('<div class="location_longitude">' + data[0].longitude + '</div>');
                         modalContent.append(listItem);
-                        listItem = $('<li>').html('<div class="location_latitude">' + data.latitude + '</div>');
+                        listItem = $('<li>').html('<div class="location_latitude">' + data[0].latitude + '</div>');
                         modalContent.append(listItem);
                         listItem = $('<li>').html('<div class="order">' + order + '</div>');
+                        modalContent.append(listItem);
+                        listItem = $('<li>').html('<div class="location_category">' + data[0].category + '</div>');
                         modalContent.append(listItem);
                         $(".location_pk").hide();
                         $(".location_longitude").hide();
                         $(".location_latitude").hide();
                         $(".order").hide();
+                        $(".location_category").hide();
             		},
             		error: function() {
             			alert('데이터를 가져오는 데 실패했습니다.');
@@ -351,6 +497,27 @@
             
             $(".finModalOutButton").click(function (e) {
             	$(".finModal").fadeOut();
+            });
+            
+            $(".finNext").click(function (e) {
+                $(".finModal").fadeOut();
+                $(".lastModal").fadeIn();
+                
+                // 미완
+                // calculate(details);
+            });
+            
+            $(".lastContent").click(function (e) {
+                // e.preventDefault();
+                e.stopPropagation();
+            });
+            
+            $(".lastModal").click(function (e) {
+                $(".lastModal").fadeOut();
+            });
+            
+            $(".lastModalOutButton").click(function (e) {
+            	$(".lastModal").fadeOut();
             });
         	
         	// 최초로 plancard를 만들어주는 ajax
@@ -433,6 +600,7 @@
         		var lLong = $(".location_longitude").text();
         		var lLat = $(".location_latitude").text();
         		var saveIndex = Number($(".order").text());
+        		var lCategory = $(".location_category").text();
         		if (!details.hasOwnProperty(day)) {
         			details[day] = {};
         		}
@@ -454,23 +622,13 @@
         		totalBudget += lBudget;
         		
         		for (hour = sTime; hour <= eTime; hour++) {
-    				details[day][hour] = [sTime, eTime, lPk, lLong, lLat, saveIndex, lName, lBudget];
+    				details[day][hour] = [sTime, eTime, lPk, lLong, lLat, saveIndex, lName, lBudget, lCategory];
     			}
         		
         		markerList[saveIndex].setMap(null);
         		
         		
-        		var markerOptions = {
-        			position: new naver.maps.LatLng(lLat, lLong),
-        			map: map,
-        			icon: {
-        	        url: '/main/image/plan/saveMarker.png',
-        	    	},
-        	    	zIndex: 2
-        		
-        		};
-        		
-        		var marker = new naver.maps.Marker(markerOptions);
+        		createMarker(day, details, map, savedList);
         		
         		// 경로 갱신
         		polyline = createOrUpdatePolyline(day, details, map);
@@ -484,10 +642,11 @@
     </script>
     <link rel="stylesheet" href="/main/css/reset.css">
     <link rel="stylesheet" href="/main/css/common.css">
-    <link rel="stylesheet" href="/main/css/plan/index.css?adbcd">
+    <link rel="stylesheet" href="/main/css/plan/index.css?adc">
 </head>
 <body>
     <div class="wrap">
+    <!-- 장소 세부 사항 모달 부분-->
       <div class="spotModal">
         <div class="spotModalContent">
           <div class="spotLeftContainer">
@@ -495,7 +654,7 @@
           	<div class="spotDetails">
           	  <ul id="modalContent"></ul>
           	</div>
-          	<div class="spotSubPhoto"></div>
+          	<div class="spotSubPhoto swiper"></div>
           	<div class="spotInputWrapper">
           	  <div class="timeInput">
           	  		<select class="select selectInput startTime" name="startTime" form="timeForm">
@@ -506,7 +665,7 @@
                     ~
                     <select class="select selectInput endTime" name="endTime" form="timeForm">
                     <c:forEach var="tmp" begin="0" end="23" step="1" varStatus="st">
-                        <option value="${st.count - 1 }">${st.count - 1 }:00</option>
+                        <option value="${st.count - 1 }">${st.count - 1 }:59</option>
                     </c:forEach>
                     </select>
           	  </div>
@@ -527,9 +686,12 @@
           </div>
         </div>
       </div>
-      <div class="finModal">
-        <div class="finContent">
-          <div class="finTimetableWrapper">
+    <!-- 장소 세부 사항 모달 부분-->
+    
+    <!-- 첫 완료 모달 부분-->
+      <div class="modalTemplate finModal">
+        <div class="contentTemplate finContent">
+          <div class="wrapperTemplate finTimetableWrapper">
           </div>
           <div class="spotButtonWrapper">
             <button class="btn lightskyBblackL spotSaveBtn finModalOutButton" style="font-size:18px;">돌아가기</button>
@@ -537,6 +699,20 @@
            </div>
         </div>
       </div>
+    <!-- 첫 완료 모달 부분-->
+    
+    <!-- 마지막 완료 모달 부분 -->
+      <div class="modalTemplate lastModal">
+        <div class="contentTemplate lastContent">
+          <div class="wrapperTemplate lastTimetableWrapper">
+          </div>
+          <div class="spotButtonWrapper">
+            <button class="btn lightskyBblackL spotSaveBtn lastModalOutButton" style="font-size:18px;">돌아가기</button>
+            <button class="btn blueBwhiteL spotSaveBtn finNext" style="font-size:18px;">다음</button>
+           </div>
+        </div>
+      </div>
+    <!-- 마지막 완료 모달 부분 -->
         <div class="leftContainer">
             <div class="pageSettingWrapper">
             	<div class="inputWrapper">
@@ -647,6 +823,7 @@
             	<div class="totalBudget bold"></div>
             	</div>
             	<div class="bottomButtonWrapper">
+            		<button class="btn lightskyBblackL btnSize outBtn" style="font-size:18px;">나가기</button>
             		<button class="btn lightskyBblackL btnSize" style="font-size:18px;">임시저장</button>
             		<button class="btn blueBwhiteL btnSize finBtn">완료</button>
             	</div>

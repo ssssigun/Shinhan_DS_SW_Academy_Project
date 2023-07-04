@@ -32,6 +32,10 @@ public class LocationVO {
 	private String min_lat;
 	private String min_lng;
 	
+	// 사진 정보
+	private String location_pic_url;
+	private String state;
+	
 	public LocationVO() {
 		this.region = -1;
 		this.category = -1;
