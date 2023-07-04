@@ -90,7 +90,7 @@ public class ReviewVO {
 public ReviewVO() { //지들이 생성하면서 초기화도
 		
 		this.page = 1;
-		this.rowPerPage = 10; //초기화되지만 그 이후 setRowPerPage 20으로 바뀐다는데
+		this.rowPerPage = 8; //초기화되지만 그 이후 setRowPerPage 20으로 바뀐다는데
 		this.startIdx = 0;
 	}
 	

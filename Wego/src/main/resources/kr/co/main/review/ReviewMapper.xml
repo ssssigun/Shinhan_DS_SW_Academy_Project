@@ -113,7 +113,7 @@
 		<include refid="whereSql"/>
 		
 		ORDER BY regdate DESC, user_pk DESC
-		LIMIT ${startIdx}, 10
+		LIMIT ${startIdx}, 8
 	</select>
 	
 	<select id="view" parameterType="kr.co.main.review.ReviewVO" resultType="kr.co.main.review.ReviewVO">
