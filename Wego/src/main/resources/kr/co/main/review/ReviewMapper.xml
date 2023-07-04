@@ -77,6 +77,14 @@
 		INSERT INTO wego.review_comment (user_pk,review_pk,plan_pk,regdate,comment_content)
 		VALUES (#{user_pk},1,1,"2023-06-27","한번 더 갔다옴");
 	</insert>
+	
+	<select id="getReviewComments" parameterType="int" resultType="kr.co.main.review.ReviewVO">
+    	select nickname, comment_content, review_comment.regdate 
+		from wego.review_comment left join wego.user 
+		on wego.review_comment.user_pk = wego.user.user_pk;
+	</select>
+
+
 
 	<!-- 리뷰 댓글 삭제 -->
 	<delete id="deleteReviewComment" parameterType="kr.co.main.review.ReviewVO">
@@ -109,15 +117,16 @@
 		SELECT * ,
 			(SELECT nickname FROM wego.user WHERE  user_pk= wego.review.user_pk)  nickname
 		
-		FROM wego.review 
+		FROM wego.review
+		
 		<include refid="whereSql"/>
 		
-		ORDER BY regdate DESC, user_pk DESC
+		ORDER BY regdate DESC, review_pk DESC
 		LIMIT ${startIdx}, 8
 	</select>
 	
 	<select id="view" parameterType="kr.co.main.review.ReviewVO" resultType="kr.co.main.review.ReviewVO">
-		SELECT * FROM wego.review WHERE user_pk=#{user_pk}
+		SELECT * FROM wego.review WHERE review_pk=#{review_pk}
 	</select>
 
 		

@@ -268,8 +268,6 @@ hr {
   width: auto;
   height: 347px;
 
-  background: url(image.png);
-
   /* Inside auto layout */
 
   flex: none;
@@ -363,8 +361,6 @@ hr {
 
   width: auto;
   height: 30px;
-
-  background: url(image.png);
 
   /* Inside auto layout */
 

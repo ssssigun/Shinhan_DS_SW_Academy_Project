@@ -109,7 +109,7 @@
               <div class="subsubWrapper">${vo.regdate}</div>
               <div class="buttonsWrapper">
               
-                <a href="view.do?no=${vo.user_pk}"><button class="smallBtn blueBwhiteL">후기보기</button></a>
+                <a href="view.do?review_pk=${vo.review_pk}"><button class="smallBtn blueBwhiteL">후기보기</button></a>
                 
               </div>
             </div>

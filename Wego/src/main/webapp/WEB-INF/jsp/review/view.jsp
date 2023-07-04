@@ -65,7 +65,7 @@
             <div class="thumbsWrapper">
               <div class="thumbs">
                  <a href=""><img src="../image/review/thumbsup.png" /></a>
-                <dd class="bigLetter">999</dd>
+                <dd class="bigLetter">${data.review_recommend_pk }</dd>
               </div>
             </div>
             <a href=""><img src="../image/review/report.png" /></a>
