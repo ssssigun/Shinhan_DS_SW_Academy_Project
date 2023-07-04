@@ -99,6 +99,28 @@
   /* order: 0; */
   flex-grow: 0;
 }
+
+.pagenate clear {
+	/* pageController */
+
+  /* Auto layout */
+
+  display: flex;
+  gap: 50px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+
+  width: auto;
+  height: 20px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  /* order: 0; */
+  flex-grow: 0;
+}
 .MdNavigateBefore {
   /* react-icons/md/MdNavigateBefore */
 

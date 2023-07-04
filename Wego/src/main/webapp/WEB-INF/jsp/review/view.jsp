@@ -45,7 +45,7 @@
               <h3 class="title">${data.title }</h3>
               <div class="viewCountWrapper">
                  <img src="../image/review/BsEye.png" />
-                <dt class="letter">조회수 카운트 10</dt>
+                <dt class="letter">${data.review_watch_pk }</dt>
               </div>
             </div>
             <hr />
@@ -75,20 +75,20 @@
           <div class="commentWrapper">
             <div class="comment">
               <div class="nicknameWrapper">
-                <h3 class="letter">[닉네임]</h3>
+                <h3 class="letter">${data.nickname}</h3>
                 <div class="menuWrapper">
-  <a href="#"><img src="../image/review/menuWrapper.png" /></a>
-  <div class="buttonContainer">
-    <button class="editButton">수정</button>
-    <button class="deleteButton">삭제</button>
-  </div>
-</div>
+				  <a href="#"><img src="../image/review/menuWrapper.png" /></a>
+				  <div class="buttonContainer">
+				    <button class="editButton">수정</button>
+				    <button class="deleteButton">삭제</button>
+				  </div>
+				</div>
 
               </div>
               <div class="contentsWrapper2">
-                <dd class="commentcontents">댓글 내용 어쩌구</dd>
+                <div class="commentcontents">${data.comment_content}</div>
               </div>
-              <h3 class="commentdate">2023-06-14</h3>
+              <h3 class="commentdate">${data.regdate_comment}</h3>
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@
           <!-- <button type="button" onclick="">목록</button> -->
         </div>
       </div>
-    </div>
+   
     <div class="footer">
     <div class="textFooter">
       <p>고객센터 대표번호 1588-0000</p>

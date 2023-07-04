@@ -1,7 +1,10 @@
 
 package kr.co.main.review;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -29,7 +32,9 @@ public class ReviewVO {
 	
 	private String title;
 	private String content;
-	private Timestamp regdate; //컬럼 이름이 똑같아서 중복인데
+//	private Timestamp regdate; //컬럼 이름이 똑같아서 중복인데
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	Date regdate;
 	
 	private int state;
 	
@@ -38,9 +43,11 @@ public class ReviewVO {
 	//=========================
 	
 	private int review_comment_pk;
+	private String comment_content;
 //	private int User_pk;
 //	private int Review_pk;
 //	private int Plan_pk;
+
 	
 	private Timestamp regdate_comment; //as 하면 됨
 	

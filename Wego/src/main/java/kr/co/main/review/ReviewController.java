@@ -25,7 +25,13 @@ public class ReviewController {
 	//===
 		@GetMapping("view.do")
 		public String view(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+			// 후기 게시글 조회
+		    ReviewVO review = rservice.view(vo);
+		    
+		 // 후기 게시글의 댓글 조회
+		    List<ReviewVO> comments = rservice.getReviewComments(vo.getReview_pk());
 			model.addAttribute("data", rservice.view(vo));
+			
 			
 			return "review/view";
 		}

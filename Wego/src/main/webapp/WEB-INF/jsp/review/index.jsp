@@ -79,7 +79,9 @@
         <div class="postsWrapper">
           
           
-          
+          <script>
+          	console.log(${result.list});
+          </script>
           
           
           <c:forEach var="vo" items="${result.list }">
@@ -94,11 +96,11 @@
                 <div class="iconsWrapper">
                   <div class="iconWrapper">
                     <img class="icon" src="../image/review/BsHandThumbsUpFill.png" />
-                    10
+                    ${vo.review_recommend_pk}
                   </div>
                   <div class="iconWrapper">
                     <img class="icon" src="../image/review/BsEye.png" />
-                    10
+                    ${vo.review_watch_pk }
                   </div>
                 </div>
               </div>
@@ -155,20 +157,21 @@
         
         
         
-        
+     <div class="pageControllerWrapper">
         <div class="pagenate clear">
-                        <ul class='paging'>
-                        <c:if test="${result.prev == true }">
-                        	<li><a href="index.do?page=${result.startPage-1 }&stype=${param.stype }&sword=${param.sword}"> < </a></li>
-                        </c:if>
-                        <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
-                            <li><a href='index.do?page=${num }&stype=${param.stype }&sword=${param.sword}' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
-                        </c:forEach>    
-                        <c:if test="${result.next == true }">
-                        	<li><a href="index.do?page=${result.endPage+1 }&stype=${param.stype }&sword=${param.sword}"> > </a></li>
-                        </c:if>
-                        </ul> 
-                    </div>
+             <ul class='paging'>
+             <c:if test="${result.prev == true }">
+             	<li><a href="index.do?page=${result.startPage-1 }&stype=${param.stype }&sword=${param.sword}"> < </a></li>
+             </c:if>
+             <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
+                 <li><a href='index.do?page=${num }&stype=${param.stype }&sword=${param.sword}' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
+             </c:forEach>    
+             <c:if test="${result.next == true }">
+             	<li><a href="index.do?page=${result.endPage+1 }&stype=${param.stype }&sword=${param.sword}"> > </a></li>
+             </c:if>
+             </ul> 
+         </div>
+      </div>
         <!-- 페이지처리 -->
         
          

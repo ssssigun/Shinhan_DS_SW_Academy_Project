@@ -57,16 +57,23 @@ public class ReviewService {
 			map.put("endPage", endPage);	
 			map.put("prev", prev);	//이전 얘가 트루면
 			map.put("next", next);	//다음 10개
-			
+			System.out.println(list);
 			return map;
 	}
 
 	public ReviewVO view(ReviewVO vo) {
-//		mapper.updateViewcount(vo.getUser_pk());
-		
-		return mapper.view(vo);
+	    return mapper.view(vo);
 	}
-	
+
+	public List<ReviewVO> getReviewComments(int review_pk) {
+	    return mapper.getReviewComments(review_pk);
+	}
+
+	public void increaseViews(int review_pk) {
+	    mapper.increaseViews(review_pk);
+	}
+
+//	mapper.updateViewcount(vo.getUser_pk());
 	
 	
 	
