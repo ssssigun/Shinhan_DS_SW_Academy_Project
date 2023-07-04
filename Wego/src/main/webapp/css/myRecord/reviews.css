@@ -25,8 +25,6 @@
   font-weight: 700;
   font-size: 32px;
   line-height: 39px;
-  /* identical to box height */
-
   display: flex;
   align-items: center;
 
@@ -41,10 +39,14 @@
 
 .oneLocation{
 	border-bottom: 1px solid black;
-	width:98%;
+	width:99%;
 	height:20%;
+	display:flex;
 	margin: 0 auto;
-	vertical-align:middle;
+	margin-top: 8.5px;
+	margin-bottom: 8.5px;
+	justify-content: center;
+	align-items: center;
 }
 
 .firstLine{
@@ -59,6 +61,9 @@
 	display:flex;
 }
 
+#score{
+	margin-left:5px;
+}
 .secondLine{
 	display:flex;
 	justify-content: space-between;
@@ -68,5 +73,28 @@
 
 .secondLine input{
 	border:1px solid black;
-	width:1020px;
+	width:95.3%;
+	height:27px;
+}
+
+.info{
+	width: 100%;
+}
+
+.day{
+	font-size: 25px;
+	font-weight:bold;
+	margin-bottom:40px;
+}
+
+.secondLine{
+	margin-top: 15px;	
+}
+
+.bottomWrapper{
+	width: 100%;
+	display:flex;
+	justify-content: flex-end;
+	margin-top: 10px;
+	gap:5px
 }

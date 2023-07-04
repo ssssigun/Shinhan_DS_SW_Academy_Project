@@ -51,3 +51,11 @@
 	font-size:13px;
 	cursor: default;
 } 
+
+.paging{
+	display:flex;
+}
+
+.paging li{
+	margin: 0px 2px 0px 2px;
+}

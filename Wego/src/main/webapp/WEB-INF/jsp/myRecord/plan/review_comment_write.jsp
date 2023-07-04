@@ -27,35 +27,41 @@
         <h3 class="title">장소 별 한줄평 작성</h3>
       <div class="writeWrapper">
       <div class="oneLocation">
-      	<div class="firstLine">
-      		장소명 : []-[]
-      		<div class="scoring">
-      			별점
-	      		<form action="#">
-	      			<select name="scores" id="score">
-	      				<option value:"1">☆☆☆☆★</option>
-	      				<option value:"2">☆☆☆★★</option>
-	      				<option value:"3">☆☆★★★</option>
-	      				<option value:"4">☆★★★★</option>
-	      				<option value:"5">★★★★★</option>
-	      			</select>
-	      		</form>
+      	<div class="info">
+      		<div class="day">
+      			일차
       		</div>
+      		<div class="firstLine">
+      		장소명 : []-[]
+	      		<div class="scoring">
+	      			별점
+		      		<form action="#">
+		      			<select name="scores" id="score">
+		      				<option value:"1">☆☆☆☆★</option>
+		      				<option value:"2">☆☆☆★★</option>
+		      				<option value:"3">☆☆★★★</option>
+		      				<option value:"4">☆★★★★</option>
+		      				<option value:"5">★★★★★</option>
+		      			</select>
+		      		</form>
+	      		</div>
+	      	</div>
+	      	<div class="secondLine">
+	      	    한줄평
+	      	    <input type:"text" id="oneLineReview"/>
+	      	</div>
       	</div>
-      	<div class="secondLine">
-      	    한줄평
-      	    <input type:"text" id="oneLineReview"/>
-      	</div>
+      	
       </div>
     </div>
    </div>
-
-	    <div class="bottomWrapper">
-	      <div class="btn lightskyBblackL">나가기</div>
-	      <div class="btn lightskyBblackL">전체 후기</div>
-	      <div class="btn blueBwhiteL">저장</div>
-	    </div>
+   <div class="bottomWrapper">
+	      <button class="btn lightskyBblackL">전체 후기</button>
+	      <button class="btn blueBwhiteL">저장</button>
+	      <button class="btn lightskyBblackL">나가기</button>
+	</div>
   </div>
+  
   
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>
 </body>

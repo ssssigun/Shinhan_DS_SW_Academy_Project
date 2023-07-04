@@ -106,35 +106,35 @@
           <ul class='paging'>
           <c:if test="${flag eq '1' }">
           	<c:if test="${result.prev == true }">
-               <li><a href="index.do?page=${result.startPage-1 }"> < </a></li>
+               <li><a href="index.do?page=${result.startPage-1 }"> dd </a></li>
              </c:if>
              <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
-               <li><a href='index.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
+               <li class="pagenationNumbers"><a href='index.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
              </c:forEach>
              <c:if test="${result.next == true }">
-                <li><a href="index.do?page=${result.endPage+1 }"> > </a></li>
+                <li><a href="index.do?page=${result.endPage+1 }"> &gt </a></li>
              </c:if>
           </c:if>
           <c:if test="${flag eq '2' }">
           	<c:if test="${result.prev == true }">
-               <li><a href="reviewing.do?page=${result.startPage-1 }"> < </a></li>
+               <li><a href="reviewing.do?page=${result.startPage-1 }"> &lt </a></li>
              </c:if>
              <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
-               <li><a href='reviewing.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
+               <li class="pagenationNumbers"><a href='reviewing.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
              </c:forEach>
              <c:if test="${result.next == true }">
-                <li><a href="reviewing.do?page=${result.endPage+1 }"> > </a></li>
+                <li><a href="reviewing.do?page=${result.endPage+1 }"> &gt </a></li>
              </c:if>
           </c:if>
           <c:if test="${flag eq '3' }">
           	<c:if test="${result.prev == true }">
-               <li><a href="tempSaved.do?page=${result.startPage-1 }"> < </a></li>
+               <li><a href="tempSaved.do?page=${result.startPage-1 }"> &lt </a></li>
              </c:if>
              <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
-               <li><a href='tempSaved.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
+               <li class="pagenationNumbers"><a href='tempSaved.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
              </c:forEach>
              <c:if test="${result.next == true }">
-                <li><a href="tempSaved.do?page=${result.endPage+1 }"> > </a></li>
+                <li><a href="tempSaved.do?page=${result.endPage+1 }"> &gt </a></li>
              </c:if>
           </c:if>  
           </ul> 
