@@ -73,6 +73,7 @@
         </div>
         
         <div class="com">
+         <div class="c">
         <c:forEach var="vo" items="${comments}">
           <div class="commentWrapper">
             <div class="comment">
@@ -94,6 +95,7 @@
             </div>
           </div>
           </c:forEach>
+          </div>
         </div>
         
 

@@ -375,7 +375,8 @@ hr {
   /* commentWrapper */
 
   /* Auto layout */
-
+	/*box-sizing: border-box;*/
+	/*margin-bottom: 10px;*/ /* 요소 사이의 간격 조정 */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -389,7 +390,22 @@ hr {
   order: 1;
   align-self: stretch;
   flex-grow: 0;
+  
+  
+  
 }
+
+.commentWrapper + .commentWrapper {
+  border-top: 1px solid black; /* 형제 요소 사이의 테두리 스타일을 정의 */
+  border-style: solid;
+}
+.c {
+	
+	border-width: 1px 0px;
+	border-style: solid;
+	border-color: #515151;
+}
+
 .comment {
   /* comment */
 
@@ -405,9 +421,9 @@ hr {
   height: 77px;
 
   background: #ffffff;
-  border-width: 1px 0px;
+  /*border-width: 1px 0px;
   border-style: solid;
-  border-color: #515151;
+  border-color: #515151;*/
 
   /* Inside auto layout */
 
