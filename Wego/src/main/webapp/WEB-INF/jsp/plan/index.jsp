@@ -478,7 +478,12 @@
 		      spotSubPhoto.empty();
 		
 		      for (var i = 0; i < data.length; i++) {
-		        var subPhoto = $("<img>").attr("src", mainSrc);
+			    if (data[i].location_pic_url == "") {
+					var subSrc = "/main/image/logoMain.png";
+				} else {
+				    var subSrc = data[i].location_pic_url;
+				}		    	  
+		        var subPhoto = $("<img>").attr("src", subSrc);
 		        subPhoto.css({
 		          padding: "30px",
 		          height: "70%",
