@@ -54,6 +54,14 @@ public class PlanService {
 		return vo;
 	}
 	
+	public void insertPlanAndDetail(PlanVO planVO, List<PlanDetailVO> listPlanDetailVO) {
+		mapper.insertPlan(planVO);
+		for (PlanDetailVO planDetailVO : listPlanDetailVO) {
+			planDetailVO.setPlan_pk(planVO.getPlan_pk());
+			mapper.insertPlanDetail(planDetailVO);
+		}
+	}
+	
 	
 	// 카테고리 코드를 한글로 바꾸어 주는 메소드
 	public void addCategoryName(LocationVO vo) {
