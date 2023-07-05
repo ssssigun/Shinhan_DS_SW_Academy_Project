@@ -161,16 +161,19 @@
         <div class="pagenate clear">
              <ul class='paging'>
              <c:if test="${result.prev == true }">
-             	<li><a href="index.do?page=${result.startPage-1 }&stype=${param.stype }&sword=${param.sword}"> <img src="../image/review/MdNavigateBefore.png" /> </a></li>
+             	<li><a href="index.do?page=${result.startPage-1 }&stype=${param.stype }&sword=${param.sword}" class="smallLetter selectLetter"> <img src="../image/review/MdNavigateBefore.png" /> </a></li>
+             	
 	             	<div class="MdNavigateBefore">
 		              
 		            </div>
              </c:if>
+          
+             
              <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
-                 <li class="horizontal"><a href='index.do?page=${num }&stype=${param.stype }&sword=${param.sword}' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>
+                 <li class="horizontal"><a href='index.do?page=${num }&stype=${param.stype }&sword=${param.sword}' <c:if test="${ReviewVO.page == num }">class='current'</c:if>>${num }</a></li>
              </c:forEach>    
              <c:if test="${result.next == true }">
-             	<li><a href="index.do?page=${result.endPage+1 }&stype=${param.stype }&sword=${param.sword}"> <img src="../image/review/MdNavigateNext.png" /> </a></li>
+             	<li><a href="index.do?page=${result.endPage+1 }&stype=${param.stype }&sword=${param.sword}" class="smallLetter selectLetter"> <img src="../image/review/MdNavigateNext.png" /> </a></li>
              	<div class="MdNavigateNext">
 	              
 	            </div>
