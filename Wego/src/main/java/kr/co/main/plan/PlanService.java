@@ -54,6 +54,7 @@ public class PlanService {
 		return vo;
 	}
 	
+	// plan, plan_detail에 insert 하는 메소드
 	public void insertPlanAndDetail(PlanVO planVO, List<PlanDetailVO> listPlanDetailVO) {
 		mapper.insertPlan(planVO);
 		for (PlanDetailVO planDetailVO : listPlanDetailVO) {

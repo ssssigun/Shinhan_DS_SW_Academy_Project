@@ -787,9 +787,10 @@
 				dataType : 'json',
 				success : function(response) {
 					console.log('성공');
+					window.location.href = '/main/myRecord/plan/index.do';
 				},
-				error : function() {
-					alert('데이터를 가져오는 데 실패했습니다.');
+				error: function(xhr, status, error) {
+				    alert('데이터를 가져오는 데 실패했습니다.\n에러 메시지: ' + error);
 				}
 
 			});

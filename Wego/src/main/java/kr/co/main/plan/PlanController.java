@@ -101,7 +101,7 @@ public class PlanController {
 	// 최종적으로 plan, plan_detail을 insert하는 api
 	@PostMapping("/submit.do")
 	@ResponseBody
-	public String submit(@RequestBody String plans) throws ParseException {
+	public Map submit(@RequestBody String plans) throws ParseException {
 		ObjectMapper mapper = new ObjectMapper();
 		
 		try {
@@ -151,6 +151,10 @@ public class PlanController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "success";
+		
+		Map<String, Integer> result = new HashMap<>();
+		result.put("Success", 1);
+		
+		return result;
 	}
 }
