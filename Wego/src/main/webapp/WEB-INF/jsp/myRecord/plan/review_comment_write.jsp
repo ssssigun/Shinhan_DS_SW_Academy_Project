@@ -26,33 +26,65 @@
     <div class="ContentsContainer">
         <h3 class="title">장소 별 한줄평 작성</h3>
       <div class="writeWrapper">
-      <div class="oneLocation">
-      	<div class="info">
-      		<div class="day">
-      			일차
-      		</div>
-      		<div class="firstLine">
-      		장소명 : []-[]
-	      		<div class="scoring">
-	      			별점
-		      		<form action="#">
-		      			<select name="scores" id="score">
-		      				<option value:"1">☆☆☆☆★</option>
-		      				<option value:"2">☆☆☆★★</option>
-		      				<option value:"3">☆☆★★★</option>
-		      				<option value:"4">☆★★★★</option>
-		      				<option value:"5">★★★★★</option>
-		      			</select>
-		      		</form>
+      <c:forEach var="vo" items="${result}">
+	      <div class="oneLocation">
+	      	<div class="info">
+	      		<div class="day">
+	      			${vo.day }일차
 	      		</div>
+	      		<div class="firstLine">
+	      		<c:choose>
+	      			<c:when test="${vo.region eq '1'}">
+	      				장소명 : [서울]-[${vo.location_Name }]	  
+	      			</c:when>
+	      			<c:when test="${vo.region eq '2'}">
+	      				장소명 : [인천]-[${vo.location_Name }]	  
+	      			</c:when>
+	      			<c:when test="${vo.region eq '3'}">
+	      				장소명 : [대전]-[${vo.location_Name }]	  
+	      			</c:when>
+	      			<c:when test="${vo.region eq '4'}">
+	      				장소명 : [대구]-[${vo.location_Name }]	  
+	      			</c:when>
+	      			<c:when test="${vo.region eq '5'}">
+	      				장소명 : [광주]-[${vo.location_Name }]	  
+	      			</c:when>
+	      			<c:when test="${vo.region eq '6'}">
+	      				장소명 : [부산]-[${vo.location_Name }]	  
+	      			</c:when>
+	      			<c:when test="${vo.region eq '7'}">
+	      				장소명 : [울산]-[${vo.location_Name }]	  
+	      			</c:when>
+	      			<c:when test="${vo.region eq '8'}">
+	      				장소명 : [세종]-[${vo.location_Name }]	  
+	      			</c:when>
+	      			<c:when test="${vo.region eq '9'}">
+	      				장소명 : [경기도]-[${vo.location_Name }]	  
+	      			</c:when>
+	      			<c:when test="${vo.region eq '10'}">
+	      				장소명 : [강원도]-[${vo.location_Name }]	  
+	      			</c:when>	      				      		    		
+	      		</c:choose>
+		      		<div class="scoring">
+		      			별점
+			      		<form action="#">
+			      			<select name="scores" id="score">
+			      				<option value:"1">☆☆☆☆★</option>
+			      				<option value:"2">☆☆☆★★</option>
+			      				<option value:"3">☆☆★★★</option>
+			      				<option value:"4">☆★★★★</option>
+			      				<option value:"5">★★★★★</option>
+			      			</select>
+			      		</form>
+		      		</div>
+		      	</div>
+		      	<div class="secondLine">
+		      	    한줄평
+		      	    <input type:"text" id="oneLineReview"/>
+		      	</div>
 	      	</div>
-	      	<div class="secondLine">
-	      	    한줄평
-	      	    <input type:"text" id="oneLineReview"/>
-	      	</div>
-      	</div>
-      	
-      </div>
+	      </div>      
+      </c:forEach>
     </div>
    </div>
    <div class="bottomWrapper">

@@ -18,6 +18,19 @@
   <link rel="stylesheet" href="/main/css/myRecord/plan.css"> 
 
   <title>활동 내역 확인</title>
+  
+  <script>
+  	function CallingAdeletion(flag, planID){
+  		var url = "deleting.do?flag="+flag+"&plan_pk="+planID;
+  		location.href=url;
+  		history(1);
+  	}
+  	
+  	function callingWritingReview(plan_pk){
+  		var url = "writingReviews.do?plan_pk="+plan_pk;
+  		location.href=url;
+  	}
+  </script>
 </head>
 <body>
   <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>
@@ -55,7 +68,7 @@
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">
 	                	<button class="smallBtn blueBwhiteL">수정하기</button>
-	                	<button class="smallBtn redBwhiteL">삭제하기</button>
+	                	<button class="smallBtn redBwhiteL del" onclick="CallingAdeletion(${flag},${vo.plan_pk})">삭제하기</button>
 	                </div>
 	              </div>
 	            </div>
@@ -74,7 +87,7 @@
 	                <div class="subWrapper">${vo.number_of_people }인 | ${vo.budget }원</div>
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">
-	                	<button class="smallBtn blueBwhiteL">후기 쓰기</button>
+	                	<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">후기 쓰기</button>
 	                </div>
 	              </div>
 	            </div>
@@ -94,7 +107,7 @@
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">    	
 	                	<button class="smallBtn blueBwhiteL">수정하기</button>
-	                	<button class="smallBtn redBwhiteL">삭제하기</button>
+	                	<button class="smallBtn redBwhiteL del" onclick="CallingAdeletion(${flag},${vo.plan_pk})">삭제하기</button>
 	                </div>
 	              </div>
 	            </div>
@@ -106,7 +119,7 @@
           <ul class='paging'>
           <c:if test="${flag eq '1' }">
           	<c:if test="${result.prev == true }">
-               <li><a href="index.do?page=${result.startPage-1 }"> dd </a></li>
+               <li><a href="index.do?page=${result.startPage-1 }"> &lt </a></li>
              </c:if>
              <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
                <li class="pagenationNumbers"><a href='index.do?page=${num }' <c:if test="${noticeVO.page == num }">class='current'</c:if>>${num }</a></li>

@@ -1,0 +1,557 @@
+.ContentsContainer {
+  width: 100%;
+  height: 100%;
+}
+.ContentsContainer h3 {
+  /* 전체 후기 수정 */
+
+  width: auto;
+  height: 39px;
+  flex-direction: column;
+  padding: 10px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.writeWrapper {
+  /* writeWrapper */
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 200px;
+
+  width: auto;
+  height: 939px;
+
+  border: 1px solid #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.writeTable {
+  /* writeTable */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: auto;
+  height: 839px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.titleWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 0px 10px 0px;
+  gap: 20px;
+
+  width: auto;
+  height: 66px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  border-bottom: 1px solid black;
+}
+.titleWrapper h3 {
+  /* 제목 */
+
+  width: auto;
+  height: 29px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.FrameCon {
+  /* Frame 68 */
+
+  align-items: flex-start;
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  /*align-items: center;*/
+  padding: 0px;
+
+  width: 100%;
+  height: 64px;
+
+  border: 1px solid #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+}
+.Frame68 h3 {
+  width: auto;
+  height: 29px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 29px;
+
+  display: flex;
+  align-items: center;
+  text-indent: 20px;
+
+  color: #000000;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  
+}
+
+.contentsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 5px;
+  gap: 20px;
+
+  width: auto;
+  height: 370px;
+
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+  font-size: 20px;
+  resize:none;
+}
+.contentsWrapper h3 {
+  /* 내용 */
+
+  /*text-indent: 20px;*/
+  /*margin: 16px;*/
+  width: auto;
+  height: 29px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  /* font-size: 24px; */
+  line-height: 29px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.preFrame {
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 5px 0px 5px;
+
+  width: auto;
+  height: 40px;
+
+  border: 1px solid #000000;
+  font-size: 20px;
+
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+}
+.preFrame h3 {
+  /* [기존 내용] */
+
+  width: auto;
+  height: 66px;
+
+  font-family: "Inter";
+  font-style: normal;
+  /* font-weight: 400; */
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-indent: 20px;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.attachmentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+
+  width: 100%;
+  height: 150px;
+
+  flex: none;
+  order: 3;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.Frame63 {
+  /* Frame 63 */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: 10px;
+  gap: 20px;
+
+  width: auto;
+  height: 29px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.Frame63 .imgattach {
+  /* 사진 첨부 */
+
+  width: auto;
+  height: 29px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.Frame63 .imgattachExplain {
+  /* 가장 앞의 사진이 목록에서 대표사진으로 보여집니다. */
+
+  width: auto;
+  height: 17px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #4b4b4b;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.photoWrapper {
+  /* photoWrapper */
+
+  /* Auto layout */
+  float: left;
+  display: flex;
+  /* flex-direction: row; */
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+
+  width: auto;
+  height: 171px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  /* order: 1; */
+  /* align-self: stretch; */
+  flex-grow: 0;
+}
+.photoWrapper .photo {
+  /* photo */
+
+  width: auto;
+  height: 171px;
+  float: left;
+  /* background: #d9d9d9; */
+  padding: 0 20px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  /* order: 0; */
+  flex-grow: 0;
+}
+
+.Frame62 {
+  /* Frame 62 */
+  float: left;
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+
+  width: 217px;
+  height: 171px;
+
+  border: 1px solid #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  /* order: 1; */
+  flex-grow: 0;
+}
+.Frame62:hover{
+	background-color:#ebebeb;	
+}
+
+.Frame62 .addingPhoto {
+  cursor:pointer;
+  transition: transform 0.3s;
+}
+
+.Frame62 .addingPhoto:hover{
+  transform: rotate(15deg);
+}
+
+.bottomWrapper {
+  /* bottomWrapper */
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  width: auto;
+  height: 81px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+button1 {
+  /* 나가기 */
+
+  width: auto;
+  height: 24px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.07em;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+button2 {
+  /* 저장 */
+
+  width: auto;
+  height: 24px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.07em;
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.bigbitLetter {
+  /* [기존 내용] */
+
+  width: 1240px;
+  height: 66px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  /* font-size: 16px; */
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-indent: 20px;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.letter {
+  align-items: flex-start;
+  margin:16px;
+}
+.photo {
+  /* padding: ; */
+}
+
+
+.btn {
+	display: flex;
+	width: 102px;
+	height: 40px;
+	padding: 1px 14px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	border-radius: 10px;
+
+
+}
+
+.attachcount {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  /* padding: 10px; */
+  gap: 5px;
+  width: auto;
+  height: 29px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.photoWrapper {
+	position: relative;
+}
+.rmBtn {
+	background-color: transparent;
+	border: none;
+	
+	position: absolute;
+	right: 5px;
+}
+.rmBtn img {
+  /*width: auto;*/
+  position: absolute;
+  /* position: absolute;
+  top: 85px;
+  left: 95px; */
+}
+

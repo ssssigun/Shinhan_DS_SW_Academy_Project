@@ -92,4 +92,37 @@ public class MyRecordPlanService {
 					
 					return map;
 				}
+				
+				public Map deleting(int x ,MyRecordPlanVO vo) {
+					mapper.deletion(x);
+					int totalCount = mapper.count();
+					int totalPage = totalCount/vo.getRowPerPage();
+					if(totalCount % vo.getRowPerPage() > 0) totalPage++;
+					int startIdx = (vo.getPage()-1) * vo.getRowPerPage();
+					vo.setStartIdx(startIdx);
+					List<MyRecordPlanVO> list = mapper.list(vo);
+					
+					int endPage = (int)Math.ceil(vo.getPage() / 8.0)*8;
+					int startPage = endPage - 7;
+					if(endPage > totalPage) endPage = totalPage;
+					boolean prev = startPage > 1 ? true : false;
+					boolean next = totalPage > endPage ? true : false;
+					
+					Map map = new HashMap();
+					map.put("totalCount", totalCount);
+					map.put("totalPage", totalPage);
+					map.put("list", list);
+					map.put("startPage",startPage);
+					map.put("endPage", endPage);
+					map.put("prev", prev);
+					map.put("next",next);
+					
+					return map;
+				}
+				
+				public List<MyRecordPlanVO> chopAndReading(int x) {
+					List<MyRecordPlanVO> list = mapper.list4(x);
+					
+					return list;
+				}
 }

@@ -3,7 +3,7 @@
 <mapper namespace="kr.co.main.myRecord.plan.MyRecordPlanMapper">
 
 	<select id="list" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO">
-		SELECT p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget FROM wego.plan p, wego.plan_detail d
+		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget FROM wego.plan p, wego.plan_detail d
 		<where>
 			p.plan_pk = d.plan_pk and p.state = 0
 		</where>
@@ -12,15 +12,14 @@
 	</select>
 	
 	<select id="count" resultType="int">
-		SELECT COUNT(*) FROM wego.plan p
+		SELECT COUNT(*),0 FROM wego.plan p
 		<where>
 			p.state = 0
 		</where>
-			GROUP BY p.state
 	</select>
 	
 	<select id="list2" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO">
-		SELECT p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget FROM wego.plan p, wego.plan_detail d
+		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget FROM wego.plan p, wego.plan_detail d
 		<where>
 			p.plan_pk = d.plan_pk and p.state = 1
 		</where>
@@ -33,11 +32,10 @@
 		<where>
 			p.state = 1
 		</where>
-			GROUP BY p.state
 	</select>
 	
 	<select id="list3" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO">
-		SELECT p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget FROM wego.plan p LEFT OUTER JOIN wego.plan_detail d 
+		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget FROM wego.plan p LEFT OUTER JOIN wego.plan_detail d 
 		ON p.plan_pk = d.plan_pk 
 		<where>
 			p.state = 2
@@ -51,7 +49,13 @@
 		<where>
 			p.state = 2
 		</where>
-			GROUP BY p.state
 	</select>
 	
+	<delete id="deletion" parameterType="int">
+		delete from wego.plan p where p.plan_pk = #{x}
+	</delete>
+	
+	<select id="list4" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO" parameterType="int">
+		select d.day, l.region, l.location_Name from wego.plan_detail d, wego.location l where d.plan_pk = #{x} and l.location_pk = d.location_pk order by d.day
+	</select>
 </mapper>
