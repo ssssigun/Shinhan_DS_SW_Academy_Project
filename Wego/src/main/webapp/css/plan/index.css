@@ -783,3 +783,29 @@ flex-grow: 0;
 	display: block;
 }
 
+.lastTableWrapper {
+	gap: 50px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lastTableWrapper th {
+	height: 40px;
+	width: 200px;
+	line-height:40px;
+	font-size: 25px;
+	font-weight: 700;
+}
+
+.lastTableWrapper td {
+	height: 60px;
+	width: 200px;
+	line-height: 60px;
+	font-size: 20px;
+	font-weight: 500;
+}
+
+.money {
+	text-align: right;
+}
