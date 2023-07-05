@@ -77,8 +77,12 @@ public class ReviewService {
 	}
 	
 	public boolean update(ReviewVO vo) { //업데이트치는거
+		int n = mapper.update(vo);
 		
-		return mapper.update(vo) > 0 ? true : false;
+		System.out.println("service update: " + vo);
+
+		return n > 0 ? true : false;
+//		return mapper.update(vo) > 0 ? true : false;
 	}
 
 //	mapper.updateViewcount(vo.getUser_pk());

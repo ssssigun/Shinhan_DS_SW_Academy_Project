@@ -50,6 +50,7 @@
         <h3 class="title">전체 후기 수정</h3>
       </div>
       <form method="post" name="frm" id="frm" action="update.do" enctype="multipart/form-data" >
+      <input type="hidden" name="review_pk" value="${data.review_pk }">
       <div class="writeWrapper">
         <div class="writeTable">
           <div class="titleWrapper">

@@ -60,10 +60,6 @@
 		UPDATE wego.review SET
 			title = #{title}
 			, content = #{content}
-			<if test="filename_org != null and filename_org != ''">
-			, filename_org = #{filename_org}
-			, filename_save = #{filename_save}
-			</if>
 		WHERE review_pk = #{review_pk}
 	</update>
 
