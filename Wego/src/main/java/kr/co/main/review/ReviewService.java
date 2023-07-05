@@ -96,4 +96,90 @@ public class ReviewService {
 //		return mapper.view(vo);
 //	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//댓글 보기
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*public ReviewVO getReviewById(Long id) {
+        return mapper.getReviewById(id);
+    }
+
+    public List<ReviewVO> getAllReviews() {
+        return mapper.getAllReviews();
+    }
+
+    public ReviewVO addReview(ReviewVO review) {
+        mapper.addReview(review);
+        return review;
+    }
+
+    public ReviewVO updateReview(Long id, ReviewVO review) {
+        ReviewVO existingReview = mapper.getReviewById(id);
+        if (existingReview != null) {
+            review.setId(id);
+            mapper.updateReview(review);
+            return review;
+        } else {
+            return null;
+        }
+    }
+
+    public boolean deleteReview(Long id) {
+        ReviewVO existingReview = mapper.getReviewById(id);
+        if (existingReview != null) {
+            mapper.deleteReview(id);
+            return true;
+        } else {
+            return false;
+        }
+    }*/
+	
 }

@@ -49,7 +49,7 @@ public class ReviewVO {
 //	private int Plan_pk;
 
 	
-	private Timestamp regdate_comment; //as 하면 됨
+	private Date regdate_comment; //as 하면 됨
 	
 	
 	//====================

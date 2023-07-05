@@ -29,11 +29,30 @@ public interface ReviewMapper {
 	int count(ReviewVO vo);
 
 	ReviewVO view(ReviewVO vo);
-	List<ReviewVO> getReviewComments(int review_pk);
 
 	void increaseViews(int review_pk);
 	
 	int update(ReviewVO vo);
+	
+	
+	
+	
+	//댓글 보기
+	List<ReviewVO> getReviewComments(int review_pk);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 //	int updateViewcount(int user_pk);
 	

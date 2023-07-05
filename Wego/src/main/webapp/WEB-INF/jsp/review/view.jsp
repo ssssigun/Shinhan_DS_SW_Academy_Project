@@ -71,11 +71,13 @@
             <a href=""><img src="../image/review/report.png" /></a>
           </div>
         </div>
+        
         <div class="com">
+        <c:forEach var="vo" items="${comments}">
           <div class="commentWrapper">
             <div class="comment">
               <div class="nicknameWrapper">
-                <h3 class="letter">${data.nickname}</h3>
+                <h3 class="letter">${vo.nickname}</h3>
                 <div class="menuWrapper">
 				  <a href="#"><img src="../image/review/menuWrapper.png" /></a>
 				  <div class="buttonContainer">
@@ -86,12 +88,14 @@
 
               </div>
               <div class="contentsWrapper2">
-                <div class="commentcontents">${data.comment_content}</div>
+                <div class="commentcontents">${vo.comment_content}</div>
               </div>
-              <h3 class="commentdate">${data.regdate_comment}</h3>
+              <h3 class="commentdate">${vo.regdate_comment}</h3>
             </div>
           </div>
+          </c:forEach>
         </div>
+        
 
         <div class="bottomWrapper">
           <div class="btn blueBwhiteL"><a href="/main/review/index.do">목록</a></div>

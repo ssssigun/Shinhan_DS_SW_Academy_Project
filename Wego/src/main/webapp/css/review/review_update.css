@@ -276,7 +276,7 @@ hr {
 
   display: flex;
   align-items: center;
-  text-align: center;
+  /*text-align: center;*/
 
   color: #000000;
 
@@ -582,7 +582,7 @@ button2 {
 
   font-family: "Inter";
   font-style: normal;
-  font-weight: 400;
+  /*font-weight: 400;*/
   /* font-size: 16px; */
   line-height: 19px;
   display: flex;
@@ -651,3 +651,6 @@ button2 {
   left: 95px; */
 }
 
+textarea {
+	resize:none;
+}
