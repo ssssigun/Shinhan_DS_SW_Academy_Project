@@ -26,8 +26,8 @@
 	<!-- 육각형을 위한 비율 가져오기 -->
 	<select id="getTotalRateForRadar" parameterType="int" resultType="kr.co.main.myRecord.accountBook.TotalRateVO">
 		SELECT IFNULL(ROUND(u.food/b.food*100), 0) radar_food, IFNULL(ROUND(u.accommodation/b.accommodation*100), 0) radar_accommodation, IFNULL(ROUND(u.shopping/b.shopping*100), 0) radar_shopping, IFNULL(ROUND(u.culture/b.culture*100), 0) radar_culture, IFNULL(ROUND(u.tour/b.tour*100), 0) radar_tour, IFNULL(ROUND(u.leisure/b.leisure*100), 0) radar_leisure
-		FROM wego.statistics u, (SELECT AVG(food) food, AVG(accommodation) accommodation, AVG(shopping) shopping, AVG(culture) culture, AVG(tour) tour, AVG(leisure) leisure FROM wego.statistics GROUP BY user_pk, state HAVING state = 1) b
-		WHERE state = 1 AND user_pk = #{user_pk};
+		FROM wego.statistics u, (SELECT user_pk, AVG(food) food, AVG(accommodation) accommodation, AVG(shopping) shopping, AVG(culture) culture, AVG(tour) tour, AVG(leisure) leisure FROM wego.statistics GROUP BY user_pk, state HAVING state = 1) b
+		WHERE u.user_pk = b.user_pk AND state = 1 AND u.user_pk = #{user_pk};
 	</select>
 	
 

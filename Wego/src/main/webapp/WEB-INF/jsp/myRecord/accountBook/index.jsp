@@ -23,9 +23,9 @@
 </head>
 <script>
 
-	var user_pk = 1;
+	var user_pk = ${user_pk};
 	var page_num = 0;
-	var totalPage = 0;
+	var totalPage = ${totalPage};
 	
 	/* 상세보기 페이지를 위한 변수들 */
 	var nth = 0;
@@ -49,10 +49,10 @@
 			}
 		})
 		$("#nextPage").click(function(){
-				if (page_num + 4 <= totalPage){
-					page_num += 4;
-					getReportList(user_pk, page_num);
-				}
+			if (page_num < totalPage){
+				page_num += 4;
+				getReportList(user_pk, page_num);
+			}
 		});
 	});
 	
@@ -246,9 +246,8 @@
 	          +'</div>'
 	        );
 				})
-				totalPage = data['totalPage'];
 				
-				if (page_num * 4 > totalPage) {
+				if (page_num * 4 >= totalPage) {
 					$('#nextPage').css({"background": "#D9D9D9", "cursor": "default"});
 				} else {
 					$('#nextPage').removeAttr("style");
@@ -265,7 +264,7 @@
 
 	}
 	
-	getReportList(1, page_num);
+	getReportList(user_pk, page_num);
 	
 </script>
 
@@ -300,87 +299,92 @@
         <a href="" class="bigbigLetter selectLetter">가계부</a>
       </div>
       <div class="infoWrapper">
-        <div class="topWrapper">
-          <div class="graphWrapper">
-            <canvas id="chart" width="400" height="400"></canvas>
-          </div>
-          <div class="topRightWrapper">
-            <table class="tbl">
-              <tr class="bigLetter bold">
-                <td class="td titleTd">
-                  전체
-                </td>
-                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="totalRate"></div></div></td>
-                <td class="td rightTd titleTd">
-                  전체
-                </td>
-              </tr>
-              <tr class="bigLetter">
-                <td class="td titleTd">
-                  숙박
-                </td>
-                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="accommodationRate"></div></div></td>
-                <td class="td rightTd titleTd">
-                  숙박
-                </td>
-              </tr>
-              <tr class="bigLetter">
-                <td class="td titleTd">
-                  식비
-                </td>
-                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="foodRate"></div></div></td>
-                <td class="td rightTd titleTd">
-                  식비
-                </td>
-              </tr>
-              <tr class="bigLetter">
-                <td class="td titleTd">
-                  쇼핑비
-                </td>
-                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="shoppingRate"></div></div></td>
-                <td class="td rightTd titleTd">
-                  쇼핑비
-                </td>
-              </tr>
-              <tr class="bigLetter">
-                <td class="td titleTd">
-                  문화시설비
-                </td>
-                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="cultureRate"></div></div></td>
-                <td class="td rightTd titleTd">
-                  문화시설비
-                </td>
-              </tr>
-              <tr class="bigLetter">
-                <td class="td titleTd">
-                  관광지비
-                </td>
-                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="tourRate"></div></div></td>
-                <td class="td rightTd titleTd">
-                  관광지비
-                </td>
-              </tr>
-              <tr class="bigLetter">
-                <td class="td titleTd">
-                  레포츠비
-                </td>
-                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="leisureRate"></div></div></td>
-                <td class="td rightTd titleTd">
-                  레포츠비
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="bottomWrapper">
-          <div class="postsWrapper">
-
-          </div>
-          <div class="pageButtonWrapper">
-            <button class="pageButton" id="beforePage"><img src="/main/image/MdNavigateBefore.png"/></button>
-            <button class="pageButton" id="nextPage"><img src="/main/image/MdNavigateNext.png"/></button>
-          </div>
-        </div>
+      	<c:if test="${totalPage gt 0}">
+	        <div class="topWrapper">
+	          <div class="graphWrapper">
+	            <canvas id="chart" width="400" height="400"></canvas>
+	          </div>
+	          <div class="topRightWrapper">
+	            <table class="tbl">
+	              <tr class="bigLetter bold">
+	                <td class="td titleTd">
+	                  전체
+	                </td>
+	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="totalRate"></div></div></td>
+	                <td class="td rightTd titleTd">
+	                  전체
+	                </td>
+	              </tr>
+	              <tr class="bigLetter">
+	                <td class="td titleTd">
+	                  숙박
+	                </td>
+	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="accommodationRate"></div></div></td>
+	                <td class="td rightTd titleTd">
+	                  숙박
+	                </td>
+	              </tr>
+	              <tr class="bigLetter">
+	                <td class="td titleTd">
+	                  식비
+	                </td>
+	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="foodRate"></div></div></td>
+	                <td class="td rightTd titleTd">
+	                  식비
+	                </td>
+	              </tr>
+	              <tr class="bigLetter">
+	                <td class="td titleTd">
+	                  쇼핑비
+	                </td>
+	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="shoppingRate"></div></div></td>
+	                <td class="td rightTd titleTd">
+	                  쇼핑비
+	                </td>
+	              </tr>
+	              <tr class="bigLetter">
+	                <td class="td titleTd">
+	                  문화시설비
+	                </td>
+	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="cultureRate"></div></div></td>
+	                <td class="td rightTd titleTd">
+	                  문화시설비
+	                </td>
+	              </tr>
+	              <tr class="bigLetter">
+	                <td class="td titleTd">
+	                  관광지비
+	                </td>
+	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="tourRate"></div></div></td>
+	                <td class="td rightTd titleTd">
+	                  관광지비
+	                </td>
+	              </tr>
+	              <tr class="bigLetter">
+	                <td class="td titleTd">
+	                  레포츠비
+	                </td>
+	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="leisureRate"></div></div></td>
+	                <td class="td rightTd titleTd">
+	                  레포츠비
+	                </td>
+	              </tr>
+	            </table>
+	          </div>
+	        </div>
+	        <div class="bottomWrapper">
+	          <div class="postsWrapper">
+	
+	          </div>
+	          <div class="pageButtonWrapper">
+	            <button class="pageButton" id="beforePage"><img src="/main/image/MdNavigateBefore.png"/></button>
+	            <button class="pageButton" id="nextPage"><img src="/main/image/MdNavigateNext.png"/></button>
+	          </div>
+	        </div>
+        </c:if>
+        <c:if test="${totalPage eq 0}">
+        	<div class="bigLetter bold">다녀온 여행이 없습니다.</div>
+        </c:if>
       </div>
     </div>
   </div>
@@ -388,91 +392,93 @@
 </body>
 
 <!-- 파란 노란 전체 통계를 보여주기 위한 스타일 -->
-<script type="text/javascript">
-	<%
-		TotalRateVO totalRate = (TotalRateVO) request.getAttribute("totalRate");
-	%>
-	document.getElementById("totalRate").style.width = <%= totalRate.getTotal() %> + "%";
-	document.getElementById("accommodationRate").style.width = <%= totalRate.getAccommodation() %> + "%";
-	document.getElementById("foodRate").style.width = <%= totalRate.getFood() %> + "%";
-	document.getElementById("shoppingRate").style.width = <%= totalRate.getShopping() %> + "%";
-	document.getElementById("cultureRate").style.width = <%= totalRate.getCulture() %> + "%";
-	document.getElementById("tourRate").style.width = <%= totalRate.getTour() %> + "%";
-	document.getElementById("leisureRate").style.width = <%= totalRate.getLeisure() %> + "%";
-</script>
-
-<!-- chartjs 스크립트 -->
-<script>
-	<%
-		TotalRateVO totalRateRadar = (TotalRateVO) request.getAttribute("totalRateRadar");
-	%>
-  Chart.defaults.font.size = 20;
-  const data = {
-    labels: [
-      '식비',
-      '숙박비',
-      '쇼핑비',
-      '문화시설비',
-      '관광지비',
-      '레포츠비'
-    ],
-    datasets: [{
-      data: [${totalRateRadar.radar_food}, ${totalRateRadar.radar_accommodation}, ${totalRateRadar.radar_shopping}, ${totalRateRadar.radar_culture}, ${totalRateRadar.radar_tour}, ${totalRateRadar.radar_leisure}],
-      fill: true,
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgb(255, 99, 132)',
-      pointBackgroundColor: 'rgb(255, 99, 132)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgb(255, 99, 132)'
-    }]
-  }
-
-  const config = {
-    type: 'radar',
-    data: data,
-    options: {
-      scales: {
-        r: {
-          suggestedMin: 0,
-          suggestedMax: 100,
-          pointLabels: {
-            font: {
-              size: 14,
-              family: "'Noto Sans KR', 'sans-serif'",
-              weight: 400
-            }
-          },
-          ticks: {
-            display: false,
-            stepSize: 20
-          },
-          backgroundColor: '#FFFFFF',
-          grid: {
-            circular: true
-          },
-          angleLines: {
-            display: false
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: false
-        },
-        tooltip: {
-          enabled: false
-        }
-      }
-    }
-  }
-</script>
-<script>
-  const chart = new Chart(
-    document.getElementById('chart'),
-    config
-  );
-</script>
+<c:if test="${totalPage gt 0}">
+	<script type="text/javascript">
+		<%
+			TotalRateVO totalRate = (TotalRateVO) request.getAttribute("totalRate");
+		%>
+		document.getElementById("totalRate").style.width = <%= totalRate.getTotal() %> + "%";
+		document.getElementById("accommodationRate").style.width = <%= totalRate.getAccommodation() %> + "%";
+		document.getElementById("foodRate").style.width = <%= totalRate.getFood() %> + "%";
+		document.getElementById("shoppingRate").style.width = <%= totalRate.getShopping() %> + "%";
+		document.getElementById("cultureRate").style.width = <%= totalRate.getCulture() %> + "%";
+		document.getElementById("tourRate").style.width = <%= totalRate.getTour() %> + "%";
+		document.getElementById("leisureRate").style.width = <%= totalRate.getLeisure() %> + "%";
+	</script>
+	
+	<!-- chartjs 스크립트 -->
+	<script>
+		<%
+			TotalRateVO totalRateRadar = (TotalRateVO) request.getAttribute("totalRateRadar");
+		%>
+	  Chart.defaults.font.size = 20;
+	  const data = {
+	    labels: [
+	      '식비',
+	      '숙박비',
+	      '쇼핑비',
+	      '문화시설비',
+	      '관광지비',
+	      '레포츠비'
+	    ],
+	    datasets: [{
+	      data: [${totalRateRadar.radar_food}, ${totalRateRadar.radar_accommodation}, ${totalRateRadar.radar_shopping}, ${totalRateRadar.radar_culture}, ${totalRateRadar.radar_tour}, ${totalRateRadar.radar_leisure}],
+	      fill: true,
+	      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+	      borderColor: 'rgb(255, 99, 132)',
+	      pointBackgroundColor: 'rgb(255, 99, 132)',
+	      pointBorderColor: '#fff',
+	      pointHoverBackgroundColor: '#fff',
+	      pointHoverBorderColor: 'rgb(255, 99, 132)'
+	    }]
+	  }
+	
+	  const config = {
+	    type: 'radar',
+	    data: data,
+	    options: {
+	      scales: {
+	        r: {
+	          suggestedMin: 0,
+	          suggestedMax: 100,
+	          pointLabels: {
+	            font: {
+	              size: 14,
+	              family: "'Noto Sans KR', 'sans-serif'",
+	              weight: 400
+	            }
+	          },
+	          ticks: {
+	            display: false,
+	            stepSize: 20
+	          },
+	          backgroundColor: '#FFFFFF',
+	          grid: {
+	            circular: true
+	          },
+	          angleLines: {
+	            display: false
+	          }
+	        }
+	      },
+	      plugins: {
+	        legend: {
+	          display: false
+	        },
+	        tooltip: {
+	          enabled: false
+	        }
+	      }
+	    }
+	  }
+	</script>
+	<script>
+	  const chart = new Chart(
+	    document.getElementById('chart'),
+	    config
+	  );
+	</script>
+</c:if>
 </html>
 
 

@@ -62,9 +62,11 @@ public class AccountService {
 		
 		map.put("list", list);
 		
-		int count = mapper.getCountReportList(vo.user_pk);
-		map.put("totalPage", count);
 		return map;
+	}
+	
+	public int getTotalPage(int user_pk) {
+		return mapper.getCountReportList(user_pk);
 	}
 	
 	public Map<String, Object> getUsageForUsageList(int plan_pk, String start_date, String end_date, int nth) throws ParseException{
