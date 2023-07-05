@@ -233,6 +233,59 @@ hr {
   order: 0;
   flex-grow: 0;
 }
+.text {
+	/* 내용 */
+
+  /*text-indent: 20px;*/
+  /*margin: 16px;*/
+  width: auto;
+  height: 29px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  /* font-size: 24px; */
+  line-height: 29px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.tit {
+ /* 제목 */
+
+  width: auto;
+  height: 29px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
 
 .preFrame {
   /* Frame 68 */

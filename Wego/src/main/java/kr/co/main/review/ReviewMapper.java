@@ -6,7 +6,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.co.main.myRecord.plan.MyRecordPlanVO;
+
+
 
 
 @Mapper
@@ -31,6 +32,8 @@ public interface ReviewMapper {
 	List<ReviewVO> getReviewComments(int review_pk);
 
 	void increaseViews(int review_pk);
+	
+	int update(ReviewVO vo);
 
 //	int updateViewcount(int user_pk);
 	

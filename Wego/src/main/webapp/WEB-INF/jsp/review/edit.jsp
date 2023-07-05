@@ -7,6 +7,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <meta name="google" content="notranslate" />
     <link rel="icon" href="../image/ShinhanLogo.png" />
     <link rel="stylesheet" href="../css/common.css" />
@@ -14,6 +16,13 @@
     <link rel="stylesheet" href="../css/footer.css" />
     <link rel="stylesheet" href="../css/review/review_update.css" />
     <title>common</title>
+    <script>
+    	function goSave() {
+    		//유효성처리했다치고
+    		$("#frm").submit();
+    		
+    	}
+    </script>
   </head>
   <body>
     <div class="header">
@@ -40,19 +49,23 @@
       <div class="ContentsContainer">
         <h3 class="title">전체 후기 수정</h3>
       </div>
+      <form method="post" name="frm" id="frm" action="update.do" enctype="multipart/form-data" >
       <div class="writeWrapper">
         <div class="writeTable">
           <div class="titleWrapper">
             <h3 class="title">제목</h3>
-            <div class="preFrame">
-              <h3 class="bigbitLetter">[기존 제목]</h3>
-            </div>
+            
+            
+              
+              <input type="text" name="title" id="title" class="bigbitLetter tit" value="${data.title }"/>
+            
           </div>
           <hr />
           <div class="contentsWrapper">
             <h3 class="title">내용</h3>
             <div class="FrameCon">
-              <h3 class="letter">[기존 내용]</h3>
+              
+              <textarea name="content" id="content" class="FrameCon letter text">${data.content }</textarea>
             </div>
           </div>
           <div class="attachmentWrapper">
@@ -80,10 +93,13 @@
       </div>
       
     </div>
+    
+    
     <div class="bottomWrapper">
         <div class="btn lightskyBblackL"><a href="/main/myRecord/plan/index.do">나가기</a></div>
-        <div class="btn blueBwhiteL"><a href="/main/myRecord/plan/index.do">저장</a></div>
-      </div>
+        <div class="btn blueBwhiteL"><a href="javascript:goSave();">저장</a></div>
+    </div>
+   </form>
     </div>
     <div class="footer">
     <div class="textFooter">

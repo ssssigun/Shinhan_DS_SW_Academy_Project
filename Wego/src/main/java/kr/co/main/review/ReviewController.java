@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.main.myRecord.plan.MyRecordPlanService;
 import kr.co.main.myRecord.plan.MyRecordPlanVO;
+
 
 
 @Controller
@@ -55,9 +57,23 @@ public class ReviewController {
 	//수정 review_update => edit
 	//===
 	@GetMapping("edit.do")
-	public String review_update(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
-//		model.addAttribute("data", Service.view(vo));
+	public String edit(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+		model.addAttribute("data", rservice.edit(vo));
 		return "review/edit";
 	}	
+	
+	
+	@PostMapping("update.do")
+	public String update(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+		if(rservice.update(vo)) {
+			model.addAttribute("msg", "정상적으로 수정되었습니다.");
+			model.addAttribute("url", "index.do?no="+vo.getReview_pk());
+			
+		} else {
+			model.addAttribute("msg", "수정 실패");
+			
+		}
+		return "include/alert";
+	}
 		
 }

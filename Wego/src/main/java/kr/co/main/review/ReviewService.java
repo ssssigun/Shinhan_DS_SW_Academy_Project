@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 
 
-
 @Service
 public class ReviewService {
 
@@ -71,6 +70,15 @@ public class ReviewService {
 
 	public void increaseViews(int review_pk) {
 	    mapper.increaseViews(review_pk);
+	}
+
+	public ReviewVO edit(ReviewVO vo) { //수정폼
+		return mapper.view(vo);
+	}
+	
+	public boolean update(ReviewVO vo) { //업데이트치는거
+		
+		return mapper.update(vo) > 0 ? true : false;
 	}
 
 //	mapper.updateViewcount(vo.getUser_pk());
