@@ -1,10 +1,10 @@
 var scrollY = 0;
 
 function modal() {
-  $("#detail").click(function () {
-  	console.log("모달");
+  $(document).on("click", "#detail", function () {
+    console.log("모달");
     $(".modal").fadeIn();
-
+ 
     $(".modal").css("display", "flex");
 
     disableScroll();

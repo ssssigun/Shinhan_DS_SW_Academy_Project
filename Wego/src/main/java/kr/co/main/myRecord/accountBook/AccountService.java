@@ -63,7 +63,7 @@ public class AccountService {
 		map.put("list", list);
 		
 		int count = mapper.getCountReportList(vo.user_pk);
-		map.put("totalPage", count / 4);
+		map.put("totalPage", count);
 		return map;
 	}
 	

@@ -44,13 +44,13 @@
 	$(document).ready(function() {
 		$("#beforePage").click(function(){
 			if (page_num != 0){
-				page_num -= 1;
+				page_num -= 4;
 				getReportList(user_pk, page_num);
 			}
 		})
 		$("#nextPage").click(function(){
-				if (page_num != totalPage){
-					page_num += 1;
+				if (page_num + 4 <= totalPage){
+					page_num += 4;
 					getReportList(user_pk, page_num);
 				}
 		});
@@ -220,11 +220,14 @@
 	
 	/* 하단 사용내역 게시물 불러오기 */
 	function getReportList(user_pk, page_num) {
+		console.log("page_num:" + page_num);
 		$.ajax({
 			url: 'getReportList.do?user_pk=' + user_pk + '&start_page=' + page_num,
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
+				console.log(user_pk, page_num);
+				console.log(data);
 				$('.postsWrapper').empty();
 				var list = data['list'];
 				list.forEach(function(object){
@@ -238,18 +241,22 @@
 	          +    '</div>'
 	          +    '<div class="subWrapper">'+ object.num_of_people +'인 | '+addComma(object.total_usage)+' 원</div>'
 	          +    '<div class="subsubWrapper">'+object.start_date+' ~ ' + object.end_date + '</div>'
-	          +    '<div class="buttonsWrapper"><button class="smallBtn blueBwhiteL" id="detail" onclick="detail('+object.plan_pk+',\''+object.start_date+'\',\''+object.end_date+'\')">상세보기</button></div>'
+	          +    '<div class="buttonsWrapper"><button class="smallBtn blueBwhiteL" id="detail" onclick="detail('+object.plan_pk+',\''+object.start_date+'\',\''+object.end_date+'\');">상세보기</button></div>'
 	          +  '</div>'
 	          +'</div>'
 	        );
 				})
 				totalPage = data['totalPage'];
 				
-				if (totalPage == page_num) {
+				if (page_num * 4 > totalPage) {
 					$('#nextPage').css({"background": "#D9D9D9", "cursor": "default"});
+				} else {
+					$('#nextPage').removeAttr("style");
 				}
 				if (0 == page_num) {
 					$('#beforePage').css({"background": "#D9D9D9", "cursor": "default"});
+				} else {
+					$('#beforePage').removeAttr("style");
 				}
 
 				modal();
