@@ -96,6 +96,10 @@
           </div>
           </c:forEach>
           </div>
+          <div class = "cominsert">
+          	<h3 class="letter">${data.nickname}</h3>
+          	<textarea name="content" id="content" class="FrameCon letter text">${data.content }</textarea>
+          </div>
         </div>
         
 
