@@ -32,7 +32,6 @@ public class PlanService {
 		Map map = new HashMap();
 		for (LocationVO nvo: locationList) {
 			addCategoryName(nvo);
-			System.out.println(nvo);
 		}
 		map.put("totalCount", totalCount);
 		map.put("totalPage", totalPage);
@@ -48,9 +47,6 @@ public class PlanService {
 	// PK를 사용해서 장소를 검색하는 메소드
 	public List<LocationVO> selectLocationByPK(int location_pk) {
 		List<LocationVO> vo = mapper.selectLocationByPK(location_pk);
-		for (LocationVO nvo: vo) {
-			System.out.println(vo);
-		}
 		return vo;
 	}
 	

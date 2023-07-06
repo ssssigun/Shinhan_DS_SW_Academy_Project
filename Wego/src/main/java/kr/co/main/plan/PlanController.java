@@ -1,7 +1,12 @@
 package kr.co.main.plan;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
@@ -106,6 +112,8 @@ public class PlanController {
 		
 		try {
 			Map<String, Object> plansDetails = mapper.readValue(plans, Map.class);
+			
+			// json으로 받아온 데이터에서 plan 정보를 추출해서 planVO에 넣는 코드
 			PlanVO planVO = new PlanVO();
 			planVO.setUser_pk(Integer.parseInt(String.valueOf(plansDetails.get("user_pk"))));
 			planVO.setTitle(String.valueOf(plansDetails.get("title")));
@@ -119,6 +127,7 @@ public class PlanController {
 			planVO.setEnd_date(end_date);
 			planVO.setState(0);
 			
+			// json으로 받아온 데이터에서 plan_detail 정보를 추출해서 planDetailVO에 넣는 코드
 			List<List<String>> data = (List) plansDetails.get("plan_details");
 			List<PlanDetailVO> listPlanDetailVO = new ArrayList<>();
 			for (List<String> planDetail : data) {
@@ -146,6 +155,7 @@ public class PlanController {
 				listPlanDetailVO.add(planDetailVO);
 			}
 			
+			// planVO와 planDetailVO 정보를 이용해서 DB에 insert
 			service.insertPlanAndDetail(planVO, listPlanDetailVO);
 	
 		} catch (IOException e) {
@@ -156,5 +166,58 @@ public class PlanController {
 		result.put("Success", 1);
 		
 		return result;
+	}
+	
+	
+	// 세부 경로 그려주는 api
+	@GetMapping("/findRoute.do")
+	@ResponseBody
+	public List<List<String>> findRoute(String start_long, String start_lat, String end_long, String end_lat) {
+		ObjectMapper mapper = new ObjectMapper();
+		List<List<String>> path = new ArrayList<>();
+        String url = "https://naveropenapi.apigw.ntruss.com/map-direction-15/v1/driving?start="+start_long+","+start_lat+"&goal="+end_long+","+end_lat+"&option=trafast";
+        String apiKeyId = "l8m4oe0ivu";
+        String apiKey = "fJzazbNyzB4cbh6HYRm3Ch1qfoG1sexOiY35i9He";
+
+        try {
+            URL apiUrl = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) apiUrl.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("X-NCP-APIGW-API-KEY-ID", apiKeyId);
+            conn.setRequestProperty("X-NCP-APIGW-API-KEY", apiKey);
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+            	InputStream inputStream = conn.getInputStream();
+            	BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            	StringBuilder responseBody = new StringBuilder();
+            	String line;
+            	while ((line = reader.readLine()) != null) {
+            	    responseBody.append(line);
+            	}
+            	reader.close();
+            	inputStream.close();
+
+            	String response = responseBody.toString();
+            	JsonNode info = mapper.readTree(response);
+            	JsonNode pathArray = info.path("route").path("trafast").get(0).path("path");
+            	
+                for (JsonNode coordinate : pathArray) {
+                    String longitude = coordinate.get(0).asText();
+                    String latitude = coordinate.get(1).asText();
+                    List<String> point = new ArrayList<>();
+                    point.add(longitude);
+                    point.add(latitude);
+                    path.add(point);
+                }
+                // 여기서 응답 데이터를 처리합니다.
+            } else {
+                System.out.println("HTTP 요청 오류: " + responseCode);
+                // 여기서 오류를 처리합니다.
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return path;
 	}
 }

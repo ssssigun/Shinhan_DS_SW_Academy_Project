@@ -809,3 +809,14 @@ flex-grow: 0;
 .money {
 	text-align: right;
 }
+
+.planPerHour > td{
+	position: relative;
+}
+
+.planPerHourBottom {
+	position: absolute;
+	gap: 10px;
+	bottom: 0;
+	right: 0;
+}

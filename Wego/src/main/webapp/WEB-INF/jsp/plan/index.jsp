@@ -27,6 +27,7 @@
 	var totalBudget = 0;
 	var polylinePath = [];
 	var polyline = new naver.maps.Polyline();
+	var test = [];
 
 	// 장소 리스트 받아오는 함수
 	function fetchData(
@@ -121,6 +122,10 @@
 	        naver.maps.Event.addListener(marker, "mouseover", function () {
 	          infoWindow.open(map, marker);
 	        });
+	        
+			naver.maps.Event.addListener(marker, 'mouseout', function() {
+			  infoWindow.close();
+			});
 	
 	        markerList.push(marker);
 	      });
@@ -193,7 +198,8 @@
 					$(".planPerHour").append(
 							"<td colspan=" + mergeCount + ">" + "<ul>" + "<li>"
 									+ details[day][hour][6] + "</li>" + "<li>"
-									+ details[day][hour][7] + "원 </li>"
+									+ details[day][hour][7] + "원 </li>" + "<li class='planPerHourBottom'>"
+									+ "<img src='/main/image/plan/cross.png' style='cursor: pointer;' width='20' class='deleteSpot' value='"+ details[day][hour][0] +","+ details[day][hour][1] + "," + details[day][hour][7]+ "'>&nbsp<img src='/main/image/plan/Vector.png' width='20'>&nbsp</li>"
 									+ "</ul>" + "</td>");
 					hour = hour + mergeCount - 1;
 				} else {
@@ -331,6 +337,10 @@
 							function() {
 								infoWindow.open(map, marker);
 							});
+					naver.maps.Event.addListener(marker, 'mouseout', 
+							function() {
+						  		infoWindow.close();
+							});
 				})(i);
 			}
 		}
@@ -338,14 +348,24 @@
 
 	// 경로 그리는 함수
 	function createOrUpdatePolyline(day, details, map) {
+		var init = 0;
+		var prior = 0;
 		var polylinePath = [];
 		if (details.hasOwnProperty(day)) {
 			for (var hour = 0; hour <= 23; hour++) {
 				if (details[day].hasOwnProperty(hour)) {
 					var cnt = details[day][hour][1] - details[day][hour][0] + 1;
 					hour = hour + cnt - 1;
-					polylinePath.push(new naver.maps.LatLng(
-							details[day][hour][4], details[day][hour][3]));
+					if (init == 1) {
+						var path = findRoute(details[day][prior][3], details[day][prior][4], details[day][hour][3], details[day][hour][4]);
+						for (var i = 0; i < path.length; i++) {
+							polylinePath.push(new naver.maps.LatLng(
+									path[i][1], path[i][0]));
+						}
+					} else {
+						init = 1;
+					}
+					prior = hour;
 				}
 			}
 		}
@@ -358,7 +378,7 @@
 			path : polylinePath,
 			strokeColor : '#FF0000',
 			strokeOpacity : 0.8,
-			strokeWeight : 6,
+			strokeWeight : 3,
 			map : map
 		});
 
@@ -404,6 +424,26 @@
 
 		});
 	}
+	
+	
+	// 세부 경로 그리는 함수
+	function findRoute(start_long, start_lat, end_long, end_lat) {
+		$.ajax({
+			url : 'findRoute.do?start_long=' + start_long + '&start_lat=' + start_lat + '&end_long=' + end_long + '&end_lat=' + end_lat,
+			async: false,
+			method : 'GET',
+			success : function(response) {
+				path = response;
+			},
+			error : function() {
+				alert('데이터를 가져오는 데 실패했습니다.');
+			}
+
+		});
+		
+		return path;
+	}
+	
 
 	// 각 지역별 대표 좌표
 	var regionPoint = {};
@@ -732,6 +772,7 @@
 
 					markerList[saveIndex].setMap(null);
 
+					// 마커 찍기
 					createMarker(day, details, map, savedList);
 
 					// 경로 갱신
@@ -750,12 +791,6 @@
 			var num_of_people = $('.number_of_people').val();
 			var start_date = $('.startDate').val();
 			var end_date = $('.endDate').val();
-			
-			console.log('user_pk: ' + user_pk);
-			console.log('title: ' + title);
-			console.log('num_of_people: ' + num_of_people);
-			console.log('start_date: ' + start_date);
-			console.log('end_date: ' + end_date);
 			
 			var plan_details = [];
 			for (var day = 1; day <= period; day++) {
@@ -791,7 +826,6 @@
 				}),
 				dataType : 'json',
 				success : function(response) {
-					console.log('성공');
 					window.location.href = '/main/myRecord/plan/index.do';
 				},
 				error: function(xhr, status, error) {
@@ -801,11 +835,26 @@
 			});
 		});
 		//
+		
+		// 계획 삭제
+		$(".planPerHour").on("click", ".deleteSpot", function(e) {
+		  var start_end = $(this).attr("value").split(',');
+		  for (var i = start_end[0]; i <= start_end[1]; i++) {
+			  delete details[day][i];
+		  }
+		  totalBudget -= start_end[2];
+			// 마커 찍기
+			createMarker(day, details, map, savedList);
+			// 경로 갱신
+			polyline = createOrUpdatePolyline(day, details, map);
+			// 시간표 갱신
+			generatePlanTable(details, totalBudget);
+		});
 	});
 </script>
 <link rel="stylesheet" href="/main/css/reset.css">
 <link rel="stylesheet" href="/main/css/common.css">
-<link rel="stylesheet" href="/main/css/plan/index.css?adcdddd">
+<link rel="stylesheet" href="/main/css/plan/index.css?adcddddddd">
 </head>
 <body>
 	<div class="wrap">
