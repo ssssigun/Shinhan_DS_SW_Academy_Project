@@ -74,7 +74,7 @@ public class ReviewController {
 		return "review/edit";
 	}	
 	
-	
+	//글수정
 	@PostMapping("update.do")
 	public String update(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
 		if(rservice.update(vo)) {
@@ -88,6 +88,19 @@ public class ReviewController {
 		return "include/alert";
 	}
 	
+	//댓글수정
+	@PostMapping("update.do")
+	public String commentUpdate(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+		if(rservice.update(vo)) {
+			model.addAttribute("msg", "정상적으로 수정되었습니다.");
+			model.addAttribute("url", "index.do?review_pk="+vo.getReview_pk());
+			
+		} else {
+			model.addAttribute("msg", "수정 실패");
+			
+		}
+		return "include/alert";
+	}
 	
 	
 	
@@ -108,6 +121,9 @@ public class ReviewController {
 			
 			}
 			return "include/alert";
+			파라미터 전달
+			user_pk=1인 사람이 등록했다.
+			
 		}
 	
 	
