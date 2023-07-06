@@ -16,7 +16,7 @@ public interface ReviewMapper {
 	// XML 파일 id이름과 메서드명 똑같이 사용
 	List<ReviewVO> test();
 	
-	void insertReviewComment(Map<String,Object> map);
+	//void insertReviewComment(Map<String,Object> map);
 	
 	
 
@@ -34,7 +34,7 @@ public interface ReviewMapper {
 	
 	int update(ReviewVO vo);
 	
-	
+	ReviewVO insertReviewComment(ReviewVO vo);
 	
 	
 	//댓글 보기

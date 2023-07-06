@@ -3,6 +3,8 @@ package kr.co.main.review;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.co.project.board.notice.NoticeVO;
+import kr.co.project.member.MemberVO;
 
 
 
@@ -82,12 +87,26 @@ public class ReviewController {
 	
 	
 	
+	/*
+	
+	//등록
+		@PostMapping("/board/notice/insert.do")
+		public String insert(Model model, NoticeVO vo, HttpSession sess) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+			MemberVO loginSess = (MemberVO)sess.getAttribute("loginSess");
+			vo.setMemberno(loginSess.getNo());
+			if(nservice.insert(vo)) {
+				model.addAttribute("msg", "정상적으로 잘 등록되었습니다.");
+				model.addAttribute("url", "index.do");
+				
+			} else {
+			model.addAttribute("msg", "등록 실패");
+			
+			}
+			return "include/alert";
+		}
 	
 	
-	
-	
-	
-	
+	*/
 	
 	
 	

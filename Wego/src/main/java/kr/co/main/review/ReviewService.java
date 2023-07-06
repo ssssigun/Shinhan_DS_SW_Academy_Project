@@ -23,7 +23,7 @@ public class ReviewService {
 	}
 	
 	public void insertReviewComment(Map<String,Object> map) {
-		mapper.insertReviewComment(map);
+		//mapper.insertReviewComment(map);
 	}
 	//목록 이 젤 크리티컬 기능들 많음 (검색, 페이징) 
 	public Map index(ReviewVO vo) {
@@ -85,6 +85,14 @@ public class ReviewService {
 //		return mapper.update(vo) > 0 ? true : false;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 //	mapper.updateViewcount(vo.getUser_pk());
 	
 	

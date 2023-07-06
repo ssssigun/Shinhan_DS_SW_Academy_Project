@@ -99,6 +99,8 @@
           <div class = "cominsert">
           	<h3 class="letter">${data.nickname}</h3>
           	<textarea name="content" id="content" class="FrameCon letter text">${data.content }</textarea>
+          	<button class="commentButton">등록</button>
+          	
           </div>
         </div>
         
