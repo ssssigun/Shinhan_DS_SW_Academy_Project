@@ -28,6 +28,9 @@ public interface ReviewMapper {
 	List<ReviewVO> list(ReviewVO vo);
 	//글조회
 	ReviewVO reviewWatch(ReviewVO vo);
+	
+	//글추천수
+	ReviewVO reviewRecommend(ReviewVO vo);
  
 	int count(ReviewVO vo);
 

@@ -67,6 +67,11 @@
 		select count(review_pk) review_watch_count from wego.review_watch where review_pk = #{review_pk}
 	</select>
 	
+	<!-- 리뷰 추천수 -->
+	<select id="reviewRecommend" resultType="kr.co.main.review.ReviewVO">
+		select count(review_pk) review_recommend_count from wego.review_recommend where review_pk = #{review_pk}
+	</select>
+	
 	
 	<!-- 리뷰 댓글 관련 -->
 	
@@ -120,8 +125,9 @@
 	
 	<select id="list" parameterType="kr.co.main.review.ReviewVO" resultType="kr.co.main.review.ReviewVO">
 		SELECT * ,
-			(SELECT nickname FROM wego.user WHERE  user_pk= wego.review.user_pk)  nickname
-		
+			(SELECT nickname FROM wego.user WHERE  user_pk= wego.review.user_pk)  nickname,
+			(SELECT COUNT(*) FROM wego.review_watch WHERE review_pk = wego.review.review_pk) AS review_watch_count,
+			(SELECT COUNT(*) FROM wego.review_recommend WHERE review_pk = wego.review.review_pk) AS review_recommend_count
 		FROM wego.review
 		
 		<include refid="whereSql"/>

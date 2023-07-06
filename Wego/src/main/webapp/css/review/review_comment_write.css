@@ -636,4 +636,7 @@ h3 {
   margin-right: 5px;
 }
 
-
+textarea {
+	resize:none;
+	width:500px;
+}

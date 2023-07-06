@@ -91,7 +91,11 @@ public class ReviewService {
 		
 	}
 	
-	
+	//리뷰 추천수
+	public ReviewVO reviewRecommend(ReviewVO vo) {
+		return mapper.reviewRecommend(vo);
+		
+	}
 	
 	
 	

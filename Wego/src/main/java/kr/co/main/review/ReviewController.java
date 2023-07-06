@@ -45,6 +45,7 @@ public class ReviewController {
 		model.addAttribute("data", review);
 		model.addAttribute("comments", comments);
 		model.addAttribute("watch", rservice.reviewWatch(vo));
+		model.addAttribute("recommend", rservice.reviewRecommend(vo));
 		
 		return "review/view";
 	}
@@ -58,6 +59,8 @@ public class ReviewController {
 	@GetMapping("index.do")
 	public String review(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
 		model.addAttribute("result", rservice.index(vo));
+		model.addAttribute("watch", rservice.reviewWatch(vo));
+		model.addAttribute("recommend", rservice.reviewRecommend(vo));
 		return "review/index";
 	}	
 		

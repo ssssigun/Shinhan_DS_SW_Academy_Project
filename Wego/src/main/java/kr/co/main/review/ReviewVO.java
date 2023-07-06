@@ -67,6 +67,7 @@ public class ReviewVO {
 	//====================
 	private int review_recommend_pk;
 //	Review_pk , User_pk , Plan_pk
+	private int review_recommend_count;
 	
 	//====================
 	//5. review_sue (여행 후기 신고)
@@ -80,6 +81,7 @@ public class ReviewVO {
 	private int review_watch_pk;
 //	Review_pk , User_pk , Plan_pk
 	private int review_watch_count;
+	
 	
 	
 	//====================

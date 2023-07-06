@@ -96,11 +96,11 @@
                 <div class="iconsWrapper">
                   <div class="iconWrapper">
                     <img class="icon" src="../image/review/BsHandThumbsUpFill.png" />
-                    ${vo.review_recommend_pk}
+                    ${vo.review_recommend_count}
                   </div>
                   <div class="iconWrapper">
                     <img class="icon" src="../image/review/BsEye.png" />
-                    ${vo.review_watch_pk }
+                    ${vo.review_watch_count }
                   </div>
                 </div>
               </div>
