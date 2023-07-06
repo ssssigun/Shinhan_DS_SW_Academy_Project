@@ -27,6 +27,10 @@ public class AccountBookController {
 		// 비교 통계
 		model.addAttribute("totalRate", Service.totalRate(user_pk));
 		model.addAttribute("totalRateRadar", Service.getTotalRateForRadar(user_pk));
+		model.addAttribute("user_pk", user_pk);
+		model.addAttribute("totalPage", Service.getTotalPage(user_pk));
+		
+		System.out.println(model);
 		
 		return "myRecord/accountBook/index";
 	}
