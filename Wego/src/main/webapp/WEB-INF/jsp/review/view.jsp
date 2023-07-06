@@ -45,7 +45,7 @@
               <h3 class="title">${data.title }</h3>
               <div class="viewCountWrapper">
                  <img src="../image/review/BsEye.png" />
-                <dt class="letter">${data.review_watch_pk }</dt>
+                <dt class="letter">${watch.review_watch_count }</dt>
               </div>
             </div>
             <hr />

@@ -85,7 +85,11 @@ public class ReviewService {
 //		return mapper.update(vo) > 0 ? true : false;
 	}
 
-	
+	//리뷰 조회수
+	public ReviewVO reviewWatch(ReviewVO vo) {
+		return mapper.reviewWatch(vo);
+		
+	}
 	
 	
 	

@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.project.board.notice.NoticeVO;
-import kr.co.project.member.MemberVO;
+
 
 
 
@@ -41,8 +40,11 @@ public class ReviewController {
 	    // 후기 게시글의 댓글 조회
 	    List<ReviewVO> comments = rservice.getReviewComments(vo.getReview_pk());
 	    
+	    
+	    
 		model.addAttribute("data", review);
 		model.addAttribute("comments", comments);
+		model.addAttribute("watch", rservice.reviewWatch(vo));
 		
 		return "review/view";
 	}

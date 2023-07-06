@@ -24,8 +24,11 @@ public interface ReviewMapper {
 	// review
 	//=======================
 
+	//글목록
 	List<ReviewVO> list(ReviewVO vo);
-
+	//글조회
+	ReviewVO reviewWatch(ReviewVO vo);
+ 
 	int count(ReviewVO vo);
 
 	ReviewVO view(ReviewVO vo);
@@ -34,7 +37,10 @@ public interface ReviewMapper {
 	
 	int update(ReviewVO vo);
 	
+	//댓글등록
 	ReviewVO insertReviewComment(ReviewVO vo);
+	
+	
 	
 	
 	//댓글 보기

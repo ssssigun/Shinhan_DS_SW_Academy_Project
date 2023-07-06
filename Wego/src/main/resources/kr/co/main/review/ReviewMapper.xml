@@ -62,6 +62,11 @@
 			DELETE FROM wego.review WHERE review_pk = #{review_pk}
 	</delete>
 	
+	<!-- 리뷰 조회수 -->
+	<select id="reviewWatch" resultType="kr.co.main.review.ReviewVO">
+		select count(review_pk) review_watch_count from wego.review_watch where review_pk = #{review_pk}
+	</select>
+	
 	
 	<!-- 리뷰 댓글 관련 -->
 	
@@ -77,7 +82,13 @@
 		from wego.review_comment left join wego.user 
 		on wego.review_comment.user_pk = wego.user.user_pk where review_pk = #{review_pk};
 	</select>
-
+	
+	<!-- 댓글 수정 -->
+	<update id="recommentUpdate" parameterType="kr.co.main.review.ReviewVO"	>
+		update wego.review_comment set 
+		comment_content = #{comment_content}
+		where review_comment_pk = #{review_comment_pk};
+	</update>
 
 
 	<!-- 리뷰 댓글 삭제 -->
