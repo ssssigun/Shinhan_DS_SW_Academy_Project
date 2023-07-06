@@ -14,4 +14,9 @@ public interface MyRecordPlanMapper {
 	
 	List<MyRecordPlanVO> list3(MyRecordPlanVO vo);
 	int  count3();
+	
+	void deletion(int x);
+	
+	
+	List<MyRecordPlanVO> list4(int x);
 }

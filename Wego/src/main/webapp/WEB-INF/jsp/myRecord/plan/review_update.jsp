@@ -12,30 +12,23 @@
 	<link rel="stylesheet" href="/main/css/common.css">
 	<link rel="stylesheet" href="/main/css/footer.css">
 	<link rel="stylesheet" href="/main/css/header.css">
-    <link rel="stylesheet" href="/main/css/review/review_update.css" />
+    <link rel="stylesheet" href="/main/css/myRecord/review_update.css" />
     <title>common</title>
   </head>
   <body>
   <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>
     <div class="contents">
       <div class="ContentsContainer">
-        <h3 class="title">전체 후기 수정</h3>
+        <h3 class="title">전체 후기 작성</h3>
       </div>
       <div class="writeWrapper">
         <div class="writeTable">
           <div class="titleWrapper">
             <h3 class="title">제목</h3>
-            <div class="preFrame">
-              <h3 class="bigbitLetter">[기존 제목]</h3>
-            </div>
+            <input type="text" class="preFrame"/>
           </div>
-          <hr />
-          <div class="contentsWrapper">
-            <h3 class="title">내용</h3>
-            <div class="FrameCon">
-              <h3 class="letter">[기존 내용]</h3>
-            </div>
-          </div>
+          	<h3 class="title">내용</h3>
+          	<textarea class="contentsWrapper"></textarea>
           <div class="attachmentWrapper">
             <div class="Frame63">
               <h3 class="imgattach">사진 첨부</h3>
@@ -45,19 +38,19 @@
             </div>
              <div class="photo">
               <div class="photoWrapper">
-                <img src="../image/review/attachimg.png" />
               </div>
               <div class="Frame62">
-                <img src="../image/review/BsFillPlusCircleFill.png" />
+              	<img class="addingPhoto" src="/main/image/review/BsFillPlusCircleFill.png"/>
               </div>
           </div>
-        </div>
+        </div>   
       </div>
-      <div class="bottomWrapper">
+      
+    </div>
+    <div class="bottomWrapper">
         <div class="btn lightskyBblackL">나가기</div>
         <div class="btn blueBwhiteL">저장</div>
       </div>
-    </div>
     </div>
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>
 

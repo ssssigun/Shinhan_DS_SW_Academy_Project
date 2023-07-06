@@ -6,6 +6,7 @@
   border: 1px solid #000000;
   margin: 0 auto;
   text-align: center;
+  overflow:scroll;
 }
 
 .ContentsContainer {
