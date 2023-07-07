@@ -93,14 +93,76 @@
         </div>
       </div>
       
+      
     </div>
+    
+    
+    
+    
+    
+<div class="inputArea">
+	<label for="filename_org">이미지</label>
+	<input type="file" id="filename_org" name="file" />
+	<div class="select_img"><img src="" /></div>
+	
+	<script>
+		$("#filename_org").change(function(){
+			if(this.files && this.files[0]) {
+				var reader = new FileReader;
+				reader.onload = function(data) {
+					$(".select_img img").attr("src", data.target.result).width(500);								
+				}
+				reader.readAsDataURL(this.files[0]);
+			}
+		});
+	</script>
+	
+	<%=request.getRealPath("/") %>
+	
+</div>
+
+<div class="inputArea">
+	<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+</div>
+
+
+
+<div class="inputArea">
+	<label for="filename_org">이미지</label>
+	<input type="file" id="filename_org" name="file" />
+	<div class="select_img"><img src="" /></div>
+	
+	<script>
+		$("#filename_org").change(function(){
+			if(this.files && this.files[0]) {
+				var reader = new FileReader;
+				reader.onload = function(data) {
+					$(".select_img img").attr("src", data.target.result).width(500);								
+				}
+				reader.readAsDataURL(this.files[0]);
+			}
+		});
+	</script>
+	
+	<%=request.getRealPath("/") %>
+	
+</div>
+
+<div class="inputArea">
+	<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+</div>
+    
+    
+    
+    
+    
     
     
     <div class="bottomWrapper">
         <div class="btn lightskyBblackL"><a href="/main/myRecord/plan/index.do">나가기</a></div>
         <div class="btn blueBwhiteL"><a href="javascript:goSave();">저장</a></div>
     </div>
-   </form>
+</form>
     </div>
     <div class="footer">
     <div class="textFooter">

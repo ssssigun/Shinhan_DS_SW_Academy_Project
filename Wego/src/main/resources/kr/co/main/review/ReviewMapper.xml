@@ -42,7 +42,7 @@
 	</sql>
 	<!-- 리뷰 등록 -->
 	<insert id="insertReview" parameterType="kr.co.main.review.ReviewVO"	>
-		INSERT INTO review (
+		INSERT INTO wego.review (
 			title, content, viewcount, regdate, filename_org, filename_save, user_pk
 		) VALUES (
 			#{title}, #{content}, 0, NOW(), #{filename_org}, #{filename_save}, #{user_pk}
@@ -67,6 +67,11 @@
 		select count(review_pk) review_watch_count from wego.review_watch where review_pk = #{review_pk}
 	</select>
 	
+	<!-- 리뷰 조회수 추가 -->
+	<insert id="reviewWatchPlus" parameterType="kr.co.main.review.ReviewVO">
+		
+	</insert>
+	
 	<!-- 리뷰 추천수 -->
 	<select id="reviewRecommend" resultType="kr.co.main.review.ReviewVO">
 		select count(review_pk) review_recommend_count from wego.review_recommend where review_pk = #{review_pk}
@@ -87,6 +92,8 @@
 		from wego.review_comment left join wego.user 
 		on wego.review_comment.user_pk = wego.user.user_pk where review_pk = #{review_pk};
 	</select>
+	
+	
 	
 	<!-- 댓글 수정 -->
 	<update id="recommentUpdate" parameterType="kr.co.main.review.ReviewVO"	>
