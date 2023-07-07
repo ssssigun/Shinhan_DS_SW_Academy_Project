@@ -93,7 +93,7 @@ public class ReviewController {
 	public String commentUpdate(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
 		if(rservice.update(vo)) {
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
-			model.addAttribute("url", "index.do?review_pk="+vo.getReview_pk());
+			model.addAttribute("url", "index.do?review_pk="+vo.getReview_pk()+"&user_pk="+vo.getUser_pk());
 			
 		} else {
 			model.addAttribute("msg", "수정 실패");
