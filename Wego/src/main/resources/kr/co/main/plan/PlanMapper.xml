@@ -41,9 +41,10 @@
 		SELECT * 
 		FROM wego.location a LEFT OUTER JOIN wego.location_image b
 		ON a.location_pk = b.location_pk
+		LEFT OUTER JOIN location_review c
+		ON a.location_pk = c.location_pk
 		WHERE a.location_pk = #{location_pk}
 	</select>
-	
 	
 	<!-- plan테이블에 insert 하는 쿼리/ 이후 plan_detail 테이블 삽입을 위한 primary key 얻기 위해서 useGeneratedKeys 와 keyProperty 속성 사용 -->
 	<insert id="insertPlan" parameterType="kr.co.main.plan.PlanVO" useGeneratedKeys="true" keyProperty="plan_pk">
@@ -54,6 +55,27 @@
 	<insert id="insertPlanDetail" parameterType="kr.co.main.plan.PlanDetailVO">
   		INSERT INTO plan_detail (location_pk, start_time, end_time, budget, day, plan_pk) VALUES (#{location_pk}, #{start_time}, #{end_time}, #{budget}, #{day}, #{plan_pk})
 	</insert>
+	
+	<!-- plan_pk로 plan과 plan_detail 찾는 쿼리 -->
+	<select id="selectPlanByPK" parameterType="int" resultType="kr.co.main.plan.PlanVO">
+		SELECT * 
+		FROM wego.plan
+		WHERE plan_pk = #{plan_pk}
+	</select>
+	
+	<select id="selectPlanDetailByPK" parameterType="int" resultType="kr.co.main.plan.PlanDetailVO">
+		SELECT * 
+		FROM wego.plan_detail
+		WHERE plan_pk = #{plan_pk}
+	</select>
+	
+	<delete id="deletePlan" parameterType="int">
+    	DELETE FROM wego.plan WHERE plan_pk = #{plan_pk}
+  	</delete>
+  	
+  	<delete id="deletePlanDetail" parameterType="int">
+    	DELETE FROM wego.plan_detail WHERE plan_pk = #{plan_pk}
+  	</delete>
 </mapper>
 
 

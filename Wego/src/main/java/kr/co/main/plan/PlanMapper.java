@@ -14,5 +14,9 @@ public interface PlanMapper {
 	int count(LocationVO vo);
 	void insertPlan(PlanVO planVO);
 	void insertPlanDetail(PlanDetailVO planDetailVO);
+	void deletePlan(int plan_pk);
+	void deletePlanDetail(int plan_pk);
+	PlanVO selectPlanByPK(int plan_pk);
+	List<PlanDetailVO> selectPlanDetailByPK(int plan_pk);
 }
 	

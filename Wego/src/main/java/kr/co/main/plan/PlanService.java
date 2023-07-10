@@ -1,5 +1,6 @@
 package kr.co.main.plan;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class PlanService {
 		if (totalPage % vo.getRowPerPage() > 0) totalPage++;
 		int startIdx = (vo.getPage() - 1) * vo.getRowPerPage();
 		vo.setStartIdx(startIdx);
+		vo.setState("0");
 		List<LocationVO> locationList = mapper.selectLocationPer5(vo);
 		
 		int endPage = (int) Math.ceil(vo.getPage() / 10.0) * 10;
@@ -50,6 +52,7 @@ public class PlanService {
 		return vo;
 	}
 	
+	
 	// plan, plan_detail에 insert 하는 메소드
 	public void insertPlanAndDetail(PlanVO planVO, List<PlanDetailVO> listPlanDetailVO) {
 		mapper.insertPlan(planVO);
@@ -57,6 +60,25 @@ public class PlanService {
 			planDetailVO.setPlan_pk(planVO.getPlan_pk());
 			mapper.insertPlanDetail(planDetailVO);
 		}
+	}
+	
+	// plan, plan_detail에 delete 하는 메소드
+	public void deletePlanAndDetail(int plan_pk) {
+		mapper.deletePlan(plan_pk);
+		mapper.deletePlanDetail(plan_pk);
+	}
+	
+	// plan 조회 메소드
+	public PlanVO selectPlanByPK(int plan_pk) {
+		PlanVO vo = mapper.selectPlanByPK(plan_pk);
+		vo.setStartDate(vo.getStart_date().getTime());
+		vo.setEndDate(vo.getEnd_date().getTime());
+		return vo;
+	}
+	
+	public List<PlanDetailVO> selectPlanDetailByPK(int plan_pk) {
+		List<PlanDetailVO> vo = mapper.selectPlanDetailByPK(plan_pk);
+		return vo;
 	}
 	
 	

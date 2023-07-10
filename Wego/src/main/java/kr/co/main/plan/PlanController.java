@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +42,15 @@ public class PlanController {
 	public String index() {
 		return "plan/index";
 	}
+	
+	@GetMapping("/plan.do")
+	public String index(Integer plan_pk, Model model) {
+		PlanVO plan = service.selectPlanByPK(plan_pk);
+		List<PlanDetailVO> planDetail = service.selectPlanDetailByPK(plan_pk);
+		model.addAttribute("plan", plan);
+		model.addAttribute("planDetail", planDetail);
+		return "plan/index";
+	}	
 	
 	// ajax를 위해서 지역, 카테고리, 검색어, 지도 중심 위치를 받아와서 장소 정보를 json으로 반환하는 api 
 	@GetMapping("/filter.do")
@@ -125,7 +135,9 @@ public class PlanController {
 			
 			Date end_date = formatter.parse(String.valueOf(plansDetails.get("end_date")));
 			planVO.setEnd_date(end_date);
-			planVO.setState(0);
+			
+			int state = Integer.parseInt(String.valueOf(plansDetails.get("state")));
+			planVO.setState(state);
 			
 			// json으로 받아온 데이터에서 plan_detail 정보를 추출해서 planDetailVO에 넣는 코드
 			List<List<String>> data = (List) plansDetails.get("plan_details");
@@ -161,6 +173,17 @@ public class PlanController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		Map<String, Integer> result = new HashMap<>();
+		result.put("Success", 1);
+		
+		return result;
+	}
+	
+	@GetMapping("/delete.do")
+	@ResponseBody
+	public Map delete(Integer plan_pk){
+		service.deletePlanAndDetail(plan_pk);
 		
 		Map<String, Integer> result = new HashMap<>();
 		result.put("Success", 1);

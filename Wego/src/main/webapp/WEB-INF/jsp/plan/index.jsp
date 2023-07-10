@@ -7,13 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=l8m4oe0ivu"></script>
-<title>Document</title>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=l8m4oe0ivu"></script>
+<title>여행 계획</title>
 <script>
 	// 변수 초기 설정
 	var region = 1;
@@ -28,6 +26,27 @@
 	var polylinePath = [];
 	var polyline = new naver.maps.Polyline();
 	var test = [];
+	<c:forEach var="pd" items="${planDetail}">
+		$.ajax({
+		    url: "spotDetail.do?location_pk=" + ${pd.location_pk},
+		    method: "GET",
+		    dataType: "json",
+		    success: function (data) {
+				var tmpDay = ${pd.day};
+				var tmpStart = Number("${pd.start_time}".split(' ')[3].split(':')[0]);
+				var tmpEnd = Number("${pd.end_time}".split(' ')[3].split(':')[0]);
+				var tmpBudget = ${pd.budget};
+				totalBudget += tmpBudget;
+		    	for (var i = tmpStart; i <= tmpEnd; i++) {
+		    		if (!(details.hasOwnProperty(tmpDay))) {
+		    			details[tmpDay] = {};
+		    		}
+		    		details[tmpDay][i] = [tmpStart, tmpEnd, data[0].location_pk, data[0].longitude, data[0].latitude, 0, data[0].location_name, tmpBudget, data[0].category];
+		    	}
+				// 마커 찍기
+		    }
+		  });
+	</c:forEach>
 
 	// 장소 리스트 받아오는 함수
 	function fetchData(
@@ -199,7 +218,7 @@
 							"<td colspan=" + mergeCount + ">" + "<ul>" + "<li>"
 									+ details[day][hour][6] + "</li>" + "<li>"
 									+ details[day][hour][7] + "원 </li>" + "<li class='planPerHourBottom'>"
-									+ "<img src='/main/image/plan/cross.png' style='cursor: pointer;' width='20' class='deleteSpot' value='"+ details[day][hour][0] +","+ details[day][hour][1] + "," + details[day][hour][7]+ "'>&nbsp<img src='/main/image/plan/Vector.png' width='20'>&nbsp</li>"
+									+ "<img src='/main/image/plan/cross.png' style='cursor: pointer;' width='20' class='deleteSpot' value='"+ details[day][hour][0] +","+ details[day][hour][1] + "," + details[day][hour][7]+ "'>&nbsp</li>"
 									+ "</ul>" + "</td>");
 					hour = hour + mergeCount - 1;
 				} else {
@@ -444,6 +463,124 @@
 		return path;
 	}
 	
+	function createCommentCard(Left, Right, InfoRight) {
+		  // commentCardWrapper 요소 선택
+		  var commentCardWrapper = document.querySelector('.commentCardWrapper');
+		  commentCardWrapper.innerHTML = '';
+		  // commentCard 요소 생성
+		  var commentCard = document.createElement('div');
+		  commentCard.classList.add('commentCard');
+
+		  // comment 요소 생성
+		  var comment = document.createElement('div');
+		  comment.classList.add('comment');
+
+		  // commentLeft 요소 생성
+		  var commentLeft = document.createElement('div');
+		  commentLeft.classList.add('commentLeft');
+		  commentLeft.textContent = Left;
+		  comment.appendChild(commentLeft);
+
+		  // commentRight 요소 생성
+		  var star = '';
+		  for (var i = 0; i < Number(Right); i++) {
+			  star += '★';
+		  }
+		  for (var i = 0; i < 5 - Number(Right); i++) {
+			  star += '☆';
+		  }
+		  var commentRight = document.createElement('div');
+		  commentRight.classList.add('commentRight');
+		  commentRight.textContent = star;
+		  comment.appendChild(commentRight);
+
+		  // comment 요소를 commentCard에 추가
+		  commentCard.appendChild(comment);
+
+		  // commentInfo 요소 생성
+		  var commentInfo = document.createElement('div');
+		  commentInfo.classList.add('commentInfo');
+
+		  var dbDate = InfoRight;
+		  var dateObject = new Date(dbDate);
+		  var formattedDate = dateObject.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+		  // commentInfoRight 요소 생성
+		  var commentInfoRight = document.createElement('div');
+		  commentInfoRight.classList.add('commentInfoRight');
+		  commentInfoRight.textContent = formattedDate;
+		  commentInfo.appendChild(commentInfoRight);
+
+		  // commentInfo 요소를 commentCard에 추가
+		  commentCard.appendChild(commentInfo);
+
+		  // commentCard를 commentCardWrapper에 추가
+		  commentCardWrapper.appendChild(commentCard);
+	}
+	
+	// 임시저장 혹은 저장 하는 함수
+	function submitPlan(_state) {
+	  var user_pk = 1; // 나중에 유저 pk 받아오게 변환
+	  var title = $(".textInput").val();
+	  var num_of_people = $('.number_of_people').val();
+	  var start_date = $('.startDate').val();
+	  var end_date = $('.endDate').val();
+	
+	  var plan_details = [];
+	  for (var day = 1; day <= period; day++) {
+	    if (details.hasOwnProperty(day)) {
+	      for (hour = 0; hour <= 23; hour++) {
+	        if (details[day].hasOwnProperty(hour)) {
+	          var cnt = details[day][hour][1] - details[day][hour][0] + 1;
+	          hour = hour + cnt - 1;
+	
+	          var location_pk = details[day][hour][2];
+	          var start_time = details[day][hour][0];
+	          var end_time = details[day][hour][1];
+	          var budget = details[day][hour][7];
+	          var plan_detail = [location_pk, start_time, end_time, budget, day];
+	          plan_details.push(plan_detail);
+	        }
+	      }
+	    }
+	  }
+	  <c:if test="${not empty plan}">
+	  $.ajax({
+		    url: 'delete.do?plan_pk=' + ${plan.plan_pk},
+		    method: 'GET',
+		    success: function (response) {
+				console.log('삭제');
+		    },
+		    error: function (xhr, status, error) {
+		      alert('데이터를 가져오는 데 실패했습니다.\n에러 메시지: ' + error);
+		    }
+		  });
+	  </c:if>
+	
+	  $.ajax({
+	    url: 'submit.do',
+	    method: 'POST',
+	    contentType: 'application/json; charset=utf-8',
+	    traditional: true,
+	    data: JSON.stringify({
+	      user_pk: user_pk,
+	      title: title,
+	      num_of_people: num_of_people,
+	      start_date: start_date,
+	      end_date: end_date,
+	      plan_details: plan_details,
+	      state: _state,
+	    }),
+	    dataType: 'json',
+	    success: function (response) {
+	      window.location.href = '/main/myRecord/plan/index.do';
+	    },
+	    error: function (xhr, status, error) {
+	      alert('데이터를 가져오는 데 실패했습니다.\n에러 메시지: ' + error);
+	    }
+	  });
+	  
+	}
+	
 
 	// 각 지역별 대표 좌표
 	var regionPoint = {};
@@ -458,7 +595,45 @@
 	regionPoint['9'] = new naver.maps.LatLng(37.14691389, 127.0796417);
 	regionPoint['10'] = new naver.maps.LatLng(37.74913611, 128.8784972);
 
-	$(function() {
+	$(function() {	
+		<c:if test="${not empty plan}">
+	    // "plan" 값이 존재하는 경우에 실행될 제이쿼리 코드
+	    	var plan_pk = ${plan.plan_pk};
+			var dbDate = ${plan.startDate};
+			var dateObject = new Date(dbDate);
+			var startDate = dateObject.getFullYear() + "-" + (dateObject.getMonth() + 1).toString().padStart(2, '0') + "-" + (dateObject.getDay()).toString().padStart(2, '0');
+
+			var dbDate = ${plan.endDate};
+			var dateObject = new Date(dbDate);
+			var endDate = dateObject.getFullYear() + "-" + (dateObject.getMonth() + 1).toString().padStart(2, '0') + "-" + (dateObject.getDay()).toString().padStart(2, '0');
+
+			var plan = {
+	    		title: "${plan.title}",
+	    		num_of_people: ${plan.num_of_people},
+	    		start_date: startDate,
+	    		end_date: endDate
+	    	};
+			
+			$('.textInput').val("${plan.title}");
+			$('.number_of_people').val(${plan.num_of_people});
+			$('.startDate').val(startDate);
+			$('.endDate').val(endDate);
+			var start = new Date($(".startDate").val());
+			var end = new Date($(".endDate").val());
+			var timeDiff = Math.abs(start.getTime() - end.getTime());
+			var diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+			if (diffDays > 0) {
+				period = diffDays;
+			}
+
+		</c:if>
+
+		generateDay(day, period);
+		setTimeout(function() {
+			createMarker(day, details, map, savedList);
+			polyline = createOrUpdatePolyline(day, details, map);
+			generateDay(day, period);
+		}, 1000);
 
 		//나가기 버튼 눌렀을 때 메인으로 반환
 		$(".outBtn").click(function(e) {
@@ -466,8 +641,6 @@
 		});
 		//
 
-		// 최초 일차 작성
-		generateDay(day, period);
 
 		// 일차에서 다음 버튼 눌렀을때
 		$('.pageController').on('click', '.canNextClick', function() {
@@ -479,6 +652,7 @@
 
 		// 일차에서 이전 버튼 눌렀을때
 		$('.pageController').on('click', '.canPrevClick', function() {
+			console.log(details);
 			day = day - 1;
 			createMarker(day, details, map, savedList);
 			polyline = createOrUpdatePolyline(day, details, map);
@@ -487,6 +661,8 @@
 
 		// 모달 관련
 		$(".planCards").on("click", ".spotDetail", function () {
+		  var visited = {};
+		  var visitedReview = {};
 		  var tmp = $(this).attr("id").split(" ");
 		  var pk = tmp[0];
 		  var order = tmp[1];
@@ -497,6 +673,13 @@
 		    success: function (data) {
 		      var spotMainPhoto = $(".spotMainPhoto");
 		      spotMainPhoto.empty();
+			  if (Number(data[0].category) == 2) {
+				  $('.budgetTextInput').prop('readonly', true);
+				  $('.budgetTextInput').attr('placeholder', '숙박은 예산 입력 불가');
+			  } else {
+				  $('.budgetTextInput').prop('readonly', false);
+				  $('.budgetTextInput').attr('placeholder', '숫자만 입력');				  
+			  }
 		      if (data[0].location_pic_url == "") {
 		        var mainSrc = "/main/image/logoMain.png";
 		      } else {
@@ -518,6 +701,14 @@
 		      spotSubPhoto.empty();
 		
 		      for (var i = 0; i < data.length; i++) {
+		    	if (visitedReview[Number(data[i].location_review_pk)] != 1 && Number(data[i].location_review_pk) != 0) {
+		    		createCommentCard(data[i].location_content, data[i].star, data[i].regdate);
+		    		visitedReview[Number(data[i].location_review_pk)] = 1;
+			    }  
+		    	if (visited[data[i].location_pic_url] == 1) {
+		    		continue;
+		    	}
+		    	visited[data[i].location_pic_url] = 1;
 			    if (data[i].location_pic_url == "") {
 					var subSrc = "/main/image/logoMain.png";
 				} else {
@@ -530,7 +721,7 @@
 		        });
 		        spotSubPhoto.append(subPhoto);
 		      }
-		
+		      
 		      var modalContent = $("#modalContent");
 		      modalContent.empty(); // 기존 내용 초기화
 		
@@ -786,56 +977,14 @@
 				
 		//마지막 제출 눌렀을 때 DB에 plan, plan_detail 삽입
 		$(".submitBtn").click(function(e) {
-			var user_pk = 1; // 나중에 유저 pk 받아오게 변환
-			var title = $(".textInput").val();
-			var num_of_people = $('.number_of_people').val();
-			var start_date = $('.startDate').val();
-			var end_date = $('.endDate').val();
-			
-			var plan_details = [];
-			for (var day = 1; day <= period; day++) {
-				if (details.hasOwnProperty(day)) {
-					for (hour = 0; hour <= 23; hour++) {
-						if (details[day].hasOwnProperty(hour)) {
-							var cnt = details[day][hour][1] - details[day][hour][0] + 1;
-							hour = hour + cnt - 1;
-							
-							var location_pk = details[day][hour][2];
-							var start_time = details[day][hour][0];
-							var end_time = details[day][hour][1];
-							var budget = details[day][hour][7];
-							var plan_detail = [location_pk, start_time, end_time, budget, day];
-							plan_details.push(plan_detail);
-						}
-					}
-				}
-			}
-			
-			$.ajax({
-				url : 'submit.do',
-				method : 'POST',
-				contentType : 'application/json; charset=utf-8',
-				traditional : true,
-				data : JSON.stringify({
-					user_pk: user_pk,
-					title: title,
-					num_of_people: num_of_people,
-					start_date: start_date,
-					end_date: end_date,
-					plan_details: plan_details
-				}),
-				dataType : 'json',
-				success : function(response) {
-					window.location.href = '/main/myRecord/plan/index.do';
-				},
-				error: function(xhr, status, error) {
-				    alert('데이터를 가져오는 데 실패했습니다.\n에러 메시지: ' + error);
-				}
-
-			});
+			submitPlan(0);
 		});
 		//
 		
+		// 임시저장 버튼
+		$(".tmpBtn").click(function(e) {
+			submitPlan(2);
+		});
 		// 계획 삭제
 		$(".planPerHour").on("click", ".deleteSpot", function(e) {
 		  var start_end = $(this).attr("value").split(',');
@@ -854,7 +1003,7 @@
 </script>
 <link rel="stylesheet" href="/main/css/reset.css">
 <link rel="stylesheet" href="/main/css/common.css">
-<link rel="stylesheet" href="/main/css/plan/index.css?adcddddddd">
+<link rel="stylesheet" href="/main/css/plan/index.css?adcdddddddd">
 </head>
 <body>
 	<div class="wrap">
@@ -890,7 +1039,8 @@
 					</div>
 				</div>
 				<div class="spotRightContainer">
-					<div class="commentCardWrapper"></div>
+					<div class="commentCardWrapper">
+					</div>
 					<div class="spotButtonWrapper">
 						<button class="btn lightskyBblackL spotSaveBtn spotModalOutButton"
 							style="font-size: 18px;">돌아가기</button>
@@ -1091,7 +1241,7 @@
 				<div class="bottomButtonWrapper">
 					<button class="btn lightskyBblackL btnSize outBtn"
 						style="font-size: 18px;">나가기</button>
-					<button class="btn lightskyBblackL btnSize"
+					<button class="btn lightskyBblackL btnSize tmpBtn"
 						style="font-size: 18px;">임시저장</button>
 					<button class="btn blueBwhiteL btnSize finBtn">완료</button>
 				</div>

@@ -36,6 +36,13 @@ public class LocationVO {
 	private String location_pic_url;
 	private String state;
 	
+	// 리뷰 정보
+	private int location_review_pk;
+	private int user_pk;
+	private String location_content;
+	private int star;
+	private Timestamp regdate;
+	
 	public LocationVO() {
 		this.region = -1;
 		this.category = -1;

@@ -820,3 +820,30 @@ flex-grow: 0;
 	bottom: 0;
 	right: 0;
 }
+
+.commentCard {
+	height: 80px;
+	margin: 10px;
+	padding: 10px 30px 10px 30px;
+	border-radius: 5px;
+	border: 1px solid black;
+}
+
+.comment {
+	display: flex;
+	justify-content: space-between;
+	height: 50px;
+}
+
+.commentLeft {
+	text-align: left;
+}
+
+.commentRight {
+	text-align: right;
+}
+
+.commentInfo {
+	display: flex;
+	justify-content: flex-end;
+}
