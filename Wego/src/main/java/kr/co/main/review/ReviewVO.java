@@ -2,9 +2,9 @@
 package kr.co.main.review;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.Data;
 
@@ -48,7 +48,8 @@ public class ReviewVO {
 //	private int Review_pk;
 //	private int Plan_pk;
 
-	
+
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date regdate_comment; //as 하면 됨
 	
 	
@@ -97,12 +98,29 @@ public class ReviewVO {
 	private String secretkey;
 	
 	
+	
+	
+	//7.plan (댓글 등록 위해)
+	private int plan_pk;
+//	private int user_pk;
+	
+	
+	
 public ReviewVO() { //지들이 생성하면서 초기화도
 		
 		this.page = 1;
 		this.rowPerPage = 8; //초기화되지만 그 이후 setRowPerPage 20으로 바뀐다는데
 		this.startIdx = 0;
 	}
+
+
+
+public void setComment_content() {
+	// TODO Auto-generated method stub
+	
+}
+
+
 	
 	
 	

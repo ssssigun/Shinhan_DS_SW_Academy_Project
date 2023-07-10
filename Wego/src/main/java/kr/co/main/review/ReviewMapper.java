@@ -41,7 +41,7 @@ public interface ReviewMapper {
 	int update(ReviewVO vo);
 	
 	//댓글등록
-	ReviewVO insertReviewComment(ReviewVO vo);
+	int insertReviewComment(ReviewVO vo);
 	
 	
 	

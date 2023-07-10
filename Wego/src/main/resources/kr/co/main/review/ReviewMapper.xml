@@ -8,8 +8,6 @@
 		,(select count(review_recommend_pk)  from wego.review_recommend) as recommend, Filename_save from wego.review left join wego.review_image
 		on wego.review.review_pk = wego.review_image.Review_image_pk;
 	</select>
-
-	
 	
 	<!-- 리뷰목록 보기 -->
 	<select id="reviewList" resultType="kr.co.main.review.ReviewVO">
@@ -17,12 +15,7 @@
 		,(select count(review_recommend_pk)  from wego.review_recommend) as recommend, Filename_save from wego.review left join wego.review_image
 		on wego.review.review_pk = wego.review_image.review_image_pk;
 	</select>
-
-	<!-- 리뷰들 -->
-	<select id="reviews" resultType="kr.co.main.review.ReviewVO">
-		
-	</select>	
-
+	
 	<!-- 페이징 처리-->
 		
 
@@ -69,7 +62,8 @@
 	
 	<!-- 리뷰 조회수 추가 -->
 	<insert id="reviewWatchPlus" parameterType="kr.co.main.review.ReviewVO">
-		
+		insert into wego.review_watch (review_pk, user_pk, plan_pk)
+		values (#{review_pk},#{user_pk},#{plan_pk});
 	</insert>
 	
 	<!-- 리뷰 추천수 -->
@@ -77,13 +71,19 @@
 		select count(review_pk) review_recommend_count from wego.review_recommend where review_pk = #{review_pk}
 	</select>
 	
+	<!-- 리뷰 추천수 추가-->
+	<insert id="reviewRecommendPlus" parameterType="kr.co.main.review.ReviewVO">
+		insert into wego.review_recommend (review_pk, user_pk, plan_pk)
+		values (#{review_pk}, #{user_pk}, #{plan_pk});
+	</insert>
+	
 	
 	<!-- 리뷰 댓글 관련 -->
 	
 	<!-- 리뷰 댓글 등록 -->
 	<insert id="insertReviewComment" parameterType="kr.co.main.review.ReviewVO">
 		INSERT INTO wego.review_comment (user_pk,review_pk,plan_pk,regdate,comment_content)
-		VALUES (#{user_pk},#{review_pk},#{plan_pk},#{regdate},#{comment_content});
+		VALUES (#{user_pk},#{review_pk},#{plan_pk},#{regdate_comment},#{comment_content});
 	</insert>
 	
 	<!-- 리뷰 댓글 조회 -->
@@ -108,10 +108,16 @@
 			DELETE FROM wego.review_comment WHERE review_comment_pk = #{review_comment_pk}
 	</delete>
 	
+	<!-- 리뷰 사진(첨부파일) 보기 -->
+	<select id="selectReviewImage" parameterType="kr.co.main.review.ReviewVO">
+		select * from wego.review_image where review_image_pk=? and filestate=?
+		order by review_image_pk asc;
+	</select>
 	
 	<!-- 리뷰 사진(첨부파일) 등록 -->
 	<insert id="insertReviewImage" parameterType="kr.co.main.review.ReviewVO">
-		INSERT INTO 
+		INSERT INTO wego.review_image (plan_pk, review_pk, filename_org, filename_save, filesize, filestate) 
+		values (#{plan_pk}, #{review_pk}, #{filename_org}, #{filename_save}, #{filesize}, #{filestate}); 
 	</insert>
 	
 	<!-- 리뷰 사진(첨부파일) 삭제 -->

@@ -22,9 +22,23 @@ public class ReviewService {
 		return m;
 	}
 	
-	public void insertReviewComment(Map<String,Object> map) {
+	/*public void insertReviewComment(Map<String,Object> map) {
 		//mapper.insertReviewComment(map);
+	}*/
+	
+	
+	//댓글 등록
+	public boolean insertReviewComment(ReviewVO vo) {
+		int n = mapper.insertReviewComment(vo);
+		
+		System.out.println("service update: " + vo);
+
+		return n > 0 ? true : false;
+		
 	}
+	
+	
+	
 	//목록 이 젤 크리티컬 기능들 많음 (검색, 페이징) 
 	public Map index(ReviewVO vo) {
 // 총개수 구하기

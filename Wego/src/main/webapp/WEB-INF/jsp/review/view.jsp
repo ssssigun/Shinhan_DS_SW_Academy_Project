@@ -15,6 +15,13 @@
     <link rel="stylesheet" href="../css/footer.css" />
     <link rel="stylesheet" href="../css/review/review_comment_write.css"/>
     <title>common</title>
+     <script>
+    	function goSave() {
+    		//유효성처리했다치고
+    		$("#frm").submit();
+    		
+    	}
+    </script>
   </head>
   <body>
     <div class="header">
@@ -96,17 +103,21 @@
           </div>
           </c:forEach>
           </div>
-          <div class = "commentWrapper">
-	          <div class="comment">
-		          <div class="nicknameWrapper">
-		          	<h3 class="letter">${data.nickname}</h3>
-		          	<div class="contentsWrapper2">
-			          	<textarea name="content" id="content" class="FrameCon letter text">${data.content }</textarea>
-			          	<button class="commentButton">등록</button>
-			       </div>
-		          </div>
-		      </div>    
-          </div>
+         <form method="post" name="frm" id="frm" action="insertReviewComment.do" enctype="multipart/form-data" >
+         	 <input type="hidden" name="user_pk" value="3"> <!-- user_pk 값을 여기에 설정 -->
+         	 <input type="hidden" name="review_pk" value="${review_pk }"> <!-- user_pk 값을 여기에 설정 -->
+	          <div class = "commentWrapper">
+		          <div class="comment">
+			          <div class="nicknameWrapper">
+			          	<h3 class="letter">${nickname}</h3>
+			          	<div class="contentsWrapper2">
+				          	<textarea rows="3" cols="55" name="comment_content" id="content" class="FrameCon letter text">${insertReviewComment.content }</textarea>
+				          	<button class="commentButton" type="submit">등록</button>
+				       </div>
+			          </div>
+			      </div>    
+	          </div>
+         </form>
         </div>
         
 

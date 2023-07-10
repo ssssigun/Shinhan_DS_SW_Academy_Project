@@ -125,29 +125,7 @@
        <div class="pageWrapper">
                         
                     </div>
-        <div class="pageControllerWrapper">
-          <div class="pageController">
-            <div class="MdNavigateBefore">
-              <img src="../image/review/MdNavigateBefore.png" />
-            </div>
-            <div class="number">
-              <a href="" class="smallLetter selectLetter">1</a>
-              <a href="" class="smallLetter">2</a>
-              <a href="" class="smallLetter">3</a>
-              <a href="" class="smallLetter">4</a>
-              <a href="" class="smallLetter">5</a>
-              <a href="" class="smallLetter">6</a>
-              <a href="" class="smallLetter">7</a>
-              <a href="" class="smallLetter">8</a>
-              <a href="" class="smallLetter">9</a>
-              <a href="" class="smallLetter">10</a>
-            </div>
-
-            <div class="MdNavigateNext">
-              <img src="../image/review/MdNavigateNext.png" />
-            </div>
-          </div>
-        </div>
+ 
         
         
         
@@ -170,10 +148,10 @@
           
              
              <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
-                 <li class="horizontal"><a href='index.do?page=${num }&stype=${param.stype }&sword=${param.sword}' <c:if test="${ReviewVO.page == num }">class='current'</c:if>>${num }</a></li>
+                 <li class="horizontal smallLetter"><a href='index.do?page=${num }&stype=${param.stype }&sword=${param.sword}' <c:if test="${ReviewVO.page == num }">class='current selectLetter'</c:if>>${num }</a></li>
              </c:forEach>    
              <c:if test="${result.next == true }">
-             	<li><a href="index.do?page=${result.endPage+1 }&stype=${param.stype }&sword=${param.sword}" class="smallLetter selectLetter"> <img src="../image/review/MdNavigateNext.png" /> </a></li>
+             	<li class="selectLetter"><a href="index.do?page=${result.endPage+1 }&stype=${param.stype }&sword=${param.sword}" class="smallLetter selectLetter"> <img src="../image/review/MdNavigateNext.png" /> </a></li>
              	<div class="MdNavigateNext">
 	              
 	            </div>

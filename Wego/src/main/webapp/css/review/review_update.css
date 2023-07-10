@@ -652,5 +652,7 @@ button2 {
 }
 
 textarea {
-	resize:none;
+	/*resize:none;*/
+	width:1000px;
+	height:1000px;
 }
