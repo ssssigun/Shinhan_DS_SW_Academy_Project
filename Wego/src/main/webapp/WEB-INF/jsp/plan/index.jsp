@@ -466,7 +466,6 @@
 	function createCommentCard(Left, Right, InfoRight) {
 		  // commentCardWrapper 요소 선택
 		  var commentCardWrapper = document.querySelector('.commentCardWrapper');
-		  commentCardWrapper.innerHTML = '';
 		  // commentCard 요소 생성
 		  var commentCard = document.createElement('div');
 		  commentCard.classList.add('commentCard');
@@ -699,8 +698,12 @@
 		
 		      var spotSubPhoto = $(".spotSubPhoto");
 		      spotSubPhoto.empty();
-		
+		      
+			  var commentCardWrapper = document.querySelector('.commentCardWrapper');
+			  commentCardWrapper.innerHTML = '';
+	
 		      for (var i = 0; i < data.length; i++) {
+		    	console.log(Number(data[i].location_review_pk));
 		    	if (visitedReview[Number(data[i].location_review_pk)] != 1 && Number(data[i].location_review_pk) != 0) {
 		    		createCommentCard(data[i].location_content, data[i].star, data[i].regdate);
 		    		visitedReview[Number(data[i].location_review_pk)] = 1;
