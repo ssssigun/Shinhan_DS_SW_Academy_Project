@@ -125,4 +125,16 @@ public class MyRecordPlanService {
 					
 					return list;
 				}
+				
+				public boolean reviewing1(MyRecordPlanVO vo) {
+					return mapper.reviewing1(vo) > 0 ? true : false;
+				}
+				
+				public void setReviewed(int ppk) {
+					mapper.setReviewed(ppk);
+				}
+				
+				public void savingReviews(MyRecordPlanVO vo) {
+					mapper.savingReviews(vo);
+				}
 }

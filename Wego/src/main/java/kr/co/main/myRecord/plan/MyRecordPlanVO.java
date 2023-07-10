@@ -15,11 +15,19 @@ public class MyRecordPlanVO {
 	private Date start_date;
 	private Date end_date;
 	private int budget;
+	private Timestamp regdate;
+	private int reviewed;
 	
 	private int location_pk;
 	private String region;
 	private String location_Name;
 	private String day;
+	private int star;
+	private String location_content;
+	
+	//private String title;
+	private String content;
+	private int state;
 	
 	private int rowPerPage =8;
 	private int page = 1;

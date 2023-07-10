@@ -19,4 +19,10 @@ public interface MyRecordPlanMapper {
 	
 	
 	List<MyRecordPlanVO> list4(int x);
+	
+	int reviewing1(MyRecordPlanVO vo);
+	
+	void setReviewed(int ppk);
+	
+	void savingReviews(MyRecordPlanVO vo);
 }

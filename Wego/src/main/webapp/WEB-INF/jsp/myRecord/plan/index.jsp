@@ -21,15 +21,30 @@
   
   <script>
   	function CallingAdeletion(flag, planID){
-  		var url = "deleting.do?flag="+flag+"&plan_pk="+planID;
-  		location.href=url;
-  		history(1);
+  		var confirmed = confirm("이 계획을 삭제하시겠습니까?");
+  		if(confirmed){
+  			var url = "deleting.do?flag="+flag+"&plan_pk="+planID;
+  	  		location.href=url;
+  	  		history(1);
+  		}
+  		
   	}
   	
   	function callingWritingReview(plan_pk){
-  		var url = "writingReviews.do?plan_pk="+plan_pk;
-  		location.href=url;
+  		var confirming = confirm("장소 별 후기를 작성하시겠습니까?");
+  		if(confirming){
+  			var url = "writingReviews.do?plan_pk="+plan_pk;
+  	  		location.href=url;
+  		}
   	}
+  	
+  	function moveTOTotalReview(plan_pk){
+		  var goOrnot = confirm("전체 후기를 작성하시겠습니까?");
+		  if(goOrnot){
+			  var url = "reviewUpdating.do?plan_pk="+plan_pk;
+	  	  	  location.href=url;
+		  }
+	  }
   </script>
 </head>
 <body>
@@ -87,7 +102,15 @@
 	                <div class="subWrapper">${vo.number_of_people }인 | ${vo.budget }원</div>
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">
-	                	<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">후기 쓰기</button>
+	                <c:choose>
+	                	<c:when test="${vo.reviewed == 1 }">
+	                		<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">전체 후기 쓰기</button>
+	                	</c:when>
+	                	<c:otherwise>
+		                	<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">장소별 후기 쓰기</button>
+		                	<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">전체 후기 쓰기</button>
+	                	</c:otherwise>
+	                </c:choose>	
 	                </div>
 	              </div>
 	            </div>

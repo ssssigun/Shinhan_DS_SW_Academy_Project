@@ -13,10 +13,47 @@
   <link rel="stylesheet" href="/main/css/footer.css">
   <link rel="stylesheet" href="/main/css/header.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-  
-  
   <link rel="stylesheet" href="/main/css/myRecord/reviews.css"> 
-
+  
+  <script>
+	  function setInputValue(input) {
+	    var value = input.value;	    
+	    input.setAttribute("value", value);
+	  }
+	  
+	  function submitFormWithConfirmation() {
+	    // 확인 창 표시
+	    var confirmed = confirm("저장하시겠습니까?");
+	    
+	    // 사용자가 "확인"을 선택한 경우에만 form 전송
+	    if (confirmed && validateForm()) {
+	      document.getElementById("datas").submit();
+	      alert("저장 완료하였습니다.");
+	    }else if(confirmed && ~validateForm()){
+	    	alert("모든 입력란을 채워주세요.");
+	    }else{
+	    	
+	    }
+	  }
+	  
+	  function goBack() {
+		  var yesORnot = confirm("목록으로 돌아가시겠습니까?\n"
+				  +"※주의)저장하지 않고 이동 시, 작성한 내용이 사라집니다.");
+		  if(yesORnot){
+			  history.go(-1); // A로 되돌아감
+		  }
+	    }
+	  
+	  function validateForm() {
+		    var inputs = document.querySelectorAll('input[type="text"]');
+		    for (var i = 0; i < inputs.length; i++) {
+		      if (inputs[i].value === "") {
+		        return false;
+		      }
+		    }
+		    return true;
+		  }
+	</script>
   <title>장소별 한줄 평 작성</title>
 </head>
 <body>
@@ -26,11 +63,14 @@
     <div class="ContentsContainer">
         <h3 class="title">장소 별 한줄평 작성</h3>
       <div class="writeWrapper">
-      <c:forEach var="vo" items="${result}">
+      <form action="/main/myRecord/plan/reviewing1.do" id="datas" method="post" name="reviewForm" onsubmit="return validateForm()">
+      <c:forEach var="vo" items="${result}" varStatus="loop">
 	      <div class="oneLocation">
 	      	<div class="info">
 	      		<div class="day">
 	      			${vo.day }일차
+	      			<input name="pks" type="hidden" value="${vo.location_pk }"/>
+	      			<input name="plan_pk" type="hidden" value="${plan_pk }"/>
 	      		</div>
 	      		<div class="firstLine">
 	      		<c:choose>
@@ -67,30 +107,28 @@
 	      		</c:choose>
 		      		<div class="scoring">
 		      			별점
-			      		<form action="#">
-			      			<select name="scores" id="score">
-			      				<option value:"1">☆☆☆☆★</option>
-			      				<option value:"2">☆☆☆★★</option>
-			      				<option value:"3">☆☆★★★</option>
-			      				<option value:"4">☆★★★★</option>
-			      				<option value:"5">★★★★★</option>
+			      			<select name="scores">
+			      				<option value="1">★☆☆☆☆</option>
+			      				<option value="2">★★☆☆☆</option>
+			      				<option value="3">★★★☆☆</option>
+			      				<option value="4">★★★★☆</option>
+			      				<option value="5">★★★★★</option>
 			      			</select>
-			      		</form>
 		      		</div>
 		      	</div>
 		      	<div class="secondLine">
 		      	    한줄평
-		      	    <input type:"text" id="oneLineReview"/>
+		      	    <input name="oneLineReviews" type="text" onchange="setInputValue(this)"/>
 		      	</div>
 	      	</div>
 	      </div>      
       </c:forEach>
+      </form>
     </div>
    </div>
    <div class="bottomWrapper">
-	      <button class="btn lightskyBblackL">전체 후기</button>
-	      <button class="btn blueBwhiteL">저장</button>
-	      <button class="btn lightskyBblackL">나가기</button>
+	      <button class="btn blueBwhiteL" type="button" onclick="submitFormWithConfirmation()">저장</button>
+	      <button class="btn lightskyBblackL" type="button" onclick="goBack()">나가기</button>
 	</div>
   </div>
   

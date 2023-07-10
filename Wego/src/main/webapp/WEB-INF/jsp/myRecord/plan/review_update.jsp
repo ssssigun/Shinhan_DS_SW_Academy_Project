@@ -14,6 +14,39 @@
 	<link rel="stylesheet" href="/main/css/header.css">
     <link rel="stylesheet" href="/main/css/myRecord/review_update.css" />
     <title>common</title>
+    <script>
+	    function goBack() {
+			  var yesORnot = confirm("목록으로 돌아가시겠습니까?\n"
+					  +"※주의)저장하지 않고 이동 시, 작성한 내용이 사라집니다.");
+			  if(yesORnot){
+				  history.go(-1); // A로 되돌아감
+			  }
+		    }
+	    
+	    function confirmation(){
+	    	var confirmed = confirm("저장하시겠습니까?");
+		    
+		    // 사용자가 "확인"을 선택한 경우에만 form 전송
+		    if (confirmed && validateForm()) {
+		      document.getElementById("datas").submit();
+		      alert("저장 완료하였습니다.");
+		    }else if(confirmed && ~validateForm()){
+		    	alert("모든 입력란을 채워주세요.");
+		    }else{
+		    	
+		    }
+	    }
+	    
+	    function validateForm() {
+		    var inputs = document.querySelectorAll('input[type="text"]');
+		    for (var i = 0; i < inputs.length; i++) {
+		      if (inputs[i].value === "") {
+		        return false;
+		      }
+		    }
+		    return true;
+		  }
+    </script>
   </head>
   <body>
   <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>
@@ -21,14 +54,16 @@
       <div class="ContentsContainer">
         <h3 class="title">전체 후기 작성</h3>
       </div>
+      <form method="post" action="/main/myRecord/plan/reviewing2.do" id="datas" onsubmit="return validateForm()" enctype="multipart/form-data">
       <div class="writeWrapper">
         <div class="writeTable">
           <div class="titleWrapper">
             <h3 class="title">제목</h3>
-            <input type="text" class="preFrame"/>
+            <input name="title" type="text" class="preFrame"/>
           </div>
           	<h3 class="title">내용</h3>
-          	<textarea class="contentsWrapper"></textarea>
+          	<input name="plan_pk" type="hidden" value="${plan_pk }"/>
+          	<textarea name="contents" class="contentsWrapper"></textarea>
           <div class="attachmentWrapper">
             <div class="Frame63">
               <h3 class="imgattach">사진 첨부</h3>
@@ -37,23 +72,52 @@
               </h3>
             </div>
              <div class="photo">
-              <div class="photoWrapper">
-              </div>
+              <div class="photoWrapper"> 
+              <div class="imageContainer" style="display:flex;"></div>
               <div class="Frame62">
+              <input type="file" id="fileInput" name="file" style="display:none;" multiple/>
+              <label for="fileInput">
               	<img class="addingPhoto" src="/main/image/review/BsFillPlusCircleFill.png"/>
+              </label>              	
+              </div>
               </div>
           </div>
         </div>   
       </div>
-      
     </div>
+    </form>
     <div class="bottomWrapper">
-        <div class="btn lightskyBblackL">나가기</div>
-        <div class="btn blueBwhiteL">저장</div>
+        <div class="btn lightskyBblackL" onclick="goBack()">나가기</div>
+        <div class="btn blueBwhiteL" onclick="confirmation()">저장</div>
       </div>
     </div>
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>
 
   
   </body>
+  <script>
+    	document.getElementById("fileInput").addEventListener("change",function(){
+    		document.querySelector(".imageContainer").innerHTML = "";
+    		for(var i = 0; i<this.files.length; i++){
+    			var file = this.files[i];
+        		var reader = new FileReader();
+        		
+        		reader.onload = function(e){
+        			var img = document.createElement("img");
+        			img.src = e.target.result;
+        			img.width= 215;
+        			img.height = 169;
+        			
+        			var div = document.createElement("div");
+        			div.classList.add("imageWrapper");
+        			div.appendChild(img);
+        			
+        			
+        			document.querySelector(".imageContainer").appendChild(div);
+        		};
+        		
+        		reader.readAsDataURL(file);
+    		}
+    	});
+    </script>
 </html>

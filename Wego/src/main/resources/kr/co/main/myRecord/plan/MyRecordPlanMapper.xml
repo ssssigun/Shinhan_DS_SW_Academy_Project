@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="list2" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO">
-		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget FROM wego.plan p, wego.plan_detail d
+		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget, p.reviewed FROM wego.plan p, wego.plan_detail d
 		<where>
 			p.plan_pk = d.plan_pk and p.state = 1
 		</where>
@@ -56,6 +56,26 @@
 	</delete>
 	
 	<select id="list4" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO" parameterType="int">
-		select d.day, l.region, l.location_Name from wego.plan_detail d, wego.location l where d.plan_pk = #{x} and l.location_pk = d.location_pk order by d.day
+		select d.day, l.region, l.location_Name, l.location_pk from wego.plan_detail d, wego.location l where d.plan_pk = #{x} and l.location_pk = d.location_pk order by d.day
 	</select>
+	
+	<insert id="reviewing1" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO">
+		insert into wego.location_review (
+			location_pk, location_content, star, regdate
+		) values(
+			#{location_pk}, #{location_content}, #{star}, NOW()
+		)
+	</insert>
+	
+	<update id="setReviewed" parameterType="int">
+		update wego.plan set reviewed = 1 where plan_pk = #{ppk}
+	</update>
+	
+	<insert id="savingReviews" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO">
+		insert into wego.review (
+			plan_pk, title, content, regdate, state
+		) values(
+			#{plan_pk}, #{title}, #{content}, Now(), #{state}
+		)
+	</insert>
 </mapper>
