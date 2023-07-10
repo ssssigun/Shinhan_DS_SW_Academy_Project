@@ -1,6 +1,7 @@
 package kr.co.main.bank;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,10 @@ public interface BankMapper {
 	int insertBankPlanChk();
 	List<BankPlanVO> selectEndPlan();
 	List<BankPlanDetailVO> selectAccountNeedPlanDetail(int plan_pk);
-	
+	String selectCardnum(int plan_pk);
+	BankLocationVO selectLocation(Map<String, Object> map);
+	void insertAccountList(List<BankAccountVO> accountList);
+	void updateBankPlanChk(int plan_pk);
 	
 	//=======================
 	// review

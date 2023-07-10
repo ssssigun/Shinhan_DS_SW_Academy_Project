@@ -17,6 +17,8 @@ public class BankController {
 	@Autowired
 	BankService Service;
 	
+	List<BankPlanVO> planList;
+	
 	// test: jsp만 띄우기
 	@GetMapping("/index.do")
 	public String test() {
@@ -36,6 +38,20 @@ public class BankController {
 	@GetMapping("/selectEndPlan.do")
 	@ResponseBody
 	public List<BankPlanVO> selectEndPlan() {
-		return Service.selectEndPlan();
+		planList = Service.selectEndPlan();
+		return planList;
+	}
+	
+	@GetMapping("/randomAccount.do")
+	@ResponseBody
+	public Map<String, Object> randomAccount() {
+		Map<String, Object> outputMap = Service.randomAccount(planList);
+		return outputMap;
+	}
+	
+	@GetMapping("/insertAccountList.do")
+	@ResponseBody
+	public void insertAccountList() {
+		Service.insertAccountList(planList);
 	}
 }

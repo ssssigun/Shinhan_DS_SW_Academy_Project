@@ -23,11 +23,40 @@
 	</select>
 	
 	<select id="selectAccountNeedPlanDetail" parameterType="int" resultType="kr.co.main.bank.BankPlanDetailVO">
-		SELECT d.start_time, d.end_time, d. budget, d.plan_pk, l.location_name, l.address
+		SELECT d.start_time, d.end_time, d. budget, d.plan_pk, l.location_name, l.address, l.region
 		FROM wego.plan_detail d, wego.location l
 		WHERE d.location_pk = l.location_pk
 		  AND plan_pk = #{plan_pk}
 		ORDER BY plan_pk, start_time;
 	</select>
+	
+	<select id="selectCardnum" parameterType="int" resultType="String">
+		SELECT c.cardnum
+		FROM wego.card c, wego.plan p
+		WHERE p.user_pk = c.user_pk
+		  AND p.plan_pk = #{plan_pk};
+	</select>
+	
+	<select id="selectLocation" parameterType="Map" resultType="kr.co.main.bank.BankLocationVO">
+		<![CDATA[
+			SELECT region, address, location_name
+			FROM (SELECT @rownum:=@rownum+1 num, l.region, l.address, l.location_name FROM wego.location l, (SELECT @rownum:=0) tmp WHERE region = #{region}) tmp
+			WHERE num = #{num};
+		]]>
+	</select>
+	
+	<insert id="insertAccountList" parameterType="java.util.List">
+		INSERT INTO wego.bank_account(cardnum, date, content, address, amount_payment)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+		(#{item.cardnum}, #{item.date}, #{item.content}, #{item.address}, #{item.amount_payment})
+		</foreach>
+	</insert>
+	
+	<update id="updateBankPlanChk" parameterType="int">
+	  UPDATE wego.bank_plan_chk
+		SET account_insert = 1
+		WHERE plan_pk = #{plan_pk};
+	</update>
 	
 </mapper>

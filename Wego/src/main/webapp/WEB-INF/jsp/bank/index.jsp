@@ -50,7 +50,7 @@
 					+		'<td width="7%">end_date</td>'
 					+		'<td width="4%">state</td>'
 					+		'<td></td>'
-					+		'<td width="4%">card_num</td>'
+					+		'<td width="4%">cardnum</td>'
 					+		'<td width="7%">amount_payment</td>'
 					+		'<td width="7%">date</td>'
 					+		'<td width="15%">content</td>'
@@ -82,16 +82,63 @@
 	
 	<!-- 랜덤결제 -->
 	function insertAccount() {
-		
+		$.ajax({
+			url: 'randomAccount.do',
+			method: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				console.log(data);
+				
+				var planPkList = data['planPkList'];
+				var accountMap = data['accountMap'];
+				
+				planPkList.forEach(function(planPk){
+					var account = accountMap[planPk];
+					console.log(account);
+					account.forEach(function(object){
+						$('#plan_pk' + planPk).after(''
+						+ '<tr>'
+						+   '<td></td>'
+						+   '<td></td>'
+						+   '<td></td>'
+						+   '<td></td>'
+						+   '<td></td>'
+						+   '<td></td>'
+						+   '<td></td>'
+						+   '<td></td>'
+						+   '<td>'+object.cardnum+'</td>'
+						+   '<td>'+object.amount_payment+'</td>'
+						+   '<td>'+object.date+'</td>'
+						+   '<td>'+object.content+'</td>'
+						+   '<td>'+object.address+'</td>'
+						+ '</tr>'
+						);
+					})
+				})
+			}
+		});
 	}
+	
+	<!-- DB에 넣기 -->
+	function insertAccountList() {
+		$.ajax({
+			url: 'insertAccountList.do',
+			method: 'GET',
+			dataType: 'json',
+			success: function() {
+				alert("데이터 insert 성공");
+			}
+		});
+	}
+	
 </script>
 <body>
 	<div class="contentsWrapper">
 		<div class="buttonsWrapper">
 			<button class="blueBwhiteL btn" onclick="updatePlanState()">1. 여행종료</button>
 			<button class="blueBwhiteL btn" onclick="selectEndPlan()">2. 종료된 여행<br>가져오기</button>
-			<button class="blueBwhiteL btn">3. 랜덤결제</button>
-			<button class="blueBwhiteL btn">4. DB에 넣기</button>
+			<button class="blueBwhiteL btn" onclick="insertAccount()">3. 랜덤결제</button>
+			<button class="blueBwhiteL btn" onclick="insertAccountList()">4. DB에 넣기</button>
 		</div>
 		<div class="tablesWrapper">
 			<table class="table">
