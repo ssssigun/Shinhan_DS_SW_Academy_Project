@@ -8,8 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 public class ReviewService {
 
@@ -110,10 +108,12 @@ public class ReviewService {
 		return mapper.reviewRecommend(vo);
 		
 	}
-	
-	
-	
-	
+
+	public boolean deleteReviewComment(ReviewVO vo) {
+		
+		return mapper.deleteReviewComment(vo) > 0 ? true : false;
+	}
+
 	
 //	mapper.updateViewcount(vo.getUser_pk());
 	

@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
-
-
 @Controller
 @RequestMapping("/review")
 public class ReviewController {
@@ -131,6 +127,21 @@ public class ReviewController {
 		return "include/alert";
 	}
 	
+	
+	//댓글삭제
+	@GetMapping("commentDelete.do")
+	public String deleteReviewComment(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+		if(rservice.deleteReviewComment(vo)) {
+			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
+			model.addAttribute("url", "index.do");
+			System.out.println(rservice.deleteReviewComment(vo));
+			
+		} else {
+			model.addAttribute("msg", "삭제 실패");
+			
+		}
+		return "include/alert";
+	}
 	
 	
 	

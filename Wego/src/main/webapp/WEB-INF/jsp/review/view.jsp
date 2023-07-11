@@ -90,7 +90,9 @@
 				  <a href="#"><img src="../image/review/menuWrapper.png" /></a>
 				  <div class="buttonContainer">
 				    <button class="editButton">수정</button>
-				    <button class="deleteButton">삭제</button>
+				    <form method="get" name="frm" id="frm" action="commentDelete.do" enctype="multipart/form-data" >
+				    <button class="deleteButton" type="submit">삭제</button>
+				    </form>
 				  </div>
 				</div>
 

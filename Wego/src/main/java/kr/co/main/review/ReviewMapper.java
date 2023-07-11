@@ -48,6 +48,8 @@ public interface ReviewMapper {
 	
 	//댓글 보기
 	List<ReviewVO> getReviewComments(int review_pk);
+
+	int deleteReviewComment(ReviewVO vo);
 	
 	
 	
