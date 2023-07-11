@@ -66,7 +66,7 @@
           </div>
           <div class="pwdInput inputWrapper">
             <span class="letter inputText">비밀번호</span>
-            <input class="input inputArea" type="text" name="pwd" id="pwd" placeholder="비밀번호를 입력해주세요.">
+            <input class="input inputArea" type="password" name="pwd" id="pwd" placeholder="비밀번호를 입력해주세요.">
           </div>
         </div>
         <input class="btn blueBwhiteL" type="button"  value="로그인" onclick="login()">
