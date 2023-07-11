@@ -108,6 +108,11 @@ public class ReviewService {
 		return mapper.reviewRecommend(vo);
 		
 	}
+	
+	//추천수 추가
+	public boolean reviewRecommendPlus(ReviewVO vo) {
+		return mapper.reviewRecommendPlus(vo);
+	}
 
 	public boolean deleteReviewComment(ReviewVO vo) {
 		

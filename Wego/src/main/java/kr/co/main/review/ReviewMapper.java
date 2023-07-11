@@ -31,6 +31,9 @@ public interface ReviewMapper {
 	
 	//글추천수
 	ReviewVO reviewRecommend(ReviewVO vo);
+	
+	//글추천수추가
+	boolean reviewRecommendPlus(ReviewVO vo);
  
 	int count(ReviewVO vo);
 
@@ -50,7 +53,6 @@ public interface ReviewMapper {
 	List<ReviewVO> getReviewComments(int review_pk);
 
 	int deleteReviewComment(ReviewVO vo);
-	
 	
 	
 	

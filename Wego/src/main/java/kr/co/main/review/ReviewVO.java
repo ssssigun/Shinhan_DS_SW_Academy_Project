@@ -42,7 +42,8 @@ public class ReviewVO {
 	//2. review_comment (여행 후기 댓글)
 	//=========================
 	
-	private int review_comment_pk;
+//	private int review_comment_pk;
+	private String review_comment_pk;
 	private String comment_content;
 //	private int User_pk;
 //	private int Review_pk;

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,21 +37,20 @@ public class ReviewController {
 	    
 	    
 	    model.addAttribute("nickname", vo.getNickname());
-	    System.out.println(vo.getNickname());
+//	    System.out.println(vo.getNickname());
 	    
 	    model.addAttribute("review_pk", vo.getReview_pk());
 		model.addAttribute("data", review);
 		model.addAttribute("comments", comments);
 		model.addAttribute("watch", rservice.reviewWatch(vo));
+		//추천수
 		model.addAttribute("recommend", rservice.reviewRecommend(vo));
+		
 		
 		return "review/view";
 	}
 		
-	//
-	//
-		
-	
+
 	
 	
 	
@@ -96,7 +96,7 @@ public class ReviewController {
 	//댓글 등록
 	@PostMapping("insertReviewComment.do")
 	public String insertReviewComment(Model model, ReviewVO vo, @RequestParam("user_pk") int user_pk) {
-		System.out.println(vo);
+		/*System.out.println(vo);*/
 		
 		vo.setUser_pk(user_pk);
 		vo.setRegdate_comment(new Date(System.currentTimeMillis()));
@@ -130,18 +130,41 @@ public class ReviewController {
 	
 	//댓글삭제
 	@GetMapping("commentDelete.do")
-	public String deleteReviewComment(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+	public String deleteReviewComment(Model model, ReviewVO vo) { //필요해서 param 다들어잇어 sword page 기본값으로 들어가잇고
+		
 		if(rservice.deleteReviewComment(vo)) {
 			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
-			model.addAttribute("url", "index.do");
+			model.addAttribute("url", "view.do?review_pk="+vo.getReview_pk()+"&user_pk="+vo.getUser_pk());
 			System.out.println(rservice.deleteReviewComment(vo));
 			
 		} else {
 			model.addAttribute("msg", "삭제 실패");
+			System.out.println(rservice.deleteReviewComment(vo));
 			
 		}
 		return "include/alert";
 	}
+	
+	
+	
+	/*
+	//댓글삭제
+	@GetMapping("commentDelete.do")
+	public String deleteReviewComment(Model model, @RequestParam("review_comment_pk") int review_comment_pk, @RequestParam("review_pk") int review_pk, @RequestParam("user_pk") int user_pk) {
+	    ReviewVO vo = new ReviewVO(); // ReviewVO 객체 생성
+	    vo.setReview_pk(review_pk); // review_pk 설정
+	    vo.setUser_pk(user_pk); // user_pk 설정
+	    
+	    if (rservice.deleteReviewComment(review_comment_pk)) {
+	        model.addAttribute("msg", "정상적으로 삭제되었습니다.");
+	        model.addAttribute("url", "view.do?review_pk=" + vo.getReview_pk() + "&user_pk=" + vo.getUser_pk());
+	    } else {
+	        model.addAttribute("msg", "삭제 실패");
+	    }
+	    
+	    return "include/alert";
+	}*/
+
 	
 	
 	

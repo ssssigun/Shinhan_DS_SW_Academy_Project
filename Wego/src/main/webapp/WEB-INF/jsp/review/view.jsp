@@ -21,6 +21,37 @@
     		$("#frm").submit();
     		
     	}
+    	
+    	var isRecommendClicked = false; // 중복 클릭 방지를 위한 변수
+
+    	function recommendOnClick() {
+    	    if (!isRecommendClicked) {
+    	        isRecommendClicked = true; // 버튼 클릭 상태로 변경
+    	        $.ajax({
+    	            url: 'http://localhost/main/review/view.do?review_pk=1',  // 서버 URL
+    	            type: 'POST',  // 요청 방식 (GET, POST 등)
+    	            data: { review_pk: 1 },  // 리뷰의 고유 식별자를 전달
+    	            success: function(response) {
+    	                // 성공적으로 응답 받았을 때 실행할 코드
+    	                updateRecommendCount(response);  // 추천 수 업데이트 함수 호출
+    	            },
+    	            error: function(xhr, status, error) {
+    	                // 요청이 실패했을 때 실행할 코드
+    	                console.error(error);
+    	            },
+    	            complete: function() {
+    	                isRecommendClicked = false; // 요청 완료 후 버튼 클릭 상태 초기화
+    	            }
+    	        });
+    	    }
+    	}
+
+    	function updateRecommendCount(count) {
+    	    // 추천 수를 업데이트하는 코드 작성
+    	    document.getElementById('recommendCount').textContent = count;
+    	}
+
+
     </script>
   </head>
   <body>
@@ -71,8 +102,10 @@
           <div class="contentsBottomWrapper">
             <div class="thumbsWrapper">
               <div class="thumbs">
-                 <a href=""><img src="../image/review/thumbsup.png" /></a>
-                <dd class="bigLetter">${recommend.review_recommend_count }</dd>
+              <button class="recommendplusbutton" onClick="recommendOnClick()"><img src="../image/review/thumbsup.png" /></button>
+              <dd class="bigLetter">${recommend.review_recommend_count }</dd>
+                
+              
               </div>
             </div>
             <a href=""><img src="../image/review/report.png" /></a>
@@ -91,6 +124,7 @@
 				  <div class="buttonContainer">
 				    <button class="editButton">수정</button>
 				    <form method="get" name="frm" id="frm" action="commentDelete.do" enctype="multipart/form-data" >
+				    <input type="hidden" name="review_comment_pk" value="${review_comment_pk}">
 				    <button class="deleteButton" type="submit">삭제</button>
 				    </form>
 				  </div>
