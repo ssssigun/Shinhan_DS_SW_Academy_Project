@@ -66,8 +66,8 @@
       </div>
       <ul>
         <li class="menu"><p><a href="/main/plan/index.do">여행 계획</a></p></li>
-        <li class="menu"><p><a href="">여행 후기</a></p></li>
-        <li class="menu"><p><a href="">나의 기록</a></p></li>
+        <li class="menu"><p><a href="/main/review/index.do">여행 후기</a></p></li>
+        <li class="menu"><p><a href="/main/myRecord/plan/index.do">나의 기록</a></p></li>
       </ul>
 
     </div>

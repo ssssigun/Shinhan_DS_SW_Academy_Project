@@ -625,6 +625,7 @@ h3 {
   top: 0;
   right: 0;
   display: none;
+  border: 0px solid;
 }
 
 .menuWrapper:hover .buttonContainer {
@@ -634,6 +635,8 @@ h3 {
 
 .editButton, .deleteButton {
   margin-right: 5px;
+  border: 0;
+  background-color: transparent;
 }
 
 textarea {
@@ -641,6 +644,11 @@ textarea {
 	width:500px;
 }
 .recommendplusbutton{
+	border: 0;
+  	background-color: transparent;
+}
+
+.reviewSueButton{
 	border: 0;
   	background-color: transparent;
 }

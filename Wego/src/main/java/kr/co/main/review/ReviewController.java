@@ -45,12 +45,23 @@ public class ReviewController {
 		model.addAttribute("watch", rservice.reviewWatch(vo));
 		//추천수
 		model.addAttribute("recommend", rservice.reviewRecommend(vo));
-		
-		
+		//조회수 1씩 증가
+		model.addAttribute("watchPlus", rservice.reviewWatch(vo));
 		return "review/view";
 	}
 		
-
+	//추천수추가
+	//
+		
+	@PostMapping("reviewRecommendPlus.do")
+	public void reviewRecommendPlus(ReviewVO vo) {
+		/*System.out.println(vo);*/
+		
+		/*vo.setUser_pk(user_pk);*/
+		/*vo.setRegdate_comment(new Date(System.currentTimeMillis()));*/
+		
+		rservice.reviewRecommendPlus(vo);
+	}
 	
 	
 	
@@ -122,7 +133,6 @@ public class ReviewController {
 			
 		} else {
 			model.addAttribute("msg", "수정 실패");
-			
 		}
 		return "include/alert";
 	}
@@ -135,15 +145,28 @@ public class ReviewController {
 		if(rservice.deleteReviewComment(vo)) {
 			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
 			model.addAttribute("url", "view.do?review_pk="+vo.getReview_pk()+"&user_pk="+vo.getUser_pk());
-			System.out.println(rservice.deleteReviewComment(vo));
+			
 			
 		} else {
 			model.addAttribute("msg", "삭제 실패");
-			System.out.println(rservice.deleteReviewComment(vo));
+			
 			
 		}
 		return "include/alert";
 	}
+	
+	
+	
+	//신고
+	// 서버 측 코드
+	@PostMapping("insertReviewSue.do")
+	public String insertReviewSue(@RequestParam("review_id") int reviewId) {
+	  // 리뷰 신고 처리 로직을 구현합니다.
+	  // 리뷰 ID를 사용하여 필요한 작업을 수행합니다.
+	  
+	  return "success"; // 클라이언트에게 응답할 데이터 또는 페이지
+	}
+
 	
 	
 	

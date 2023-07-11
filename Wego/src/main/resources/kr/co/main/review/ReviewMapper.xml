@@ -88,7 +88,7 @@
 	
 	<!-- 리뷰 댓글 조회 -->
 	<select id="getReviewComments" parameterType="int">
-    	select nickname, comment_content, review_comment.regdate regdate_comment
+    	select nickname, comment_content, review_comment.regdate regdate_comment, review_comment_pk
 		from wego.review_comment left join wego.user 
 		on wego.review_comment.user_pk = wego.user.user_pk where review_pk = #{review_pk};
 	</select>
@@ -125,7 +125,11 @@
 		DELETE FROM wego.review_image WHERE review_image_pk = #{review_image_pk}
 	</delete>
 	
-	
+	<!-- 리뷰 신고 -->
+	<insert id="insertReviewSue" parameterType="kr.co.main.review.ReviewVO">
+		INSERT INTO wego.review_sue (user_pk, review_pk, plan_pk) 
+		values (#{user_pk}, #{review_pk}, #{plan_pk}); 
+	</insert>
 	
 	
 	

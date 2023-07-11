@@ -111,7 +111,8 @@ public class ReviewService {
 	
 	//추천수 추가
 	public boolean reviewRecommendPlus(ReviewVO vo) {
-		return mapper.reviewRecommendPlus(vo);
+		boolean temp = mapper.reviewRecommendPlus(vo);
+		return temp;
 	}
 
 	public boolean deleteReviewComment(ReviewVO vo) {
@@ -119,6 +120,13 @@ public class ReviewService {
 		return mapper.deleteReviewComment(vo) > 0 ? true : false;
 	}
 
+	
+	
+	
+	//리뷰신고추가
+	public ReviewVO insertReviewSue(ReviewVO vo) {
+		return mapper.insertReviewSue(vo);
+	}
 	
 //	mapper.updateViewcount(vo.getUser_pk());
 	

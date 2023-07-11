@@ -238,8 +238,8 @@ hr {
 
   /*text-indent: 20px;*/
   /*margin: 16px;*/
-  width: auto;
-  height: 29px;
+  width: 1290px;
+  height: 400px;
 
   font-family: "Inter";
   font-style: normal;
@@ -250,7 +250,7 @@ hr {
 
   display: flex;
   align-items: center;
-  text-align: center;
+  /*text-align: center;*/
 
   color: #000000;
 
