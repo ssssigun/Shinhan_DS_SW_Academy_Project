@@ -125,8 +125,9 @@
 			url: 'insertAccountList.do',
 			method: 'GET',
 			dataType: 'json',
-			success: function() {
+			success: function(data) {
 				alert("데이터 insert 성공");
+				location.reload();
 			}
 		});
 	}
@@ -135,7 +136,6 @@
 <body>
 	<div class="contentsWrapper">
 		<div class="buttonsWrapper">
-			<button class="blueBwhiteL btn" onclick="updatePlanState()">1. 여행종료</button>
 			<button class="blueBwhiteL btn" onclick="selectEndPlan()">2. 종료된 여행<br>가져오기</button>
 			<button class="blueBwhiteL btn" onclick="insertAccount()">3. 랜덤결제</button>
 			<button class="blueBwhiteL btn" onclick="insertAccountList()">4. DB에 넣기</button>

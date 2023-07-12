@@ -13,6 +13,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.main.plan.PlanDetailVO;
+
 
 @Service
 public class BankService {
@@ -20,7 +22,10 @@ public class BankService {
 	@Autowired
 	BankMapper mapper;
 	
-	List<BankAccountVO> accountList; 
+	Map<String, Object> account;
+	
+	List<BankPlanVO> bankPlanList;
+	Map<String, Object> accountForInsert;
 	
 	private ThreadLocal<DateFormat> format = new ThreadLocal<DateFormat> () {
 	    @Override 
@@ -53,6 +58,7 @@ public class BankService {
 	}
 	
 	public List<BankPlanVO> selectEndPlan() {
+		account = new HashMap<String, Object>();
 		return mapper.selectEndPlan();
 	}
 	
@@ -63,7 +69,7 @@ public class BankService {
 		List<Integer> planPkList = new ArrayList<>();
 		for (int i = 0; i < planList.size(); i++) {
 			List<BankPlanDetailVO> planDetailList = mapper.selectAccountNeedPlanDetail(planList.get(i).getPlan_pk());
-			accountList = new ArrayList<>();
+			List<BankAccountVO> accountList = new ArrayList<>();
 			planPkList.add(planList.get(i).getPlan_pk());
 			String cardnum = mapper.selectCardnum(planList.get(i).getPlan_pk());
 			
@@ -141,6 +147,9 @@ public class BankService {
 		
 		outputMap.put("planPkList", planPkList);
 		outputMap.put("accountMap", map);
+		
+		account = outputMap;
+		
 		return outputMap;
 	}
 	
@@ -161,11 +170,72 @@ public class BankService {
 		return addMinute(start_time, random);
 	}
 	
-	public void insertAccountList(List<BankPlanVO> planList) {
-		mapper.insertAccountList(accountList);
-		for (int i = 0; i < planList.size(); i++) {
-			System.out.println(planList.get(i).getPlan_pk());
-			mapper.updateBankPlanChk(planList.get(i).getPlan_pk());
+	public void insertAccountList() {
+		List<Integer> planPkList = (List<Integer>) account.get("planPkList");
+		Map<String, Object> accountMap = (Map<String, Object>) account.get("accountMap");
+		
+		for (int i = 0; i < planPkList.size(); i++) {
+			List<BankAccountVO> temp = (List<BankAccountVO>) accountMap.get(String.valueOf(planPkList.get(i)));
+			mapper.insertAccountList(temp);
+			mapper.updateBankPlanChk(planPkList.get(i));
+		}
+	}
+	
+	public List<BankPlanVO> selectPlanForInsert() {
+		bankPlanList = mapper.selectPlanForInsert();
+		return bankPlanList;
+	}
+	
+	public Map<String, Object> selectAccountListForInsert(){
+		Map<String, Object> outputMap = new HashMap<String, Object>();
+		for (int i = 0; i < bankPlanList.size(); i++) {
+			Map<String, Object> inputMap = new HashMap<String, Object>();
+			
+			BankPlanVO vo = bankPlanList.get(i);
+			
+			inputMap.put("start_time", vo.getStart_date());
+			inputMap.put("end_time", vo.getEnd_date().toString() + " 23:59");
+			inputMap.put("cardnum", vo.getCardnum());
+			outputMap.put(String.valueOf(vo.getPlan_pk()), mapper.selectAccountListForInsert(inputMap));
+		}
+		
+		accountForInsert = outputMap;
+		return outputMap;
+	}
+	
+	public Map<String, Object> selectPlanDetailForInsert() {
+		for (int i = 0; i < bankPlanList.size(); i++) {
+			Map<String, Object> inputMap = new HashMap<String, Object>();
+			
+			inputMap.put("plan_pk", bankPlanList.get(i).getPlan_pk());
+			
+			List<BankAccountVO> accountList = (List<BankAccountVO>) accountForInsert.get(String.valueOf(bankPlanList.get(i).getPlan_pk()));
+			for (int j = 0; j < accountList.size(); j++) {
+				BankAccountVO vo = accountList.get(j);
+				vo.setUser_pk(bankPlanList.get(i).getUser_pk());
+				vo.setPlan_pk(bankPlanList.get(i).getPlan_pk());
+				inputMap.put("address", vo.getAddress());
+				inputMap.put("date", vo.getDate());
+				BankPlanDetailVO planDetailVO = mapper.selectPlanDetailForInsert(inputMap);
+				if (planDetailVO != null) {
+					vo.setPlan_detail_pk(planDetailVO.getPlan_detail_pk());
+					vo.setCategory(planDetailVO.getCategory());
+					vo.setLocation_pk(planDetailVO.getLocation_pk());
+				} else {
+					Map<String, Object> locationInfo = mapper.selectLocationPk(vo.getAccount_pk());
+					vo.setCategory((Integer) locationInfo.get("category"));
+					vo.setLocation_pk((Integer) locationInfo.get("location_pk"));
+				}
+			}
+		}
+		
+		return accountForInsert;
+	}
+	
+	public void insertUsage() {
+		for (int i = 0; i < bankPlanList.size(); i++) {
+			List<BankAccountVO> accountList = (List<BankAccountVO>) accountForInsert.get(String.valueOf(bankPlanList.get(i).getPlan_pk()));
+			mapper.insertUsage(accountList);
 		}
 	}
 	

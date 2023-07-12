@@ -13,13 +13,16 @@
 	<insert id="insertBankPlanChk">
 		INSERT INTO wego.bank_plan_chk(plan_pk)
 		SELECT plan_pk
-		FROM wego.plan WHERE NOT EXISTS(SELECT plan_pk FROM wego.bank_plan_chk) AND state = 1;
+		FROM wego.plan WHERE plan_pk NOT IN(SELECT plan_pk FROM wego.bank_plan_chk) AND state = 1;
 	</insert>
 	
 	<select id="selectEndPlan" resultType="kr.co.main.bank.BankPlanVO">
-		SELECT *
-		FROM wego.plan
-		WHERE plan_pk IN(SELECT plan_pk FROM wego.bank_plan_chk WHERE account_insert = 0);
+		<![CDATA[
+			SELECT *
+			FROM wego.plan
+			WHERE plan_pk IN(SELECT plan_pk FROM wego.bank_plan_chk WHERE account_insert = 0)
+			  AND plan_pk IN(SELECT plan_pk FROM wego.plan WHERE state = 0 AND end_date < SYSDATE());
+		]]>
 	</select>
 	
 	<select id="selectAccountNeedPlanDetail" parameterType="int" resultType="kr.co.main.bank.BankPlanDetailVO">
@@ -40,7 +43,7 @@
 	<select id="selectLocation" parameterType="Map" resultType="kr.co.main.bank.BankLocationVO">
 		<![CDATA[
 			SELECT region, address, location_name
-			FROM (SELECT @rownum:=@rownum+1 num, l.region, l.address, l.location_name FROM wego.location l, (SELECT @rownum:=0) tmp WHERE region = #{region}) tmp
+			FROM (SELECT @rownum:=@rownum+1 num, l.region, l.address, l.location_name FROM wego.location l, (SELECT @rownum:=0) tmp WHERE region = #{region} AND l.address != "") tmp
 			WHERE num = #{num};
 		]]>
 	</select>
@@ -58,5 +61,45 @@
 		SET account_insert = 1
 		WHERE plan_pk = #{plan_pk};
 	</update>
+	
+	<select id="selectPlanForInsert" resultType="kr.co.main.bank.BankPlanVO">
+		<![CDATA[
+			SELECT p.*, c.cardnum
+			  FROM wego.plan p, wego.card c
+			 WHERE p.user_pk = c.user_pk AND state = 0 AND end_date <= SYSDATE();
+		]]>
+	</select>
+	
+	<select id="selectAccountListForInsert" parameterType="Map" resultType="kr.co.main.bank.BankAccountVO">
+		 SELECT *
+		   FROM wego.bank_account
+		  WHERE date BETWEEN #{start_time} AND #{end_time}
+		    AND cardnum = #{cardnum};
+	</select>
+	
+	<select id="selectPlanDetailForInsert" parameterType="Map" resultType="kr.co.main.bank.BankPlanDetailVO">
+		SELECT *, (SELECT cardnum FROM (SELECT p.user_pk FROM wego.plan p WHERE p.plan_pk = #{plan_pk}) p, wego.card c WHERE p.user_pk = c.user_pk) cardnum
+		  FROM wego.plan_detail pd, wego.location l
+		 WHERE pd.location_pk = l.location_pk
+		   AND l.address = #{address}
+		   AND DATE_FORMAT(pd.start_time, "%Y-%m-%d") = DATE_FORMAT(#{date}, "%Y-%m-%d")
+		   ORDER BY ABS(pd.start_time - DATE_FORMAT(#{date}, "%Y-%m-%d")) LIMIT 1;
+	</select>
+	
+	<select id="selectLocationPk" parameterType="int" resultType="Map">
+		SELECT l.location_pk, l.category
+		  FROM wego.bank_account a, wego.location l
+		 WHERE a.address = l.address
+   		 AND a.content = l.location_name
+   		 AND a.account_pk = #{account_pk};
+	</select>
+	
+	<insert id="insertUsage" parameterType="java.util.List">
+		INSERT INTO wego.usage(user_pk, plan_pk, plan_detail_pk, usage_date, category, content, amount, location_pk)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.user_pk}, #{item.plan_pk}, #{item.plan_detail_pk}, #{item.date}, #{item.category}, #{item.content}, #{item.amount_payment}, #{item.location_pk})
+		</foreach>
+	</insert>
 	
 </mapper>

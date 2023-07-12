@@ -51,7 +51,34 @@ public class BankController {
 	
 	@GetMapping("/insertAccountList.do")
 	@ResponseBody
-	public void insertAccountList() {
-		Service.insertAccountList(planList);
+	public boolean insertAccountList() {
+		Service.insertAccountList();
+		return true;
+	}
+	
+	@GetMapping("/getAccountList.do")
+	public String getAccountList() {
+		return "bank/getAccountList";
+	}
+	
+	@GetMapping("/selectPlanForInsert.do")
+	@ResponseBody
+	public List<BankPlanVO> selectPlanForInsert() {
+		List<BankPlanVO> list = Service.selectPlanForInsert();
+		System.out.println(list);
+		return list;
+	}
+	
+	@GetMapping("/selectAccountListForInsert.do")
+	@ResponseBody
+	public Map<String, Object> selectAccountListForInsert() {
+		Service.selectAccountListForInsert();
+		return Service.selectPlanDetailForInsert();
+	}
+	
+	@GetMapping("/insertUsage.do")
+	@ResponseBody
+	public void insertUsage() {
+		Service.insertUsage();
 	}
 }

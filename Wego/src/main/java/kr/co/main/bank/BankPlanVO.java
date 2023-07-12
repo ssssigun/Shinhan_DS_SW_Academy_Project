@@ -1,6 +1,6 @@
 package kr.co.main.bank;
 
-import java.util.Date;
+import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class BankPlanVO {
+	int cardnum;
 	int plan_pk;
 	int user_pk;
 	String title;
