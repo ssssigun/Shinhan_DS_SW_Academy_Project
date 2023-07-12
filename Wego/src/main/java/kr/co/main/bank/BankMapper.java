@@ -23,6 +23,8 @@ public interface BankMapper {
 	BankPlanDetailVO selectPlanDetailForInsert(Map<String, Object> map);
 	Map<String, Object> selectLocationPk(int account_pk);
 	void insertUsage(List<BankAccountVO> accountList);
+	void updatePlanStateForInsert(int plan_pk);
+	void updateStatistics(Map<String, Object> map);
 	
 	//=======================
 	// review

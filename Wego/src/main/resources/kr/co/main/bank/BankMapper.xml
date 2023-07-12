@@ -66,7 +66,7 @@
 		<![CDATA[
 			SELECT p.*, c.cardnum
 			  FROM wego.plan p, wego.card c
-			 WHERE p.user_pk = c.user_pk AND state = 0 AND end_date <= SYSDATE();
+			 WHERE p.user_pk = c.user_pk AND state = 0 AND end_date < SYSDATE();
 		]]>
 	</select>
 	
@@ -101,5 +101,17 @@
 			(#{item.user_pk}, #{item.plan_pk}, #{item.plan_detail_pk}, #{item.date}, #{item.category}, #{item.content}, #{item.amount_payment}, #{item.location_pk})
 		</foreach>
 	</insert>
+	
+	<update id="updatePlanStateForInsert" parameterType="int">
+		UPDATE wego.plan
+		SET state=1
+		WHERE plan_pk=#{plan_pk}
+	</update>
+	
+	<update id="updateStatistics" parameterType="Map">
+		UPDATE wego.statistics
+		SET ${category}=${category}+#{amount}
+		WHERE user_pk=#{user_pk} AND state=1
+	</update>
 	
 </mapper>

@@ -29,7 +29,7 @@ public class BankController {
 	@ResponseBody
 	public Map<String, Object> updatePlanState() {
 		Map<String, Object> map = new HashMap<>();
-		map.put("updatePlanState", Service.updatePlanState());
+//		map.put("updatePlanState", Service.updatePlanState());
 		map.put("insertBankPlanChk", Service.insertBankPlanChk());
 		
 		return map;

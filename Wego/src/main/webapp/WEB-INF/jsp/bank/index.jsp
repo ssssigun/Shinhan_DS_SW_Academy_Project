@@ -19,6 +19,7 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
+				<!--
 				var update = data["updatePlanState"];
 				var insert = data["insertBankPlanChk"];
 				
@@ -27,6 +28,7 @@
 				} else {
 					alert("plan state의 update 개수와 bank plan chk의 insert 개수가 다릅니다.\n데이터베이스를 확인해주십시오.");
 				}
+				-->
 			}
 		});
 	}
@@ -136,6 +138,7 @@
 <body>
 	<div class="contentsWrapper">
 		<div class="buttonsWrapper">
+			<button class="blueBwhiteL btn" onclick="updatePlanState()">1. plan_chk 업데이트</button>
 			<button class="blueBwhiteL btn" onclick="selectEndPlan()">2. 종료된 여행<br>가져오기</button>
 			<button class="blueBwhiteL btn" onclick="insertAccount()">3. 랜덤결제</button>
 			<button class="blueBwhiteL btn" onclick="insertAccountList()">4. DB에 넣기</button>

@@ -19,7 +19,11 @@ public class BankAccountVO {
 	String address;
 	
 	int user_pk;
-	int plan_detail_pk;
+	Integer plan_detail_pk;
 	int category;
 	int location_pk;
+	
+	BankAccountVO() {
+		this.plan_detail_pk = null;
+	}
 }

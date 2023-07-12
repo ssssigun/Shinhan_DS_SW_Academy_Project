@@ -13,6 +13,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.main.myRecord.accountBook.AccountBookVO;
 import kr.co.main.plan.PlanDetailVO;
 
 
@@ -235,7 +236,31 @@ public class BankService {
 	public void insertUsage() {
 		for (int i = 0; i < bankPlanList.size(); i++) {
 			List<BankAccountVO> accountList = (List<BankAccountVO>) accountForInsert.get(String.valueOf(bankPlanList.get(i).getPlan_pk()));
-			mapper.insertUsage(accountList);
+			if (accountList.size() > 0) {
+				mapper.insertUsage(accountList);
+				mapper.updatePlanStateForInsert(bankPlanList.get(i).getPlan_pk());
+				for (int j = 0; j < accountList.size(); j++) {
+					Map<String, Object> inputMap = new HashMap<>();
+					inputMap.put("category", addCategoryName(accountList.get(j).getCategory()));
+					inputMap.put("amount", accountList.get(j).getAmount_payment());
+					inputMap.put("user_pk", accountList.get(j).getUser_pk());
+					
+					mapper.updateStatistics(inputMap);
+				}
+			}
+			
+		}
+	}
+	
+	public String addCategoryName(int category) {
+		switch (category) {
+			case 1: return("food");
+			case 2: return("accommodation");
+			case 3: return("shopping");
+			case 4: return("culture");
+			case 5: return("tour");
+			case 6: return("leisure");
+			default: return("");
 		}
 	}
 	
