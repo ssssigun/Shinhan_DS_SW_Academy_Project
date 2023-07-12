@@ -137,4 +137,22 @@ public class MyRecordPlanService {
 				public void savingReviews(MyRecordPlanVO vo) {
 					mapper.savingReviews(vo);
 				}
+				
+				public void savingReview_image(MyRecordPlanVO vo) {
+					mapper.savingReview_image(vo);
+				}
+				
+				public List<MyRecordPlanVO> viewingOLR(int x) {
+					List<MyRecordPlanVO> list = mapper.viewingOLR(x);
+					return list;
+				}
+				
+				public MyRecordPlanVO viewingTR(int x) {
+					MyRecordPlanVO list = mapper.viewingTR(x);
+					return list;
+				} 
+				
+				public void setReviewed2(int ppk) {
+					mapper.setReviewed2(ppk);
+				}
 }

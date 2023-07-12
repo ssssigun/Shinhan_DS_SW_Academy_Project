@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="list2" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO">
-		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget, p.reviewed FROM wego.plan p, wego.plan_detail d
+		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget, p.reviewed, p.reviewed2 FROM wego.plan p, wego.plan_detail d
 		<where>
 			p.plan_pk = d.plan_pk and p.state = 1
 		</where>
@@ -77,5 +77,30 @@
 		) values(
 			#{plan_pk}, #{title}, #{content}, Now(), #{state}
 		)
+		<selectKey keyProperty="review_pk" resultType="int">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
+		
 	</insert>
+	
+	<insert id="savingReview_image" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO">
+		insert into wego.review_image (
+			plan_pk, review_pk, filename_org, filename_save, filesize, filestate
+		) values(
+			#{plan_pk}, #{review_pk}, #{filename_org}, #{filename_save}, #{filesize}, #{filestate}
+		)
+		
+	</insert>
+	
+	<select id="viewingOLR" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO" parameterType="int">
+		select d.day, l.region, l.location_name, r.star, r.location_content from wego.plan_detail d, wego.location l, wego.location_review r where d.plan_pk = #{x} and d.location_pk = l.location_pk and l.location_pk = r.location_pk
+	</select>
+	
+	<select id="viewingTR" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO" parameterType="int">
+		select title, content from wego.review where plan_pk = #{x}
+	</select>
+	
+	<update id="setReviewed2" parameterType="int">
+		update wego.plan set reviewed2 = 1 where plan_pk = #{ppk}
+	</update>
 </mapper>

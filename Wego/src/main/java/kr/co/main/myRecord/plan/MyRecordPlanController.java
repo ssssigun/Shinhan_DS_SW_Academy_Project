@@ -1,16 +1,23 @@
 package kr.co.main.myRecord.plan;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/myRecord/plan")
@@ -81,8 +88,9 @@ public class MyRecordPlanController {
 		return "redirect:/myRecord/plan/reviewing.do";
 	}
 	
+	@Transactional
 	@PostMapping("reviewing2.do")
-	public String savingReiews2(HttpServletRequest request, MyRecordPlanVO vo, HttpSession sess) {
+	public String savingReiews2(HttpServletRequest request, MyRecordPlanVO vo, HttpSession sess, @RequestParam("file") List<MultipartFile> files) {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
 		String ppk = request.getParameter("plan_pk");
@@ -91,7 +99,49 @@ public class MyRecordPlanController {
 		vo.setTitle(title);
 		vo.setContent(contents);
 		vo.setState(0);
-		service.savingReviews(vo);
+		service.setReviewed2(plan_pk);
+		//service.savingReviews(vo);
+		int howmany = 0;
+		for(MultipartFile file : files) {
+			try {
+				howmany++;
+				String originalFilename = file.getOriginalFilename();
+				String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+				String uniqueFilename = UUID.randomUUID().toString() + fileExtension;
+				String filePath = "src/main/webapp/image/client/" + uniqueFilename;
+				File dest = new File(filePath);
+				FileUtils.writeByteArrayToFile(dest, file.getBytes());
+				file.transferTo(dest);
+				System.out.println("파일이 저장되었습니다: "+ dest.getAbsolutePath());
+				vo.setFilename_org(originalFilename);
+				vo.setFilename_save(uniqueFilename);
+				vo.setFilesize(dest.length());
+				if(howmany == files.size())
+					vo.setFilestate(0);
+				else
+					vo.setFilestate(1);
+				service.savingReview_image(vo);
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		
 		return "redirect:/myRecord/plan/reviewing.do";
+	}
+	
+	@GetMapping("viewingOLR.do")
+	public String viewingOLR(@RequestParam("plan_pk")String plan_pk, Model model) {
+		int x = Integer.parseInt(plan_pk);
+		model.addAttribute("result",service.viewingOLR(x));
+		model.addAttribute("flag","jv");
+		return "/myRecord/plan/review_comment_write";
+	}
+	
+	@GetMapping("viewingTR.do")
+	public String viewingTR(@RequestParam("plan_pk")String plan_pk, Model model) {
+		int x = Integer.parseInt(plan_pk);
+		model.addAttribute("result",service.viewingTR(x));
+		model.addAttribute("flag","jv");
+		return "/myRecord/plan/review_update";
 	}
 }

@@ -17,6 +17,7 @@ public class MyRecordPlanVO {
 	private int budget;
 	private Timestamp regdate;
 	private int reviewed;
+	private int reviewed2;
 	
 	private int location_pk;
 	private String region;
@@ -28,6 +29,12 @@ public class MyRecordPlanVO {
 	//private String title;
 	private String content;
 	private int state;
+	
+	private int review_pk;
+	private String filename_org;
+	private String filename_save;
+	private long filesize;
+	private int filestate;
 	
 	private int rowPerPage =8;
 	private int page = 1;

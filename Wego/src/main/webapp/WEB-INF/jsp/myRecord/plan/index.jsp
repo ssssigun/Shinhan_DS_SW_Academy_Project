@@ -45,6 +45,24 @@
 	  	  	  location.href=url;
 		  }
 	  }
+  	
+  	function editing(plan_pk){
+  		var f = confirm("계획을 수정하시겠습니까?");
+		  if(f){
+			  var url = "/main/plan/plan.do?plan_pk="+plan_pk;
+	  	  	  location.href=url;
+		  }
+  	}
+  	
+  	function viewingOLR(plan_pk){
+  		var url = "viewingOLR.do?plan_pk="+plan_pk;
+  		location.href=url;
+  	}
+  	
+  	function viewingTR(plan_pk){
+  		var url = "viewingTR.do?plan_pk="+plan_pk;
+  		location.href=url;
+  	}
   </script>
 </head>
 <body>
@@ -82,7 +100,7 @@
 	                <div class="subWrapper">${vo.number_of_people }인 | ${vo.budget }원</div>
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">
-	                	<button class="smallBtn blueBwhiteL">수정하기</button>
+	                	<button class="smallBtn blueBwhiteL" onclick="editing(${vo.plan_pk })">수정하기</button>
 	                	<button class="smallBtn redBwhiteL del" onclick="CallingAdeletion(${flag},${vo.plan_pk})">삭제하기</button>
 	                </div>
 	              </div>
@@ -104,11 +122,28 @@
 	                <div class="buttonsWrapper">
 	                <c:choose>
 	                	<c:when test="${vo.reviewed == 1 }">
-	                		<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">전체 후기 쓰기</button>
+	                		<c:choose>
+	                			<c:when test="${vo.reviewed2 == 0 }">
+	                				<button class="smallBtn blueBwhiteL" style="color:black" onclick="viewingOLR(${vo.plan_pk})">한줄평 완료</button>
+	                				<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">후기 쓰기</button>
+	                			</c:when>
+	                			<c:otherwise>
+	                				<button class="smallBtn blueBwhiteL" style="color:black" onclick="viewingOLR(${vo.plan_pk})">한줄평 완료</button>
+	                				<button class="smallBtn blueBwhiteL" style="color:black" onclick="viewingTR(${vo.plan_pk})">후기 완료</button>
+	                			</c:otherwise>
+	                		</c:choose>	
 	                	</c:when>
 	                	<c:otherwise>
-		                	<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">장소별 후기 쓰기</button>
-		                	<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">전체 후기 쓰기</button>
+	                		<c:choose>
+	                			<c:when test="${vo.reviewed2 == 0 }">
+		                			<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">한줄평 쓰기</button>
+			                		<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">후기 쓰기</button>
+		                		</c:when>
+			                	<c:otherwise>
+			                		<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">한줄평 쓰기</button>
+		                			<button class="smallBtn blueBwhiteL" style="color:black" onclick="viewingTR(${vo.plan_pk})">후기 완료</button>
+			                	</c:otherwise>
+	                		</c:choose>	
 	                	</c:otherwise>
 	                </c:choose>	
 	                </div>
@@ -129,7 +164,7 @@
 	                <div class="subWrapper">${vo.number_of_people }인 | ${vo.budget }원</div>
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">    	
-	                	<button class="smallBtn blueBwhiteL">수정하기</button>
+	                	<button class="smallBtn blueBwhiteL" onclick="editing(${vo.plan_pk })">수정하기</button>
 	                	<button class="smallBtn redBwhiteL del" onclick="CallingAdeletion(${flag},${vo.plan_pk})">삭제하기</button>
 	                </div>
 	              </div>

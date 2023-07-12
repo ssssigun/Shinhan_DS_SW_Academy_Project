@@ -25,4 +25,12 @@ public interface MyRecordPlanMapper {
 	void setReviewed(int ppk);
 	
 	void savingReviews(MyRecordPlanVO vo);
+	
+	void savingReview_image(MyRecordPlanVO vo);
+	
+	List<MyRecordPlanVO> viewingOLR(int x);
+	
+	MyRecordPlanVO viewingTR(int x);
+	
+	void setReviewed2(int ppk);
 }

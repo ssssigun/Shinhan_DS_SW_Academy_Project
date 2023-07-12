@@ -50,50 +50,91 @@
   </head>
   <body>
   <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>
-    <div class="contents">
-      <div class="ContentsContainer">
-        <h3 class="title">전체 후기 작성</h3>
-      </div>
-      <form method="post" action="/main/myRecord/plan/reviewing2.do" id="datas" onsubmit="return validateForm()" enctype="multipart/form-data">
-      <div class="writeWrapper">
-        <div class="writeTable">
-          <div class="titleWrapper">
-            <h3 class="title">제목</h3>
-            <input name="title" type="text" class="preFrame"/>
-          </div>
-          	<h3 class="title">내용</h3>
-          	<input name="plan_pk" type="hidden" value="${plan_pk }"/>
-          	<textarea name="contents" class="contentsWrapper"></textarea>
-          <div class="attachmentWrapper">
-            <div class="Frame63">
-              <h3 class="imgattach">사진 첨부</h3>
-              <h3 class="imgattachExplain">
-                가장 앞의 사진이 목록에서 대표사진으로 보여집니다.
-              </h3>
-            </div>
-             <div class="photo">
-              <div class="photoWrapper"> 
-              <div class="imageContainer" style="display:flex;"></div>
-              <div class="Frame62">
-              <input type="file" id="fileInput" name="file" style="display:none;" multiple/>
-              <label for="fileInput">
-              	<img class="addingPhoto" src="/main/image/review/BsFillPlusCircleFill.png"/>
-              </label>              	
-              </div>
-              </div>
-          </div>
-        </div>   
-      </div>
-    </div>
-    </form>
-    <div class="bottomWrapper">
-        <div class="btn lightskyBblackL" onclick="goBack()">나가기</div>
-        <div class="btn blueBwhiteL" onclick="confirmation()">저장</div>
-      </div>
-    </div>
+  <c:choose>
+  	<c:when test="${flag== 'jv' }">
+	  	<div class="contents">
+	      <div class="ContentsContainer">
+	        <h3 class="title">작성한 전체 후기</h3>
+	      </div>
+	      <div class="writeWrapper">
+	        <div class="writeTable">
+	          <div class="titleWrapper">
+	            <h3 class="title">제목</h3>
+	            <input disabled value="${result.title}" name="title" type="text" class="preFrame"/>
+	          </div>
+	          	<h3 class="title">내용</h3>
+	          	<input name="plan_pk" type="hidden" value="${plan_pk }"/>
+	          	<textarea disabled name="contents" class="contentsWrapper">${result.content}</textarea>
+	          <div class="attachmentWrapper">
+	            <div class="Frame63">
+	              <h3 class="imgattach">사진 첨부</h3>
+	              <h3 class="imgattachExplain">
+	                가장 앞의 사진이 목록에서 대표사진으로 보여집니다.
+	              </h3>
+	            </div>
+	             <div class="photo">
+	              <div class="photoWrapper"> 
+	              <div class="imageContainer" style="display:flex;"></div>
+		              <div class="Frame62">
+			              <input type="file" id="fileInput" name="file" style="display:none;" multiple/>
+			              	<img class="addingPhoto" src="/main/image/review/BsFillPlusCircleFill.png"/>             	
+		              </div>
+	              </div>
+	          </div>
+	        </div>   
+	      </div>
+	    </div>
+	    <div class="bottomWrapper">
+	        <div class="btn lightskyBblackL" onclick="goBack()">나가기</div>
+	        <div class="btn blueBwhiteL" onclick="confirmation()">저장</div>
+	      </div>
+	    </div>
+  	</c:when>
+  	<c:otherwise>
+  		<div class="contents">
+	      <div class="ContentsContainer">
+	        <h3 class="title">전체 후기 작성</h3>
+	      </div>
+	      <form method="post" action="/main/myRecord/plan/reviewing2.do" id="datas" onsubmit="return validateForm()" enctype="multipart/form-data">
+	      <div class="writeWrapper">
+	        <div class="writeTable">
+	          <div class="titleWrapper">
+	            <h3 class="title">제목</h3>
+	            <input name="title" type="text" class="preFrame"/>
+	          </div>
+	          	<h3 class="title">내용</h3>
+	          	<input name="plan_pk" type="hidden" value="${plan_pk }"/>
+	          	<textarea name="contents" class="contentsWrapper"></textarea>
+	          <div class="attachmentWrapper">
+	            <div class="Frame63">
+	              <h3 class="imgattach">사진 첨부</h3>
+	              <h3 class="imgattachExplain">
+	                가장 앞의 사진이 목록에서 대표사진으로 보여집니다.
+	              </h3>
+	            </div>
+	             <div class="photo">
+	              <div class="photoWrapper"> 
+	              <div class="imageContainer" style="display:flex;"></div>
+	              <div class="Frame62">
+	              <input type="file" id="fileInput" name="file" style="display:none;" multiple/>
+	              <label for="fileInput">
+	              	<img class="addingPhoto" src="/main/image/review/BsFillPlusCircleFill.png"/>
+	              </label>              	
+	              </div>
+	              </div>
+	          </div>
+	        </div>   
+	      </div>
+	    </div>
+	    </form>
+	    <div class="bottomWrapper">
+	        <div class="btn lightskyBblackL" onclick="goBack()">나가기</div>
+	        <div class="btn blueBwhiteL" onclick="confirmation()">저장</div>
+	      </div>
+	    </div>
+  	</c:otherwise>
+  </c:choose>
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>
-
-  
   </body>
   <script>
     	document.getElementById("fileInput").addEventListener("change",function(){
