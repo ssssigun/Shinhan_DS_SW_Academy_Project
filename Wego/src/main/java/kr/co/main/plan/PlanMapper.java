@@ -16,6 +16,9 @@ public interface PlanMapper {
 	void insertPlanDetail(PlanDetailVO planDetailVO);
 	void deletePlan(int plan_pk);
 	void deletePlanDetail(int plan_pk);
+	void updatePlan(PlanVO planVO);
+	void updateStat(StatisticsVO statisticsVO);
+	void subtractStat(StatisticsVO statisticsVO);
 	PlanVO selectPlanByPK(int plan_pk);
 	List<PlanDetailVO> selectPlanDetailByPK(int plan_pk);
 }

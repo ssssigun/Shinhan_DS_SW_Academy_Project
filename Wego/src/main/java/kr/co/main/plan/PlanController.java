@@ -32,7 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/plan")
 public class PlanController {
 	// 임시 포인트 적립 제도
-	public final double POINT[] = {0.025, 0.025, 0.005, 0.025, 0.025, 0.025}; 
+	public final double POINT[] = {0.025, 0.025, 0.025, 0.025, 0.025, 0.025}; 
 	
 	@Autowired
 	PlanService service;
@@ -76,6 +76,7 @@ public class PlanController {
 		List<Map> oriPoint = new ArrayList<>();
 		Map<Integer, Integer> original = new HashMap<>();
 		Map<Integer, Integer> calculated = new HashMap<>();
+		Map<Integer, Integer> bonus = new HashMap<>();
 		for (int i = 1; i < 7; i++) {
 			original.put(i, 0);
 		}
@@ -100,17 +101,21 @@ public class PlanController {
 		
 		int oriSum = 0;
 		int pointSum = 0;
+		int bonusSum = 0;
 		for (int i = 1; i < 7; i++) {
-			calculated.put(i, (int) Math.floor(original.get(i) * POINT[i - 1]));
+			calculated.put(i, (int) Math.round(original.get(i) * POINT[i - 1]));
+			bonus.put(i, (int) Math.round(original.get(i) * 0.03));
 			oriSum += original.get(i);
 			pointSum += calculated.get(i);
+			bonusSum += bonus.get(i);
 		}
 		original.put(7, oriSum);
 		calculated.put(7, pointSum);
+		bonus.put(7, bonusSum);
 		
 		oriPoint.add(original);
 		oriPoint.add(calculated);
-		
+		oriPoint.add(bonus);
 		return oriPoint;
 	}
 	
@@ -140,8 +145,13 @@ public class PlanController {
 			planVO.setState(state);
 			
 			// json으로 받아온 데이터에서 plan_detail 정보를 추출해서 planDetailVO에 넣는 코드
+			int plan_pk = Integer.parseInt(String.valueOf(plansDetails.get("plan_pk")));
 			List<List<String>> data = (List) plansDetails.get("plan_details");
 			List<PlanDetailVO> listPlanDetailVO = new ArrayList<>();
+			StatisticsVO statisticsVO = new StatisticsVO();
+			
+			// 나중에 user_pk 받아오기!!
+			statisticsVO.setUser_pk(1);
 			for (List<String> planDetail : data) {
 				PlanDetailVO planDetailVO = new PlanDetailVO();
 				planDetailVO.setLocation_pk(Integer.parseInt(String.valueOf(planDetail.get(0))));
@@ -162,14 +172,41 @@ public class PlanController {
 				
 				planDetailVO.setStart_time(start_time);
 				planDetailVO.setEnd_time(end_time);
-				planDetailVO.setBudget(Integer.parseInt(String.valueOf(planDetail.get(3))));
+				int budget = Integer.parseInt(String.valueOf(planDetail.get(3)));
+				planDetailVO.setBudget(budget);
 				planDetailVO.setDay(addDay);
+				if (plan_pk != -1) {
+					planVO.setPlan_pk(plan_pk);
+					planDetailVO.setPlan_pk(plan_pk);
+				}
+				int category = Integer.parseInt(String.valueOf(planDetail.get(5)));
+				switch (category) {
+					case 1: statisticsVO.setFood(statisticsVO.getFood() + budget);
+							break;
+					case 2: statisticsVO.setAccommodation(statisticsVO.getAccommodation() + budget);
+							break;
+					case 3: statisticsVO.setShopping(statisticsVO.getShopping() + budget);
+							break;
+					case 4: statisticsVO.setCulture(statisticsVO.getCulture() + budget);
+							break;
+					case 5: statisticsVO.setTour(statisticsVO.getTour() + budget);
+							break;
+					case 6: statisticsVO.setLeisure(statisticsVO.getLeisure() + budget);
+							break;
+				}
 				listPlanDetailVO.add(planDetailVO);
 			}
 			
+			if (state == 0) {
+				service.updateStat(statisticsVO);
+			}
 			// planVO와 planDetailVO 정보를 이용해서 DB에 insert
-			service.insertPlanAndDetail(planVO, listPlanDetailVO);
-	
+			if (plan_pk == -1) {
+				service.insertPlanAndDetail(planVO, listPlanDetailVO);
+			} else {
+				
+				service.updatePlanAndDetail(planVO, listPlanDetailVO);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -242,5 +279,26 @@ public class PlanController {
             e.printStackTrace();
         }
 		return path;
+	}
+	
+	// 수정시 기존 plan_details에 있는 예산 빼는 메소드
+	@GetMapping("/subtract.do")
+	@ResponseBody
+	public Map subtract(Integer food, Integer accommodation, Integer shopping, Integer culture, Integer tour, Integer leisure) {
+		Integer[] budget = new Integer[6];
+		budget[0] = food;
+		budget[1] = accommodation;
+		budget[2] = shopping;
+		budget[3] = culture;
+		budget[4] = tour;
+		budget[5] = leisure;
+		service.subtractStat(budget);
+		for (Integer tmp : budget) {
+			System.out.println(tmp);
+		}
+		Map<String, Integer> result = new HashMap<>();
+		result.put("Success", 1);
+		
+		return result;
 	}
 }

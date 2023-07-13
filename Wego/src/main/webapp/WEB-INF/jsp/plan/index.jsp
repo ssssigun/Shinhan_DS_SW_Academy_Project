@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/main/image/ShinhanLogo.png"/>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -26,6 +27,11 @@
 	var polylinePath = [];
 	var polyline = new naver.maps.Polyline();
 	var test = [];
+	var cancelBudget = [0, 0, 0, 0, 0, 0, 0];
+	var tmpPlanPK = -1;
+	<c:if test="${not empty plan}">
+		tmpPlanPK = ${plan.plan_pk};
+	</c:if>
 	<c:forEach var="pd" items="${planDetail}">
 		$.ajax({
 		    url: "spotDetail.do?location_pk=" + ${pd.location_pk},
@@ -37,13 +43,17 @@
 				var tmpEnd = Number("${pd.end_time}".split(' ')[3].split(':')[0]);
 				var tmpBudget = ${pd.budget};
 				totalBudget += tmpBudget;
+				var isFirst = true;
+				var priorDay = 1;
+				var priorHour = 0;
+				var priorPK = 0;
+				cancelBudget[Number(data[0].category)] += Number(tmpBudget);
 		    	for (var i = tmpStart; i <= tmpEnd; i++) {
 		    		if (!(details.hasOwnProperty(tmpDay))) {
 		    			details[tmpDay] = {};
 		    		}
 		    		details[tmpDay][i] = [tmpStart, tmpEnd, data[0].location_pk, data[0].longitude, data[0].latitude, 0, data[0].location_name, tmpBudget, data[0].category];
 		    	}
-				// 마커 찍기
 		    }
 		  });
 	</c:forEach>
@@ -517,7 +527,7 @@
 	}
 	
 	// 임시저장 혹은 저장 하는 함수
-	function submitPlan(_state) {
+	function submitPlan(_state, _plan_pk, cancelBudget) {
 	  var user_pk = 1; // 나중에 유저 pk 받아오게 변환
 	  var title = $(".textInput").val();
 	  var num_of_people = $('.number_of_people').val();
@@ -536,12 +546,19 @@
 	          var start_time = details[day][hour][0];
 	          var end_time = details[day][hour][1];
 	          var budget = details[day][hour][7];
-	          var plan_detail = [location_pk, start_time, end_time, budget, day];
+	          var category = details[day][hour][8];
+	          var plan_detail = [location_pk, start_time, end_time, budget, day, category];
 	          plan_details.push(plan_detail);
 	        }
 	      }
 	    }
 	  }
+	  
+	  if (plan_details.length == 0) {
+		  alert('최소 하나 이상의 여행지를 선택해주세요.');
+		  return;
+	  }
+	  
 	  <c:if test="${not empty plan}">
 	  $.ajax({
 		    url: 'delete.do?plan_pk=' + ${plan.plan_pk},
@@ -553,6 +570,19 @@
 		      alert('데이터를 가져오는 데 실패했습니다.\n에러 메시지: ' + error);
 		    }
 		  });
+	  insertOrUpdate = 1;
+	  	<c:if test="${plan.state == 0}">
+		  $.ajax({
+			    url: 'subtract.do?food=' + cancelBudget[1] + '&accommodation=' + cancelBudget[2] + '&shopping=' + cancelBudget[3] + '&culture=' + cancelBudget[4] + '&tour=' + cancelBudget[5] + '&leisure=' + cancelBudget[6],
+			    method: 'GET',
+			    success: function (response) {
+					console.log('뺴기');
+			    },
+			    error: function (xhr, status, error) {
+			      alert('데이터를 가져오는 데 실패했습니다.\n에러 메시지: ' + error);
+			    }
+			  });
+	  	</c:if>
 	  </c:if>
 	
 	  $.ajax({
@@ -568,6 +598,7 @@
 	      end_date: end_date,
 	      plan_details: plan_details,
 	      state: _state,
+	      plan_pk: _plan_pk,
 	    }),
 	    dataType: 'json',
 	    success: function (response) {
@@ -596,16 +627,37 @@
 
 	$(function() {	
 		<c:if test="${not empty plan}">
+		var monthMap = {
+				  "Jan": "01",
+				  "Feb": "02",
+				  "Mar": "03",
+				  "Apr": "04",
+				  "May": "05",
+				  "Jun": "06",
+				  "Jul": "07",
+				  "Aug": "08",
+				  "Sep": "09",
+				  "Oct": "10",
+				  "Nov": "11",
+				  "Dec": "12",
+				};
+		
 	    // "plan" 값이 존재하는 경우에 실행될 제이쿼리 코드
 	    	var plan_pk = ${plan.plan_pk};
-			var dbDate = ${plan.startDate};
-			var dateObject = new Date(dbDate);
-			var startDate = dateObject.getFullYear() + "-" + (dateObject.getMonth() + 1).toString().padStart(2, '0') + "-" + (dateObject.getDay()).toString().padStart(2, '0');
+			var inputDate = "${plan.start_date}";
+			var dateParts = inputDate.split(" ");
+			var year = dateParts[5]; // "2023"
+			var month = monthMap[dateParts[1]]; // "07"
+			var tmpday = ("0" + dateParts[2]).slice(-2); // "02"
+			var startDate = year + "-" + month + "-" + tmpday;
 
-			var dbDate = ${plan.endDate};
-			var dateObject = new Date(dbDate);
-			var endDate = dateObject.getFullYear() + "-" + (dateObject.getMonth() + 1).toString().padStart(2, '0') + "-" + (dateObject.getDay()).toString().padStart(2, '0');
-
+			var inputDate = "${plan.end_date}";
+			var dateParts = inputDate.split(" ");
+			var year = dateParts[5]; // "2023"
+			var month = monthMap[dateParts[1]]; // "07"
+			var tmpday = ("0" + dateParts[2]).slice(-2); // "02"
+			var endDate = year + "-" + month + "-" + tmpday;
+			
 			var plan = {
 	    		title: "${plan.title}",
 	    		num_of_people: ${plan.num_of_people},
@@ -619,6 +671,7 @@
 			$('.endDate').val(endDate);
 			var start = new Date($(".startDate").val());
 			var end = new Date($(".endDate").val());
+
 			var timeDiff = Math.abs(start.getTime() - end.getTime());
 			var diffDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
 			if (diffDays > 0) {
@@ -632,6 +685,7 @@
 			createMarker(day, details, map, savedList);
 			polyline = createOrUpdatePolyline(day, details, map);
 			generateDay(day, period);
+			console.log(cancelBudget);
 		}, 1000);
 
 		//나가기 버튼 눌렀을 때 메인으로 반환
@@ -651,7 +705,6 @@
 
 		// 일차에서 이전 버튼 눌렀을때
 		$('.pageController').on('click', '.canPrevClick', function() {
-			console.log(details);
 			day = day - 1;
 			createMarker(day, details, map, savedList);
 			polyline = createOrUpdatePolyline(day, details, map);
@@ -672,6 +725,7 @@
 		    success: function (data) {
 		      var spotMainPhoto = $(".spotMainPhoto");
 		      spotMainPhoto.empty();
+		      $('.budgetTextInput').val('');
 			  if (Number(data[0].category) == 2) {
 				  $('.budgetTextInput').prop('readonly', true);
 				  $('.budgetTextInput').attr('placeholder', '숙박은 예산 입력 불가');
@@ -703,7 +757,6 @@
 			  commentCardWrapper.innerHTML = '';
 	
 		      for (var i = 0; i < data.length; i++) {
-		    	console.log(Number(data[i].location_review_pk));
 		    	if (visitedReview[Number(data[i].location_review_pk)] != 1 && Number(data[i].location_review_pk) != 0) {
 		    		createCommentCard(data[i].location_content, data[i].star, data[i].regdate);
 		    		visitedReview[Number(data[i].location_review_pk)] = 1;
@@ -980,13 +1033,13 @@
 				
 		//마지막 제출 눌렀을 때 DB에 plan, plan_detail 삽입
 		$(".submitBtn").click(function(e) {
-			submitPlan(0);
+			submitPlan(0, tmpPlanPK, cancelBudget);
 		});
 		//
 		
 		// 임시저장 버튼
 		$(".tmpBtn").click(function(e) {
-			submitPlan(2);
+			submitPlan(2, tmpPlanPK, cancelBudget);
 		});
 		// 계획 삭제
 		$(".planPerHour").on("click", ".deleteSpot", function(e) {

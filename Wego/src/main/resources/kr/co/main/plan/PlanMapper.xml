@@ -76,6 +76,25 @@
   	<delete id="deletePlanDetail" parameterType="int">
     	DELETE FROM wego.plan_detail WHERE plan_pk = #{plan_pk}
   	</delete>
+  	
+  	<update id="updatePlan" parameterType="kr.co.main.plan.PlanVO">
+		UPDATE plan
+		SET title = #{title}, num_of_people = #{num_of_people}, start_date = #{start_date}, end_date = #{end_date}, state = #{state}
+		WHERE plan_pk = #{plan_pk}
+	</update>
+	
+	
+	<update id="updateStat" parameterType="kr.co.main.plan.StatisticsVO">
+		UPDATE statistics
+		SET food = food + #{food}, accommodation = accommodation + #{accommodation}, shopping = shopping + #{shopping}, culture = culture + #{culture}, tour = tour + #{tour}, leisure = leisure + #{leisure}
+		WHERE user_pk = #{user_pk} AND state = 0
+	</update>
+	
+	<update id="subtractStat" parameterType="kr.co.main.plan.StatisticsVO">
+		UPDATE statistics
+		SET food = food - #{food}, accommodation = accommodation - #{accommodation}, shopping = shopping - #{shopping}, culture = culture - #{culture}, tour = tour - #{tour}, leisure = leisure - #{leisure}
+		WHERE user_pk = #{user_pk} AND state = 0
+	</update>
 </mapper>
 
 

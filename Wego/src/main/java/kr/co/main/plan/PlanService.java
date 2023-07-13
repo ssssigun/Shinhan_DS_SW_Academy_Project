@@ -62,9 +62,17 @@ public class PlanService {
 		}
 	}
 	
+	// plan, plan_detail에 insert 하는 메소드
+	public void updatePlanAndDetail(PlanVO planVO, List<PlanDetailVO> listPlanDetailVO) {
+		mapper.updatePlan(planVO);
+		for (PlanDetailVO planDetailVO : listPlanDetailVO) {
+			planDetailVO.setPlan_pk(planVO.getPlan_pk());
+			mapper.insertPlanDetail(planDetailVO);
+		}
+	}
+	
 	// plan, plan_detail에 delete 하는 메소드
 	public void deletePlanAndDetail(int plan_pk) {
-		mapper.deletePlan(plan_pk);
 		mapper.deletePlanDetail(plan_pk);
 	}
 	
@@ -79,6 +87,24 @@ public class PlanService {
 	public List<PlanDetailVO> selectPlanDetailByPK(int plan_pk) {
 		List<PlanDetailVO> vo = mapper.selectPlanDetailByPK(plan_pk);
 		return vo;
+	}
+	
+	// statistics에 추가하는 메소드
+	public void updateStat(StatisticsVO statisticsVO) {
+		mapper.updateStat(statisticsVO);
+	}
+	
+	public void subtractStat(Integer[] budget) {
+		StatisticsVO statisticsVO = new StatisticsVO();
+		// 나중에 user_pk 변경
+		statisticsVO.setUser_pk(1);
+		statisticsVO.setFood(budget[0]);
+		statisticsVO.setAccommodation(budget[1]);
+		statisticsVO.setShopping(budget[2]);
+		statisticsVO.setCulture(budget[3]);
+		statisticsVO.setTour(budget[4]);
+		statisticsVO.setLeisure(budget[5]);
+		mapper.subtractStat(statisticsVO);
 	}
 	
 	
