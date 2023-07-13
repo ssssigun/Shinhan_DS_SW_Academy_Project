@@ -49,7 +49,7 @@
 			}
 		})
 		$("#nextPage").click(function(){
-			if (page_num < totalPage){
+			if (page_num + 4 < totalPage){
 				page_num += 4;
 				getReportList(user_pk, page_num);
 			}
@@ -247,7 +247,7 @@
 	        );
 				})
 				
-				if (page_num * 4 >= totalPage) {
+				if (page_num + 4 >= totalPage) {
 					$('#nextPage').css({"background": "#D9D9D9", "cursor": "default"});
 				} else {
 					$('#nextPage').removeAttr("style");
@@ -313,15 +313,6 @@
 	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="totalRate"></div></div></td>
 	                <td class="td rightTd titleTd">
 	                  전체
-	                </td>
-	              </tr>
-	              <tr class="bigLetter">
-	                <td class="td titleTd">
-	                  숙박
-	                </td>
-	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="accommodationRate"></div></div></td>
-	                <td class="td rightTd titleTd">
-	                  숙박
 	                </td>
 	              </tr>
 	              <tr class="bigLetter">
@@ -398,7 +389,6 @@
 			TotalRateVO totalRate = (TotalRateVO) request.getAttribute("totalRate");
 		%>
 		document.getElementById("totalRate").style.width = <%= totalRate.getTotal() %> + "%";
-		document.getElementById("accommodationRate").style.width = <%= totalRate.getAccommodation() %> + "%";
 		document.getElementById("foodRate").style.width = <%= totalRate.getFood() %> + "%";
 		document.getElementById("shoppingRate").style.width = <%= totalRate.getShopping() %> + "%";
 		document.getElementById("cultureRate").style.width = <%= totalRate.getCulture() %> + "%";

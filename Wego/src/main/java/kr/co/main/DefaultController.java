@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DefaultController {
 	@Autowired
 	DefaultService Service;
-	@GetMapping("/index.do")
-	public String index(Model model) {
-		List<DefaultVO> vo =  Service.test();
-		System.out.println("controller" + vo.toString());
-		model.addAttribute("vo", vo);
-		return "index";
-	}
+//	@GetMapping("/index.do")
+//	public String index(Model model) {
+//		List<DefaultVO> vo =  Service.test();
+//		System.out.println("controller" + vo.toString());
+//		model.addAttribute("vo", vo);
+//		return "index";
+//	}
 	
 	
 	

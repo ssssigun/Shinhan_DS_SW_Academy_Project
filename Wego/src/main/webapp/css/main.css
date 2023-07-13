@@ -1,0 +1,195 @@
+.wrapper {
+	width: 100%;
+	height: 100%;
+	
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+
+.planWrapper, .reviewWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	
+	width: 100%;
+}
+
+.planContainer {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+	
+	box-sizing: border-box;
+	
+	width: 100%;
+	height: 300px;
+	
+	border: 1px solid #000;
+}
+
+.plansContainer {
+	display: flex;
+  gap: 1.5%;
+	align-items: center;
+	
+	width: 100%;
+	height: 100%;
+}
+
+.pageButtonWrapper {
+  display: flex;
+  
+  gap: 5px;
+}
+.pageButtonWrapper > .pageButton {
+  border: none;
+  border-radius: 100%;
+
+  width: 30px;
+  height: 30px;
+
+  background-color: #5BC0F8;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photoWrapper {
+	height: 70%;
+	width: 100%;
+	
+	border-bottom: 0.5px solid #D9D9D9;
+}
+
+.planPhoto {
+	height: 100%;
+	width: 100%;
+	
+	background-image: url('/main/image/logoMain.png');
+	background-size: cover;
+	background-position: center;
+}
+
+.noneContentsWrapper {
+	display: flex;
+	flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  width: 100%;
+  height: 100%;
+	gap: 10px;
+}
+
+.addButton {
+	border: none;
+	background: none;
+	
+	width: 33px;
+	height: 33px;
+	
+	border-radius: 33px;
+	padding: 0;
+}
+.addButton img {
+	border-radius: 33px;
+	width: 100%;
+	height: 100%;
+}
+
+.planContentWrapper {
+	border: 1px solid #000;
+	height: 100%;
+  width: 12.88%;
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	
+	cursor: pointer;
+}
+.photoCover {
+	width: 100%;
+	height: 100%;
+}
+.planContentWrapper:hover .photoCover{
+	background: rgba(214, 214, 214, 0.80);
+}
+
+.planContentAddWrapper {
+	border: 1px solid #000;
+	height: 100%;
+  width: 12.88%;
+	
+	display: flex;
+	flex-direction: column;
+  justify-content: center;
+  align-items: center;
+	gap: 20px;
+	
+	cursor: pointer;
+}
+.planContentAddWrapper:hover {
+	background: #D6D6D6;
+}
+
+.planContent {
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.planContentAdd {
+	text-align: center;
+	line-height: normal;
+}
+
+.reviewContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mainPostWrapper {
+	display: flex;
+	flex-direction: column;
+	width: 23%;
+	
+	cursor: pointer;
+}
+
+.photo {
+	display: flex;
+	flex-direction: column-reverse;
+	
+	height: 200px;
+	width: 100%;
+	
+	background-image: url('/main/image/logoMain.png');
+	background-size: cover;
+	background-position: center;
+	
+	border: 0.5px solid #D9D9D9;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.title {
+	background: rgba(0, 0, 0, 0.2);
+	
+	width: fit-content;
+	display: inline-block;
+}
+
+.contentsWrapper {
+	display: flex;
+	justify-content: space-between;
+	
+	padding: 10px;
+}

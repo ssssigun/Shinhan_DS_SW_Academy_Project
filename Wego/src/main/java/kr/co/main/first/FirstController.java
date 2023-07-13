@@ -28,9 +28,9 @@ public class FirstController {
 		//임시로 포워딩
 		return "main.do";
 	}
-	//메인으로 이동(임시로 공용 페이지에 포워딩)
-	 @GetMapping("/main.do")
-	 public String goMain() {
-		 return "common";
-	 }
+//	//메인으로 이동(임시로 공용 페이지에 포워딩)
+//	 @GetMapping("/main.do")
+//	 public String goMain() {
+//		 return "common";
+//	 }
 }
