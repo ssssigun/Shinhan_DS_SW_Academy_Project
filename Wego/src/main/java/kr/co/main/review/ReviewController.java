@@ -76,6 +76,7 @@ public class ReviewController {
 		model.addAttribute("result", rservice.index(vo));
 		model.addAttribute("watch", rservice.reviewWatch(vo));
 		model.addAttribute("recommend", rservice.reviewRecommend(vo));
+		//model.addAttribute("ReviewVO", vo);
 		return "review/index";
 	}	
 		
@@ -107,10 +108,11 @@ public class ReviewController {
 	//댓글 등록
 	@PostMapping("insertReviewComment.do")
 	public String insertReviewComment(Model model, ReviewVO vo, @RequestParam("user_pk") int user_pk) {
-		/*System.out.println(vo);*/
+		System.out.println("댓글등록"+vo);
 		
 		vo.setUser_pk(user_pk);
 		vo.setRegdate_comment(new Date(System.currentTimeMillis()));
+		model.addAttribute("nickname", vo.getNickname());
 		
 		if(rservice.insertReviewComment(vo)) {
 			model.addAttribute("msg", "정상적으로 잘 등록되었습니다.");

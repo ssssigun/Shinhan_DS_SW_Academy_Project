@@ -14,40 +14,12 @@
     <link rel="stylesheet" href="../css/footer.css" />
     <link rel="stylesheet" href="../css/review/review.css" />
 
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
- // 페이지네이션
-    $('.pageWrapper').empty();
-    var paging = $('<ul>').addClass('paging');
-    if (data.prev) {
-  	  var pageItem = $('<li>').html('<div class="prevPage" id="'+(Number(data.startPage) - 1)+'"><</div>');
-      paging.append(pageItem);
-      var pageItem = $('<li>').html('<div class="blank">&nbsp;</div>');
-        paging.append(pageItem);
-    }
-    for (var i = Number(data.startPage); i <= Number(data.endPage); i++) {
-      var pageItem = $('<li>').html('<div class="movePage">' + i + '</div>');
-      if (page == i) {
-        pageItem.addClass('selectLetter');
-      }
-      paging.append(pageItem);
-    }
-    if (data.next) {
-  	var pageItem = $('<li>').html('<div class="blank">&nbsp;</div>');
-        paging.append(pageItem);
-      var pageItem = $('<li>').html('<div class="nextPage" id="'+(Number(data.endPage) + 1)+'">></div>');
-      paging.append(pageItem);
-    }
-
-    $('.pageWrapper').append(paging);
-  },
-  error: function() {
-    alert('데이터를 가져오는 데 실패했습니다.');
-  }
-});
-}
-    </script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js">
+  
     
+    </script>
+
+ 
 
     <title>common</title>
   </head>
@@ -139,22 +111,20 @@
         <div class="pagenate clear">
              <ul class='paging'>
              <c:if test="${result.prev == true }">
-             	<li><a href="index.do?page=${result.startPage-1 }&stype=${param.stype }&sword=${param.sword}" class="smallLetter selectLetter"> <img src="../image/review/MdNavigateBefore.png" /> </a></li>
-             	
-	             	<div class="MdNavigateBefore">
-		              
-		            </div>
+             	<li><a href="index.do?page=${result.startPage-1 }&stype=${param.stype }&sword=${param.sword}" class="smallLetter"> <img src="../image/review/MdNavigateBefore.png" /> </a></li>
+	             	<div class="MdNavigateBefore"></div>
              </c:if>
-          
-             
              <c:forEach begin="${result.startPage }" end="${result.endPage }" var="num">
-                 <li class="horizontal smallLetter"><a href='index.do?page=${num }&stype=${param.stype }&sword=${param.sword}' <c:if test="${ReviewVO.page == num }">class='current selectLetter'</c:if>>${num }</a></li>
+                 <li class="horizontal smallLetter">
+                 	<a href='index.do?page=${num }&stype=${param.stype }&sword=${param.sword}' 
+                 		<c:if test="${reviewVO.page eq num}">class="selectLetter"</c:if>
+                 		>${num }</a>
+                 		</li>
+                 		
              </c:forEach>    
              <c:if test="${result.next == true }">
-             	<li class="selectLetter"><a href="index.do?page=${result.endPage+1 }&stype=${param.stype }&sword=${param.sword}" class="smallLetter selectLetter"> <img src="../image/review/MdNavigateNext.png" /> </a></li>
-             	<div class="MdNavigateNext">
-	              
-	            </div>
+             	<li><a href="index.do?page=${result.endPage+1 }&stype=${param.stype }&sword=${param.sword}"> <img src="../image/review/MdNavigateNext.png" /> </a></li>
+             	<div class="MdNavigateNext"></div>
              </c:if>
              </ul> 
          </div>
