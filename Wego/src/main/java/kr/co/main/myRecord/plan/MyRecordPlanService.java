@@ -1,5 +1,6 @@
 package kr.co.main.myRecord.plan;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,7 @@ public class MyRecordPlanService {
 			boolean prev = startPage > 1 ? true : false;
 			boolean next = totalPage > endPage ? true : false;
 			
+			
 			Map map = new HashMap();
 			map.put("totalCount", totalCount);
 			map.put("totalPage", totalPage);
@@ -62,7 +64,14 @@ public class MyRecordPlanService {
 			map.put("endPage", endPage);
 			map.put("prev", prev);
 			map.put("next",next);
-			
+			return map;
+		}
+		
+		public Map dragingImage(int oh) {
+			List<MyRecordPlanVO> list = mapper.dragingImage(oh);
+
+			Map map = new HashMap();
+			map.put("list",list);
 			return map;
 		}
 		
@@ -154,5 +163,10 @@ public class MyRecordPlanService {
 				
 				public void setReviewed2(int ppk) {
 					mapper.setReviewed2(ppk);
+				}
+				
+				public List<MyRecordPlanVO> savedImages(int x){
+					List<MyRecordPlanVO> list = mapper.savedImages(x);
+					return list;
 				}
 }

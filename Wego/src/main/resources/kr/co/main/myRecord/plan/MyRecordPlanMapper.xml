@@ -19,12 +19,18 @@
 	</select>
 	
 	<select id="list2" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO">
-		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget, p.reviewed, p.reviewed2 FROM wego.plan p, wego.plan_detail d
+		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget, p.reviewed, p.reviewed2 
+		, (select filename_save from review_image where plan_pk=p.plan_pk and filestate=1) imagename
+		FROM plan p, plan_detail d		
 		<where>
 			p.plan_pk = d.plan_pk and p.state = 1
 		</where>
 		GROUP BY p.plan_pk
 		LIMIT ${startIdx},8
+	</select>
+	
+	<select id="dragingImage" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO">
+		select plan_pk, filename_save from wego.review_image where plan_pk = #{oh} and filestate=1
 	</select>
 	
 	<select id="count2" resultType="int">
@@ -103,4 +109,8 @@
 	<update id="setReviewed2" parameterType="int">
 		update wego.plan set reviewed2 = 1 where plan_pk = #{ppk}
 	</update>
+	
+	<select id="savedImages" parameterType="int">
+		select filename_save from wego.review_image where plan_pk = #{x}
+	</select>
 </mapper>

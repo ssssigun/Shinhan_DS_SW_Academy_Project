@@ -3,7 +3,10 @@ package kr.co.main.myRecord.plan;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,7 +38,8 @@ public class MyRecordPlanController {
 	
 	@GetMapping("/reviewing.do")
 	public String reviewing(MyRecordPlanVO vo, Model model) {
-		model.addAttribute("result",service.reviewing(vo));
+		Map result = service.reviewing(vo);
+		model.addAttribute("result",result);
 		model.addAttribute("flag","2");
 		return "/myRecord/plan/index";
 	}
@@ -100,15 +104,16 @@ public class MyRecordPlanController {
 		vo.setContent(contents);
 		vo.setState(0);
 		service.setReviewed2(plan_pk);
-		//service.savingReviews(vo);
-		int howmany = 0;
+		service.savingReviews(vo);
+		int randn = (int)(Math.random() * files.size()-1);
+		System.out.println(randn);
+		int fr = 0;
 		for(MultipartFile file : files) {
 			try {
-				howmany++;
 				String originalFilename = file.getOriginalFilename();
 				String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
 				String uniqueFilename = UUID.randomUUID().toString() + fileExtension;
-				String filePath = "src/main/webapp/image/client/" + uniqueFilename;
+				String filePath = request.getRealPath("/image/client/") + uniqueFilename;
 				File dest = new File(filePath);
 				FileUtils.writeByteArrayToFile(dest, file.getBytes());
 				file.transferTo(dest);
@@ -116,13 +121,18 @@ public class MyRecordPlanController {
 				vo.setFilename_org(originalFilename);
 				vo.setFilename_save(uniqueFilename);
 				vo.setFilesize(dest.length());
-				if(howmany == files.size())
-					vo.setFilestate(0);
-				else
+				
+				if(fr == randn)
 					vo.setFilestate(1);
+				else
+					vo.setFilestate(0);
 				service.savingReview_image(vo);
+				
 			}catch(IOException e){
 				e.printStackTrace();
+			}finally {
+				System.out.println(fr);
+				fr++;
 			}
 		}
 		
@@ -138,10 +148,8 @@ public class MyRecordPlanController {
 	}
 	
 	@GetMapping("viewingTR.do")
-	public String viewingTR(@RequestParam("plan_pk")String plan_pk, Model model) {
-		int x = Integer.parseInt(plan_pk);
-		model.addAttribute("result",service.viewingTR(x));
-		model.addAttribute("flag","jv");
+	public String viewingTR(@RequestParam("plan_pk")String plan_pk, Model model, HttpServletRequest request) {
+		
 		return "/myRecord/plan/review_update";
 	}
 }

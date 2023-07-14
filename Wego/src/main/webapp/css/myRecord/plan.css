@@ -33,23 +33,32 @@
 
  .willdo{
 	width:18.8%;
-	height:29px;
 	font-size:13px;
 	cursor: default;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 3px 0px 0px 3px;
 }
 
 .alldone{
 	width:18.8%;
-	height:29px;
 	font-size:13px;
 	cursor: default;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 3px 0px 0px 3px;
 } 
 
 .tempSaved{
 	width:18.8%;
-	height:29px;
 	font-size:13px;
 	cursor: default;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 3px 0px 0px 3px;
 } 
 
 .paging{

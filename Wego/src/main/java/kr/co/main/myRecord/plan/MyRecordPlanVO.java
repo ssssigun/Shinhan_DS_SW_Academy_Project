@@ -11,7 +11,7 @@ import lombok.Data;
 public class MyRecordPlanVO {
 	private int plan_pk;
 	private String title;
-	private int number_of_people;
+	private int num_of_people;
 	private Date start_date;
 	private Date end_date;
 	private int budget;
@@ -31,6 +31,7 @@ public class MyRecordPlanVO {
 	private int state;
 	
 	private int review_pk;
+	private String imagename;
 	private String filename_org;
 	private String filename_save;
 	private long filesize;

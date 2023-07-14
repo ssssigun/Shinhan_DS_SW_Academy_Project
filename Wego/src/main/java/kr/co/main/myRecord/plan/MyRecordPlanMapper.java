@@ -10,6 +10,7 @@ public interface MyRecordPlanMapper {
 	int count();
 	
 	List<MyRecordPlanVO> list2(MyRecordPlanVO vo);
+	List<MyRecordPlanVO> dragingImage(int oh);
 	int count2();
 	
 	List<MyRecordPlanVO> list3(MyRecordPlanVO vo);
@@ -33,4 +34,6 @@ public interface MyRecordPlanMapper {
 	MyRecordPlanVO viewingTR(int x);
 	
 	void setReviewed2(int ppk);
+	
+	List<MyRecordPlanVO> savedImages(int x);
 }

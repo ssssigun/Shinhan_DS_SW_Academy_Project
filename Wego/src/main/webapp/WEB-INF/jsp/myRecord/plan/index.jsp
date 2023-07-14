@@ -90,14 +90,15 @@
     	<c:if test="${flag eq  '1'}">
 	    	<c:forEach var="vo" items="${result.list }">
 	    		<div class="postWrapper">
-	              <div class="photoWrapper">
+	              <div class="photoWrapper" style="background-color: transparent; position:relative;">
+	              	<img src="/main/image/logoMain.png" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>
 		              <span class="btn yellowBblackL willdo">예정된 계획</span>
 	              </div>
 	              <div class="postInfoWrapper">
 	                <div class="titleWrapper">
 	                 	${vo.title}
 	                </div>
-	                <div class="subWrapper">${vo.number_of_people }인 | ${vo.budget }원</div>
+	                <div class="subWrapper">${vo.num_of_people }인 | ${vo.budget }원</div>
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">
 	                	<button class="smallBtn blueBwhiteL" onclick="editing(${vo.plan_pk })">수정하기</button>
@@ -110,25 +111,26 @@
 	    	<c:if test="${flag eq  '2'}">
 	    	<c:forEach var="vo" items="${result.list }">
 	    		<div class="postWrapper">
-	              <div class="photoWrapper">
+	              <div class="photoWrapper" style="background-color: transparent; position:relative;">
+	              	 <img src="${pageContext.request.contextPath}/image/client/${vo.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>  
 		    		  <span class="btn greenBblackL alldone">종료된 계획</span>
 	              </div>
 	              <div class="postInfoWrapper">
 	                <div class="titleWrapper">
 	                 	${vo.title}
 	                </div>
-	                <div class="subWrapper">${vo.number_of_people }인 | ${vo.budget }원</div>
+	                <div class="subWrapper">${vo.num_of_people }인 | ${vo.budget }원</div>
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">
 	                <c:choose>
 	                	<c:when test="${vo.reviewed == 1 }">
 	                		<c:choose>
 	                			<c:when test="${vo.reviewed2 == 0 }">
-	                				<button class="smallBtn blueBwhiteL" style="color:black" onclick="viewingOLR(${vo.plan_pk})">한줄평 완료</button>
+	                				<button class="smallBtn blueBwhiteL" style="color:black; cursor:default">한줄평 완료</button>
 	                				<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">후기 쓰기</button>
 	                			</c:when>
 	                			<c:otherwise>
-	                				<button class="smallBtn blueBwhiteL" style="color:black" onclick="viewingOLR(${vo.plan_pk})">한줄평 완료</button>
+	                				<button class="smallBtn blueBwhiteL" style="color:black; cursor:default">한줄평 완료</button>
 	                				<button class="smallBtn blueBwhiteL" style="color:black" onclick="viewingTR(${vo.plan_pk})">후기 완료</button>
 	                			</c:otherwise>
 	                		</c:choose>	
@@ -154,14 +156,15 @@
 	    	<c:if test="${flag eq  '3'}">
 	    	<c:forEach var="vo" items="${result.list }">
 	    		<div class="postWrapper">
-	              <div class="photoWrapper">
-		    		  <span class="btn lightblueBblackL tempSaved">임시저장된 계획</span>
+	              <div class="photoWrapper" style="background-color: transparent; position:relative;">
+	              	<img src="/main/image/logoMain.png" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>
+		    		  <span class="btn lightblueBblackL tempSaved">임시저장됨</span>
 	              </div>
 	              <div class="postInfoWrapper">
 	                <div class="titleWrapper">
 	                 	${vo.title}
 	                </div>
-	                <div class="subWrapper">${vo.number_of_people }인 | ${vo.budget }원</div>
+	                <div class="subWrapper">${vo.num_of_people }인 | ${vo.budget }원</div>
 	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
 	                <div class="buttonsWrapper">    	
 	                	<button class="smallBtn blueBwhiteL" onclick="editing(${vo.plan_pk })">수정하기</button>

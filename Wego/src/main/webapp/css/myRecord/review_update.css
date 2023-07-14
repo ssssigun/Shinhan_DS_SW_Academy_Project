@@ -554,4 +554,6 @@ button2 {
   top: 85px;
   left: 95px; */
 }
-
+#takingPicture{
+	display:none;
+}
