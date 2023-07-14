@@ -12,6 +12,7 @@ public interface PlanMapper {
 	List<LocationVO> selectLocationPer5(LocationVO vo);
 	List<LocationVO> selectLocationByPK(int location_pk);
 	int count(LocationVO vo);
+	Integer checkDate(Map vo);
 	void insertPlan(PlanVO planVO);
 	void insertPlanDetail(PlanDetailVO planDetailVO);
 	void deletePlan(int plan_pk);

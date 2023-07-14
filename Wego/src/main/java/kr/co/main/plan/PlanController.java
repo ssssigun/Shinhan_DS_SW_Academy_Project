@@ -301,4 +301,22 @@ public class PlanController {
 		
 		return result;
 	}
+	
+	@GetMapping("/checkDate.do")
+	@ResponseBody
+	public Map checkDate(String start_date, String end_date, String user_pk, String plan_pk) {
+		Map<String, String> ipt = new HashMap<>();
+		ipt.put("start_date", start_date);
+		ipt.put("end_date", end_date);
+		ipt.put("user_pk", user_pk);
+		ipt.put("plan_pk", plan_pk);
+		Map<String, Integer> result = new HashMap<>();
+		if (service.checkDate(ipt)) {
+			result.put("result", 1);
+		} else {
+			result.put("result", 0);
+		}
+		
+		return result;
+	}
 }

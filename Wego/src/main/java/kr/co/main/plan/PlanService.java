@@ -107,6 +107,13 @@ public class PlanService {
 		mapper.subtractStat(statisticsVO);
 	}
 	
+	public boolean checkDate(Map vo) {
+		if (mapper.checkDate(vo) > 0) {
+			return false;
+		}
+		return true;
+	}
+	
 	
 	// 카테고리 코드를 한글로 바꾸어 주는 메소드
 	public void addCategoryName(LocationVO vo) {
