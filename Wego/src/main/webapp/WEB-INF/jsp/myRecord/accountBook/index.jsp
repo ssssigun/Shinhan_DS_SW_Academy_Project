@@ -247,6 +247,8 @@
 	        );
 				})
 				
+					console.log("pn" + page_num);
+					console.log("tp" + totalPage);
 				if (page_num + 4 >= totalPage) {
 					$('#nextPage').css({"background": "#D9D9D9", "cursor": "default"});
 				} else {

@@ -14,7 +14,7 @@
 		<!-- 여행 계획 (계획 pk, 제목, 인원수, 총사용금액, 시작날짜, 종료날짜) -->
 		SELECT p.plan_pk, p.title, p.num_of_people, u.total_usage, p.start_date, p.end_date
 		FROM wego.plan p, (SELECT plan_pk, sum(amount) total_usage FROM wego.usage GROUP BY plan_pk) u
-		WHERE p.plan_pk = u.plan_pk AND p.user_pk = #{user_pk}
+		WHERE p.plan_pk = u.plan_pk AND p.user_pk = #{user_pk} AND p.state=1
 		limit #{start_page}, 4;
 	</select>
 	
@@ -25,28 +25,60 @@
 	
 	<!-- 육각형을 위한 비율 가져오기 -->
 	<select id="getTotalRateForRadar" parameterType="int" resultType="kr.co.main.myRecord.accountBook.TotalRateVO">
-		SELECT IFNULL(ROUND(u.food/b.food*100), 0) radar_food, IFNULL(ROUND(u.accommodation/b.accommodation*100), 0) radar_accommodation, IFNULL(ROUND(u.shopping/b.shopping*100), 0) radar_shopping, IFNULL(ROUND(u.culture/b.culture*100), 0) radar_culture, IFNULL(ROUND(u.tour/b.tour*100), 0) radar_tour, IFNULL(ROUND(u.leisure/b.leisure*100), 0) radar_leisure
-		FROM wego.statistics u, (SELECT user_pk, AVG(food) food, AVG(accommodation) accommodation, AVG(shopping) shopping, AVG(culture) culture, AVG(tour) tour, AVG(leisure) leisure FROM wego.statistics GROUP BY user_pk, state HAVING state = 1) b
-		WHERE u.user_pk = b.user_pk AND state = 1 AND u.user_pk = #{user_pk};
+		SELECT IFNULL(ROUND(food/(SELECT SUM(food) FROM wego.statistics GROUP BY state HAVING state = 1)*100), 0) radar_food,
+		       IFNULL(ROUND(accommodation/(SELECT SUM(accommodation) FROM wego.statistics GROUP BY state HAVING state = 1)*100), 0) radar_accommodation,
+		       IFNULL(ROUND(shopping/(SELECT SUM(shopping) FROM wego.statistics GROUP BY state HAVING state = 1)*100), 0) radar_shopping,
+		       IFNULL(ROUND(culture/(SELECT SUM(culture) FROM wego.statistics GROUP BY state HAVING state = 1)*100), 0) radar_culture,
+		       IFNULL(ROUND(tour/(SELECT SUM(tour) FROM wego.statistics GROUP BY state HAVING state = 1)*100), 0) radar_tour,
+		       IFNULL(ROUND(leisure/(SELECT SUM(leisure) FROM wego.statistics GROUP BY state HAVING state = 1)*100), 0) radar_leisure
+		FROM wego.statistics
+		WHERE state = 1
+		AND   user_pk = #{user_pk};
 	</select>
-	
 
 	<!-- 여행 계획 및 날짜 별로 사용 내역 가져오기 -->
 	<select id="getUsageForUsageList" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
-		SELECT u.category, u.content, u.amount, u.usage_date, l.location_name FROM wego.usage u, wego.location l
-		WHERE l.location_pk = u.location_pk AND plan_pk = #{plan_pk} AND usage_date BETWEEN #{start_date} AND #{end_date};
+		SELECT u.category,
+		       u.content,
+		       u.amount,
+		       u.usage_date,
+		       l.location_name
+		FROM   wego.usage u,
+		       wego.location l
+		WHERE  l.location_pk = u.location_pk
+		       AND plan_pk = #{plan_pk}
+		       AND usage_date BETWEEN #{start_date} AND #{end_date}; 
 	</select>
 	
 	<!-- 일 별 예산 전체 금액, 사용 전체 금액, 둘의 비율 가져오기 -->
 	<select id="getTotalForDay" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
-		SELECT IFNULL(ROUND(pd.total_budget/(pd.total_budget+u.total_amount)*100), 0) rate, u.total_amount amount, pd.total_budget budget
-		FROM (SELECT SUM(amount) total_amount, usage_date FROM wego.usage WHERE plan_pk = #{plan_pk} GROUP BY usage_date) u, (SELECT SUM(budget) total_budget, date_format(start_time, '%Y-%m-%d') d FROM wego.plan_detail WHERE plan_pk = #{plan_pk} GROUP BY d) pd
-		WHERE u.usage_date = pd.d AND u.usage_date BETWEEN #{start_date} AND #{end_date};
+		SELECT Ifnull(Round(pd.total_budget / ( pd.total_budget + u.total_amount ) * 100), 0) rate,
+		       u.total_amount  amount,
+		       pd.total_budget budget
+		FROM   (SELECT Sum(amount) total_amount,
+		               usage_date
+		        FROM   wego.usage
+		        WHERE  plan_pk = #{plan_pk}
+		               AND usage_date BETWEEN #{start_date} AND #{end_date}
+		        GROUP  BY usage_date) u,
+		       (SELECT Sum(budget)                         total_budget,
+		               Date_format(start_time, '%Y-%m-%d') d
+		        FROM   wego.plan_detail
+		        WHERE  plan_pk = #{plan_pk}
+		               AND Date_format(start_time, '%Y-%m-%d') BETWEEN #{start_date} AND #{end_date}
+		        GROUP  BY d) pd
+		WHERE  u.usage_date = pd.d;
 	</select>
 	<select id="getTotalForAll" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
-		SELECT IFNULL(ROUND(pd.total_budget/(pd.total_budget+u.total_amount)*100), 0) rate, u.total_amount amount, pd.total_budget budget
-		FROM (SELECT SUM(amount) total_amount FROM wego.usage WHERE plan_pk = #{plan_pk}) u,
-				 (SELECT SUM(budget) total_budget FROM wego.plan_detail WHERE plan_pk = #{plan_pk}) pd;
+		SELECT Ifnull(Round(pd.total_budget / ( pd.total_budget + u.total_amount ) * 100), 0) rate,
+		       u.total_amount  amount,
+		       pd.total_budget budget
+		FROM   (SELECT Sum(amount) total_amount
+		        FROM   wego.usage
+		        WHERE  plan_pk = #{plan_pk}) u,
+		       (SELECT Sum(budget) total_budget
+		        FROM   wego.plan_detail
+		        WHERE  plan_pk = #{plan_pk}) pd; 
 	</select>
 	
 	<!-- 일 별 예산과 실제 사용 금액 묶어서 가져오기 -->
