@@ -106,7 +106,7 @@
 	
 	
 	<!-- 댓글 수정 -->
-	<update id="recommentUpdate" parameterType="kr.co.main.review.ReviewVO"	>
+	<update id="commentUpdate" parameterType="kr.co.main.review.ReviewVO"	>
 		update wego.review_comment set 
 		comment_content = #{comment_content}
 		where review_comment_pk = #{review_comment_pk};

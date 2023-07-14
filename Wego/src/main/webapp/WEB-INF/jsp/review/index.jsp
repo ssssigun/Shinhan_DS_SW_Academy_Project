@@ -80,6 +80,7 @@
               <div class="subWrapper">${vo.nickname}</div>
               <div class="subsubWrapper">${vo.regdate}</div>
               <div class="buttonsWrapper">
+              	<a href="edit.do?review_pk=${vo.review_pk}"><button class="smallBtn blueBwhiteL">수정하기</button></a>
               
                 <a href="view.do?review_pk=${vo.review_pk}"><button class="smallBtn blueBwhiteL">후기보기</button></a>
                 

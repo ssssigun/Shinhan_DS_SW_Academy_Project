@@ -141,8 +141,9 @@ public class ReviewController {
 	
 	//댓글수정`
 	@PostMapping("commentUpdate.do")
-	public String commentUpdate(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+	public String commentUpdate(Model model, @RequestParam("review_comment_pk") int review_comment_pk, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
 		if(rservice.commentUpdate(vo)) {
+			vo.setReview_comment_pk(review_comment_pk);
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
 			model.addAttribute("url", "view.do?review_pk="+vo.getReview_pk()+"&user_pk="+vo.getUser_pk());
 			

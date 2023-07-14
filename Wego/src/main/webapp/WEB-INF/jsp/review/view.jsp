@@ -206,14 +206,24 @@
     		console.log(review_comment_pk);
     		$( '#' + review_comment_pk )
             .replaceWith(''
+            	  +'<form method="post" name="frm" id="frm" action="commentUpdate.do" enctype="multipart/form-data" >'
           		  +'<div class="editform">'
           		  +'  <textarea rows="3" cols="100" name="comment_content" id="content" class="FrameCon letter text">'
           		  +     $('#' + review_comment_pk).text()
           		  +'  </textarea>'
-          		  +'</div>' );
+          		  + '    <input type="hidden" name="review_comment_pk" value="' + "${comment.review_comment_pk}" + '">'
+          		  +'</div>' 
+          		  +'<button class="editEnd smallBtn blueBwhiteL" type="submit">'
+          		  +'수정완료'
+          		  +'</button>'
+          		  +'</form>'
+            
+            
+            );
     		
     		
     	}
+    	
     	
     	
     	
@@ -351,11 +361,13 @@
               <div class="nicknameWrapper">
                 <h3 class="letter">${comment.nickname}</h3>
                 
-                <c:if test="${vo.user_pk eq comment.user_pk}">
+               
                 <div class="menuWrapper">
 				  <a href="#"><img src="../image/review/menuWrapper.png" /></a>
 				  
 				  <div class="buttonContainer">
+				  	
+				  	
 				    <button class="editButton" onclick="commentEdit('comment${comment.review_comment_pk}')">수정</button>
 				    
 				    
@@ -367,7 +379,7 @@
 				    </form>
 				  </div>
 				</div>
-				</c:if>
+			
 				
 
               </div>
@@ -396,7 +408,7 @@
 			          	<h3 class="letter">${vo.nickname}</h3>
 			          	<div class="contentsWrapper2">
 				          	<textarea rows="3" cols="55" name="comment_content" id="content" class="FrameCon letter text" maxlength="400">${insertReviewComment.content }</textarea>
-				          	<button class="commentButton" type="submit">등록</button>
+				          	<button class="commentButton smallBtn blueBwhiteL" type="submit">등록</button>
 				       </div>
 			          </div>
 			      </div>    
