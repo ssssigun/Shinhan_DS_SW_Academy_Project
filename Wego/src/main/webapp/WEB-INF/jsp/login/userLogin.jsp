@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google" content="notranslate">
   <link rel="icon" href="../image/ShinhanLogo.png"/>
-  <link rel="stylesheet" href="../css/common.css">
-  <link rel="stylesheet" href="../css/footer.css">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/admin/adminLogin.css">
+  <link rel="stylesheet" href="/main/css/common.css">
+  <link rel="stylesheet" href="/main/css/footer.css">
+  <link rel="stylesheet" href="/main/css/header.css">
+  <link rel="stylesheet" href="/main/css/admin/adminLogin.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
   <title>AdminLogin</title>
@@ -54,7 +54,7 @@
   
 </head>
 <body>
-<jsp:include page='/WEB-INF/jsp/include/header.jsp'/>
+ <jsp:include page="/WEB-INF/jsp/include/headerLogin.jsp"/>
   <div class="contents">
     <div class="login">
       <p class="title">통합 로그인</p>

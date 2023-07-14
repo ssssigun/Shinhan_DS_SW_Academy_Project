@@ -28,6 +28,11 @@ public class FirstController {
 		//임시로 포워딩
 		return "main.do";
 	}
+	// 통합 로그인 폼 이동
+	@GetMapping("/login.do")
+	public String Login() {
+		return "login/userLogin";
+	}
 //	//메인으로 이동(임시로 공용 페이지에 포워딩)
 //	 @GetMapping("/main.do")
 //	 public String goMain() {

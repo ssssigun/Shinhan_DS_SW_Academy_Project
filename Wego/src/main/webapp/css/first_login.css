@@ -24,7 +24,24 @@ height: 49px;
     width: 820px;
     height: 454px;
     border: 1px solid #000000;
-    /* overflow:scroll; */
+    overflow:scroll; 
+    overflow-x: hidden;
+    padding: 15px;
+    line-height:20px;
+}
+ .agreeText::-webkit-scrollbar {
+   width: 10px;
+ }
+ .agreeText::-webkit-scrollbar-thumb {
+   background-color: #2f3542;
+   border-radius: 10px;
+   background-clip: padding-box;
+   border: 2px solid transparent;
+ }
+ .agreeText::-webkit-scrollbar-track {
+   background-color: grey;
+   border-radius: 10px;
+   box-shad
 }
 .inputWidth{
     width: 100%;
@@ -48,6 +65,16 @@ height: 49px;
 .btnRegister{
     width: 90px;
     height: 40px;
+}
+.article_text{
+	color: #767678;
+	margin: 15px 0;
+}
+.clause_title{
+	color : #767678;
+}
+.sections_section{
+	color : #767678;
 }
 #alarm{
 	display:none;

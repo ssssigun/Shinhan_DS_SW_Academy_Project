@@ -13,8 +13,6 @@
   <link rel="stylesheet" href="/main/css/header.css">
   <link rel="stylesheet" href="/main/css/first_login.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/inc/user/css/realname.min.css?230612">
-  <link rel="stylesheet" type="text/css" href="/inc/user/css/realname_dark.min.css?230612" media="(prefers-color-scheme:dark)">
   
   <title>signOn</title>
   <script>
@@ -80,21 +78,14 @@
   </script>
 </head>
 <body>
-  <div class="header">
-    <div class="headerBottom">
-      <div class="picBottom">
-        <a href=""><img src="/main/image/logoMain.png" alt=""></a>
-        <img class="admin" src="/main/image/logo_admin.png" alt="">
-      </div>
-    </div>
-  </div>
+ <jsp:include page="/WEB-INF/jsp/include/headerLogin.jsp"/>
   <div class="contents">
     <div class="textBox">
       <p class="title textBoxTitle">서비스 이용 동의</p>
       <div class="agreeText">
       
 			<div class="article">
-				<h3 class="article_title">여러분을 환영합니다.</h3>
+				<h3 class="bigLetter bold">여러분을 환영합니다.</h3>
 				<p class="article_text">
 					Wego 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 Wego 서비스의 이용과
 					관련하여 Wego 서비스를 제공하는 Wego 주식회사(이하 ‘Wego’)와 이를 이용하는 Wego 서비스 회원(이하
@@ -107,7 +98,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">다양한 Wego 서비스를 즐겨보세요.</h3>
+				<h3 class="bigLetter bold">다양한 Wego 서비스를 즐겨보세요.</h3>
 				<p class="article_text">
 					Wego는 <a href="http://www.naver.com/" target="_blank">www.naver.com</a>을 비롯한 Wego 도메인의
 					웹사이트 및 응용프로그램(어플리케이션, 앱)을 통해 정보 검색, 다른 이용자와의 커뮤니케이션, 콘텐츠 제공,
@@ -131,7 +122,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">회원으로 가입하시면 Wego 서비스를 보다 편리하게 이용할 수 있습니다.</h3>
+				<h3 class="bigLetter bold">회원으로 가입하시면 Wego 서비스를 보다 편리하게 이용할 수 있습니다.</h3>
 				<p class="article_text">
 					여러분은 본 약관을 읽고 동의하신 후 회원 가입을 신청하실 수 있으며, Wego는 이에 대한 승낙을 통해 회원
 					가입 절차를 완료하고 여러분께 Wego 서비스 이용 계정(이하 ‘계정’)을 부여합니다. 계정이란 회원이 Wego
@@ -159,7 +150,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">여러분이 제공한 콘텐츠를 소중히 다룰 것입니다.</h3>
+				<h3 class="bigLetter bold">여러분이 제공한 콘텐츠를 소중히 다룰 것입니다.</h3>
 				<p class="article_text">
 					Wego는 여러분이 게재한 게시물이 Wego 서비스를 통해 다른 이용자들에게 전달되어 우리 모두의 삶을 더욱
 					풍요롭게 해줄 것을 기대합니다. 게시물은 여러분이 타인 또는 자신이 보게 할 목적으로 Wego 서비스 상에
@@ -200,7 +191,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">여러분의 개인정보를 소중히 보호합니다.</h3>
+				<h3 class="bigLetter bold">여러분의 개인정보를 소중히 보호합니다.</h3>
 				<p class="article_text">
 					Wego는 서비스의 원활한 제공을 위하여 회원이 동의한 목적과 범위 내에서만 개인정보를 수집∙이용하며,
 					개인정보 보호 관련 법령에 따라 안전하게 관리합니다. Wego가 이용자 및 회원에 대해 관련 개인정보를
@@ -216,7 +207,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">타인의 권리를 존중해 주세요.</h3>
+				<h3 class="bigLetter bold">타인의 권리를 존중해 주세요.</h3>
 				<p class="article_text">
 					여러분이 무심코 게재한 게시물로 인해 타인의 저작권이 침해되거나 명예훼손 등 권리 침해가 발생할 수
 					있습니다. Wego는 이에 대한 문제 해결을 위해 ‘정보통신망 이용촉진 및 정보보호 등에 관한 법률’ 및
@@ -241,7 +232,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">Wego에서 제공하는 다양한 포인트를 요긴하게 활용해 보세요.</h3>
+				<h3 class="bigLetter bold">Wego에서 제공하는 다양한 포인트를 요긴하게 활용해 보세요.</h3>
 				<p class="article_text">
 					Wego는 여러분이 Wego 서비스를 효율적으로 이용할 수 있도록 포인트를 부여하고 있습니다. 포인트는
 					여러분의 일정한 Wego 서비스 이용과 연동하여 Wego가 임의로 책정하거나 조정하여 지급하는 일정한 계산
@@ -257,7 +248,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">Wego 서비스 이용과 관련하여 몇 가지 주의사항이 있습니다.</h3>
+				<h3 class="bigLetter bold">Wego 서비스 이용과 관련하여 몇 가지 주의사항이 있습니다.</h3>
 				<p class="article_text">
 					Wego는 여러분이 Wego 서비스를 자유롭고 편리하게 이용할 수 있도록 최선을 다하고 있습니다. 다만,
 					여러분이 Wego 서비스를 보다 안전하게 이용하고 Wego 서비스에서 여러분과 타인의 권리가 서로 존중되고
@@ -329,7 +320,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">부득이 서비스 이용을 제한할 경우 합리적인 절차를 준수합니다.</h3>
+				<h3 class="bigLetter bold">부득이 서비스 이용을 제한할 경우 합리적인 절차를 준수합니다.</h3>
 				<p class="article_text">
 					Wego는 다양한 정보와 의견이 담긴 여러분의 콘텐츠를 소중히 다룰 것을 약속 드립니다만, 여러분이 게재한
 					게시물이 관련 법령, 본 약관, 게시물 운영정책, 각 개별 서비스에서의 약관, 운영정책 등에 위배되는 경우,
@@ -352,7 +343,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">Wego의 잘못은 Wego가 책임집니다.</h3>
+				<h3 class="bigLetter bold">Wego의 잘못은 Wego가 책임집니다.</h3>
 				<p class="article_text">
 					Wego는 여러분이 Wego 서비스를 이용함에 있어 Wego의 고의 또는 과실로 인하여 손해를 입게 될 경우
 					관련 법령에 따라 여러분의 손해를 배상합니다. 다만, 천재지변 또는 이에 준하는 불가항력으로 인하여
@@ -371,7 +362,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">언제든지 Wego 서비스 이용계약을 해지하실 수 있습니다.</h3>
+				<h3 class="bigLetter bold">언제든지 Wego 서비스 이용계약을 해지하실 수 있습니다.</h3>
 				<p class="article_text">
 					Wego에게는 참 안타까운 일입니다만, 회원은 언제든지 Wego 서비스 이용계약 해지를 신청하여 회원에서
 					탈퇴할 수 있으며, 이 경우 Wego는 관련 법령 등이 정하는 바에 따라 이를 지체 없이 처리하겠습니다.
@@ -385,7 +376,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">일부 Wego 서비스에는 광고가 포함되어 있습니다.</h3>
+				<h3 class="bigLetter bold">일부 Wego 서비스에는 광고가 포함되어 있습니다.</h3>
 				<p class="article_text">
 					여러분이 다양한 Wego 서비스를 이용하다 보면 간혹 일부 개별 서비스에 광고가 포함된 경우가 있습니다.
 					Wego 서비스를 이용하면서 발생할 수 있는 데이터 통신요금은 가입하신 통신사업자와의 이용계약에 따라
@@ -403,7 +394,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">서비스 중단 또는 변경 시 꼭 알려드리겠습니다.</h3>
+				<h3 class="bigLetter bold">서비스 중단 또는 변경 시 꼭 알려드리겠습니다.</h3>
 				<p class="article_text">
 					Wego는 연중 무휴, 1일 24시간 안정적으로 서비스를 제공하기 위해 최선을 다하고 있습니다만, 컴퓨터, 서버
 					등 정보통신설비의 보수점검, 교체 또는 고장, 통신두절 등 운영상 상당한 이유가 있는 경우 부득이 서비스의
@@ -421,7 +412,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">주요 사항을 잘 안내하고 여러분의 소중한 의견에 귀 기울이겠습니다.</h3>
+				<h3 class="bigLetter bold">주요 사항을 잘 안내하고 여러분의 소중한 의견에 귀 기울이겠습니다.</h3>
 				<p class="article_text">
 					Wego는 서비스 이용에 필요한 주요사항을 적시에 잘 안내해 드릴 수 있도록 힘쓰겠습니다. 회원에게 통지를
 					하는 경우 전자메일, 서비스 내 알림 또는 기타 적절한 전자적 수단을 통해 개별적으로 알려 드릴 것이며, 다만
@@ -436,7 +427,7 @@
 				</p>
 			</div>
 			<div class="article">
-				<h3 class="article_title">
+				<h3 class="bigLetter bold">
 					여러분이 쉽게 알 수 있도록 약관 및 운영정책을 게시하며 사전 공지 후 개정합니다.
 				</h3>
 				<p class="article_text">
@@ -475,8 +466,7 @@
 					<a href="https://help.naver.com/" target="_blank">고객센터</a>(대표번호: 1588 – 3820/ 평일
 					09:00~18:00)로 문의 주시기 바랍니다.
 				</p>
-			</div>                                
-			</div>
+			</div>       
       
       </div>
       <div class="selectArea">
@@ -496,7 +486,7 @@
 			    </p>
 			</div>
 			<div class="article">
-			    <h3 class="article_title">1. 수집하는 개인정보</h3>
+			    <h3 class="bigLetter bold">1. 수집하는 개인정보</h3>
 			    <p class="article_text">
 			        이용자는 회원가입을 하지 않아도 정보 검색, 뉴스 보기 등 대부분의 Wego 서비스를 회원과 동일하게 이용할
 			        수 있습니다. 이용자가 메일, 캘린더, 카페, 블로그 등과 같이 개인화 혹은 회원제 서비스를 이용하기 위해
@@ -527,7 +517,7 @@
 			    </div>
 			</div>
 			<div class="article">
-			    <h3 class="article_title">2. 수집한 개인정보의 이용</h3>
+			    <h3 class="bigLetter bold">2. 수집한 개인정보의 이용</h3>
 			    <p class="article_text">
 			        Wego 및 Wego 관련 제반 서비스(모바일 웹/앱 포함)의 회원관리, 서비스 개발・제공 및 향상, 안전한
 			        인터넷 이용환경 구축 등 아래의 목적으로만 개인정보를 이용합니다.
@@ -566,7 +556,7 @@
 			    </ul>
 			</div>
 			<div class="article">
-			    <h3 class="article_title">3. 개인정보의 보관기간</h3>
+			    <h3 class="bigLetter bold">3. 개인정보의 보관기간</h3>
 			    <div class="clause large">
 			        <h4 class="clause_title">
 			            회사는 원칙적으로 이용자의 개인정보를 회원 탈퇴 시 지체없이 파기하고 있습니다.<br>
@@ -628,7 +618,7 @@
 			    </div>
 			</div>
 			<div class="article">
-			    <h3 class="article_title">4. 개인정보 수집 및 이용 동의를 거부할 권리</h3>
+			    <h3 class="bigLetter bold">4. 개인정보 수집 및 이용 동의를 거부할 권리</h3>
 			    <p class="clause_text">
 			        이용자는 개인정보의 수집 및 이용 동의를 거부할 권리가 있습니다. 회원가입 시 수집하는 최소한의 개인정보,
 			        즉, 필수 항목에 대한 수집 및 이용 동의를 거부하실 경우, 회원가입이 어려울 수 있습니다.
