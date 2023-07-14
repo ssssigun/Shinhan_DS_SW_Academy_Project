@@ -114,6 +114,12 @@ public class ReviewService {
 		int temp = mapper.reviewRecommendPlus(vo);
 		return temp;
 	}
+	
+	//조회수 추가
+	public int reviewWatchPlus(ReviewVO vo) {
+		int temp = mapper.reviewWatchPlus(vo);
+		return temp;
+	}
 
 	public boolean deleteReviewComment(ReviewVO vo) {
 		
@@ -125,7 +131,7 @@ public class ReviewService {
 	
 	// ReviewService.java
 	public boolean insertReviewSue(ReviewVO vo) {
-	    boolean success = mapper.insertReviewSue(vo);
+	    boolean success = mapper.insertReviewSue(vo); //인서트반환값 행
 	    return success;
 	}
 
@@ -134,6 +140,14 @@ public class ReviewService {
 	public int getUpdatedRecommendCount(String review_pk) {
 	  int updatedRecommendCount = mapper.getUpdatedRecommendCount(review_pk);
 	  return updatedRecommendCount;
+	}
+
+	public boolean commentUpdate(ReviewVO vo) {
+		int n = mapper.commentUpdate(vo);
+		
+		System.out.println("service update: " + vo);
+
+		return n > 0 ? true : false;
 	}
 
 

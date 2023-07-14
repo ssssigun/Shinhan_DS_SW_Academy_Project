@@ -38,7 +38,7 @@ public class ReviewController {
 	    
 	    model.addAttribute("nickname", vo.getNickname());
 //	    System.out.println(vo.getNickname());
-	    
+	    model.addAttribute("user_pk", vo.getUser_pk());
 	    model.addAttribute("review_pk", vo.getReview_pk());
 		model.addAttribute("data", review);
 		model.addAttribute("comments", comments);
@@ -63,6 +63,7 @@ public class ReviewController {
 	//	rservice.reviewRecommendPlus(vo);
 	//}
 	
+	//추천수추가
 	@PostMapping("reviewRecommendPlus.do")
 	@ResponseBody
 	public int reviewRecommendPlus(ReviewVO vo) {
@@ -70,8 +71,13 @@ public class ReviewController {
 	    return updatedRecommendCount;
 	}
 	
-	
-	
+	//조회수추가
+	@PostMapping("reviewWatchPlus.do")
+	@ResponseBody
+	public int reviewWatchPlus(ReviewVO vo) {
+	    int updatedWatchCount = rservice.reviewWatchPlus(vo);
+	    return updatedWatchCount;
+	}
 	
 	
 		
@@ -133,10 +139,10 @@ public class ReviewController {
 		
 	
 	
-	//댓글수정
+	//댓글수정`
 	@PostMapping("commentUpdate.do")
 	public String commentUpdate(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
-		if(rservice.update(vo)) {
+		if(rservice.commentUpdate(vo)) {
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
 			model.addAttribute("url", "view.do?review_pk="+vo.getReview_pk()+"&user_pk="+vo.getUser_pk());
 			
@@ -172,7 +178,7 @@ public class ReviewController {
 	@ResponseBody
 	public boolean insertReviewSue(Model model, ReviewVO vo) {
 	    boolean success = rservice.insertReviewSue(vo);
-	    model.addAttribute("url", "view.do?review_pk="+vo.getReview_pk()+"&user_pk="+vo.getUser_pk());
+
 	    return success;
 	}
 

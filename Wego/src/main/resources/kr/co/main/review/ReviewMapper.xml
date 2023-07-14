@@ -73,8 +73,18 @@
 	
 	<!-- 리뷰 추천수 추가-->
 	<insert id="reviewRecommendPlus" parameterType="kr.co.main.review.ReviewVO">
-		insert into wego.review_recommend (review_pk, user_pk, plan_pk)
-		values (#{review_pk}, #{user_pk}, #{plan_pk});
+		INSERT INTO wego.review_recommend
+		            (review_pk,
+		             user_pk,
+		             plan_pk)
+		SELECT #{review_pk},
+		       #{user_pk},
+		       #{plan_pk}
+		FROM   DUAL
+		WHERE  NOT EXISTS (SELECT user_pk
+		                   FROM   wego.review_recommend
+		                   WHERE  review_pk = #{review_pk}
+		                          AND user_pk = #{user_pk}); 
 	</insert>
 	
 	
@@ -127,8 +137,18 @@
 	
 	<!-- 리뷰 신고 -->
 	<insert id="insertReviewSue" parameterType="kr.co.main.review.ReviewVO">
-		INSERT INTO wego.review_sue (user_pk, review_pk, plan_pk) 
-		values (#{user_pk}, #{review_pk}, #{plan_pk}); 
+		INSERT INTO wego.review_sue
+		            (review_pk,
+		             user_pk,
+		             plan_pk)
+		SELECT #{review_pk},
+		       #{user_pk},
+		       #{plan_pk}
+		FROM   DUAL
+		WHERE  NOT EXISTS (SELECT user_pk
+		                   FROM   wego.review_sue
+		                   WHERE  review_pk = #{review_pk}
+		                          AND user_pk = #{user_pk}); 
 	</insert>
 	
 	

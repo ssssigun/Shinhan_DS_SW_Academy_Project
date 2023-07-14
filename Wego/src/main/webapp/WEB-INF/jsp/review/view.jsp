@@ -23,39 +23,54 @@
     		
     	}
     	
+    	//console.log(commentText);
     	
-    	
-    	var isRecommendClicked = false; // 중복 클릭 방지를 위한 변수
+
+    	//추천수
     	var hasUserRecommended = false; // 사용자의 추천 여부를 추적하는 변수
 
     	function recommendOnClick() {
-    	    if (!isRecommendClicked && !hasUserRecommended) {
-    	        isRecommendClicked = true; // 버튼 클릭 상태로 변경
-    	        $.ajax({
-    	            url: 'reviewRecommendPlus.do',  // 서버 URL
-    	            type: 'POST',  // 요청 방식 (GET, POST 등)
-    	            data: { review_pk: '${review_pk}', user_pk: 1 },  // 리뷰의 고유 식별자를 전달
-    	            success: function(response) {
-    	                // 성공적으로 응답 받았을 때 실행할 코드
-    	                updateRecommendCount(response);  // 추천 수 업데이트 함수 호출
-    	                hasUserRecommended = true; // 사용자가 추천했음을 표시
-    	            },
-    	            error: function(xhr, status, error) {
-    	                // 요청이 실패했을 때 실행할 코드
-    	                console.error(error);
-    	            },
-    	            complete: function() {
-    	                isRecommendClicked = false; // 요청 완료 후 버튼 클릭 상태 초기화
-    	            }
-    	        });
-    	    }
+ 	        $.ajax({
+ 	            url: 'reviewRecommendPlus.do',  // 서버 URL
+ 	            type: 'POST',  // 요청 방식 (GET, POST 등)
+ 	            data: { review_pk: '${review_pk}', user_pk: '${user_pk}' },  // 리뷰의 고유 식별자를 전달
+ 	            success: function(response) {
+ 	                // 성공적으로 응답 받았을 때 실행할 코드
+ 	                updateRecommendCount(response);  // 추천 수 업데이트 함수 호출
+ 	                hasUserRecommended = true; // 사용자가 추천했음을 표시
+ 	            },
+ 	            error: function(xhr, status, error) {
+ 	                // 요청이 실패했을 때 실행할 코드
+ 	                console.error(error);
+ 	            },
+ 	            complete: function() {
+ 	                isRecommendClicked = false; // 요청 완료 후 버튼 클릭 상태 초기화
+ 	            }
+ 	        });
     	}
 
     	function updateRecommendCount(count) {
     	    // 추천 수를 업데이트하는 코드 작성
-    	    $('.bigLetter').text(count);
+    	    $('.bigLetter').text(count + Number($('.bigLetter').text()));
     	}
 
+    	
+    	//조회수
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     	
     	
     	
@@ -101,65 +116,62 @@
     	
     	
     	
+    	//댓글수정창
     	
-    	
-    	
-    	
-    	
-    	
-    	
-    	//댓글수정안되는중
     	function editComment(button) {
-    	    var commentText = button.parentNode.querySelector('.commentText');
-    	    var commentContent = commentText.textContent;
+    var commentContainer = button.closest('.commentContainer');
+    var commentText = commentContainer.querySelector('.commentText');
+    var commentContent = commentText.textContent;
 
-    	    var textarea = document.createElement('textarea');
-    	    textarea.value = commentContent;
+    var textarea = document.createElement('textarea');
+    textarea.value = commentContent;
 
-    	    var saveButton = document.createElement('button');
-    	    saveButton.textContent = '저장';
-    	    saveButton.addEventListener('click', function() {
-    	        var newCommentContent = textarea.value;
+    var saveButton = document.createElement('button');
+    saveButton.textContent = '저장';
+    saveButton.addEventListener('click', function() {
+        var newCommentContent = textarea.value;
 
-    	        // 서버로 수정된 댓글 내용을 전송하는 AJAX 요청
-    	        var xhr = new XMLHttpRequest();
-    	        xhr.open('POST', 'commentUpdate.do', true); // 수정된 댓글을 전송할 서버 URL로 변경해야 합니다.
-    	        xhr.setRequestHeader('Content-Type', 'application/json');
-    	        xhr.onreadystatechange = function() {
-    	            if (xhr.readyState === 4) {
-    	                if (xhr.status === 200) {
-    	                    // 서버로부터 응답을 받았을 때 필요한 처리 작업을 수행합니다.
-    	                    // 예: 수정된 댓글 내용을 화면에 업데이트하는 등의 동작
-    	                    console.log('댓글이 수정되었습니다.');
-    	                } else {
-    	                    console.error('댓글 수정에 실패했습니다.');
-    	                }
-    	            }
-    	        };
-    	        var requestBody = JSON.stringify({ comment: newCommentContent }); // 요청 바디에 수정된 댓글 내용을 담습니다.
-    	        xhr.send(requestBody);
+        // 서버로 수정된 댓글 내용을 전송하는 AJAX 요청
+        // ...
 
-    	        commentText.textContent = newCommentContent;
-    	        commentText.style.display = 'block';
-    	        textarea.parentNode.removeChild(textarea);
-    	        saveButton.parentNode.removeChild(saveButton);
-    	        cancelButton.parentNode.removeChild(cancelButton);
-    	    });
+        commentText.textContent = newCommentContent;
+        commentText.style.display = 'block';
+        textarea.parentNode.removeChild(textarea);
+        saveButton.parentNode.removeChild(saveButton);
+        cancelButton.parentNode.removeChild(cancelButton);
+    });
 
-    	    var cancelButton = document.createElement('button');
-    	    cancelButton.textContent = '취소';
-    	    cancelButton.addEventListener('click', function() {
-    	        commentText.style.display = 'block';
-    	        textarea.parentNode.removeChild(textarea);
-    	        saveButton.parentNode.removeChild(saveButton);
-    	        cancelButton.parentNode.removeChild(cancelButton);
-    	    });
+    var cancelButton = document.createElement('button');
+    cancelButton.textContent = '취소';
+    cancelButton.addEventListener('click', function() {
+        commentText.style.display = 'block';
+        textarea.parentNode.removeChild(textarea);
+        saveButton.parentNode.removeChild(saveButton);
+        cancelButton.parentNode.removeChild(cancelButton);
+    });
 
-    	    commentText.style.display = 'none';
-    	    button.parentNode.appendChild(textarea);
-    	    button.parentNode.appendChild(saveButton);
-    	    button.parentNode.appendChild(cancelButton);
-    	}
+    commentText.style.display = 'none';
+    commentContainer.appendChild(textarea);
+    commentContainer.appendChild(saveButton);
+    commentContainer.appendChild(cancelButton);
+}
+
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     	
     	
     	
@@ -169,11 +181,18 @@
 		  $.ajax({
 		    url: 'insertReviewSue.do', // 서버 URL
 		    type: 'POST', // 요청 방식 (GET, POST 등)
-		    data: { review_id: 123 }, // 신고할 리뷰의 ID 또는 필요한 정보
+		    data: { review_pk: ${review_pk}, user_pk: ${user_pk} }, // 신고할 리뷰의 ID 또는 필요한 정보
 		    success: function(response) {
 		      // 성공적으로 신고를 처리한 후 실행할 코드
-		      alert('신고가 접수되었습니다.');
+		      if(response){
+		    	  alert('신고가 접수되었습니다.');
+		      }else {
+		    	  alert('이미 신고한 게시물입니다.')
+		      }
+		      
+		      
 		    },
+		    
 		    error: function(xhr, status, error) {
 		      // 요청이 실패했을 때 실행할 코드
 		      console.error(error);
@@ -182,7 +201,85 @@
 		}
 
 
+    	//댓글 수정
+    	function commentEdit(review_comment_pk){
+    		console.log(review_comment_pk);
+    		$( '#' + review_comment_pk )
+            .replaceWith(''
+          		  +'<div class="editform">'
+          		  +'  <textarea rows="3" cols="100" name="comment_content" id="content" class="FrameCon letter text">'
+          		  +     $('#' + review_comment_pk).text()
+          		  +'  </textarea>'
+          		  +'</div>' );
+    		
+    		
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	/*
+    	//댓글 수정창 버튼 클릭 후 보임
+    	$( document ).ready( function() {
+        $( '.editButton' ).click( function() {
+          $( '.commentcontents' )
+          .replaceWith(''
+        		  +'<div class="editform">'
+        		  +'  <textarea rows="3" cols="100" name="comment_content" id="content" class="FrameCon letter text">'
+        		  +$('.commentcontents').text();
+        		  +'  </textarea>'
+        		  +'</div>' );
+        });
+    	*/
+    	
+    	
+    	$(document).ready(function() {
+    		  $('.editButton').click(function() {
+    		    var commentContainer = $(this).closest('.commentContainer');
+    		    var commentText = commentContainer.find('.commentText');
+    		    var commentContent = commentText.text();
 
+    		    var textarea = $('<textarea rows="3" cols="100" name="comment_content" id="content" class="FrameCon letter text">' + commentContent + '</textarea>');
+    		    var saveButton = $('<button class="saveButton">저장</button>');
+    		    var cancelButton = $('<button class="cancelButton">취소</button>');
+
+    		    commentText.hide();
+    		    commentContainer.append(textarea, saveButton, cancelButton);
+
+    		    saveButton.click(function() {
+    		      var newCommentContent = textarea.val();
+
+    		      // 서버로 수정된 댓글 내용을 전송하는 AJAX 요청
+    		      // ...
+
+    		      commentText.text(newCommentContent).show();
+    		      textarea.remove();
+    		      saveButton.remove();
+    		      cancelButton.remove();
+    		    });
+
+    		    cancelButton.click(function() {
+    		      commentText.show();
+    		      textarea.remove();
+    		      saveButton.remove();
+    		      cancelButton.remove();
+    		    });
+    		  });
+    		});
+
+
+    	console.log(${vo.user_pk});
 
     </script>
   </head>
@@ -248,31 +345,46 @@
         
         <div class="com">
          <div class="c">
-        <c:forEach var="vo" items="${comments}">
+        <c:forEach var="comment" items="${comments}">
           <div class="commentWrapper">
             <div class="comment">
               <div class="nicknameWrapper">
-                <h3 class="letter">${vo.nickname}</h3>
+                <h3 class="letter">${comment.nickname}</h3>
+                
+                <c:if test="${vo.user_pk eq comment.user_pk}">
                 <div class="menuWrapper">
 				  <a href="#"><img src="../image/review/menuWrapper.png" /></a>
+				  
 				  <div class="buttonContainer">
-				    <button class="editButton" onclick="editComment(this)">수정</button>
+				    <button class="editButton" onclick="commentEdit('comment${comment.review_comment_pk}')">수정</button>
+				    
+				    
 				    <form method="get" name="frm" id="frm" action="commentDelete.do" enctype="multipart/form-data" >
-					    <input type="hidden" name="review_comment_pk" value="${vo.review_comment_pk}">
+					    <input type="hidden" name="review_comment_pk" value="${comment.review_comment_pk}">
 					    <input type="hidden" name="user_pk" value="3"> <!-- user_pk 값을 여기에 설정 -->
          	 			<input type="hidden" name="review_pk" value="${review_pk }"> <!-- user_pk 값을 여기에 설정 -->
 					    <button class="deleteButton" type="submit">삭제</button>
 				    </form>
 				  </div>
 				</div>
+				</c:if>
+				
 
               </div>
               <div class="contentsWrapper2">
-                <div class="commentcontents">${vo.comment_content}</div>
+                <div class="commentcontents" id="comment${comment.review_comment_pk}">${comment.comment_content}</div>
               </div>
-              <h3 class="commentdate">${vo.regdate_comment}</h3>
+              <h3 class="commentdate">${comment.regdate_comment}</h3>
             </div>
           </div>
+          
+     
+          
+          
+          
+          
+          
+          
           </c:forEach>
           </div>
          <form method="post" name="frm" id="frm" action="insertReviewComment.do" enctype="multipart/form-data" >
@@ -283,7 +395,7 @@
 			          <div class="nicknameWrapper">
 			          	<h3 class="letter">${vo.nickname}</h3>
 			          	<div class="contentsWrapper2">
-				          	<textarea rows="3" cols="55" name="comment_content" id="content" class="FrameCon letter text">${insertReviewComment.content }</textarea>
+				          	<textarea rows="3" cols="55" name="comment_content" id="content" class="FrameCon letter text" maxlength="400">${insertReviewComment.content }</textarea>
 				          	<button class="commentButton" type="submit">등록</button>
 				       </div>
 			          </div>

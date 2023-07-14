@@ -104,17 +104,7 @@
                 가장 앞의 사진이 목록에서 대표사진으로 보여집니다.
               </h3>
             </div>
-             <div class="photo">
-              <div class="photoWrapper">              
-                <img class="photo" src=${data.filename_org } />
-                <button class="rmBtn">
-                  <img src="../image/review/delete.png" />
-                </button>
-              </div>
-              <div class="Frame62">
-                <img src="../image/review/BsFillPlusCircleFill.png" />
-              </div>
-          </div>
+
           
           
           
@@ -122,10 +112,15 @@
               <div class="photoWrapper"> 
               <div class="imageContainer" style="display:flex;"></div>
               <div class="Frame62">
-              <input type="file" id="fileInput" name="file" style="display:none;" multiple/>
+                <button class="rmBtn">
+                  <img src="../image/review/delete.png" />
+                 </button> 
+              <input type="file" id="fileInput"ㄴ name="file" style="display:none;" multiple/>
               <label for="fileInput">
+             
               	<img class="addingPhoto" src="/main/image/review/BsFillPlusCircleFill.png"/>
-              </label>              	
+              </label>
+                             	
               </div>
               </div>
           </div>
@@ -134,59 +129,7 @@
       </div>
       
       
-      
-      <div class="inputArea">
-	<label for="filename_org">이미지</label>
-	<input type="file" id="filename_org" name="file" />
-	<div class="select_img"><img src="" /></div>
-	
-	<script>
-		$("#filename_org").change(function(){
-			if(this.files && this.files[0]) {
-				var reader = new FileReader;
-				reader.onload = function(data) {
-					$(".select_img img").attr("src", data.target.result).width(500);								
-				}
-				reader.readAsDataURL(this.files[0]);
-			}
-		});
-	</script>
-	
-	<%=request.getRealPath("/") %>
-	
-</div>
 
-<div class="inputArea">
-	<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
-</div>
-
-
-
-<div class="inputArea">
-	<label for="filename_org">이미지</label>
-	<input type="file" id="filename_org" name="file" />
-	<div class="select_img"><img src="" /></div>
-	
-	<script>
-		$("#filename_org").change(function(){
-			if(this.files && this.files[0]) {
-				var reader = new FileReader;
-				reader.onload = function(data) {
-					$(".select_img img").attr("src", data.target.result).width(500);								
-				}
-				reader.readAsDataURL(this.files[0]);
-			}
-		});
-	</script>
-	
-	<%=request.getRealPath("/") %>
-	
-</div>
-
-<div class="inputArea">
-	<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
-</div>
-      
       
       
       

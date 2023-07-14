@@ -35,6 +35,9 @@ public interface ReviewMapper {
 	//글추천수추가
 	int reviewRecommendPlus(ReviewVO vo);
 	
+	//글조회수추가
+	int reviewWatchPlus(ReviewVO vo);
+	
 	boolean insertReviewSue(ReviewVO vo);
  
 	int count(ReviewVO vo);
@@ -63,6 +66,8 @@ public interface ReviewMapper {
 	public List<ReviewVO> getAttachList(int review_image_pk);
 
 	int getUpdatedRecommendCount(String review_pk);
+
+	int commentUpdate(ReviewVO vo);
 	
 	
 	
