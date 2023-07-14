@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/review")
@@ -52,7 +52,7 @@ public class ReviewController {
 		
 	//추천수추가
 	//
-		
+	/*	
 	@PostMapping("reviewRecommendPlus.do")
 	public void reviewRecommendPlus(ReviewVO vo) {
 		/*System.out.println(vo);*/
@@ -60,7 +60,14 @@ public class ReviewController {
 		/*vo.setUser_pk(user_pk);*/
 		/*vo.setRegdate_comment(new Date(System.currentTimeMillis()));*/
 		
-		rservice.reviewRecommendPlus(vo);
+	//	rservice.reviewRecommendPlus(vo);
+	//}
+	
+	@PostMapping("reviewRecommendPlus.do")
+	@ResponseBody
+	public int reviewRecommendPlus(ReviewVO vo) {
+	    int updatedRecommendCount = rservice.reviewRecommendPlus(vo);
+	    return updatedRecommendCount;
 	}
 	
 	
@@ -162,12 +169,13 @@ public class ReviewController {
 	//신고
 	// 서버 측 코드
 	@PostMapping("insertReviewSue.do")
-	public String insertReviewSue(@RequestParam("review_id") int reviewId) {
-	  // 리뷰 신고 처리 로직을 구현합니다.
-	  // 리뷰 ID를 사용하여 필요한 작업을 수행합니다.
-	  
-	  return "success"; // 클라이언트에게 응답할 데이터 또는 페이지
+	@ResponseBody
+	public boolean insertReviewSue(Model model, ReviewVO vo) {
+	    boolean success = rservice.insertReviewSue(vo);
+	    model.addAttribute("url", "view.do?review_pk="+vo.getReview_pk()+"&user_pk="+vo.getUser_pk());
+	    return success;
 	}
+
 
 	
 	

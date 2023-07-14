@@ -22,10 +22,11 @@
     		$("#frm").submit();
     		
     	}
-    	//추천수 입력
+    	
+    	
+    	
     	var isRecommendClicked = false; // 중복 클릭 방지를 위한 변수
     	var hasUserRecommended = false; // 사용자의 추천 여부를 추적하는 변수
-
 
     	function recommendOnClick() {
     	    if (!isRecommendClicked && !hasUserRecommended) {
@@ -33,7 +34,7 @@
     	        $.ajax({
     	            url: 'reviewRecommendPlus.do',  // 서버 URL
     	            type: 'POST',  // 요청 방식 (GET, POST 등)
-    	            data: { review_pk: ${review_pk}, user_pk: 1 },  // 리뷰의 고유 식별자를 전달
+    	            data: { review_pk: '${review_pk}', user_pk: 1 },  // 리뷰의 고유 식별자를 전달
     	            success: function(response) {
     	                // 성공적으로 응답 받았을 때 실행할 코드
     	                updateRecommendCount(response);  // 추천 수 업데이트 함수 호출
@@ -52,9 +53,53 @@
 
     	function updateRecommendCount(count) {
     	    // 추천 수를 업데이트하는 코드 작성
-    	    //document.getElementById('recommendCount').textContent = count;
+    	    $('.bigLetter').text(count);
     	}
 
+    	
+    	
+    	
+    	
+    	
+    	
+    	//신고//
+    	function reportReview() {
+	    var user_pk = 1; // 사용자의 고유 식별자
+	    var review_pk = 123; // 리뷰의 고유 식별자
+	    var plan_pk = 456; // 해당 리뷰에 대한 계획의 고유 식별자
+	
+	    $.ajax({
+	        url: 'insertReviewSue.do',
+	        type: 'POST',
+	        data: {
+	            user_pk: user_pk,
+	            review_pk: review_pk,
+	            plan_pk: plan_pk
+	        },
+	        success: function(response) {
+	            if (response) {
+	                alert('리뷰 신고가 접수되었습니다.');
+	            } else {
+	                alert('리뷰 신고에 실패했습니다.');
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error(error);
+	        }
+	    });
+	}
+
+    	
+    	//신고//
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     	
     	
     	

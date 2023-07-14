@@ -110,8 +110,8 @@ public class ReviewService {
 	}
 	
 	//추천수 추가
-	public boolean reviewRecommendPlus(ReviewVO vo) {
-		boolean temp = mapper.reviewRecommendPlus(vo);
+	public int reviewRecommendPlus(ReviewVO vo) {
+		int temp = mapper.reviewRecommendPlus(vo);
 		return temp;
 	}
 
@@ -123,10 +123,20 @@ public class ReviewService {
 	
 	
 	
-	//리뷰신고추가
-	public ReviewVO insertReviewSue(ReviewVO vo) {
-		return mapper.insertReviewSue(vo);
+	// ReviewService.java
+	public boolean insertReviewSue(ReviewVO vo) {
+	    boolean success = mapper.insertReviewSue(vo);
+	    return success;
 	}
+
+
+	// ReviewService.java
+	public int getUpdatedRecommendCount(String review_pk) {
+	  int updatedRecommendCount = mapper.getUpdatedRecommendCount(review_pk);
+	  return updatedRecommendCount;
+	}
+
+
 	
 //	mapper.updateViewcount(vo.getUser_pk());
 	
