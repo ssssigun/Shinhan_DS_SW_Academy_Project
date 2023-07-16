@@ -249,4 +249,16 @@ public class ReviewService {
         }
     }*/
 	
+	
+	//복붙
+	public void setReviewed2(int ppk) {
+		mapper.setReviewed2(ppk);
+	}
+	public void savingReviews(MyRecordPlanVO vo) {
+		mapper.savingReviews(vo);
+	}
+	public void savingReview_image(MyRecordPlanVO vo) {
+		mapper.savingReview_image(vo);
+	}
+	
 }

@@ -283,5 +283,59 @@ public class ReviewController {
         }
     }*/
 	
+	
+	
+	
+	
+	
+	
+	//복붙
+	@Transactional
+	@PostMapping("reviewing2.do")
+	public String savingReiews2(HttpServletRequest request, MyRecordPlanVO vo, HttpSession sess, @RequestParam("file") List<MultipartFile> files) {
+		String title = request.getParameter("title");
+		String contents = request.getParameter("contents");
+		String ppk = request.getParameter("plan_pk");
+		int plan_pk = Integer.parseInt(ppk);
+		vo.setPlan_pk(plan_pk);
+		vo.setTitle(title);
+		vo.setContent(contents);
+		vo.setState(0);
+		service.setReviewed2(plan_pk);
+		service.savingReviews(vo);
+		int randn = (int)(Math.random() * files.size()-1);
+		System.out.println(randn);
+		int fr = 0;
+		for(MultipartFile file : files) {
+			try {
+				String originalFilename = file.getOriginalFilename();
+				String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+				String uniqueFilename = UUID.randomUUID().toString() + fileExtension;
+				String filePath = request.getRealPath("/image/client/") + uniqueFilename;
+				File dest = new File(filePath);
+				FileUtils.writeByteArrayToFile(dest, file.getBytes());
+				file.transferTo(dest);
+				System.out.println("파일: "+ dest.getAbsolutePath());
+				vo.setFilename_org(originalFilename);
+				vo.setFilename_save(uniqueFilename);
+				vo.setFilesize(dest.length());
+				
+				if(fr == randn)
+					vo.setFilestate(1);
+				else
+					vo.setFilestate(0);
+				service.savingReview_image(vo);
+				
+			}catch(IOException e){
+				e.printStackTrace();
+			}finally {
+				System.out.println(fr);
+				fr++;
+			}
+		}
+		
+		return "review/index";
+	}
+	
 		
 }

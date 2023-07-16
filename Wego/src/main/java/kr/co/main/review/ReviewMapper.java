@@ -71,10 +71,12 @@ public interface ReviewMapper {
 	
 	
 	
+	//복붙
+	void setReviewed2(int ppk);
 	
+	void savingReviews(MyRecordPlanVO vo);
 	
-	
-	
+	void savingReview_image(MyRecordPlanVO vo);
 	
 
 //	int updateViewcount(int user_pk);
