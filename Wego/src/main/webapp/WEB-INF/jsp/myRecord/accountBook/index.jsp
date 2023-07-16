@@ -126,6 +126,7 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
+				console.log(data);
 				var totalRate = data['totalRate'];
 				var list = data['list'];
 				
@@ -139,7 +140,7 @@
 					+  '<table class="tbl modalCompareTbl">'
 					+    '<tr class="modalCompareTr">'
 					+      '<td class="td letter modalStickGraphLeftText titleTd">전체</td>'
-					+      '<td><div class="modalStickGraphWrapper"><div class="blueStick modalStickGraph letter ellipsis" style="width:'+totalRate.rate+'%;">'+addComma(totalRate.budget)+' 원</div><div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(totalRate.amount)+' 원</div></div></td>'
+					+      '<td><div class="modalStickGraphWrapper">'+(totalRate.budget > 0 ? '<div class="blueStick modalStickGraph letter ellipsis" style="width:'+totalRate.rate+'%;">'+addComma(totalRate.budget)+' 원</div>':'')+(totalRate.amount > 0 ? '<div class="yellowStick modalStickGraph letter ellipsis rightTd">'+addComma(totalRate.amount)+' 원</div>':'')+'</div></td>'
 					+      '<td class="td rightTd letter modalStickGraphRightText titleTd">전체</td>'
 					+    '</tr>'
 					+  '</table>'
