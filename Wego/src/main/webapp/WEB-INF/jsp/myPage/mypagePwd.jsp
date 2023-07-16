@@ -13,7 +13,24 @@
   <link rel="stylesheet" href="/main/css/header.css">
   <link rel="stylesheet" href="/main/css/myPage/mypagePwd.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-
+  <script type="text/javascript">
+	function before() {
+	    var token = localStorage.getItem("accessToken");
+	    $.ajax({
+	        type: "GET",
+	        url: "/api/me",
+	        beforeSend: function (xhr) {
+	            xhr.setRequestHeader("Authorization","bearer " + token);
+	        },
+	        data: {
+	        	
+	        },
+	        success: function (res) {
+	            console.log(res);
+	        }
+	    });
+	}
+  </script>
   <title>common</title>
 </head>
 <body>

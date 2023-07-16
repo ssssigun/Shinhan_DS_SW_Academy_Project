@@ -33,19 +33,26 @@
   		}
   		$.ajax({
 			  type:"post",
-			  url:'login.do',
+			  url:'http://localhost:8008/generateToken',
 			  data:{
 				  id: $("#id").val(),
 				  pwd:$("#pwd").val()
 			  },
 			  success:function(res){
-				  if(1===res){
-					  location.href='/main/admin/boardManagement.do';
-				  }
-				  if(0===res){
+				  localStorage.setItem("accessToken", res["accessToken");
+				  localStorage.setItem("refreshToken", res["refreshToken");
+				  
+			  		$.ajax({
+						  type:"post",
+						  url:'tokenCheck.do',
+						  data:{
+							  accessToken : res["accessToken"]
+						  }
+			  		})
+			  }
+			  error : function(request, status, error) { // 결과 에러 콜백함수
 		  			$("#alarm").css('color','red');
 		  			$("#alarm").text('아이디 또는 비밀번호가 맞지 않습니다!');
-				  }
 			  }
   		})
   		return;

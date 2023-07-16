@@ -14,4 +14,8 @@ public class FirstService {
 	public int register(String nickName) {
 		return fMapper.register(nickName);
 	}
+	public int findPk(String id) {
+		return fMapper.findPk(id);
+	}
+	
 }
