@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google" content="notranslate">
-  <link rel="icon" href="../image/ShinhanLogo.png"/>
+  <link rel="icon" href="/main/image/ShinhanLogo.png"/>
   <link rel="stylesheet" href="/main/css/common.css">
   <link rel="stylesheet" href="/main/css/footer.css">
   <link rel="stylesheet" href="/main/css/header.css">
@@ -33,26 +33,34 @@
   		}
   		$.ajax({
 			  type:"post",
-			  url:'http://localhost:8008/generateToken',
-			  data:{
-				  id: $("#id").val(),
-				  pwd:$("#pwd").val()
-			  },
+			  url:'http://localhost:8080/generateToken',
+			  data:JSON.stringify({
+				  'id': $("#id").val(),
+				  'pwd': $("#pwd").val()
+			  }),
+			  dataType:"json",
+			  contentType : "application/json; charset=utf-8",
 			  success:function(res){
-				  localStorage.setItem("accessToken", res["accessToken");
-				  localStorage.setItem("refreshToken", res["refreshToken");
+				  localStorage.setItem("accessToken", res["accessToken"]);
+				  localStorage.setItem("refreshToken", res["refreshToken"]);
 				  
 			  		$.ajax({
 						  type:"post",
 						  url:'tokenCheck.do',
 						  data:{
 							  accessToken : res["accessToken"]
+						  },
+						  success:function(res){
+									window.location.href=res+".do";
 						  }
+						  
 			  		})
-			  }
+			  },
 			  error : function(request, status, error) { // 결과 에러 콜백함수
 		  			$("#alarm").css('color','red');
 		  			$("#alarm").text('아이디 또는 비밀번호가 맞지 않습니다!');
+		  			$("#alarm").css('display','block')
+		  			console.log(error);
 			  }
   		})
   		return;

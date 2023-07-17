@@ -58,7 +58,7 @@
         <p class="bigLetter">정보 수정</p>
         <div class="inputWrapper inputBox">
           <span class="letter">닉네임</span>
-          <input class="input" type="text" name="nickName" id="nickName" placeholder="[원래 닉네임]">
+          <input class="input" type="text" name="nickName" id="nickName" value="${loginSession.nickName}">
           <input class="btnCommon btn blueBwhiteL" type="button" name="btn" id="btn" value="중복확인" onclick="check()">
           <input class="btnCommon btn lightblueBblackL" type="button" name="btn2" id="btn2" value="수정" >
         </div>

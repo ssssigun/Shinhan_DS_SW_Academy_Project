@@ -26,13 +26,14 @@ public class FirstController {
 	public int checkNickName(@RequestParam("nickName")String nickName) {
 		return fService.checkNickName(nickName);
 	}
-	//약관 동의 및 닉네임 유효성 검사 후 닉네임 등록
-	@GetMapping("/register.do")
+	//약관 동의 및 닉네임 유효성 검사 후 사용자 정보 등록
+	@ResponseBody
+	@PostMapping("/register.do")
 	public String registerName(@RequestParam("nickName")String nickName,  HttpSession sess){
 //		fService.register(nickName);
 
 		int pk = (Integer)sess.getAttribute("pk");
-		return "/index.do?user_pk="+pk;
+		return "index.do";
 	}
 	// 통합 로그인 폼 이동
 	@GetMapping("/login.do")
@@ -40,18 +41,26 @@ public class FirstController {
 		return "login/userLogin";
 	}
 //	토큰 값 파싱 후  pk 가져오기
+	@ResponseBody
 	@PostMapping("/tokenCheck.do")
 	public String tokenCheck(@RequestParam("accessToken")String accessToken, HttpSession sess) {
-		JWTUtil jwt=null;
+		JWTUtil jwt= new JWTUtil();
 		String id = jwt.validateToken(accessToken);
-		int pk = fService.findPk(id);
+		UserVO user = fService.findUser(id);
 		
-		sess.setAttribute("pk", pk);
-		if(pk==0) {
-			return "login/firstLogin";
+		sess.setAttribute("loginSession", user);
+		if(user==null) {
+			return "firstLogin";
 		}else {
-			return "/index.do?user_pk="+pk;
+			return "index";
 		}
 	}
+//	로그 아웃
+	@GetMapping("/logout.do")
+	public String logout(HttpSession sess) {
+		sess.invalidate();
+		return "login/userLogin";
+	}
+	
 	
 }

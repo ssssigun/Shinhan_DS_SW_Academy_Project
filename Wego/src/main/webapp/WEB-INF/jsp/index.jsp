@@ -20,7 +20,8 @@
 <script>
 	var planCount = ${planCount};
 	var page_num = 0;
-	
+	//세션에 있는 pk값 확인
+	console.log(${loginSession.user_pk});
 	function selectPlan(user_pk, page_num) {
 		console.log("page_num:" + page_num);
 		$.ajax({

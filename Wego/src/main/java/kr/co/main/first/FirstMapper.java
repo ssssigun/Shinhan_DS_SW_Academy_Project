@@ -7,5 +7,5 @@ import org.springframework.beans.factory.annotation.Autowired;
 public interface FirstMapper {
 	int checkNickName(String nickName);
 	int register(String nickName);
-	int findPk(String id);
+	UserVO findUser(String id);
 }

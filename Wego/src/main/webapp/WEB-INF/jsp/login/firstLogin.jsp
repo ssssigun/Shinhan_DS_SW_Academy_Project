@@ -50,28 +50,49 @@
   	}
   	//약관 및 닉네임 유효성 검사 후 등록
   	function register(){ 
+  		 var token = localStorage.getItem("accessToken");
 		if(!$('#agree1').is(":checked") || !$('#agree2').is(":checked")){
  				alert("We go 서비스 이용약관에 대한 내용 확인 후 동의해주세요.");
  				return
 		}
-  		if(confirm("등록하시겠습니까?")){
-  			if(""=== $('#nickName').val()){
-  				alert("닉네임을 입력해주세요!");
-  				$('#nickName').focus();
-			}else if(!ch){
-				alert("닉네임을 다시 입력해주세요!")
+		
+		if(""=== $('#nickName').val()){
+ 				alert("닉네임을 입력해주세요!");
  				$('#nickName').focus();
-  			}
-  			else{
-  				$.ajax({
-  					type:'get',
-  					url:'main.do',
-  					async : false,
-  					date:{
-  		  				nickName: $('#nickName').val()
-  					}
-  				});
-  			}
+		}else if(!ch){
+			alert("닉네임을 다시 입력해주세요!")
+				$('#nickName').focus();
+		}else if(confirm("등록하시겠습니까?")){
+	  		$.ajax({
+				  type:"post",
+				  url:'http://localhost:8080/api/userRegister.do',
+				  data:JSON.stringify({
+					  'email': ${loginSession.email}
+				  }),
+				  beforeSend: function (xhr) {
+			            xhr.setRequestHeader("Content-type","application/json");
+			            xhr.setRequestHeader("Authorization","bearer " + token);
+			      },
+				  dataType:"json",
+				  contentType : "application/json; charset=utf-8",
+				  success : function(res){
+				  		$.ajax({
+							  type:"post",
+							  url:'register.do',
+							  data:{
+								  
+							  },
+							  success:function(res){
+										window.location.href=res+".do";
+							  }
+							  
+				  		})
+				  },
+				  error : function(request, status, error) { // 결과 에러 콜백함수
+			  			console.log(error);
+				  }
+	  		})
+  			
   		}
   		return;
   	}
