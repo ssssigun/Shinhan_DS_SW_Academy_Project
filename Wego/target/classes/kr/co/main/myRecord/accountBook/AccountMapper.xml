@@ -53,21 +53,28 @@
 	<!-- 일 별 예산 전체 금액, 사용 전체 금액, 둘의 비율 가져오기 -->
 	<select id="getTotalForDay" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
 		SELECT Ifnull(Round(pd.total_budget / ( pd.total_budget + u.total_amount ) * 100), 0) rate,
-		       u.total_amount  amount,
-		       pd.total_budget budget
-		FROM   (SELECT Sum(amount) total_amount,
-		               usage_date
-		        FROM   wego.usage
-		        WHERE  plan_pk = #{plan_pk}
-		               AND usage_date BETWEEN #{start_date} AND #{end_date}
-		        GROUP  BY usage_date) u,
-		       (SELECT Sum(budget)                         total_budget,
-		               Date_format(start_time, '%Y-%m-%d') d
-		        FROM   wego.plan_detail
-		        WHERE  plan_pk = #{plan_pk}
-		               AND Date_format(start_time, '%Y-%m-%d') BETWEEN #{start_date} AND #{end_date}
-		        GROUP  BY d) pd
-		WHERE  u.usage_date = pd.d;
+			     u.total_amount  amount,
+			     pd.total_budget budget
+		FROM   (SELECT Ifnull(Sum(amount), 0) total_amount
+				   FROM   wego.usage
+				   WHERE  plan_pk = #{plan_pk}
+				   	      AND usage_date BETWEEN #{start_date} AND #{end_date}
+			     GROUP  BY usage_date
+				   UNION ALL
+				   SELECT 0 total_amount
+				   FROM   dual
+           ORDER BY total_amount desc
+				   limit  1) u,
+			     (SELECT Sum(budget) total_budget
+				   FROM   wego.plan_detail
+				   WHERE  plan_pk = #{plan_pk}
+					        AND Date_format(start_time, '%Y-%m-%d') BETWEEN #{start_date} AND #{end_date}
+				   GROUP  BY Date_format(start_time, '%Y-%m-%d')
+				   UNION ALL
+				   SELECT 0 total_budget
+				   FROM   dual
+           ORDER BY total_budget desc
+				   limit  1) pd;
 	</select>
 	<select id="getTotalForAll" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
 		SELECT Ifnull(Round(pd.total_budget / ( pd.total_budget + u.total_amount ) * 100), 0) rate,
@@ -83,12 +90,41 @@
 	
 	<!-- 일 별 예산과 실제 사용 금액 묶어서 가져오기 -->
 	<select id="getCompareForUsageListForDay" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
-		SELECT u.location_name, IFNULL(p.budget, 0) budget, u.amount, IFNULL(ROUND(p.budget/(p.budget+u.amount)*100), 0) rate
-		FROM (SELECT l.location_name, u.location_pk, u.plan_pk, u.plan_detail_pk, u.amount, u.usage_date FROM wego.usage u, wego.location l WHERE l.location_pk = u.location_pk) u
-		LEFT JOIN
-		     wego.plan_detail p
-		ON u.plan_pk = p.plan_pk AND u.location_pk = p.location_pk
-		WHERE u.usage_date BETWEEN #{start_date} AND #{end_date} AND u.plan_pk = #{plan_pk};
+		SELECT	u_pd.date,
+						l.location_name,
+		        IFNULL(u_pd.budget, 0) budget,
+		        IFNULL(u_pd.amount, 0) amount,
+        		IFNULL(IF(u_pd.amount IS NULL, 100, ROUND(u_pd.budget/(u_pd.budget+u_pd.amount)*100)), 0) rate
+		FROM	(
+					SELECT	*
+					FROM	(SELECT	u.location_pk,
+												u.amount,
+												u.usage_date date,
+												u.plan_pk,
+												pd.plan_detail_pk,
+												pd.budget
+								FROM	wego.usage u
+										LEFT JOIN
+										wego.plan_detail pd
+								ON	    u.plan_detail_pk = pd.plan_detail_pk
+								WHERE	u.plan_pk = #{plan_pk}) u_pd
+								UNION
+								(SELECT	pd.location_pk,
+										null amount,
+										Date_format(pd.start_time, '%Y-%m-%d') date,
+										pd.plan_pk,
+										pd.plan_detail_pk,
+										pd.budget
+								FROM	wego.plan_detail pd
+								WHERE	pd.plan_pk = #{plan_pk}
+										AND pd.plan_detail_pk NOT IN (SELECT	u.plan_detail_pk
+																	 FROM		wego.usage u
+																	 WHERE		u.plan_pk = #{plan_pk}
+																				AND u.plan_detail_pk IS NOT NULL))
+					) u_pd,
+					wego.location l
+		WHERE	u_pd.location_pk = l.location_pk
+					AND u_pd.date BETWEEN #{start_date} AND #{end_date};
 	</select>
 	
 	<!-- 일 별 통계를 위한 카테고리 별 금액 -->
