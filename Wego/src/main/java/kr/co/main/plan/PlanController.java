@@ -151,7 +151,7 @@ public class PlanController {
 			StatisticsVO statisticsVO = new StatisticsVO();
 			
 			// 나중에 user_pk 받아오기!!
-			statisticsVO.setUser_pk(1);
+			statisticsVO.setUser_pk(Integer.parseInt(String.valueOf(plansDetails.get("user_pk"))));
 			for (List<String> planDetail : data) {
 				PlanDetailVO planDetailVO = new PlanDetailVO();
 				planDetailVO.setLocation_pk(Integer.parseInt(String.valueOf(planDetail.get(0))));
