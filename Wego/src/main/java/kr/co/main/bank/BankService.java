@@ -93,7 +93,9 @@ public class BankService {
 					else {
 						accountVO.setAmount_payment((long)(planDetailVO.getBudget() * ((Math.random() * 1.2) + 0.9)));
 					}
-					
+
+					System.out.println("얍");
+					System.out.println(planDetailVO.getStart_time() + " " + planDetailVO.getEnd_time());
 					accountVO.setDate(randomTime(planDetailVO.getStart_time(), planDetailVO.getEnd_time()));
 				}
 				if (chk) {
@@ -166,6 +168,7 @@ public class BankService {
 	}
 	
 	public Date randomTime(Date start_time, Date end_time) {
+		System.out.println(start_time + " " + end_time);
 		long diffMin = ((start_time.getTime() - end_time.getTime())) / 60000;
 		int random = (int)(Math.random() * (diffMin - 60));
 		return addMinute(start_time, random);
@@ -177,7 +180,9 @@ public class BankService {
 		
 		for (int i = 0; i < planPkList.size(); i++) {
 			List<BankAccountVO> temp = (List<BankAccountVO>) accountMap.get(String.valueOf(planPkList.get(i)));
-			mapper.insertAccountList(temp);
+			if (temp.size() > 0) {
+				mapper.insertAccountList(temp);
+			}
 			mapper.updateBankPlanChk(planPkList.get(i));
 		}
 	}
@@ -205,11 +210,16 @@ public class BankService {
 	}
 	
 	public Map<String, Object> selectPlanDetailForInsert() {
+		List<Integer> planPkList = new ArrayList<Integer>();
+		
 		for (int i = 0; i < bankPlanList.size(); i++) {
+			System.out.println(i);
 			Map<String, Object> inputMap = new HashMap<String, Object>();
 			
 			inputMap.put("plan_pk", bankPlanList.get(i).getPlan_pk());
+			planPkList.add(bankPlanList.get(i).getPlan_pk());
 			
+			Map<Integer, BankAccountVO> bankPlanDetailMap = new HashMap<>();
 			List<BankAccountVO> accountList = (List<BankAccountVO>) accountForInsert.get(String.valueOf(bankPlanList.get(i).getPlan_pk()));
 			for (int j = 0; j < accountList.size(); j++) {
 				BankAccountVO vo = accountList.get(j);
@@ -219,17 +229,29 @@ public class BankService {
 				inputMap.put("date", vo.getDate());
 				BankPlanDetailVO planDetailVO = mapper.selectPlanDetailForInsert(inputMap);
 				if (planDetailVO != null) {
-					vo.setPlan_detail_pk(planDetailVO.getPlan_detail_pk());
+					if (bankPlanDetailMap.containsKey(planDetailVO.getPlan_detail_pk())) {
+						BankAccountVO existing = bankPlanDetailMap.get(planDetailVO.getPlan_detail_pk());
+						if (diffTime(planDetailVO.getStart_time(), existing.getDate()) > diffTime(planDetailVO.getStart_time(), vo.getDate())) {
+							bankPlanDetailMap.put(planDetailVO.getPlan_detail_pk(), vo);
+							existing.setPlan_detail_pk(null);
+							vo.setPlan_detail_pk(planDetailVO.getPlan_detail_pk());
+						}
+					} else {
+						vo.setPlan_detail_pk(planDetailVO.getPlan_detail_pk());
+					}
 					vo.setCategory(planDetailVO.getCategory());
 					vo.setLocation_pk(planDetailVO.getLocation_pk());
+					bankPlanDetailMap.put(planDetailVO.getPlan_detail_pk(), vo);
 				} else {
 					Map<String, Object> locationInfo = mapper.selectLocationPk(vo.getAccount_pk());
 					vo.setCategory((Integer) locationInfo.get("category"));
 					vo.setLocation_pk((Integer) locationInfo.get("location_pk"));
 				}
 			}
+			System.out.println("끗!");
 		}
 		
+		accountForInsert.put("planPkList", planPkList);
 		return accountForInsert;
 	}
 	
@@ -262,6 +284,10 @@ public class BankService {
 			case 6: return("leisure");
 			default: return("");
 		}
+	}
+	
+	public long diffTime(Date date1, Date date2) {
+		return Math.abs(date1.getTime() - date2.getTime());
 	}
 	
 //	///====

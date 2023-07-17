@@ -37,3 +37,24 @@
 .tableTitle {
 	background-color: lightgrey;
 }
+
+.loading {
+	width: 100%;
+	height: 100%;
+	
+	position: absolute;
+	z-index: 1000;
+	
+	background-color: rgba(0, 0, 0, 0.4);
+	
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading img {
+  width: 100px;
+  height: 100px;
+}
+.display-none {
+	display: none;
+}

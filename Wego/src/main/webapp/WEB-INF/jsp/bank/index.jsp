@@ -19,16 +19,9 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(data) {
-				<!--
-				var update = data["updatePlanState"];
 				var insert = data["insertBankPlanChk"];
 				
-				if (update == insert) {
-					alert(update + "개 여행의 state가 변경되었습니다.");
-				} else {
-					alert("plan state의 update 개수와 bank plan chk의 insert 개수가 다릅니다.\n데이터베이스를 확인해주십시오.");
-				}
-				-->
+				alert(insert + "개 여행이 bankPlanChk 테이블에 insert 되었습니다.");
 			}
 		});
 	}

@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.co.main.first.UserVO;
 
 
 @Controller
@@ -23,7 +27,9 @@ public class AccountBookController {
 	 * 페이지에 전체 통계들 띄우기
 	 */
 	@GetMapping("/index.do")
-	public String index(int user_pk, Model model) {
+	public String index(HttpSession sess, Model model) {
+		UserVO user = (UserVO)sess.getAttribute("loginSession");
+		int user_pk = user.getUser_pk();
 		// 비교 통계
 		model.addAttribute("totalRate", Service.totalRate(user_pk));
 		model.addAttribute("totalRateRadar", Service.getTotalRateForRadar(user_pk));

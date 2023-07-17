@@ -11,9 +11,19 @@
 	</update>
 	
 	<insert id="insertBankPlanChk">
-		INSERT INTO wego.bank_plan_chk(plan_pk)
-		SELECT plan_pk
-		FROM wego.plan WHERE plan_pk NOT IN(SELECT plan_pk FROM wego.bank_plan_chk) AND state = 1;
+		<![CDATA[
+			INSERT
+			INTO		wego.bank_plan_chk(plan_pk)
+			SELECT	plan_pk
+			FROM		wego.plan
+			WHERE		plan_pk NOT IN	(SELECT plan_pk
+															FROM wego.bank_plan_chk)
+							AND plan_pk IN	(SELECT	a.plan_pk
+															FROM		(SELECT	plan_pk
+																			FROM	wego.plan
+			                                WHERE	state = 0
+																						AND end_date < SYSDATE()) a);
+		]]>
 	</insert>
 	
 	<select id="selectEndPlan" resultType="kr.co.main.bank.BankPlanVO">

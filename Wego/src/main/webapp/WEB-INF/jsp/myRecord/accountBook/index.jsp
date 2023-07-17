@@ -174,12 +174,12 @@
 					+'<div class="modalContentWrapper">'
 					+  '<table class="modalGraphTbl">'
 					+    '<tr class="modalGraphTr">'
-					+      '<td class="modalGraphTd">'+(data["1"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["1"].rate+'%;">'+addComma(data["1"].sum)+'</div>' : '')+'</td>'
-					+      '<td class="modalGraphTd">'+(data["2"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["2"].rate+'%;">'+addComma(data["2"].sum)+'</div>' : '')+'</td>'
-					+      '<td class="modalGraphTd">'+(data["3"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["3"].rate+'%;">'+addComma(data["3"].sum)+'</div>' : '')+'</td>'
-					+      '<td class="modalGraphTd">'+(data["4"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["4"].rate+'%;">'+addComma(data["4"].sum)+'</div>' : '')+'</td>'
-					+      '<td class="modalGraphTd">'+(data["5"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["5"].rate+'%;">'+addComma(data["5"].sum)+'</div>' : '')+'</td>'
-					+      '<td class="modalGraphTd">'+(data["6"].rate > 0 ? '<div class="modalGraphStick" style="height:'+data["6"].rate+'%;">'+addComma(data["6"].sum)+'</div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["1"].rate > 0 ? '<div class="graphAmount">'+addComma(data["1"].sum)+'</div><div class="modalGraphStick" style="height:'+data["1"].rate+'%;"></div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["2"].rate > 0 ? '<div class="graphAmount">'+addComma(data["2"].sum)+'</div><div class="modalGraphStick" style="height:'+data["2"].rate+'%;"></div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["3"].rate > 0 ? '<div class="graphAmount">'+addComma(data["3"].sum)+'</div><div class="modalGraphStick" style="height:'+data["3"].rate+'%;"></div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["4"].rate > 0 ? '<div class="graphAmount">'+addComma(data["4"].sum)+'</div><div class="modalGraphStick" style="height:'+data["4"].rate+'%;"></div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["5"].rate > 0 ? '<div class="graphAmount">'+addComma(data["5"].sum)+'</div><div class="modalGraphStick" style="height:'+data["5"].rate+'%;"></div>' : '')+'</td>'
+					+      '<td class="modalGraphTd">'+(data["6"].rate > 0 ? '<div class="graphAmount">'+addComma(data["6"].sum)+'</div><div class="modalGraphStick" style="height:'+data["6"].rate+'%;"></div>' : '')+'</td>'
 					+    '</tr>'
 					+    '</hr>'
 					+    '<tr class="modalGraphTitelTr">'
@@ -220,6 +220,7 @@
 	});
 	
 	/* 하단 사용내역 게시물 불러오기 */
+	var modalUse = false;
 	function getReportList(user_pk, page_num) {
 		console.log("page_num:" + page_num);
 		$.ajax({
@@ -261,7 +262,10 @@
 					$('#beforePage').removeAttr("style");
 				}
 
-				modal();
+				if(!modalUse){
+					modal();
+					modalUse = true;
+				}
 			}
 		});
 
@@ -298,7 +302,7 @@
   <div class="contents">
     <div class="contentsWrapper">
       <div class="smallMenuWrapper">
-        <a href="" class="bigbigLetter">여행 기록</a>
+        <a href="/main/myRecord/plan/index.do" class="bigbigLetter">여행 기록</a>
         <a href="" class="bigbigLetter selectLetter">가계부</a>
       </div>
       <div class="infoWrapper">
@@ -313,7 +317,7 @@
 	                <td class="td titleTd">
 	                  전체
 	                </td>
-	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="totalRate"></div></div></td>
+	                <td class="td" ><div class="stickGraphWrapper stick" id="totalRateWrapper"><div class="blueStick" id="totalRate" style="width: ${totalRate.total}%"></div></div></td>
 	                <td class="td rightTd titleTd">
 	                  전체
 	                </td>
@@ -322,7 +326,7 @@
 	                <td class="td titleTd">
 	                  식비
 	                </td>
-	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="foodRate"></div></div></td>
+	                <td class="td" ><div class="stickGraphWrapper" id="foodRateWrapper"><div class="blueStick" id="foodRate" style="width: ${totalRate.food}%"></div></div></td>
 	                <td class="td rightTd titleTd">
 	                  식비
 	                </td>
@@ -331,7 +335,7 @@
 	                <td class="td titleTd">
 	                  쇼핑비
 	                </td>
-	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="shoppingRate"></div></div></td>
+	                <td class="td" ><div class="stickGraphWrapper" id="shoppingRateWrapper"><div class="blueStick" id="shoppingRate" style="width: ${totalRate.shopping}%"></div></div></td>
 	                <td class="td rightTd titleTd">
 	                  쇼핑비
 	                </td>
@@ -340,7 +344,7 @@
 	                <td class="td titleTd">
 	                  문화시설비
 	                </td>
-	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="cultureRate"></div></div></td>
+	                <td class="td" ><div class="stickGraphWrapper" id="cultureRateWrapper"><div class="blueStick" id="cultureRate" style="width: ${totalRate.culture}%"></div></div></td>
 	                <td class="td rightTd titleTd">
 	                  문화시설비
 	                </td>
@@ -349,7 +353,7 @@
 	                <td class="td titleTd">
 	                  관광지비
 	                </td>
-	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="tourRate"></div></div></td>
+	                <td class="td" ><div class="stickGraphWrapper" id="tourRateWrapper"><div class="blueStick" id="tourRate" style="width: ${totalRate.tour}%"></div></div></td>
 	                <td class="td rightTd titleTd">
 	                  관광지비
 	                </td>
@@ -358,7 +362,7 @@
 	                <td class="td titleTd">
 	                  레포츠비
 	                </td>
-	                <td class="td" ><div class="stickGraphWrapper"><div class="blueStick" id="leisureRate"></div></div></td>
+	                <td class="td" ><div class="stickGraphWrapper" id="leisureRateWrapper"><div class="blueStick" id="leisureRate" style="width: ${totalRate.leisure}%"></div></div></td>
 	                <td class="td rightTd titleTd">
 	                  레포츠비
 	                </td>
@@ -387,16 +391,55 @@
 
 <!-- 파란 노란 전체 통계를 보여주기 위한 스타일 -->
 <c:if test="${totalPage gt 0}">
-	<script type="text/javascript">
-		<%
-			TotalRateVO totalRate = (TotalRateVO) request.getAttribute("totalRate");
-		%>
-		document.getElementById("totalRate").style.width = <%= totalRate.getTotal() %> + "%";
-		document.getElementById("foodRate").style.width = <%= totalRate.getFood() %> + "%";
-		document.getElementById("shoppingRate").style.width = <%= totalRate.getShopping() %> + "%";
-		document.getElementById("cultureRate").style.width = <%= totalRate.getCulture() %> + "%";
-		document.getElementById("tourRate").style.width = <%= totalRate.getTour() %> + "%";
-		document.getElementById("leisureRate").style.width = <%= totalRate.getLeisure() %> + "%";
+	<script>
+		if (${totalRate.total} > 0) {
+			$("#totalRate").text("${totalRate.total}%");
+		} else {
+			$("#totalRate").css("padding", "0");
+		}
+		if (${totalRate.total} < 100) {
+			$("#totalRateWrapper").append('<div class="yellowStick">'+(100-${totalRate.total})+"%"+'</div>');
+		}
+		if (${totalRate.food} > 0) {
+			$("#foodRate").text("${totalRate.food}%");
+		} else {
+			$("#foodRate").css("padding", "0");
+		}
+		if (${totalRate.food} < 100) {
+			$("#foodRateWrapper").append('<div class="yellowStick">'+(100-${totalRate.food})+"%"+'</div>');
+		}
+		if (${totalRate.shopping} > 0) {
+			$("#shoppingRate").text("${totalRate.shopping}%");
+		} else {
+			$("#shoppingRate").css("padding", "0");
+		}
+		if (${totalRate.shopping} < 100) {
+			$("#shoppingRateWrapper").append('<div class="yellowStick">'+(100-${totalRate.shopping})+"%"+'</div>');
+		}
+		if (${totalRate.culture} > 0) {
+			$("#cultureRate").text("${totalRate.culture}%");
+		} else {
+			$("#cultureRate").css("padding", "0");
+		}
+		if (${totalRate.culture} < 100) {
+			$("#cultureRateWrapper").append('<div class="yellowStick">'+(100-${totalRate.culture})+"%"+'</div>');
+		}
+		if (${totalRate.tour} > 0) {
+			$("#tourRate").text("${totalRate.tour}%");
+		} else {
+			$("#tourRate").css("padding", "0");
+		}
+		if (${totalRate.tour} < 100) {
+			$("#tourRateWrapper").append('<div class="yellowStick">'+(100-${totalRate.tour})+"%"+'</div>');
+		}
+		if (${totalRate.leisure} > 0) {
+			$("#leisureRate").text("${totalRate.leisure}%");
+		} else {
+			$("#leisureRate").css("padding", "0");
+		}
+		if (${totalRate.leisure} < 100) {
+			$("#leisureRateWrapper").append('<div class="yellowStick">'+(100-${totalRate.leisure})+"%"+'</div>');
+		}
 	</script>
 	
 	<!-- chartjs 스크립트 -->
