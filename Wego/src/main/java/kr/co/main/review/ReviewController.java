@@ -1,18 +1,31 @@
 
 package kr.co.main.review;
 
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
+import java.io.File;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+
+
+import kr.co.main.myRecord.plan.MyRecordPlanVO;
 
 @Controller
 @RequestMapping("/review")
@@ -292,7 +305,7 @@ public class ReviewController {
 	//복붙
 	@Transactional
 	@PostMapping("reviewing2.do")
-	public String savingReiews2(HttpServletRequest request, MyRecordPlanVO vo, HttpSession sess, @RequestParam("file") List<MultipartFile> files) {
+	public String savingReiews2(HttpServletRequest request, ReviewVO vo, HttpSession sess, @RequestParam("file") List<MultipartFile> files) {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
 		String ppk = request.getParameter("plan_pk");
@@ -301,8 +314,8 @@ public class ReviewController {
 		vo.setTitle(title);
 		vo.setContent(contents);
 		vo.setState(0);
-		service.setReviewed2(plan_pk);
-		service.savingReviews(vo);
+		rservice.setReviewed2(plan_pk);
+		rservice.savingReviews(vo);
 		int randn = (int)(Math.random() * files.size()-1);
 		System.out.println(randn);
 		int fr = 0;
@@ -324,7 +337,7 @@ public class ReviewController {
 					vo.setFilestate(1);
 				else
 					vo.setFilestate(0);
-				service.savingReview_image(vo);
+				rservice.savingReview_image(vo);
 				
 			}catch(IOException e){
 				e.printStackTrace();

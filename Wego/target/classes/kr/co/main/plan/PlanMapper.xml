@@ -28,6 +28,16 @@
 		SELECT COUNT(*) FROM wego.location
 		<include refid="whereSql"/>
 	</select>
+	
+	<select id="checkDate" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM wego.plan
+		WHERE user_pk = ${user_pk}
+		AND plan_pk != ${plan_pk}
+		AND start_date &lt;= '${end_date}'
+		AND end_date &gt;= '${start_date}'
+	</select>
+	
 
 	<select id="selectLocationPer5" resultType="kr.co.main.plan.LocationVO"> 
 		SELECT *

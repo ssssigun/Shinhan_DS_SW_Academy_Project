@@ -254,10 +254,10 @@ public class ReviewService {
 	public void setReviewed2(int ppk) {
 		mapper.setReviewed2(ppk);
 	}
-	public void savingReviews(MyRecordPlanVO vo) {
+	public void savingReviews(ReviewVO vo) {
 		mapper.savingReviews(vo);
 	}
-	public void savingReview_image(MyRecordPlanVO vo) {
+	public void savingReview_image(ReviewVO vo) {
 		mapper.savingReview_image(vo);
 	}
 	
