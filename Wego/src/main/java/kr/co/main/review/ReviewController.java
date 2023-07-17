@@ -154,10 +154,11 @@ public class ReviewController {
 	
 	
 	//댓글수정`
-	@PostMapping("commentUpdate.do")
-	public String commentUpdate(Model model, @RequestParam("review_comment_pk") int review_comment_pk, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+	/*@PostMapping("commentUpdate.do")
+	public String commentUpdate(Model model, @RequestParam("review_comment_pk") String review_comment_pk, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
 		if(rservice.commentUpdate(vo)) {
-			vo.setReview_comment_pk(review_comment_pk);
+			int commentPk = Integer.parseInt(review_comment_pk); 
+			vo.setReview_comment_pk(commentPk);
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
 			model.addAttribute("url", "view.do?review_pk="+vo.getReview_pk()+"&user_pk="+vo.getUser_pk());
 			
@@ -165,7 +166,27 @@ public class ReviewController {
 			model.addAttribute("msg", "수정 실패");
 		}
 		return "include/alert";
+	}*/
+	
+	@PostMapping("commentUpdate.do")
+	public String commentUpdate(Model model, @RequestParam("review_comment_pk") String review_comment_pk, ReviewVO vo) {
+	    try {
+	        int commentPk = Integer.parseInt(review_comment_pk);
+	        // 유효한 정수로 변환된 경우의 처리 로직
+	        vo.setReview_comment_pk(commentPk);
+	        if (rservice.commentUpdate(vo)) {
+	            model.addAttribute("msg", "정상적으로 수정되었습니다.");
+	            model.addAttribute("url", "view.do?review_pk=" + vo.getReview_pk() + "&user_pk=" + vo.getUser_pk());
+	        } else {
+	            model.addAttribute("msg", "수정 실패");
+	        }
+	    } catch (NumberFormatException e) {
+	        // 유효하지 않은 정수인 경우의 처리 로직
+	        model.addAttribute("msg", "유효하지 않은 댓글 ID입니다.");
+	    }
+	    return "include/alert";
 	}
+
 	
 	
 	//댓글삭제
