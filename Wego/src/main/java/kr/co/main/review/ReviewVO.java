@@ -60,9 +60,11 @@ public class ReviewVO {
 	private int review_image_pk;
 //	Plan_pk
 //	Review_pk
+	private String imagename;
 	private String filename_org;
 	private String filename_save;
-	private String filesize;
+	private long filesize;
+	private int filestate;
 	
 	//====================
 	//4. review_recommend (여행 후기 추천)
