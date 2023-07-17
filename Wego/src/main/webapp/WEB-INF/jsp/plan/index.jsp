@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page language="java" %>
+<%@ page import="java.io.*, java.util.*, javax.servlet.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -443,8 +445,10 @@
 				for (var i = 1; i < 8; i++) {
 					$(".ori" + i).empty();
 					$(".point" + i).empty();
+					$(".bonus" + i).empty();
 					$(".ori" + i).append(response[0][i]);
 					$(".point" + i).append(response[1][i]);
+					$(".bonus" + i).append(response[2][i]);
 				}
 			},
 			error : function() {
@@ -528,7 +532,8 @@
 	
 	// 임시저장 혹은 저장 하는 함수
 	function submitPlan(_state, _plan_pk, cancelBudget) {
-	  var user_pk = 1; // 나중에 유저 pk 받아오게 변환
+
+	  var user_pk = ${loginSession.user_pk};
 	  var title = $(".textInput").val();
 	  var num_of_people = $('.number_of_people').val();
 	  var start_date = $('.startDate').val();
@@ -690,7 +695,8 @@
 
 		//나가기 버튼 눌렀을 때 메인으로 반환
 		$(".outBtn").click(function(e) {
-			window.location.href = '/main/main.do';
+			// user_pk로 변경
+			window.location.href = '/main/index.do';
 		});
 		//
 
@@ -1132,43 +1138,51 @@
 								<th></th>
 								<th>예산</th>
 								<th>예상 포인트</th>
+								<th>보너스 포함</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>총 식비:</td>
 								<td class="money"><span class="ori1"></span>원</td>
-								<td class="money"><span class="point1"></span>원</td>
+								<td class="money"><span class="point1"></span>P</td>
+								<td class="money"><span class="bonus1"></span>P</td>
 							</tr>
 							<tr>
 								<td>총 숙박비:</td>
 								<td class="money"><span class="ori2"></span>원</td>
-								<td class="money"><span class="point2"></span>원</td>
+								<td class="money"><span class="point2"></span>P</td>
+								<td class="money"><span class="bonus2"></span>P</td>
 							</tr>
 							<tr>
 								<td>총 쇼핑비:</td>
 								<td class="money"><span class="ori3"></span>원</td>
-								<td class="money"><span class="point3"></span>원</td>
+								<td class="money"><span class="point3"></span>P</td>
+								<td class="money"><span class="bonus3"></span>P</td>
 							</tr>
 							<tr>
 								<td>총 문화시설비:</td>
 								<td class="money"><span class="ori4"></span>원</td>
-								<td class="money"><span class="point4"></span>원</td>
+								<td class="money"><span class="point4"></span>P</td>
+								<td class="money"><span class="bonus4"></span>P</td>
 							</tr>
 							<tr>
 								<td>총 관광지비:</td>
 								<td class="money"><span class="ori5"></span>원</td>
-								<td class="money"><span class="point5"></span>원</td>
+								<td class="money"><span class="point5"></span>P</td>
+								<td class="money"><span class="bonus5"></span>P</td>
 							</tr>
 							<tr>
 								<td>총 레포츠비:</td>
 								<td class="money"><span class="ori6"></span>원</td>
-								<td class="money"><span class="point6"></span>원</td>
+								<td class="money"><span class="point6"></span>P</td>
+								<td class="money"><span class="bonus6"></span>P</td>
 							</tr>
 							<tr style="border-top: 2px solid black; margin-top: 10px; height: 80px; line-height: 80px;">
 								<td>총 금액:</td>
 								<td class="money"><span class="ori7"></span>원</td>
-								<td class="money"><span class="point7"></span>원</td>
+								<td class="money"><span class="point7"></span>P</td>
+								<td class="money"><span class="bonus7"></span>P</td>
 							</tr>
 						</tbody>
 					</table>
