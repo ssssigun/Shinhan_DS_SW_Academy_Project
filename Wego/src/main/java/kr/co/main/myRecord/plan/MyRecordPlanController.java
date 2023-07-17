@@ -150,6 +150,6 @@ public class MyRecordPlanController {
 	@GetMapping("viewingTR.do")
 	public String viewingTR(@RequestParam("plan_pk")String plan_pk, Model model, HttpServletRequest request) {
 		
-		return "/myRecord/plan/review_update";
+		return "/review/edit.do?review_pk=${review_pk}";
 	}
 }

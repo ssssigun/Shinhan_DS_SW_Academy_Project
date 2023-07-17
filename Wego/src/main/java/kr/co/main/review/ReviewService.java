@@ -8,6 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.main.myRecord.plan.MyRecordPlanVO;
+
 @Service
 public class ReviewService {
 
@@ -259,6 +261,11 @@ public class ReviewService {
 	}
 	public void savingReview_image(ReviewVO vo) {
 		mapper.savingReview_image(vo);
+	}
+	
+	public List<MyRecordPlanVO> viewingOLR(int x) {
+		List<MyRecordPlanVO> list = mapper.viewingOLR(x);
+		return list;
 	}
 	
 }
