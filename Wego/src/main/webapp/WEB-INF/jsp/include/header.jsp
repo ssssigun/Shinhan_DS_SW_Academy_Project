@@ -20,7 +20,7 @@
     </div>
     <div class="headerBottom">
       <div class="picBottom">
-        <a href="/main/main.do"><img src="/main/image/logoMain.png" alt=""></a>
+        <a href="/main/index.do"><img src="/main/image/logoMain.png" alt=""></a>
         <img class="admin" src="/main/image/logo_admin.png" alt="">
       </div>
       <ul>

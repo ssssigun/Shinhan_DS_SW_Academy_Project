@@ -5,20 +5,29 @@
 	<select id="checkNickName" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM wego.user WHERE nickname = #{nickName}
 	</select>
-	<!-- 유저 등록을 하기 위해서 user에 insert -->
- 	<insert id="register" parameterType="String">
- 		INSERT INTO user (UserName, Email, NickName, Regdate, Role, BanPost, SecretKey)
- 		VALUE ('kim', 'kim2389@naver.com', #{nickName}, curdate(), 0, 0, 1)
- 	</insert>
  	<!-- 토큰을 파싱에서 pk가져오기 -->
  	<select id="findUser" parameterType="String" resultType="kr.co.main.first.UserVO">
  		SELECT *
  		FROM wego.user
  		WHERE SecretKey = #{ id }
  	</select>
+	<!-- 유저 등록을 하기 위해서 user에 insert -->
+ 	<insert id="insertUser" parameterType="kr.co.main.first.UserVO">
+ 		INSERT INTO user (UserName, Email, NickName, Regdate, Role, BanPost, SecretKey)
+ 		VALUE (#{userName}, #{email}, #{nickName}, curdate(), 0, 0, #{SecretKey});
+ 	</insert>
  	
- 	
- 	
+ 	<insert id="insertInfo" parameterType="kr.co.main.first.UserVO">
+ 	<!-- statistics 테이블 값 두개 생성 -->
+ 		INSERT INTO statistics (User_pk, Food, Accommodation, shopping, Culture, Tour, Leisuer, State)
+ 		VALUE (#{User_pk}, 0, 0, 0, 0, 0, 0,0);
+ 		
+ 		INSERT INTO statistics (User_pk, Food, Accommodation, shopping, Culture, Tour, Leisuer, State)
+ 		VALUE (#{User_pk}, 0, 0, 0, 0, 0, 0,1);
+	<!-- card 테이블 생성 -->
+		INSERT INTO card (User_pk, CardNum)
+ 		VALUE (#{User_pk},#{creditcardnumber});
+ 	</insert>
  	
 </mapper>
 

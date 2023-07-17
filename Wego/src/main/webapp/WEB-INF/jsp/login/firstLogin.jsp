@@ -65,9 +65,9 @@
 		}else if(confirm("등록하시겠습니까?")){
 	  		$.ajax({
 				  type:"post",
-				  url:'http://localhost:8080/api/userRegister.do',
+				  url:'http://192.168.0.132:8080/api/userRegister.do',
 				  data:JSON.stringify({
-					  'email': ${loginSession.email}
+					  'id': ${id}
 				  }),
 				  beforeSend: function (xhr) {
 			            xhr.setRequestHeader("Content-type","application/json");
@@ -77,10 +77,14 @@
 				  contentType : "application/json; charset=utf-8",
 				  success : function(res){
 				  		$.ajax({
-							  type:"post",
+							  type:"post", 
 							  url:'register.do',
 							  data:{
-								  
+								  "secretKey" = res["id"],
+								  "creditcardnumber" : res["creditcardnumber"],
+								  "userName" : res["name"],
+								  "email" : res["email"],
+								  "nickName" : $("#nickName").val()
 							  },
 							  success:function(res){
 										window.location.href=res+".do";
@@ -88,8 +92,7 @@
 							  
 				  		})
 				  },
-				  error : function(request, status, error) { // 결과 에러 콜백함수
-			  			console.log(error);
+				  error : function(request, status, error) { // 결과 에러
 				  }
 	  		})
   			

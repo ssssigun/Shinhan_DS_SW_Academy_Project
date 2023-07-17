@@ -14,4 +14,6 @@ public class UserVO {
 	private int role;
 	private int BanPost;
 	private String secretKey;
+	//카드 등록을 위해서
+	private String creditcardnumber;
 }

@@ -10,12 +10,14 @@ public class FirstService {
 	public int checkNickName(String nickName) {
 		return fMapper.checkNickName(nickName);
 	}
-	
-	public int register(String nickName) {
-		return fMapper.register(nickName);
-	}
 	public UserVO findUser(String id) {
 		return fMapper.findUser(id);
+	}
+	public int insertUser(UserVO vo) {
+		return fMapper.insertUser(vo);
+	}
+	public int insertInfo(UserVO vo) {
+		return fMapper.insertInfo(vo);
 	}
 	
 }
