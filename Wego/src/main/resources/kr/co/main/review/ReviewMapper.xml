@@ -185,7 +185,9 @@
 	</select>
 	
 	<select id="view" parameterType="kr.co.main.review.ReviewVO" resultType="kr.co.main.review.ReviewVO">
-		SELECT * FROM wego.review WHERE review_pk=#{review_pk}
+		SELECT *,
+			(SELECT filename_save FROM wego.review_image WHERE review_pk = wego.review.review_pk AND filestate = 1 LIMIT 1) AS imagename
+		FROM wego.review WHERE review_pk=#{review_pk}
 	</select>
 
 

@@ -344,7 +344,7 @@
               <div class="review_contents">
                 <dd class="letter">${data.content }</dd>
                 <div class="photoWrapper" style="background-color: transparent; position:relative;">
-	              	 <img src="${pageContext.request.contextPath}/image/client/${vo.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>  
+	              	 <img src="${pageContext.request.contextPath}/image/client/${data.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>  
                 </div>
                 <div class="image">
                   ${data.filename_org }
