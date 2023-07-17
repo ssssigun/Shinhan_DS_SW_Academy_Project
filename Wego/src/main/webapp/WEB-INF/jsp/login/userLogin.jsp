@@ -33,7 +33,7 @@
   		}
   		$.ajax({
 			  type:"post",
-			  url:'http://localhost:8080/generateToken',
+			  url:'http://192.168.0.132:8080/generateToken',
 			  data:JSON.stringify({
 				  'id': $("#id").val(),
 				  'pwd': $("#pwd").val()
