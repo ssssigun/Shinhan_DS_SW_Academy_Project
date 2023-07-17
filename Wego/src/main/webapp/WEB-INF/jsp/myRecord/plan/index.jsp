@@ -131,7 +131,7 @@
 	                			</c:when>
 	                			<c:otherwise>
 	                				<button class="smallBtn blueBwhiteL" style="color:black; cursor:default">한줄평 완료</button>
-	                				<button class="smallBtn blueBwhiteL" style="color:black" onclick="viewingTR(${vo.plan_pk})">후기 완료</button>
+	                				<button class="smallBtn blueBwhiteL" style="color:black; cursor:default"">후기 완료</button>
 	                			</c:otherwise>
 	                		</c:choose>	
 	                	</c:when>
@@ -143,7 +143,7 @@
 		                		</c:when>
 			                	<c:otherwise>
 			                		<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">한줄평 쓰기</button>
-		                			<button class="smallBtn blueBwhiteL" style="color:black" onclick="viewingTR(${vo.plan_pk})">후기 완료</button>
+		                			<button class="smallBtn blueBwhiteL" style="color:black; cursor:default"">후기 완료</button>
 			                	</c:otherwise>
 	                		</c:choose>	
 	                	</c:otherwise>
