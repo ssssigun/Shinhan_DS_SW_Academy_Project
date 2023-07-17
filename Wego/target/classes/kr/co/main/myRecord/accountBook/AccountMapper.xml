@@ -4,9 +4,33 @@
 
 	<!-- 막대를 위한 전체 비율 가져오기 -->
 	<select id="totalRate" parameterType="int" resultType="kr.co.main.myRecord.accountBook.TotalRateVO"> 
-		SELECT IFNULL(ROUND((b.sum/(b.sum+u.sum))*100),50) total, IFNULL(ROUND((b.food/(b.food + u.food))*100),50) food, IFNULL(ROUND(b.accommodation/(b.accommodation+u.accommodation)*100),50) accommodation, IFNULL(ROUND(b.shopping/(b.shopping+u.shopping)*100),50) shopping, IFNULL(ROUND(b.culture/(b.culture+u.culture)*100),50) culture, IFNULL(ROUND(b.tour/(b.tour+u.tour)*100),50) tour, IFNULL(ROUND(b.leisure/(b.leisure+u.leisure)*100),50) leisure
-		FROM (SELECT food+accommodation+shopping+culture+tour+leisure sum, food, accommodation, shopping, culture, tour, leisure FROM wego.statistics WHERE user_pk = #{user_pk} AND state = 0) b,
-			 (SELECT food+accommodation+shopping+culture+tour+leisure sum, food, accommodation, shopping, culture, tour, leisure FROM wego.statistics WHERE user_pk = #{user_pk} AND state = 1) u;
+		SELECT	IFNULL(ROUND((b.sum/(b.sum+u.sum))*100),50) total,
+						IFNULL(ROUND((b.food/(b.food + u.food))*100),50) food,
+						IFNULL(ROUND(b.accommodation/(b.accommodation+u.accommodation)*100),50) accommodation,
+						IFNULL(ROUND(b.shopping/(b.shopping+u.shopping)*100),50) shopping,
+						IFNULL(ROUND(b.culture/(b.culture+u.culture)*100),50) culture,
+						IFNULL(ROUND(b.tour/(b.tour+u.tour)*100),50) tour,
+						IFNULL(ROUND(b.leisure/(b.leisure+u.leisure)*100),50) leisure
+		FROM		(SELECT	food+accommodation+shopping+culture+tour+leisure sum,
+										food,
+		                accommodation,
+		                shopping,
+		                culture,
+		                tour,
+		                leisure
+						FROM	wego.statistics
+		        WHERE	user_pk = #{user_pk}
+									AND state = 0) b,
+						(SELECT	food+accommodation+shopping+culture+tour+leisure sum,
+										food,
+		                accommodation,
+		                shopping,
+		                culture,
+		                tour,
+		                leisure
+						FROM	wego.statistics
+		        WHERE	user_pk = #{user_pk}
+									AND state = 1) u;
 	</select>
 	
 	<!-- 가게부 하단 여행 리스트 불러오기 -->
@@ -129,22 +153,30 @@
 	
 	<!-- 일 별 통계를 위한 카테고리 별 금액 -->
 	<select id="getGraphForUsageListForDay" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
-		SELECT u.sum, u.category, u.usage_date, ROUND((u.sum/tu.sum)*100) rate
-		FROM (SELECT SUM(amount) sum, category, usage_date FROM wego.usage
-			GROUP BY category, usage_date, plan_pk
-			HAVING usage_date BETWEEN #{start_date} AND #{end_date} AND plan_pk = #{plan_pk}) u
-		, (SELECT SUM(amount) sum
-			FROM wego.usage
-			GROUP BY usage_date, plan_pk
-			HAVING usage_date BETWEEN #{start_date} AND #{end_date} AND plan_pk = #{plan_pk}) tu;
+		SELECT	u.usage_date,
+						u.category,
+        		SUM(u.amount) sum,
+		        ROUND(SUM(u.amount) / (SELECT	SUM(u.amount)
+																	FROM	wego.usage u
+																	WHERE	u.plan_pk = #{plan_pk}
+																				AND u.usage_date BETWEEN #{start_date} AND #{end_date}) * 100) rate
+		FROM	wego.usage u
+		WHERE	1=1
+					AND u.usage_date BETWEEN #{start_date} AND #{end_date}
+					AND u.plan_pk = #{plan_pk}
+		GROUP BY	u.usage_date,
+							u.category;      
 	</select>
 	<select id="getGraphForUsageListForAll" parameterType="Map" resultType="kr.co.main.myRecord.accountBook.AccountBookVO">
-		SELECT u.sum, u.category, ROUND((u.sum/tu.sum)*100) rate
-		FROM (SELECT SUM(amount) sum, category FROM wego.usage
-			WHERE plan_pk = 1 GROUP BY category) u
-		, (SELECT SUM(amount) sum
-			FROM wego.usage
-    	WHERE plan_pk = 1) tu;
+		SELECT	u.category,
+						SUM(u.amount) sum,
+						ROUND(SUM(u.amount) / (SELECT	SUM(u.amount)
+																	FROM	wego.usage u
+																	WHERE	u.plan_pk = #{plan_pk}) * 100) rate
+		FROM	wego.usage u
+		WHERE	1=1
+					AND u.plan_pk = #{plan_pk}
+		GROUP BY	u.category;
 	</select>
 	
 </mapper>

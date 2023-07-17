@@ -24,29 +24,7 @@
     	}
     </script>
     <script>
-    	document.getElementById("fileInput").addEventListener("change",function(){
-    		document.querySelector(".imageContainer").innerHTML = "";
-    		for(var i = 0; i<this.files.length; i++){
-    			var file = this.files[i];
-        		var reader = new FileReader();
-        		
-        		reader.onload = function(e){
-        			var img = document.createElement("img");
-        			img.src = e.target.result;
-        			img.width= 215;
-        			img.height = 169;
-        			
-        			var div = document.createElement("div");
-        			div.classList.add("imageWrapper");
-        			div.appendChild(img);
-        			
-        			
-        			document.querySelector(".imageContainer").appendChild(div);
-        		};
-        		
-        		reader.readAsDataURL(file);
-    		}
-    	});
+    	
     </script>
   </head>
   <body>
@@ -84,7 +62,6 @@
             <div class="Frame63">
             <div class="attachcount">
               <h3 class="imgattach">사진 첨부</h3>
-              <h3 class="imgcount">1/10</h3>
               </div>
               <h3 class="imgattachExplain">
                 가장 앞의 사진이 목록에서 대표사진으로 보여집니다.
@@ -160,7 +137,6 @@
             <div class="Frame63">
             <div class="attachcount">
               <h3 class="imgattach">사진 첨부</h3>
-              <h3 class="imgcount">1/10</h3>
               </div>
               <h3 class="imgattachExplain">
                 가장 앞의 사진이 목록에서 대표사진으로 보여집니다.
@@ -174,7 +150,7 @@
 	              <div class="photoWrapper"> 
 	              <div class="imageContainer" style="display:flex;"></div>
 	              <div class="Frame62">
-	              <input type="file" id="fileInput" name="file" style="display:none;" multiple/>
+	              <input type="file" id="fileInput" name="filename" style="display:none;" multiple/>
 	              <label for="fileInput">
 	              	<img class="addingPhoto" src="/main/image/review/BsFillPlusCircleFill.png"/>
 	              </label>              	
@@ -231,8 +207,8 @@
 		    return true;
 		  }
 	    
-	    const fileInput = document.getElementById('fileInput');
-	    const uploadButton = document.getElementById('')
+	    //const fileInput = document.getElementById('fileInput');
+	    //const uploadButton = document.getElementById('')
 	
  
     </script>  
@@ -243,6 +219,7 @@
     document.querySelector(".imageContainer").innerHTML = "";
     const fileInput = document.getElementById("fileInput");
     const files = fileInput.files;
+    console.log("files.length"+files.length);
     for (let i = 0; i < files.length; i++) {
       let file = files[i];
       let reader = new FileReader();

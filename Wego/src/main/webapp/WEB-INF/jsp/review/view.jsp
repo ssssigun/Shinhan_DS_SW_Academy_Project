@@ -241,7 +241,7 @@
           		  +'  <textarea rows="3" cols="100" name="comment_content" id="content" class="FrameCon letter text">'
           		  +     $('#' + review_comment_pk).text()
           		  +'  </textarea>'
-          		  + '    <input type="hidden" name="review_comment_pk" value="' + "${vo.review_comment_pk}" + '">'
+          		  + '    <input type="hidden" name="review_comment_pk" value="' + review_comment_pk.substr(7)+ '">'
           		  +'</div>' 
           		  +'<button class="editEnd smallBtn blueBwhiteL" type="submit">'
           		  +'수정완료'
@@ -250,7 +250,7 @@
             
             
             );
-    		
+    		console.log(review_comment_pk.substr(7));
     		
     	}
     	
