@@ -11,11 +11,14 @@
  		VALUE ('kim', 'kim2389@naver.com', #{nickName}, curdate(), 0, 0, 1)
  	</insert>
  	<!-- 토큰을 파싱에서 pk가져오기 -->
- 	<select id="findPk" parameterType="String" resultType="Integer">
- 		SELECT user_pk
+ 	<select id="findUser" parameterType="String" resultType="kr.co.main.first.UserVO">
+ 		SELECT *
  		FROM wego.user
  		WHERE SecretKey = #{ id }
  	</select>
+ 	
+ 	
+ 	
  	
 </mapper>
 

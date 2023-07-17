@@ -60,6 +60,28 @@ public class ReviewController {
 		model.addAttribute("recommend", rservice.reviewRecommend(vo));
 		//조회수 1씩 증가
 		model.addAttribute("watchPlus", rservice.reviewWatchPlus(vo));
+		
+		
+		//===사진===//
+		
+		
+		
+		//===사진===//
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return "review/view";
 	}
 		
@@ -119,15 +141,70 @@ public class ReviewController {
 	
 	//글수정
 	@PostMapping("update.do")
-	public String update(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+	public String update(HttpServletRequest request, Model model, ReviewVO vo, @RequestParam("file") List<MultipartFile> files) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+		//
+		vo.setState(0);
+		int randn = (int)(Math.random() * files.size()-1);
+		System.out.println(randn);
+		int fr = 0;
+		for(MultipartFile file : files) {
+			try {
+				String originalFilename = file.getOriginalFilename();
+				String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+				String uniqueFilename = UUID.randomUUID().toString() + fileExtension;
+				String filePath = request.getRealPath("/image/client/") + uniqueFilename;
+				File dest = new File(filePath);
+				FileUtils.writeByteArrayToFile(dest, file.getBytes());
+				file.transferTo(dest);
+				System.out.println("파일: "+ dest.getAbsolutePath());
+				vo.setFilename_org(originalFilename);
+				vo.setFilename_save(uniqueFilename);
+				vo.setFilesize(dest.length());
+				
+				if(fr == randn)
+					vo.setFilestate(1);
+				else
+					vo.setFilestate(0);
+				rservice.savingReview_image(vo);
+				
+			}catch(IOException e){
+				e.printStackTrace();
+			}finally {
+				System.out.println(fr);
+				fr++;
+			}
+		}
+		
+		
+		
+		
+		//
 		if(rservice.update(vo)) {
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
 			model.addAttribute("url", "index.do?review_pk="+vo.getReview_pk());
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 		} else {
 			model.addAttribute("msg", "수정 실패");
 			
 		}
+		
+		
+		
+		
+		
+		
+		
 		return "include/alert";
 	}
 	
