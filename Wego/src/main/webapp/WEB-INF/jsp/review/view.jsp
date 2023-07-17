@@ -57,7 +57,37 @@
     	
     	//조회수
     	
-    	
+    	$(document).ready(function() {
+  // 리뷰 조회 시 호출되는 함수
+  function addReviewWatch(reviewId) {
+    $.ajax({
+      url: 'reviewWatchPlus.do', // 리뷰 조회수 추가 API 엔드포인트
+      type: 'POST',
+      data: {
+        review_pk: reviewId // 리뷰 ID를 전달
+      },
+      success: function(response) {
+        // 응답 처리
+        console.log('Review watch added successfully.');
+        // 추가적인 동작을 수행하거나 메시지를 표시하는 등의 로직을 작성할 수 있습니다.
+      },
+      error: function(xhr, status, error) {
+        // 에러 처리
+        console.error('Error adding review watch:', error);
+        // 오류 메시지를 표시하거나 기타 오류 처리 로직을 작성할 수 있습니다.
+      }
+    });
+  }
+
+  // 리뷰 링크 클릭 시 이벤트 처리
+  $('.review-link').click(function(e) {
+    e.preventDefault(); // 기본 동작 방지
+    var reviewId = $(this).data('review-id'); // 클릭된 리뷰의 ID 가져오기
+    addReviewWatch(reviewId); // 리뷰 조회수 추가 함수 호출
+    window.location.href = $(this).attr('href'); // 링크 이동
+  });
+});
+
     	
     	
     	
@@ -332,6 +362,9 @@
               </div>
               <div class="review_contents">
                 <dd class="letter">${data.content }</dd>
+                <div class="photoWrapper" style="background-color: transparent; position:relative;">
+	              	 <img src="${pageContext.request.contextPath}/image/client/${vo.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>  
+                </div>
                 <div class="image">
                   ${data.filename_org }
                   <!-- <img src="../image/review/attachimg.png" />  -->
@@ -437,4 +470,75 @@
     </div>
   </div>
   </body>
+    
+<script>
+	    function goBack() {
+			  var yesORnot = confirm("목록으로 돌아가시겠습니까?\n"
+					  +"※주의)저장하지 않고 이동 시, 작성한 내용이 사라집니다.");
+			  if(yesORnot){
+				  history.go(-1); // A로 되돌아감
+			  }
+		    }
+	    
+	    function confirmation(){
+	    	var confirmed = confirm("저장하시겠습니까?");
+		    
+		    // 사용자가 "확인"을 선택한 경우에만 form 전송
+		    if (confirmed && validateForm()) {
+		      document.getElementById("datas").submit();
+		      alert("저장 완료하였습니다.");
+		    }else if(confirmed && ~validateForm()){
+		    	alert("모든 입력란을 채워주세요.");
+		    }else{
+		    	
+		    }
+	    }
+	    
+	    function validateForm() {
+		    var inputs = document.querySelectorAll('input[type="text"]');
+		    for (var i = 0; i < inputs.length; i++) {
+		      if (inputs[i].value === "") {
+		        return false;
+		      }
+		    }
+		    return true;
+		  }
+	    
+	    const fileInput = document.getElementById('fileInput');
+	    const uploadButton = document.getElementById('')
+	
+ 
+    </script>  
+<script>
+	
+
+  document.getElementById("fileInput").addEventListener("change", function() {
+    document.querySelector(".imageContainer").innerHTML = "";
+    const fileInput = document.getElementById("fileInput");
+    const files = fileInput.files;
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      let reader = new FileReader();
+      console.log(files[i]);
+      
+
+      reader.onload = function(e) {
+        let img = document.createElement("img");
+        img.src = e.target.result;
+        img.width = 215;
+        img.height = 169;
+
+        let div = document.createElement("div");
+        div.classList.add("imageWrapper");
+        div.appendChild(img);
+
+        document.querySelector(".imageContainer").appendChild(div);
+       
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+  
+  
+</script>
 </html>

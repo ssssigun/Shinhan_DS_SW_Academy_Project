@@ -59,7 +59,7 @@ public class ReviewController {
 		//추천수
 		model.addAttribute("recommend", rservice.reviewRecommend(vo));
 		//조회수 1씩 증가
-		model.addAttribute("watchPlus", rservice.reviewWatch(vo));
+		model.addAttribute("watchPlus", rservice.reviewWatchPlus(vo));
 		return "review/view";
 	}
 		
@@ -87,9 +87,10 @@ public class ReviewController {
 	//조회수추가
 	@PostMapping("reviewWatchPlus.do")
 	@ResponseBody
-	public int reviewWatchPlus(ReviewVO vo) {
-	    int updatedWatchCount = rservice.reviewWatchPlus(vo);
-	    return updatedWatchCount;
+	public int reviewWatchPlus(Model model, ReviewVO vo) {
+		model.addAttribute("watchPlus", rservice.reviewWatch(vo));
+	    int reviewWatchPlus = rservice.reviewWatchPlus(vo);
+	    return reviewWatchPlus;
 	}
 	
 	
@@ -350,5 +351,19 @@ public class ReviewController {
 		return "review/index";
 	}
 	
+	
+	@GetMapping("viewingOLR.do")
+	public String viewingOLR(@RequestParam("review_pk")String review_pk, Model model) {
+		int x = Integer.parseInt(review_pk);
+		model.addAttribute("result",rservice.viewingOLR(x));
+		model.addAttribute("flag","jv");
+		return "/review/view.do";
+	}
+	
+	@GetMapping("viewingTR.do")
+	public String viewingTR(@RequestParam("review_pk")String review_pk, Model model, HttpServletRequest request) {
 		
+		return "/myRecord/plan/review_update";
+	}
+	
 }

@@ -62,8 +62,18 @@
 	
 	<!-- 리뷰 조회수 추가 -->
 	<insert id="reviewWatchPlus" parameterType="kr.co.main.review.ReviewVO">
-		insert into wego.review_watch (review_pk, user_pk, plan_pk)
-		values (#{review_pk},#{user_pk},#{plan_pk});
+		INSERT INTO wego.review_watch
+		            (review_pk,
+		             user_pk,
+		             plan_pk)
+		SELECT #{review_pk},
+		       #{user_pk},
+		       #{plan_pk}
+		FROM   DUAL
+		WHERE  NOT EXISTS (SELECT user_pk
+		                   FROM   wego.review_watch
+		                   WHERE  review_pk = #{review_pk}
+		                          AND user_pk = #{user_pk}); 
 	</insert>
 	
 	<!-- 리뷰 추천수 -->
@@ -164,7 +174,8 @@
 		SELECT * ,
 			(SELECT nickname FROM wego.user WHERE  user_pk= wego.review.user_pk)  nickname,
 			(SELECT COUNT(*) FROM wego.review_watch WHERE review_pk = wego.review.review_pk) AS review_watch_count,
-			(SELECT COUNT(*) FROM wego.review_recommend WHERE review_pk = wego.review.review_pk) AS review_recommend_count
+			(SELECT COUNT(*) FROM wego.review_recommend WHERE review_pk = wego.review.review_pk) AS review_recommend_count,
+			(SELECT filename_save FROM wego.review_image WHERE review_pk = wego.review.review_pk AND filestate = 1 LIMIT 1) AS imagename
 		FROM wego.review
 		
 		<include refid="whereSql"/>
@@ -176,6 +187,26 @@
 	<select id="view" parameterType="kr.co.main.review.ReviewVO" resultType="kr.co.main.review.ReviewVO">
 		SELECT * FROM wego.review WHERE review_pk=#{review_pk}
 	</select>
+
+
+	<!-- 사진 -->
+	<insert id="savingReview_image" parameterType="kr.co.main.review.ReviewVO">
+		insert into wego.review_image (
+			plan_pk, review_pk, filename_org, filename_save, filesize, filestate
+		) values(
+			#{plan_pk}, #{review_pk}, #{filename_org}, #{filename_save}, #{filesize}, #{filestate}
+		)
+		
+	</insert>
+	
+	<select id="savedImages" parameterType="int">
+		select filename_save from wego.review_image where review_pk = #{x}
+	</select>
+
+	<select id="dragingImage" parameterType="kr.co.main.review.ReviewVO" resultType="kr.co.main.review.ReviewVO">
+		select review_pk, filename_save from wego.review_image where review_pk = #{oh} and filestate=1
+	</select>
+
 
 		
 </mapper>
