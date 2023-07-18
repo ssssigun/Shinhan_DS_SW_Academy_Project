@@ -14,7 +14,7 @@
   <div class="header">
     <div class="headerBottom">
       <div class="picBottom">
-        <a href=""><img src="/main/image/logoMain.png" alt=""></a>
+        <a href="/main/login.do"><img src="/main/image/logoMain.png" alt=""></a>
         <img class="admin" src="/main/image/logo_admin.png" alt="">
       </div>
     </div>
