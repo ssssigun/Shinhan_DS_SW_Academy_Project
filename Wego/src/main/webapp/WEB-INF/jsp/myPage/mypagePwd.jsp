@@ -16,12 +16,18 @@
   <script type="text/javascript">
   function check(){
 	if(""===$("#pwd").val()){
-			$("#alarm").css('color','red');
-			$("#alarm").text('비밀번호를 입력해주세요.');
-			$("#alarm").css('display','block')
-			$("#pwd").focus();
-			return;
-		}
+		$("#alarm").css('color','red');
+		$("#alarm").text('비밀번호를 입력해주세요.');
+		$("#alarm").css('display','block')
+		$("#pwd").focus();
+	}else if ($("#pwd").val()=="1234"){
+		location.href="/main/myPage/myInfo.do"
+	}else{
+		$("#alarm").css('color','red');
+		$("#alarm").text('비밀번호가 맞지 않습니다.');
+		$("#alarm").css('display','block')
+		$("#pwd").focus();
+	}
   }
 	function before() {
 	    var token = localStorage.getItem("accessToken");
@@ -56,7 +62,7 @@
           <p class="letter">비밀번호를 입력하셔야 합니다.</p>
         </div>
         <div class="inputWrapper inputBox">
-          <input class="input" type="text" name="pwd" id="pwd" placeholder="비밀번호를 입력해주세요.">
+          <input class="input" type="password" name="pwd" id="pwd" placeholder="비밀번호를 입력해주세요.">
         </div>
         <p class="smallLetter" id="alarm">알림 텍스트</p>
         <div class="btnArea">
