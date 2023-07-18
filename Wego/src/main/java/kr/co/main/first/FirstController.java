@@ -35,6 +35,7 @@ public class FirstController {
 		UserVO user =fService.findUser(vo.getSecretKey());
 		user.setCreditcardnumber(vo.getCreditcardnumber());
 		fService.insertInfo(user);
+		sess.setAttribute("loginSession", user);
 		return "index";
 	}
 	// 통합 로그인 폼 이동
@@ -51,7 +52,7 @@ public class FirstController {
 		UserVO user = fService.findUser(id);
 				
 		if(user==null) {
-			model.addAttribute("id", id);
+			sess.setAttribute("id", id);
 			return "firstLogin";
 		}else {
 			sess.setAttribute("loginSession", user);

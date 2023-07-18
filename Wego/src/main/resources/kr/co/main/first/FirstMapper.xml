@@ -14,19 +14,19 @@
 	<!-- 유저 등록을 하기 위해서 user에 insert -->
  	<insert id="insertUser" parameterType="kr.co.main.first.UserVO">
  		INSERT INTO user (UserName, Email, NickName, Regdate, Role, BanPost, SecretKey)
- 		VALUE (#{userName}, #{email}, #{nickName}, curdate(), 0, 0, #{SecretKey});
+ 		VALUE (#{userName}, #{email}, #{nickName}, curdate(), 0, 0, #{secretKey});
  	</insert>
  	
  	<insert id="insertInfo" parameterType="kr.co.main.first.UserVO">
  	<!-- statistics 테이블 값 두개 생성 -->
- 		INSERT INTO statistics (User_pk, Food, Accommodation, shopping, Culture, Tour, Leisuer, State)
- 		VALUE (#{User_pk}, 0, 0, 0, 0, 0, 0,0);
+ 		INSERT INTO statistics (User_pk, Food, Accommodation, shopping, Culture, Tour, Leisure, State)
+ 		VALUE (#{user_pk}, 0, 0, 0, 0, 0, 0,0);
  		
- 		INSERT INTO statistics (User_pk, Food, Accommodation, shopping, Culture, Tour, Leisuer, State)
- 		VALUE (#{User_pk}, 0, 0, 0, 0, 0, 0,1);
+ 		INSERT INTO statistics (User_pk, Food, Accommodation, shopping, Culture, Tour, Leisure, State)
+ 		VALUE (#{user_pk}, 0, 0, 0, 0, 0, 0,1);
 	<!-- card 테이블 생성 -->
 		INSERT INTO card (User_pk, CardNum)
- 		VALUE (#{User_pk},#{creditcardnumber});
+ 		VALUE (#{user_pk},#{creditcardnumber});
  	</insert>
  	
 </mapper>

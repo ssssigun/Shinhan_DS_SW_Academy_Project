@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -67,7 +68,7 @@
 				  type:"post",
 				  url:'http://192.168.0.132:8080/api/userRegister.do',
 				  data:JSON.stringify({
-					  'id': ${id}
+					  'id': '${id}'
 				  }),
 				  beforeSend: function (xhr) {
 			            xhr.setRequestHeader("Content-type","application/json");
@@ -80,11 +81,11 @@
 							  type:"post", 
 							  url:'register.do',
 							  data:{
-								  "secretKey" = res["id"],
-								  "creditcardnumber" : res["creditcardnumber"],
-								  "userName" : res["name"],
-								  "email" : res["email"],
-								  "nickName" : $("#nickName").val()
+								  secretKey : res["id"],
+								  creditcardnumber : res["creditcardnumber"],
+								  userName : res["name"],
+								  email : res["email"],
+								  nickName : $("#nickName").val()
 							  },
 							  success:function(res){
 										window.location.href=res+".do";
