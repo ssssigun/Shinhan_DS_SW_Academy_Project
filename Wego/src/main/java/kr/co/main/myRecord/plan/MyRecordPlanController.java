@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.main.first.UserVO;
+
 @Controller
 @RequestMapping("/myRecord/plan")
 public class MyRecordPlanController {
@@ -30,14 +32,20 @@ public class MyRecordPlanController {
 	MyRecordPlanService service;
 	
 	@GetMapping("/index.do")
-	public String index(MyRecordPlanVO vo, Model model) {
+	public String index(MyRecordPlanVO vo, Model model, HttpSession sess) {
+		UserVO user = (UserVO)sess.getAttribute("loginSession");
+		vo.setUser_pk(user.getUser_pk());
+		
 		model.addAttribute("result",service.index(vo));
 		model.addAttribute("flag","1");
 		return "/myRecord/plan/index";
 	}
 	
 	@GetMapping("/reviewing.do")
-	public String reviewing(MyRecordPlanVO vo, Model model) {
+	public String reviewing(MyRecordPlanVO vo, Model model, HttpSession sess) {
+		UserVO user = (UserVO)sess.getAttribute("loginSession");
+		vo.setUser_pk(user.getUser_pk());
+		
 		Map result = service.reviewing(vo);
 		model.addAttribute("result",result);
 		model.addAttribute("flag","2");
@@ -45,7 +53,10 @@ public class MyRecordPlanController {
 	}
 	
 	@GetMapping("/tempSaved.do")
-	public String tempSaved(MyRecordPlanVO vo, Model model) {
+	public String tempSaved(MyRecordPlanVO vo, Model model, HttpSession sess) {
+		UserVO user = (UserVO)sess.getAttribute("loginSession");
+		vo.setUser_pk(user.getUser_pk());
+		
 		model.addAttribute("result",service.tempSaved(vo));
 		model.addAttribute("flag","3");
 		return "/myRecord/plan/index";
@@ -67,6 +78,7 @@ public class MyRecordPlanController {
 	
 	@GetMapping("deleting.do")
 	public String deleting(@RequestParam("plan_pk")String plan_pk, @RequestParam("flag")String flag, MyRecordPlanVO vo, Model model) {
+		
 		int x = Integer.parseInt(plan_pk);
 		model.addAttribute("result",service.deleting(x,vo));
 		if(flag.equals("1"))
@@ -117,7 +129,7 @@ public class MyRecordPlanController {
 				File dest = new File(filePath);
 				FileUtils.writeByteArrayToFile(dest, file.getBytes());
 				file.transferTo(dest);
-				System.out.println("ÆÄÀÏÀÌ ÀúÀåµÇ¾ú½À´Ï´Ù: "+ dest.getAbsolutePath());
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½: "+ dest.getAbsolutePath());
 				vo.setFilename_org(originalFilename);
 				vo.setFilename_save(uniqueFilename);
 				vo.setFilesize(dest.length());

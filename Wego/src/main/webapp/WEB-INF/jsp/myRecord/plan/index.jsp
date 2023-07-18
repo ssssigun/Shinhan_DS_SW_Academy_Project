@@ -75,104 +75,124 @@
     
     	<div class="recordAndAccountBook">
 	    	<a href="" class="record bigbigLetter selectLetter" >여행 기록</a>
-	    	<!-- 아래 href에 정은이 가계부 메인화면 링크 집어넣으면 됨 -->
-	    	<a href="/main/myRecord/accountBook/index.do?user_pk=1" class="accountBook bigbigLetter">가계부</a>
+	    	<a href="/main/myRecord/accountBook/index.do" class="accountBook bigbigLetter">가계부</a>
     	</div>
 
     		<div class="planAndReviewAndTempSave">
-	    		<button type="button" class="plan btn blueBwhiteL" onClick="location.href='index.do'">계획</button>
-	    		<button class="review btn blueBwhiteL" onClick="location.href='reviewing.do'">후기</button>
-	    		<button class="tempSave btn blueBwhiteL" onClick="location.href='tempSaved.do'">임시저장</button>
+	    		<button id="plan" class="plan btn softblueBwhiteL" onClick="location.href='index.do'">계획</button>
+	    		<button id="review" class="review btn softblueBwhiteL" onClick="location.href='reviewing.do'">후기</button>
+	    		<button id="tempSave" class="tempSave btn softblueBwhiteL" onClick="location.href='tempSaved.do'">임시저장</button>
     		</div>
     	
     	
     	<div class="postsWrapper">
     	<c:if test="${flag eq  '1'}">
-	    	<c:forEach var="vo" items="${result.list }">
-	    		<div class="postWrapper">
-	              <div class="photoWrapper" style="background-color: transparent; position:relative;">
-	              	<img src="/main/image/logoMain.png" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>
-		              <span class="btn yellowBblackL willdo">예정된 계획</span>
+    		<c:if test="${result.totalCount gt 0 }">
+		    	<c:forEach var="vo" items="${result.list }">
+		    		<div class="postWrapper">
+	            <div class="photoWrapper" style="background-color: transparent; position:relative;">
+	            	<img src="/main/image/logoMain.png" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>
+	             	<div class="state yellowBblackL">예정된 계획</div>
+	            </div>
+	            <div class="postInfoWrapper">
+	              <div class="titleWrapper">
+	               	${vo.title}
 	              </div>
-	              <div class="postInfoWrapper">
-	                <div class="titleWrapper">
-	                 	${vo.title}
-	                </div>
-	                <div class="subWrapper">${vo.num_of_people }인 | ${vo.budget }원</div>
-	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
-	                <div class="buttonsWrapper">
-	                	<button class="smallBtn blueBwhiteL" onclick="editing(${vo.plan_pk })">수정하기</button>
-	                	<button class="smallBtn redBwhiteL del" onclick="CallingAdeletion(${flag},${vo.plan_pk})">삭제하기</button>
-	                </div>
+	              <div class="subWrapper">${vo.num_of_people }인 | ${vo.budget }원</div>
+	              <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
+	              <div class="buttonsWrapper">
+	              	<button class="smallBtn blueBwhiteL" onclick="editing(${vo.plan_pk })">수정하기</button>
+	              	<button class="smallBtn redBwhiteL del" onclick="CallingAdeletion(${flag},${vo.plan_pk})">삭제하기</button>
 	              </div>
 	            </div>
-	    	</c:forEach>
+	          </div>
+		    	</c:forEach>
 	    	</c:if>
-	    	<c:if test="${flag eq  '2'}">
-	    	<c:forEach var="vo" items="${result.list }">
-	    		<div class="postWrapper">
-	              <div class="photoWrapper" style="background-color: transparent; position:relative;">
-	              	 <img src="${pageContext.request.contextPath}/image/client/${vo.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>  
-		    		  <span class="btn greenBblackL alldone">종료된 계획</span>
-	              </div>
-	              <div class="postInfoWrapper">
-	                <div class="titleWrapper">
-	                 	${vo.title}
-	                </div>
-	                <div class="subWrapper">${vo.num_of_people }인 | ${vo.budget }원</div>
-	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
-	                <div class="buttonsWrapper">
-	                <c:choose>
-	                	<c:when test="${vo.reviewed == 1 }">
-	                		<c:choose>
-	                			<c:when test="${vo.reviewed2 == 0 }">
-	                				<button class="smallBtn blueBwhiteL" style="color:black; cursor:default">한줄평 완료</button>
-	                				<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">후기 쓰기</button>
-	                			</c:when>
-	                			<c:otherwise>
-	                				<button class="smallBtn blueBwhiteL" style="color:black; cursor:default">한줄평 완료</button>
-	                				<button class="smallBtn blueBwhiteL" style="color:black; cursor:default"">후기 완료</button>
-	                			</c:otherwise>
-	                		</c:choose>	
-	                	</c:when>
-	                	<c:otherwise>
-	                		<c:choose>
-	                			<c:when test="${vo.reviewed2 == 0 }">
-		                			<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">한줄평 쓰기</button>
-			                		<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">후기 쓰기</button>
-		                		</c:when>
-			                	<c:otherwise>
-			                		<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">한줄평 쓰기</button>
-		                			<button class="smallBtn blueBwhiteL" style="color:black; cursor:default"">후기 완료</button>
-			                	</c:otherwise>
-	                		</c:choose>	
-	                	</c:otherwise>
-	                </c:choose>	
-	                </div>
-	              </div>
-	            </div>
-	    	</c:forEach>
+	    	<c:if test="${result.totalCount eq 0 }">
+	    		<div class="noneWrapper bigLetter bold">
+    				계획된 여행이 없습니다.
+	    		</div>
+	    	</c:if>
+    	</c:if>
+    	<c:if test="${flag eq  '2'}">
+    		<c:if test="${result.totalPage gt 0 }">
+		    	<c:forEach var="vo" items="${result.list }">
+		    		<div class="postWrapper">
+		              <div class="photoWrapper" style="background-color: transparent; position:relative;">
+		              	 <img src="${pageContext.request.contextPath}/image/client/${vo.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>  
+			    		  	<div class="state greenBblackL">종료된 계획</div>
+		              </div>
+		              <div class="postInfoWrapper">
+		                <div class="titleWrapper">
+		                 	${vo.title}
+		                </div>
+		                <div class="subWrapper">${vo.num_of_people }인 | ${vo.budget }원</div>
+		                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
+		                <div class="buttonsWrapper">
+		                <c:choose>
+		                	<c:when test="${vo.reviewed == 1 }">
+		                		<c:choose>
+		                			<c:when test="${vo.reviewed2 == 0 }">
+		                				<button class="smallBtn blueBwhiteL" style="color:black; cursor:default">한줄평 완료</button>
+		                				<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">후기 쓰기</button>
+		                			</c:when>
+		                			<c:otherwise>
+		                				<button class="smallBtn blueBwhiteL" style="color:black; background-color:#9B9B9B; cursor:default">한줄평 완료</button>
+		                				<button class="smallBtn blueBwhiteL" style="color:black; background-color:#9B9B9B; cursor:default"">후기 완료</button>
+		                			</c:otherwise>
+		                		</c:choose>	
+		                	</c:when>
+		                	<c:otherwise>
+		                		<c:choose>
+		                			<c:when test="${vo.reviewed2 == 0 }">
+			                			<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">한줄평 쓰기</button>
+				                		<button class="smallBtn blueBwhiteL" onclick="moveTOTotalReview(${vo.plan_pk})">후기 쓰기</button>
+			                		</c:when>
+				                	<c:otherwise>
+				                		<button class="smallBtn blueBwhiteL" onclick="callingWritingReview(${vo.plan_pk})">한줄평 쓰기</button>
+			                			<button class="smallBtn blueBwhiteL" style="color:black; background-color:#9B9B9B; cursor:default"">후기 완료</button>
+				                	</c:otherwise>
+		                		</c:choose>	
+		                	</c:otherwise>
+		                </c:choose>	
+		                </div>
+		              </div>
+		            </div>
+		    		</c:forEach>
+		    	</c:if>
+		    	<c:if test="${result.totalCount eq 0 }">
+		    		<div class="noneWrapper bigLetter bold">
+	    				다녀온 여행이 없습니다.
+		    		</div>
+		    	</c:if>
 	    	</c:if>
 	    	<c:if test="${flag eq  '3'}">
-	    	<c:forEach var="vo" items="${result.list }">
-	    		<div class="postWrapper">
-	              <div class="photoWrapper" style="background-color: transparent; position:relative;">
-	              	<img src="/main/image/logoMain.png" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>
-		    		  <span class="btn lightblueBblackL tempSaved">임시저장됨</span>
-	              </div>
-	              <div class="postInfoWrapper">
-	                <div class="titleWrapper">
-	                 	${vo.title}
-	                </div>
-	                <div class="subWrapper">${vo.num_of_people }인 | ${vo.budget }원</div>
-	                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
-	                <div class="buttonsWrapper">    	
-	                	<button class="smallBtn blueBwhiteL" onclick="editing(${vo.plan_pk })">수정하기</button>
-	                	<button class="smallBtn redBwhiteL del" onclick="CallingAdeletion(${flag},${vo.plan_pk})">삭제하기</button>
-	                </div>
-	              </div>
-	            </div>
-	    	</c:forEach>
+	    		<c:if test="${result.totalCount gt 0}">
+			    	<c:forEach var="vo" items="${result.list }">
+			    		<div class="postWrapper">
+			              <div class="photoWrapper" style="background-color: transparent; position:relative;">
+			              	<img src="/main/image/logoMain.png" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>
+				    		  		<div class="state lightblueBblackL">임시저장됨</div>
+			              </div>
+			              <div class="postInfoWrapper">
+			                <div class="titleWrapper">
+			                 	${vo.title}
+			                </div>
+			                <div class="subWrapper">${vo.num_of_people }인 | ${vo.budget }원</div>
+			                <div class="subsubWrapper">${vo.start_date } ~ ${(vo.end_date) }</div>
+			                <div class="buttonsWrapper">    	
+			                	<button class="smallBtn blueBwhiteL" onclick="editing(${vo.plan_pk })">수정하기</button>
+			                	<button class="smallBtn redBwhiteL del" onclick="CallingAdeletion(${flag},${vo.plan_pk})">삭제하기</button>
+			                </div>
+			              </div>
+			            </div>
+			    	</c:forEach>
+			    </c:if>
+		    	<c:if test="${result.totalCount eq 0 }">
+		    		<div class="noneWrapper bigLetter bold">
+	    				임시저장된 여행이 없습니다.
+		    		</div>
+		    	</c:if>
 	    	</c:if>   
         </div>
         
@@ -218,4 +238,21 @@
   
   <jsp:include page="/WEB-INF/jsp/include/footer.jsp"/>
 </body>
+<script>
+	if (${flag} == 1) {
+		$('#plan').addClass('selectButton');
+		$('#review').removeClass('selectButton');
+		$('#tempSave').removeClass('selectButton');
+	}
+	else if (${flag} == 2) {
+		$('#plan').removeClass('selectButton');
+		$('#review').addClass('selectButton');
+		$('#tempSave').removeClass('selectButton');
+	}
+	else if (${flag} == 3) {
+		$('#plan').removeClass('selectButton');
+		$('#review').removeClass('selectButton');
+		$('#tempSave').addClass('selectButton');
+	}
+</script>
 </html>

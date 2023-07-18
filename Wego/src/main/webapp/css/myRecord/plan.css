@@ -23,7 +23,7 @@
 }
 
 .postsWrapper{
-	height: 656px;
+  height: 100%;
 	order:2;
 }
 
@@ -67,4 +67,15 @@
 
 .paging li{
 	margin: 0px 2px 0px 2px;
+}
+.noneWrapper {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  height: 100%;
+  width: 100%;
+}
+.selectButton {
+	background: #0081C9;
 }

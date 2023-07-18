@@ -7,14 +7,14 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MyRecordPlanMapper {
 	List<MyRecordPlanVO> list(MyRecordPlanVO vo);
-	int count();
+	int count(int user_pk);
 	
 	List<MyRecordPlanVO> list2(MyRecordPlanVO vo);
 	List<MyRecordPlanVO> dragingImage(int oh);
-	int count2();
+	int count2(int user_pk);
 	
 	List<MyRecordPlanVO> list3(MyRecordPlanVO vo);
-	int  count3();
+	int  count3(int user_pk);
 	
 	void deletion(int x);
 	

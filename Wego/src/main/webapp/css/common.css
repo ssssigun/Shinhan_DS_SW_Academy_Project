@@ -219,7 +219,7 @@ button {
   height: 212px;
 }
 .photoWrapper > .state {
-  width: 71px;
+	width: 80px;
   height: 29px;
 
   position: relative;

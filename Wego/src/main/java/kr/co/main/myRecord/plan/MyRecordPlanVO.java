@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class MyRecordPlanVO {
 	private int plan_pk;
+	private int user_pk;
 	private String title;
 	private int num_of_people;
 	private Date start_date;

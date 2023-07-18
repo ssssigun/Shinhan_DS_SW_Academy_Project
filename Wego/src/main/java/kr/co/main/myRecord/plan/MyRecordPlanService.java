@@ -13,9 +13,9 @@ public class MyRecordPlanService {
 	@Autowired
 	MyRecordPlanMapper mapper;
 	
-	//ÆäÀÌÁö³×ÀÌ¼Ç ÇØ¼­ ¸ñ·Ï °¡Á®¿À´Â°Å : state=0 µé
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ : state=0 ï¿½ï¿½
 	public Map index(MyRecordPlanVO vo) {
-		int totalCount = mapper.count();
+		int totalCount = mapper.count(vo.getUser_pk());
 		int totalPage = totalCount/vo.getRowPerPage();
 		if(totalCount % vo.getRowPerPage() > 0) totalPage++;
 		int startIdx = (vo.getPage()-1) * vo.getRowPerPage();
@@ -40,9 +40,9 @@ public class MyRecordPlanService {
 		return map;
 	}
 	
-	//ÆäÀÌÁö³×ÀÌ¼Ç ÇØ¼­ ¸ñ·Ï °¡Á®¿À´Â°Å : state=1 µé
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ : state=1 ï¿½ï¿½
 		public Map reviewing(MyRecordPlanVO vo) {
-			int totalCount = mapper.count2();
+			int totalCount = mapper.count2(vo.getUser_pk());
 			int totalPage = totalCount/vo.getRowPerPage();
 			if(totalCount % vo.getRowPerPage() > 0) totalPage++;
 			int startIdx = (vo.getPage()-1) * vo.getRowPerPage();
@@ -75,9 +75,9 @@ public class MyRecordPlanService {
 			return map;
 		}
 		
-		//ÆäÀÌÁö³×ÀÌ¼Ç ÇØ¼­ ¸ñ·Ï °¡Á®¿À´Â°Å : state=2 µé
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½ : state=2 ï¿½ï¿½
 				public Map tempSaved(MyRecordPlanVO vo) {
-					int totalCount = mapper.count3();
+					int totalCount = mapper.count3(vo.getUser_pk());
 					int totalPage = totalCount/vo.getRowPerPage();
 					if(totalCount % vo.getRowPerPage() > 0) totalPage++;
 					int startIdx = (vo.getPage()-1) * vo.getRowPerPage();
@@ -104,7 +104,7 @@ public class MyRecordPlanService {
 				
 				public Map deleting(int x ,MyRecordPlanVO vo) {
 					mapper.deletion(x);
-					int totalCount = mapper.count();
+					int totalCount = mapper.count(vo.getUser_pk());
 					int totalPage = totalCount/vo.getRowPerPage();
 					if(totalCount % vo.getRowPerPage() > 0) totalPage++;
 					int startIdx = (vo.getPage()-1) * vo.getRowPerPage();
