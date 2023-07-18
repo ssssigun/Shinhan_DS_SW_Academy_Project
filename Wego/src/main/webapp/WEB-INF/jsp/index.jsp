@@ -97,7 +97,7 @@
   				<c:if test="${planCount eq 0}">
   					<div class="noneContentsWrapper">
   						<div class="bigLetter bold">여행 계획을 작성해주세요</div>
-  						<button class="addButton"><img src="/main/image/review/BsFillPlusCircleFill.png"></button>
+  						<button class="addButton" onclick="location.href = '/main/plan/index.do'"><img src="/main/image/review/BsFillPlusCircleFill.png"></button>
   					</div>
   				</c:if>
   				<c:if test="${planCount gt 0}">
