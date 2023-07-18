@@ -234,6 +234,7 @@
     	//댓글 수정
     	function commentEdit(review_comment_pk){
     		console.log(review_comment_pk);
+    	
     		$( '#' + review_comment_pk )
             .replaceWith(''
             	  +'<form method="post" name="frm" id="frm" action="commentUpdate.do" enctype="multipart/form-data" >'
@@ -364,6 +365,8 @@
             </div>
             
             <button class="reviewSueButton" onClick="sueOnClick()"><img src="../image/review/report.png" />
+            
+            
           </div>
         </div>
         
@@ -375,10 +378,11 @@
               <div class="nicknameWrapper">
                 <h3 class="letter">${comment.nickname}</h3>
                 
-               
+               <c:if test="${user_pk eq comment.user_pk}">
                 <div class="menuWrapper">
+                
 				  <a href="#"><img src="../image/review/menuWrapper.png" /></a>
-				  
+				 
 				  <div class="buttonContainer">
 				  	
 				  	
@@ -393,6 +397,7 @@
 				    </form>
 				  </div>
 				</div>
+			</c:if> 
 			
 				
 
@@ -432,6 +437,9 @@
         
 
         <div class="bottomWrapper">
+          <c:if test="${user_pk eq data.user_pk}">
+          <div class="editview btn blueBwhiteL"><a href="edit.do?review_pk=${review_pk}">수정하기</a></div>
+          </c:if>
           <div class="btn blueBwhiteL"><a href="/main/review/index.do">목록</a></div>
           </div>
           <!-- <button type="button" onclick="">목록</button> -->

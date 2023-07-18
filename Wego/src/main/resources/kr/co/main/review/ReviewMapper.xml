@@ -108,7 +108,7 @@
 	
 	<!-- 리뷰 댓글 조회 -->
 	<select id="getReviewComments" parameterType="int">
-    	select nickname, comment_content, review_comment.regdate regdate_comment, review_comment_pk
+    	select nickname, comment_content, review_comment.regdate regdate_comment, review_comment_pk, wego.user.user_pk
 		from wego.review_comment left join wego.user 
 		on wego.review_comment.user_pk = wego.user.user_pk where review_pk = #{review_pk};
 	</select>
@@ -186,7 +186,7 @@
 	
 	<select id="view" parameterType="kr.co.main.review.ReviewVO" resultType="kr.co.main.review.ReviewVO">
 		SELECT *,
-			(SELECT filename_save FROM wego.review_image WHERE review_pk = wego.review.review_pk AND filestate = 1 LIMIT 1) AS imagename
+			(SELECT filename_save FROM wego.review_image WHERE review_pk = wego.review.review_pk AND filestate = 1 ORDER BY REview_image_pk DESC LIMIT 1) AS imagename
 		FROM wego.review WHERE review_pk=#{review_pk}
 	</select>
 
