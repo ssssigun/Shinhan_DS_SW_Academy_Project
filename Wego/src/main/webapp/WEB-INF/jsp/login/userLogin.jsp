@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/main/css/admin/adminLogin.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
-  <title>AdminLogin</title>
+  <title>Login</title>
   <script>
   	function login(){
   		if(""===$("#id").val()){
