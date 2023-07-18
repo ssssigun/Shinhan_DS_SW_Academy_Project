@@ -414,12 +414,12 @@
           </c:forEach>
           </div>
          <form method="post" name="frm" id="frm" action="insertReviewComment.do" enctype="multipart/form-data" >
-         	 <input type="hidden" name="user_pk" value="3"> <!-- user_pk 값을 여기에 설정 -->
+         	 <input type="hidden" name="user_pk" value="${user_pk }"> <!-- user_pk 값을 여기에 설정 -->
          	 <input type="hidden" name="review_pk" value="${review_pk }"> <!-- user_pk 값을 여기에 설정 -->
 	          <div class = "commentWrapper">
 		          <div class="comment">
 			          <div class="nicknameWrapper">
-			          	<h3 class="letter">${vo.nickname}</h3>
+			          	<h3 class="letter">${nickname}</h3>
 			          	<div class="contentsWrapper2">
 				          	<textarea rows="3" cols="55" name="comment_content" id="content" class="FrameCon letter text" maxlength="400">${insertReviewComment.content }</textarea>
 				          	<button class="commentButton smallBtn blueBwhiteL" type="submit">등록</button>

@@ -175,7 +175,7 @@
 			(SELECT nickname FROM wego.user WHERE  user_pk= wego.review.user_pk)  nickname,
 			(SELECT COUNT(*) FROM wego.review_watch WHERE review_pk = wego.review.review_pk) AS review_watch_count,
 			(SELECT COUNT(*) FROM wego.review_recommend WHERE review_pk = wego.review.review_pk) AS review_recommend_count,
-			(SELECT filename_save FROM wego.review_image WHERE review_pk = wego.review.review_pk AND filestate = 1 LIMIT 1) AS imagename
+			(SELECT filename_save FROM wego.review_image WHERE review_pk = wego.review.review_pk AND filestate = 1 ORDER BY REview_image_pk DESC LIMIT 1) AS imagename
 		FROM wego.review
 		
 		<include refid="whereSql"/>

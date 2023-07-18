@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
+import kr.co.main.first.UserVO;
 import kr.co.main.myRecord.plan.MyRecordPlanVO;
 
 @Controller
@@ -38,7 +37,8 @@ public class ReviewController {
 	//상세 게시물 댓글 조회수 review_comment_write => view 리뷰 상세 보기
 	//===
 	@GetMapping("view.do")
-	public String view(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+	public String view(Model model, ReviewVO vo, HttpSession sess) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+		UserVO user = (UserVO)sess.getAttribute("loginSession");
 		// 후기 게시글 조회
 	    ReviewVO review = rservice.view(vo);
 	    
@@ -47,11 +47,12 @@ public class ReviewController {
 	    if(!comments.isEmpty()) {
 	    	System.out.println(comments.get(0).getRegdate_comment());
 	    }
+	   
 	    
-	    
-	    model.addAttribute("nickname", vo.getNickname());
+	    model.addAttribute("nickname", user.getNickName());
+	    System.out.println( user.getNickName());
 //	    System.out.println(vo.getNickname());
-	    model.addAttribute("user_pk", vo.getUser_pk());
+	    model.addAttribute("user_pk", user.getUser_pk());
 	    model.addAttribute("review_pk", vo.getReview_pk());
 		model.addAttribute("data", review);
 		model.addAttribute("comments", comments);
@@ -141,42 +142,44 @@ public class ReviewController {
 	
 	// 글 수정 처리
 	@PostMapping("update.do")
-	public String update(HttpServletRequest request, Model model, ReviewVO vo, @RequestParam(value = "filename") List<MultipartFile> files) {
+	public String update(HttpServletRequest request, Model model, ReviewVO vo, @RequestParam(value = "filename", required = false) MultipartFile[] files) {
 	    vo.setState(0);
-	    System.out.println("files.size():"+files.size());
-	    if (files != null && !files.isEmpty()) {
-	        int randn = (int)(Math.random() * (files.size() - 1));
-	        System.out.println(randn);
+//	    System.out.println("files.size():"+files.length);
+//	    if (files != null && files.length > 0) {
+	        int randn = (int)(Math.random() * (files.length - 1));
+//	        System.out.println(randn);
 	        int fr = 0;
 	        for (MultipartFile file : files) {
-	            try {
-	                String originalFilename = file.getOriginalFilename();
-	                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-	                String uniqueFilename = UUID.randomUUID().toString() + fileExtension;
-	                String filePath = request.getRealPath("/image/client/") + uniqueFilename;
-	                File dest = new File(filePath);
-	                FileUtils.writeByteArrayToFile(dest, file.getBytes());
-	                file.transferTo(dest);
-	                System.out.println("파일: " + dest.getAbsolutePath());
-	                vo.setFilename_org(originalFilename);
-	                vo.setFilename_save(uniqueFilename);
-	                vo.setFilesize(dest.length());
-	                
-	                if (fr == randn)
-	                    vo.setFilestate(1);
-	                else
-	                    vo.setFilestate(0);
-	                
-	                rservice.savingReview_image(vo);
-	                
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            } finally {
-	                System.out.println(fr);
-	                fr++;
-	            }
+	        	if (!file.isEmpty()) {
+		            try {
+		                String originalFilename = file.getOriginalFilename();
+		                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+		                String uniqueFilename = UUID.randomUUID().toString() + fileExtension;
+		                String filePath = request.getRealPath("/image/client/") + uniqueFilename;
+		                File dest = new File(filePath);
+		                FileUtils.writeByteArrayToFile(dest, file.getBytes());
+		                file.transferTo(dest);
+		                System.out.println("파일: " + dest.getAbsolutePath());
+		                vo.setFilename_org(originalFilename);
+		                vo.setFilename_save(uniqueFilename);
+		                vo.setFilesize(dest.length());
+		                
+		                if (fr == randn)
+		                    vo.setFilestate(1);
+		                else
+		                    vo.setFilestate(0);
+		                
+		                rservice.savingReview_image(vo);
+		                
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		            } finally {
+		                System.out.println(fr);
+		                fr++;
+		            }
+	        	}
 	        }
-	    }
+//	    }
 	    
 	    if (rservice.update(vo)) {
 	        model.addAttribute("msg", "정상적으로 수정되었습니다.");
@@ -269,12 +272,15 @@ public class ReviewController {
 	}
 	*/
 	
+	
+	
 	//댓글 등록
 	@PostMapping("insertReviewComment.do")
-	public String insertReviewComment(Model model, ReviewVO vo, @RequestParam("user_pk") int user_pk) {
+	public String insertReviewComment(Model model, ReviewVO vo, HttpSession sess) {
 		System.out.println("댓글등록"+vo);
-		
-		vo.setUser_pk(user_pk);
+		UserVO user = (UserVO)sess.getAttribute("loginSession");
+		model.addAttribute("user_pk", user.getUser_pk());
+		//vo.setUser_pk(user_pk);
 		vo.setRegdate_comment(new Date(System.currentTimeMillis()));
 		model.addAttribute("nickname", vo.getNickname());
 		
@@ -287,7 +293,41 @@ public class ReviewController {
 //		model.addAttribute("insertReviewComment", rservice.insertReviewComment(vo));
 		return "include/alert";
 	}
-		
+
+	
+	/*
+	@PostMapping("insertReviewComment.do")
+	public String insertReviewComment(Model model, ReviewVO vo, HttpSession sess) {
+	    System.out.println("댓글등록" + vo);
+	    UserVO user = (UserVO) sess.getAttribute("loginSession");
+	    if (user == null) {
+	        model.addAttribute("msg", "댓글 등록에 실패하였습니다. 로그인이 필요합니다.");
+	        return "include/alert";
+	    }
+	    model.addAttribute("user_pk", user.getUser_pk());
+	    vo.setRegdate_comment(new Date(System.currentTimeMillis()));
+	    model.addAttribute("nickname", vo.getNickname());
+
+	    try {
+	        if (rservice.insertReviewComment(vo)) {
+	            model.addAttribute("msg", "정상적으로 잘 등록되었습니다.");
+	            model.addAttribute("url", "view.do?review_pk=" + vo.getReview_pk() + "&user_pk=" + vo.getUser_pk());
+	        } else {
+	            model.addAttribute("msg", "댓글 등록에 실패하였습니다.");
+	        }
+	    } catch (Exception e) {
+	        model.addAttribute("msg", "댓글 등록 중 오류가 발생하였습니다.");
+	        // 여기서 e.getMessage()를 이용해 예외 메시지를 가져와서 추가로 출력해도 좋습니다.
+	    }
+
+	    return "include/alert";
+	}
+
+	*/
+	
+	
+	
+	
 	
 	
 	//댓글수정`

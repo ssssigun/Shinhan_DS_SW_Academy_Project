@@ -150,7 +150,7 @@
 	              <div class="photoWrapper"> 
 	              <div class="imageContainer" style="display:flex;"></div>
 	              <div class="Frame62">
-	              <input type="file" id="fileInput" name="filename" style="display:none;" multiple/>
+	              <input type="file" id="fileInput" name="filename"  multiple/>
 	              <label for="fileInput">
 	              	<img class="addingPhoto" src="/main/image/review/BsFillPlusCircleFill.png"/>
 	              </label>              	
