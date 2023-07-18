@@ -36,7 +36,7 @@
 	    }
 	  }
 	  
-	  function goBack2() {
+	  function goBack() {
 		  var yesORnot = confirm("목록으로 돌아가시겠습니까?\n"
 				  +"※주의)저장하지 않고 이동 시, 작성한 내용이 사라집니다.");
 		  if(yesORnot){
