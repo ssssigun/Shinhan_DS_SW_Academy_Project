@@ -9,10 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google" content="notranslate" />
     <link rel="icon" href="/main/image/ShinhanLogo.png"/>
-	<link rel="stylesheet" href="/main/css/common.css">
-	<link rel="stylesheet" href="/main/css/footer.css">
-	<link rel="stylesheet" href="/main/css/header.css">
+		<link rel="stylesheet" href="/main/css/common.css">
+		<link rel="stylesheet" href="/main/css/footer.css">
+		<link rel="stylesheet" href="/main/css/header.css">
     <link rel="stylesheet" href="/main/css/myRecord/review_update.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>common</title>
     <script>
 	    function goBack() {
@@ -189,6 +190,11 @@
       };
       reader.readAsDataURL(file);
     }
+   	if (files.length > 0){
+    	$(".photoWrapper").addClass("photoExist");
+   	} else {
+   		$(".photoWrapper").removeClass("photoExist");
+   	}
   });
   
   
