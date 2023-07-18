@@ -522,6 +522,9 @@ display: flex;
   order: 1;
   align-self: stretch;
   flex-grow: 0;
+  
+  
+  flex-direction: row;
 }
 .contentsWrapper2 dd {
   /* 내용 어쩌구 */
@@ -669,4 +672,8 @@ textarea {
 
 .editview{
 	color: white;
+}
+
+.comb{
+	order:2;
 }

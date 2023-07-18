@@ -427,7 +427,7 @@
 			          	<h3 class="letter">${nickname}</h3>
 			          	<div class="contentsWrapper2">
 				          	<textarea rows="3" cols="55" name="comment_content" id="content" class="FrameCon letter text" maxlength="400">${insertReviewComment.content }</textarea>
-				          	<button class="commentButton smallBtn blueBwhiteL" type="submit">등록</button>
+				          	<button class="comb commentButton smallBtn blueBwhiteL" type="submit">등록</button>
 				       </div>
 			          </div>
 			      </div>    
