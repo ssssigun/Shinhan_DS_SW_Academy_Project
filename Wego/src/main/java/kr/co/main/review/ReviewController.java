@@ -146,6 +146,7 @@ public class ReviewController {
 	@PostMapping("update.do")
 	public String update(HttpServletRequest request, Model model, ReviewVO vo, @RequestParam(value = "filename", required = false) MultipartFile[] files) {
 	    vo.setState(0);
+	    System.out.println(vo);
 //	    System.out.println("files.size():"+files.length);
 //	    if (files != null && files.length > 0) {
 	        int randn = (int)(Math.random() * (files.length - 1));

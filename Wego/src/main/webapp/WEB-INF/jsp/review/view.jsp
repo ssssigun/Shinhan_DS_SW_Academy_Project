@@ -438,7 +438,7 @@
 
         <div class="bottomWrapper">
           <c:if test="${user_pk eq data.user_pk}">
-          <div class="editview btn blueBwhiteL"><a href="edit.do?review_pk=${review_pk}">수정하기</a></div>
+          <div class="editview btn lightskyBblackL"><a href="edit.do?review_pk=${review_pk}">수정하기</a></div>
           </c:if>
           <div class="btn blueBwhiteL"><a href="/main/review/index.do">목록</a></div>
           </div>

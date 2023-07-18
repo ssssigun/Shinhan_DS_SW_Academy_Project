@@ -74,7 +74,7 @@
 	            <input disabled value="${result.title}" name="title" type="text" class="preFrame"/>
 	          </div>
 	          	<h3 class="title">내용</h3>
-	          	<input name="plan_pk" type="hidden" value="${plan_pk }"/>
+	          	<input name="review_pk" type="hidden" value="${data.review_pk }"/>
 	          	<textarea disabled name="contents" class="contentsWrapper">${result.content}</textarea>
 	          <div class="attachmentWrapper">
 	            <div class="Frame63">
@@ -131,10 +131,11 @@
 	        <div class="writeTable">
 	          <div class="titleWrapper">
 	            <h3 class="title">제목</h3>
+	          	<input name="review_pk" type="hidden" value="${data.review_pk }"/>
 	            <input name="title" type="text" class="preFrame" value="${data.title }"/>
 	          </div>
 	          	<h3 class="title">내용</h3>
-	          	<textarea name="contents" class="contentsWrapper">${data.content }</textarea>
+	          	<textarea name="content" class="contentsWrapper">${data.content }</textarea>
 	          <div class="attachmentWrapper">
 	            <div class="Frame63">
 	              <h3 class="imgattach">사진 첨부</h3>
@@ -142,11 +143,11 @@
 	                 무작위의 사진이 목록에서 대표사진으로 보여집니다.
 	              </h3>
 	            </div>
-	             <div class="photo">
+            	<div class="photo">
 	              <div class="photoWrapper"> 
 	              <div class="imageContainer" style="display:flex;"></div>
 	              <div class="Frame62">
-	              <input type="file" id="fileInput" name="file" style="display:none;" multiple/>
+	              <input type="file" id="fileInput" name="filename" style="display:none;" multiple/>
 	              <label for="fileInput">
 	              	<img class="addingPhoto" src="/main/image/review/BsFillPlusCircleFill.png"/>
 	              </label>              	
