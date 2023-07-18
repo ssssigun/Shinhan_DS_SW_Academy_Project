@@ -20,7 +20,7 @@ public class MainController {
 	 @GetMapping("/index.do")
 	 public String goMain(Model model, HttpSession sess) {
 		 UserVO user = (UserVO)sess.getAttribute("loginSession");
-		 
+		 System.out.println(user.toString());
 		 model.addAttribute("reviewList", service.selectFourReview());
 		 model.addAttribute("planCount", service.countPlan(user.getUser_pk()));
 		 model.addAttribute("user_pk", user.getUser_pk());
