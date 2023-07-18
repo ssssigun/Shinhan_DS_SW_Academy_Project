@@ -16,5 +16,5 @@ public class ReviewVO {
 	Date regdate;
 	int state;
 	
-	int filename_save;
+	String filename_save;
 }
