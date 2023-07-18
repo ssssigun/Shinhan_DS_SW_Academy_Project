@@ -14,7 +14,7 @@
   <div class="header">
     <div class="headerTop">
       <div class="topText">
-        <p><a href="/main/logout.do">로그아웃</a></p>
+        <p><a href="/main/logout.do" onclick="return confirm('로그아웃 하시겠습니까?')">로그아웃</a></p>
         <p><a href="/main/myPage/check.do">마이 페이지</a></p>
       </div>
     </div>

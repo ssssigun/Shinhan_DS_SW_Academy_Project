@@ -18,7 +18,7 @@ margin-top: 150px;
 .inputBox{
     width: 330px;
     height: 40px;
-    margin: 25px 0px;
+    margin-top: 25px;
 }
 .btnArea{
     text-align: center;
@@ -26,4 +26,9 @@ margin-top: 150px;
 .inputBtn{
     width: 100px;
     height: 40px;
+    margin-top: 25px;
+}
+#alarm{
+	display:none;
+	margin: 15px 65px;
 }

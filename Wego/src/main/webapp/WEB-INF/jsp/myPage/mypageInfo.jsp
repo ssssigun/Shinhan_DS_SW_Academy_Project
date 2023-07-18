@@ -17,12 +17,15 @@
   <title>MyInfo</title>
   
   <script>
+  var con = false;
+  
   function check(){
 		if($('#nickName').val()==""){
 			$('#alarm').text('닉네임을 입력해주세요!');
 			$('#alarm').css('color','red');
 			$('#alarm').css('display', 'block');
 			$('#nickName').focus();
+			con=false;
 			return;
   		}
   		$.ajax({
@@ -36,15 +39,37 @@
 	  				$('#alarm').text('이미 존재하는 닉네임입니다!');
 	  				$('#alarm').css('color','red');
 	  				$('#alarm').css('display', 'block');
+	  				con=false;
   				}else if(0===res){
 	  				$('#alarm').text('사용 가능한 닉네임입니다!');
 	  				$('#alarm').css('color','green');
 	  				$('#alarm').css('display', 'block');
+	  				con=true;
   				}
 				return;
   			}
   		})
   	}
+  function updateNick(){
+	  if(con){
+		  if(confirm("정말로 수정하시겠습니까?")){
+		  		$.ajax({
+		  			type: 'get',
+		  			url: '/main/myPage/updateNickname.do',
+		  			data:{
+		  				nickName: $('#nickName').val()
+		  			},
+		  			success:function(res){
+						alert("변경되었습니다!");
+		  			}
+		  		})
+		  }
+	  }else{
+		  $('#alarm').text('이미 존재하는 닉네임입니다!');
+		  $('#alarm').css('color','red');
+		  $('#nickName').focus();
+	  }
+  }
   </script>
 </head>
 <body>
@@ -60,7 +85,7 @@
           <span class="letter">닉네임</span>
           <input class="input" type="text" name="nickName" id="nickName" value="${loginSession.nickName}">
           <input class="btnCommon btn blueBwhiteL" type="button" name="btn" id="btn" value="중복확인" onclick="check()">
-          <input class="btnCommon btn lightblueBblackL" type="button" name="btn2" id="btn2" value="수정" >
+          <input class="btnCommon btn lightblueBblackL" type="button" name="btn2" id="btn2" value="수정" onclick="updateNick()">
         </div>
         <p class="smallLetter" id="alarm">알림 텍스트</p>
         <p class="bigLetter cardTitle">카드 정보</p>

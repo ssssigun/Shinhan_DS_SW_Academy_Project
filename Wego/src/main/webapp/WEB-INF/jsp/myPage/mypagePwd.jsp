@@ -14,6 +14,15 @@
   <link rel="stylesheet" href="/main/css/myPage/mypagePwd.css">
   <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript">
+  function check(){
+	if(""===$("#pwd").val()){
+			$("#alarm").css('color','red');
+			$("#alarm").text('비밀번호를 입력해주세요.');
+			$("#alarm").css('display','block')
+			$("#pwd").focus();
+			return;
+		}
+  }
 	function before() {
 	    var token = localStorage.getItem("accessToken");
 	    $.ajax({
@@ -29,9 +38,10 @@
 	            console.log(res);
 	        }
 	    });
+	    
 	}
   </script>
-  <title>common</title>
+  <title>MyPage</title>
 </head>
 <body>
 <jsp:include page='/WEB-INF/jsp/include/header.jsp'/>
@@ -48,8 +58,9 @@
         <div class="inputWrapper inputBox">
           <input class="input" type="text" name="pwd" id="pwd" placeholder="비밀번호를 입력해주세요.">
         </div>
+        <p class="smallLetter" id="alarm">알림 텍스트</p>
         <div class="btnArea">
-          <input class="inputBtn btn blueBwhiteL" type="submit" name="btn" id="btn" value="입력" >
+          <input class="inputBtn btn blueBwhiteL" type="submit" name="btn" id="btn" value="입력" onclick="check()">
         </div>
       </div>
     </div>
