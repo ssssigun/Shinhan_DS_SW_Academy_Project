@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class BankPlanVO {
-	int cardnum;
+	String cardnum;
 	int plan_pk;
 	int user_pk;
 	String title;
