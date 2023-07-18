@@ -73,9 +73,9 @@
 	
 	<insert id="reviewing1" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO">
 		insert into wego.location_review (
-			location_pk, location_content, star, regdate
+			location_pk, user_pk, location_content, star, regdate
 		) values(
-			#{location_pk}, #{location_content}, #{star}, NOW()
+			#{location_pk}, #{user_pk}, #{location_content}, #{star}, NOW()
 		)
 	</insert>
 	
@@ -85,9 +85,9 @@
 	
 	<insert id="savingReviews" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO">
 		insert into wego.review (
-			plan_pk, title, content, regdate, state
+			plan_pk, user_pk, title, content, regdate, state
 		) values(
-			#{plan_pk}, #{title}, #{content}, Now(), #{state}
+			#{plan_pk}, #{user_pk}, #{title}, #{content}, Now(), #{state}
 		)
 		<selectKey keyProperty="review_pk" resultType="int">
         	SELECT LAST_INSERT_ID()

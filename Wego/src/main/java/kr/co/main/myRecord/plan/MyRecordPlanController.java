@@ -89,6 +89,9 @@ public class MyRecordPlanController {
 	
 	@PostMapping("reviewing1.do")
 	public String savingReviews(HttpServletRequest request ,MyRecordPlanVO vo, HttpSession sess) {
+		UserVO user = (UserVO)sess.getAttribute("loginSession");
+		vo.setUser_pk(user.getUser_pk());
+		
 		String[] scores = request.getParameterValues("scores");
 		String[] reviews = request.getParameterValues("oneLineReviews");
 		String[] idx = request.getParameterValues("pks");
@@ -107,9 +110,13 @@ public class MyRecordPlanController {
 	@Transactional
 	@PostMapping("reviewing2.do")
 	public String savingReiews2(HttpServletRequest request, MyRecordPlanVO vo, HttpSession sess, @RequestParam("file") List<MultipartFile> files) {
+		UserVO user = (UserVO) sess.getAttribute("loginSession");
+		
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
 		String ppk = request.getParameter("plan_pk");
+		
+		vo.setUser_pk(user.getUser_pk());
 		int plan_pk = Integer.parseInt(ppk);
 		vo.setPlan_pk(plan_pk);
 		vo.setTitle(title);

@@ -70,6 +70,7 @@
 	          </div>
 	          	<h3 class="title">내용</h3>
 	          	<input name="plan_pk" type="hidden" value="${plan_pk }"/>
+	          	<input name="user_pk" type="hidden" value="${user_pk }"/>
 	          	<textarea disabled name="contents" class="contentsWrapper">${result.content}</textarea>
 	          <div class="attachmentWrapper">
 	            <div class="Frame63">
