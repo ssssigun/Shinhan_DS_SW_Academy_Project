@@ -4,7 +4,7 @@
 <script>
 	alert('${msg}');
 	<c:if test="${empty url}">
-	history.back(); //이전페이지로 돌아가 값이 들어가있어
+	location.href = document.referrer;
 	</c:if>
 	<c:if test="${!empty url}">
 	location.href='${url}'; //새로운 요청 빈페이지가 열려

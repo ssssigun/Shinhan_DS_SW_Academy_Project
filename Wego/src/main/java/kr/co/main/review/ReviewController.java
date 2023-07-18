@@ -135,7 +135,9 @@ public class ReviewController {
 	//수정 review_update => edit
 	//===
 	@GetMapping("edit.do")
-	public String edit(Model model, ReviewVO vo) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+	public String edit(Model model, ReviewVO vo, HttpSession sess) { //필요해서 param 다드러잇어 sword page 기본ㅏㄱㅄ으로 들어가잇고
+		UserVO user = (UserVO)sess.getAttribute("loginSession");
+		model.addAttribute("user_pk", user.getUser_pk());
 		model.addAttribute("data", rservice.edit(vo));
 		return "review/edit";
 	}	
