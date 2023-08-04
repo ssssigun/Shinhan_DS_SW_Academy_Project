@@ -567,11 +567,7 @@ public class ReviewController {
 		return "/myRecord/plan/review_update";
 	}
 	
-//	깃허브테스트중
-	@GetMapping("viewingTR.do")
-	public String viewingTR(@RequestParam("review_pk")String review_pk, Model model, HttpServletRequest request) {
-		
-		return "/myRecord/plan/review_update";
-	}
+//	깃허브테스트중 테스트 완료 클론 
+	
 	
 }
