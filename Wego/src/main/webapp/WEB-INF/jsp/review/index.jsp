@@ -19,7 +19,6 @@
     
     </script>
 
- 
 
     <title>common</title>
   </head>
@@ -41,8 +40,8 @@
           
           <div class="postWrapper" onclick="location.href='/main/review/view.do?review_pk=${vo.review_pk}';">
             <div class="photoWrapper" style="background-color: transparent; position:relative;">
-	          <img src="${pageContext.request.contextPath}/image/client/${vo.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>  
-             </div>
+	          	<img src="${pageContext.request.contextPath}/image/client/${vo.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:100%; height:100%;"/>  
+            </div>
             <div class="postInfoWrapper">
               <div class="titleWrapper">
                 ${vo.title}

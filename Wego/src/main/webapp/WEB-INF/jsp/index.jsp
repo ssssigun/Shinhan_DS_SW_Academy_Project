@@ -117,7 +117,8 @@
   				<c:forEach var="review" items="${reviewList}">
   					<div class="mainPostWrapper" onclick="location.href='/main/review/view.do?review_pk=${review.review_pk}';">
   						<div class="photo">
-  							<div class="bigbigLetter bold title">
+	          		<img src="${pageContext.request.contextPath}/image/client/${review.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:100%; height:100%;"/> 
+  							<div class="bigbigLetter bold title" style="position: absolute;">
   								${review.title}
   							</div>
   						</div>

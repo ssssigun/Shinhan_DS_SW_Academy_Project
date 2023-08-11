@@ -17,4 +17,5 @@ public class ReviewVO {
 	int state;
 	
 	String filename_save;
+	String imagename;
 }

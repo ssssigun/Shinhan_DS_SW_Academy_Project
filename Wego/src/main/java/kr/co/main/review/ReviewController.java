@@ -48,9 +48,10 @@ public class ReviewController {
 	    	System.out.println(comments.get(0).getRegdate_comment());
 	    }
 	   
-	    
+
+	    String nick = user.getNickName();
+	    System.out.println( nick);
 	    model.addAttribute("nickname", user.getNickName());
-	    System.out.println( user.getNickName());
 //	    System.out.println(vo.getNickname());
 	    model.addAttribute("user_pk", user.getUser_pk());
 	    model.addAttribute("review_pk", vo.getReview_pk());

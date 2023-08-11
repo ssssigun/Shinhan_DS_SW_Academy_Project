@@ -3,7 +3,12 @@
 <mapper namespace="kr.co.main.MainMapper">
 
 	<select id="selectFourReview" resultType="kr.co.main.ReviewVO"> 
-    SELECT *
+		SELECT *,
+		       (SELECT filename_save
+		        FROM wego.review_image
+		        WHERE review_pk = r.review_pk
+		        AND filestate = 1
+		        ORDER BY REview_image_pk DESC LIMIT 1) AS imagename
 		FROM (SELECT r.review_pk, u.nickname, r.title, r.regdate, r.state FROM wego.review r, wego.user u WHERE r.user_pk = u.user_pk) r LEFT JOIN
 			 (SELECT * FROM wego.review_image i WHERE i.filestate = 0) i
 		ON r.review_pk = i.review_pk
@@ -16,7 +21,7 @@
 		SELECT plan_pk, title, num_of_people, start_date, end_date
 		FROM wego.plan
 		WHERE user_pk = #{user_pk}
-		AND   state = 1
+		AND  (state = 0 OR state = 1)
 		ORDER BY start_date desc
 		LIMIT #{page_num}, 6;
 	</select>
@@ -24,8 +29,8 @@
 	<select id="countPlan" parameterType="int" resultType="int">
 		SELECT COUNT(*)
 		FROM wego.plan
-		WHERE user_pk = #{user_pk}
-		AND   state = 1;
+		WHERE user_pk = 19
+		AND   (state = 0 OR state = 1);
 	</select>
 	
 </mapper>
