@@ -22,7 +22,7 @@
 	
 	<select id="list2" parameterType="kr.co.main.myRecord.plan.MyRecordPlanVO" resultType="kr.co.main.myRecord.plan.MyRecordPlanVO">
 		SELECT p.plan_pk, p.title, p.start_date, p.end_date, p.num_of_people, SUM(d.budget) as budget, p.reviewed, p.reviewed2 
-		, (select filename_save from review_image where plan_pk=p.plan_pk and filestate=1) imagename
+		, (select filename_save from review_image where plan_pk=p.plan_pk and filestate=1 limit 1) imagename
 		FROM plan p, plan_detail d		
 		<where>
 			p.plan_pk = d.plan_pk and p.state = 1
