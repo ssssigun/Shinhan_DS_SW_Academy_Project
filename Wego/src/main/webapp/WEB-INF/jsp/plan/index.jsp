@@ -1065,7 +1065,7 @@
 </script>
 <link rel="stylesheet" href="/main/css/reset.css">
 <link rel="stylesheet" href="/main/css/common.css">
-<link rel="stylesheet" href="/main/css/plan/index.css?adcdddddddd">
+<link rel="stylesheet" href="/main/css/plan/index.css?v1.3">
 </head>
 <body>
 	<div class="wrap">
@@ -1233,8 +1233,8 @@
 				</div>
 				<div class="select dateWrapper">
 					<input class="dateInput datepicker startDate" type="text"
-						name="Start_date"> ~ <input
-						class="dateInput datepicker endDate" type="text" name="End_date">
+						name="Start_date" placeholder="YYYY-MM-DD"> ~ <input
+						class="dateInput datepicker endDate" type="text" name="End_date" placeholder="YYYY-MM-DD">
 				</div>
 			</div>
 

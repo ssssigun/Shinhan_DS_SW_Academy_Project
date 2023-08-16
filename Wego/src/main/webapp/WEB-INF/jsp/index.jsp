@@ -117,10 +117,10 @@
   				<c:forEach var="review" items="${reviewList}">
   					<div class="mainPostWrapper" onclick="location.href='/main/review/view.do?review_pk=${review.review_pk}';">
   						<div class="photo">
-	          		<img src="${pageContext.request.contextPath}/image/client/${review.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:100%; height:100%;"/> 
-  							<div class="bigbigLetter bold title" style="position: absolute;">
+	          				<img src="${pageContext.request.contextPath}/image/client/${review.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:100%; height:100%;"/> 
+  						</div>
+  						<div class="contentsWrapper" style="color: #0081c9; font-weight:bold;">
   								${review.title}
-  							</div>
   						</div>
   						<div class="contentsWrapper">
   							<div class="letter">${review.nickname} 님</div>

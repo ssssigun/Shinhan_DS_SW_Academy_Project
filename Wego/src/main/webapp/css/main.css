@@ -72,8 +72,10 @@
 	height: 100%;
 	width: 100%;
 	
-	background-image: url('/main/image/logoMain.png');
-	background-size: cover;
+	background-image: url('/main/image/planWEGO.png');
+	/*background-size: cover;*/
+	background-size: 80%;
+	background-repeat: no-repeat;
 	background-position: center;
 }
 

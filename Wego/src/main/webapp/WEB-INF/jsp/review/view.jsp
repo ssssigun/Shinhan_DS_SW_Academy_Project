@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../css/common.css" />
     <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/footer.css" />
-    <link rel="stylesheet" href="../css/review/review_comment_write.css"/>
+    <link rel="stylesheet" href="../css/review/review_comment_write.css?v1.0"/>
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <title>common</title>
      <script>
@@ -343,9 +343,9 @@
                 <h3 class="smallsmallLetter">${data.regdate }</h3>
               </div>
               <div class="review_contents">
-                <dd class="letter">${data.content }</dd>
+                <div class="letter">${data.content }</div>
                 <div class="photoWrapper" style="background-color: transparent; position:relative;">
-	              	 <img src="${pageContext.request.contextPath}/image/client/${data.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>  
+	              	 <img src="${pageContext.request.contextPath}/image/client/${data.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:230px; height:212px; position: absolute; top: 0; left: 0;"/><!-- width:342.844px;  -->  
                 </div>
                 <div class="image">
                   ${data.filename_org }

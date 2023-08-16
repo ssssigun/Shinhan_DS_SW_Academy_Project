@@ -91,8 +91,8 @@
 		    	<c:forEach var="vo" items="${result.list }">
 		    		<div class="postWrapper">
 	            <div class="photoWrapper" style="background-color: transparent; position:relative;">
-	            	<img src="/main/image/logoMain.png" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>
-	             	<div class="state yellowBblackL">예정된 계획</div>
+	            	<img src="/main/image/logoMain.png" style="width:230px;height:212px; position: absolute; top: 0; left: 0;"/>
+	             	<div class="state yellowBblackL">예정된 계획</div><!-- width:342.844px; -->
 	            </div>
 	            <div class="postInfoWrapper">
 	              <div class="titleWrapper">
@@ -119,8 +119,8 @@
 		    	<c:forEach var="vo" items="${result.list }">
 		    		<div class="postWrapper">
 		              <div class="photoWrapper" style="background-color: transparent; position:relative;">
-		              	 <img src="${pageContext.request.contextPath}/image/client/${vo.imagename}" onerror="this.src='/main/image/logoMain.png'" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>  
-			    		  	<div class="state greenBblackL">종료된 계획</div>
+		              	 <img src="${pageContext.request.contextPath}/image/client/${vo.imagename}" onerror="this.src='/main/image/planWEGO.png'" style="width:230px;height:212px; position: absolute; top: 0; left: 0;"/>  
+			    		  	<div class="state greenBblackL">종료된 계획</div><!-- width:342.844px;  -->
 		              </div>
 		              <div class="postInfoWrapper">
 		                <div class="titleWrapper">
@@ -171,8 +171,8 @@
 			    	<c:forEach var="vo" items="${result.list }">
 			    		<div class="postWrapper">
 			              <div class="photoWrapper" style="background-color: transparent; position:relative;">
-			              	<img src="/main/image/logoMain.png" style="width:342.844px; height:212px; position: absolute; top: 0; left: 0;"/>
-				    		  		<div class="state lightblueBblackL">임시저장됨</div>
+			              	<img src="/main/image/logoMain.png" style="width:230px;height:212px; position: absolute; top: 0; left: 0;"/>
+				    		  		<div class="state lightblueBblackL">임시저장됨</div><!-- width:342.844px;  -->
 			              </div>
 			              <div class="postInfoWrapper">
 			                <div class="titleWrapper">

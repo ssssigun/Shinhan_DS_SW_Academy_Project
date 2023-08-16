@@ -135,9 +135,11 @@ button {
 }
 .lightblueBblackL {
   background-color: #86E5FF;
+  /*border : 3px solid #444242;*/
 }
 .greenBblackL {
-  background-color: #84D951;
+  background-color : #67be33; /* #84D951;*/
+  /*border: 3px solid #444242;*/
 }
 .redBwhiteL {
   background-color: #D63127;
@@ -224,8 +226,8 @@ button {
 
   position: relative;
 
-  left: 8px;
-  top: 8px;
+  /*left: 8px;
+  top: 8px;*/
 
   display: flex;
   justify-content: center;
@@ -252,6 +254,7 @@ button {
   font-weight: 700;
   font-size: 16px;
   align-items: center;
+  color : #0081c9;
 }
 .titleWrapper > .iconsWrapper {
   font-weight: 400;
@@ -276,7 +279,7 @@ button {
   align-items: center;
 }
 .postInfoWrapper > .buttonsWrapper {
-  position: absolute;
+  /*position: absolute;*/
   right: 5px;
   bottom: 5px;
 }
