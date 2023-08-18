@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class UserVO {
-	private int user_pk;
+	private int user_pk = 1;
 	private String userName;
 	private String email;
 	private String nickName;
@@ -14,6 +14,6 @@ public class UserVO {
 	private int role;
 	private int BanPost;
 	private String secretKey;
-	//카드 등록을 위해서
+	//移대뱶 �벑濡앹쓣 �쐞�빐�꽌
 	private String creditcardnumber;
 }
