@@ -36,8 +36,8 @@ public class MvcConfig implements WebMvcConfigurer {
 		HikariDataSource dataSource = new HikariDataSource();
 		dataSource.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
 		dataSource.setJdbcUrl("jdbc:log4jdbc:mysql://address-blank/wego?allowMultiQueries=true");
-		dataSource.setUsername("root");
-		dataSource.setPassword("tlsgkseldptm");
+		dataSource.setUsername("Uname");
+		dataSource.setPassword("password");
 		return dataSource;
 	}
 	
