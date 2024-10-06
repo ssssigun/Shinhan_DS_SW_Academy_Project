@@ -107,7 +107,7 @@
 
 | 마이페이지 |
 | :---: |
-| <br> <img src=./Wego/src/main/webapp/image/readMe/WegoMyPage1.png width ="90%"/> <br> |
+| <br> <img src=./Wego/src/main/webapp/image/readMe/WegoMypage1.png width ="90%"/> <br> |
 | 마이페이지입니다. 접근 시 본인 확인을 위해 비밀번호를 입력받아 확인합니다. |
-| <br> <img src=./Wego/src/main/webapp/image/readMe/WegoMyPage2.png width ="90%"/> <br>|
+| <br> <img src=./Wego/src/main/webapp/image/readMe/WegoMypage2.png width ="90%"/> <br>|
 | 닉네임을 변경할 수 있으며, 카드 정보를 확인할 수 있습니다. | 
