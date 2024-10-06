@@ -97,11 +97,10 @@
 | 가계부 |
 | :---: |
 | <br> <img src=./Wego/src/main/webapp/image/readMe/WegoMyRecord1.png width ="90%"/> <br>|
-| 가계부 페이지입니다. 내가 다녀온 여행에서 소비를 계획했던 예산과 카드 내역과 비교하여 보여줍니다. 또한, 사용한 금액을 카테고리별로 분류해 육각형 도형으로 시각적으로 나타냅니다. 하단에는 내가 다녀온 여행 목록이 표시됩니다.
-|
-|<br> <img src=./Wego/src/main/webapp/image/readMe/WegoInfo4.png width ="90%"/> <br>|
+| 가계부 페이지입니다. 내가 다녀온 여행에서 소비를 계획했던 예산과 카드 내역과 비교하여 보여줍니다. 또한, 사용한 금액을 카테고리별로 분류해 육각형 도형으로 시각적으로 나타냅니다. 하단에는 내가 다녀온 여행 목록이 표시됩니다.|
+| <br> <img src=./Wego/src/main/webapp/image/readMe/WegoInfo4.png width ="90%"/> <br> |
 | 카드 사용 내역을 표 형태로 보여줍니다. |
-|<br> <img src=./Wego/src/main/webapp/image/readMe/WegoInfo5.png width ="90%"/> <br>|
+| <br> <img src=./Wego/src/main/webapp/image/readMe/WegoInfo5.png width ="90%"/> <br> |
 | 계획한 예산과 실제 카드 사용 내역을 그래프로 시각적으로 비교하여 보여줍니다. |
 |<br> <img src=./Wego/src/main/webapp/image/readMe/WegoInfo6.png width ="90%"/> |
 | 카드 사용 내역을 막대 그래프로 시각적으로 나타냅니다. |  
